@@ -11,7 +11,7 @@ Live: ------------
 - Express
 - Tailwind
 
-- dotenv
+- dotenv w/vite
 - JWT
 - Passport.js
 
