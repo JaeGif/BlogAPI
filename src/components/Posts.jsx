@@ -14,7 +14,6 @@ function Posts() {
     }
     fetchPosts();
   }, []);
-  console.log(posts);
   if (typeof posts.posts !== 'undefined') {
     return (
       <div>
