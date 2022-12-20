@@ -1,4 +1,5 @@
 import React from 'react';
+import Comment from './Comment';
 
 function Post({ postObj }) {
   const {
@@ -17,6 +18,7 @@ function Post({ postObj }) {
     <div>
       <span>
         <h1>{user.userName}</h1>
+        <h3>{createdAt}</h3>
         <div>Options</div>
       </span>
       <div>
@@ -24,16 +26,9 @@ function Post({ postObj }) {
       </div>
       <span>
         <div>{like}</div>
-        <p>
-          {comments.map((el) => (
-            <div>
-              {' '}
-              COMMENTS -----
-              <p>{el.comment}</p>
-              <p>{el.user.userName}</p>
-            </div>
-          ))}
-        </p>
+        {comments.map((comment) => (
+          <Comment commentObj={comment} />
+        ))}
         <p>Share</p>
       </span>
       <span>Liked by ... usernames</span>

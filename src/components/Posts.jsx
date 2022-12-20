@@ -7,6 +7,7 @@ import LoadingIcon from './utlity_Components/LoadingIcon';
 function Posts() {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const [posts, setPosts] = useState([]);
+  const [limitCounter, setLimitCounter] = useState(0);
   useEffect(() => {
     async function fetchPosts() {
       const data = await fetch(`${apiURL}/api/posts`, { mode: 'cors' });
@@ -14,7 +15,10 @@ function Posts() {
       setPosts(res);
     }
     fetchPosts();
-  }, []);
+  }, [limitCounter]);
+  const getMorePosts = () => {
+    setLimitCounter(limitCounter + 1);
+  };
   if (typeof posts.posts !== 'undefined') {
     return (
       <div>
