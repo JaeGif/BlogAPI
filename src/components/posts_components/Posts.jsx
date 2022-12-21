@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import Post from './Post';
 import uniqid from 'uniqid';
-import LoadingIcon from './utlity_Components/LoadingIcon';
+import LoadingIcon from '../utlity_Components/LoadingIcon';
 
 function Posts() {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;

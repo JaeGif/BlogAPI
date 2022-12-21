@@ -1,0 +1,10 @@
+.postImages {
+  min-height: 60vh;
+  max-height: 80vh;
+  max-width: 90vw;
+}
+.userDateHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
