@@ -1,10 +1,25 @@
+.postContainer {
+  display: flex;
+  padding: 5px;
+  border: solid 1px red;
+  flex-direction: column;
+  min-width: 35vw;
+  max-width: 95vw;
+}
+
 .postImages {
   min-height: 60vh;
   max-height: 80vh;
+  min-width: 30vw;
   max-width: 90vw;
 }
 .userDateHead {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.optionsEllipses {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
 }

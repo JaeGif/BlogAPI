@@ -1,8 +1,6 @@
 import React from 'react';
 
 function Comment({ commentObj }) {
-  console.log(commentObj);
-
   return (
     <div>
       <span>
