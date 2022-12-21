@@ -6,7 +6,6 @@
   min-width: 35vw;
   max-width: 95vw;
 }
-
 .postImages {
   min-height: 60vh;
   max-height: 80vh;
@@ -21,5 +20,8 @@
 .optionsEllipses {
   height: 30px;
   width: 30px;
+  cursor: pointer;
+}
+.icons {
   cursor: pointer;
 }

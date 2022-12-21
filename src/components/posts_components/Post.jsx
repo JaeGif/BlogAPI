@@ -32,7 +32,7 @@ function Post({ postObj }) {
         <img className={style.postImages} src={`${image.url}`}></img>
       </div>
       <span>
-        <div>
+        <div className={style.icons}>
           <img src='./src/assets/favicons/favorite.svg'></img>
           {like}
         </div>
