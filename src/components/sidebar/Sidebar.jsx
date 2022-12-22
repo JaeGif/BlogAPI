@@ -6,7 +6,7 @@ function Sidebar() {
     <div>
       <div className={style.optionsSidebar}>
         <div className={style.brandContainer}>
-          <h5 className={style.brandName}>Totally Not</h5>
+          <h4 className={style.brandName}>Totally Not</h4>
           <h1 className={style.brandName}>Instagram</h1>
         </div>
         <div>

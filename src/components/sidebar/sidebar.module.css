@@ -16,9 +16,10 @@
   height: 100vh;
   position: fixed;
   left: 0;
-  width: 20vw;
+  width: 15vw;
   padding: 10px;
-  border-right: solid rgb(24, 24, 24) 1px;
+  border-right: solid rgb(200, 200, 200) 1px;
+  background-color: white;
 }
 .optionsSidebar > div {
   width: 100%;
@@ -46,6 +47,7 @@
   padding: 15px;
   height: 30px;
   border-radius: 12px;
+  font-size: 0.85rem;
 }
 .optionSpan:hover {
   cursor: pointer;
