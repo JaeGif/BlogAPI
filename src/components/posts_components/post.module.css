@@ -1,27 +1,43 @@
+:root {
+  --postWidth: 30vw;
+}
+
 .postContainer {
   display: flex;
-  padding: 5px;
-  border: solid 1px red;
+  border: solid 1px rgb(200, 200, 200);
+  border-radius: 8px;
   flex-direction: column;
-  min-width: 35vw;
+  min-width: 30vw;
   max-width: 95vw;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.imgContainers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 .postImages {
-  min-height: 60vh;
-  max-height: 80vh;
   min-width: 30vw;
   max-width: 90vw;
+  width: 100%;
 }
 .userDateHead {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 .optionsEllipses {
   height: 30px;
   width: 30px;
   cursor: pointer;
 }
+.optionsEllipses:hover {
+  cursor: pointer;
+  opacity: 75%;
+}
 .icons {
   cursor: pointer;
+  height: 35px;
 }

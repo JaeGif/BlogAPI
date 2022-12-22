@@ -19,8 +19,9 @@ function Post({ postObj }) {
   return (
     <div className={style.postContainer}>
       <span className={style.userDateHead}>
-        <h3>{user.userName}</h3>
-        <h3>{createdAt}</h3>
+        <div>
+          <p>{user.userName}</p>
+        </div>
         <div className={style.optionsEllipses}>
           <img
             className={style.optionsEllipses}
@@ -28,17 +29,30 @@ function Post({ postObj }) {
           ></img>
         </div>
       </span>
-      <div>
+      <div className={style.imgContainers}>
         <img className={style.postImages} src={`${image.url}`}></img>
       </div>
       <span>
-        <div className={style.icons}>
-          <img src='./src/assets/favicons/favorite.svg'></img>
-          {like}
-        </div>
-        <p>Share</p>
+        <img
+          className={style.icons}
+          src='./src/assets/favicons/favorite.svg'
+          alt='like'
+        ></img>
+        <img
+          className={style.icons}
+          src='./src/assets/favicons/comment.svg'
+          alt='comments'
+        ></img>
+        <img
+          className={style.icons}
+          src='./src/assets/favicons/send.svg'
+          alt='private message'
+        ></img>
       </span>
-      <span>Liked by ... usernames</span>
+      <span>Liked by ... usernames and {like} more</span>
+      <p>
+        <em>{createdAt}</em>
+      </p>
       <div>
         {comments.map((comment) => (
           <Comment key={uniqid()} commentObj={comment} />
