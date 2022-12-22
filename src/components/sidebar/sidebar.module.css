@@ -7,7 +7,11 @@
   position: fixed;
   left: 0;
   width: 25vw;
-  padding: 25px;
+  padding: 10px;
+  border: solid 1px orange;
+}
+.optionsSidebar > div {
+  width: 100%;
 }
 .optionsIcons {
   height: 30px;
