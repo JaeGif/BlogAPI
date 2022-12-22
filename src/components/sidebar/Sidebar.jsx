@@ -5,6 +5,10 @@ function Sidebar() {
   return (
     <div>
       <div className={style.optionsSidebar}>
+        <div className={style.brandContainer}>
+          <h5 className={style.brandName}>Totally Not</h5>
+          <h1 className={style.brandName}>Instagram</h1>
+        </div>
         <div>
           <a href='#'>
             <span className={style.optionSpan}>
@@ -69,7 +73,7 @@ function Sidebar() {
           <a href='#'>
             <span className={style.optionSpan}>
               <img
-                className={style.optionsIcons}
+                className={`${style.optionsIcons} ${style.newPostIcon}`}
                 src='./src/assets/favicons/add.svg'
                 alt='New Post'
               />
