@@ -2,6 +2,7 @@ import React from 'react';
 import Comment from '../comments/Comment';
 import style from './post.module.css';
 import uniqid from 'uniqid';
+import AddCommentInput from '../comments/addComment/AddCommentInput';
 
 function Post({ postObj }) {
   const {
@@ -32,7 +33,7 @@ function Post({ postObj }) {
       <div className={style.imgContainers}>
         <img className={style.postImages} src={`${image.url}`}></img>
       </div>
-      <span>
+      <span className={style.iconsContainer}>
         <img
           className={style.icons}
           src='./src/assets/favicons/favorite.svg'
@@ -58,6 +59,7 @@ function Post({ postObj }) {
           <Comment key={uniqid()} commentObj={comment} />
         ))}
       </div>
+      <AddCommentInput />
     </div>
   );
 }

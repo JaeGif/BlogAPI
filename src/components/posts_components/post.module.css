@@ -11,6 +11,7 @@
   max-width: 95vw;
   padding-left: 20px;
   padding-right: 20px;
+  margin: 25px;
 }
 .imgContainers {
   display: flex;
@@ -36,6 +37,12 @@
 .optionsEllipses:hover {
   cursor: pointer;
   opacity: 75%;
+}
+.iconsContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.75vw;
 }
 .icons {
   cursor: pointer;
