@@ -33,27 +33,30 @@ function Post({ postObj }) {
       <div className={style.imgContainers}>
         <img className={style.postImages} src={`${image.url}`}></img>
       </div>
-      <span className={style.iconsContainer}>
-        <img
-          className={style.icons}
-          src='./src/assets/favicons/favorite.svg'
-          alt='like'
-        ></img>
-        <img
-          className={style.icons}
-          src='./src/assets/favicons/comment.svg'
-          alt='comments'
-        ></img>
-        <img
-          className={style.icons}
-          src='./src/assets/favicons/send.svg'
-          alt='private message'
-        ></img>
-      </span>
-      <span>Liked by ... usernames and {like} more</span>
-      <p>
-        <em>{createdAt}</em>
-      </p>
+      <div className={style.postInfoContainer}>
+        <span className={style.iconsContainer}>
+          <img
+            className={style.icons}
+            src='./src/assets/favicons/favorite.svg'
+            alt='like'
+          ></img>
+          <img
+            className={style.icons}
+            src='./src/assets/favicons/comment.svg'
+            alt='comments'
+          ></img>
+
+          <img
+            className={style.icons}
+            src='./src/assets/favicons/send.svg'
+            alt='private message'
+          ></img>
+        </span>
+        <span>Liked by ... usernames and {like} more</span>
+        <p>
+          <em>{createdAt}</em>
+        </p>
+      </div>
       <div>
         {comments.map((comment) => (
           <Comment key={uniqid()} commentObj={comment} />

@@ -1,7 +1,6 @@
 :root {
   --postWidth: 30vw;
 }
-
 .postContainer {
   display: flex;
   border: solid 1px rgb(200, 200, 200);
@@ -9,8 +8,6 @@
   flex-direction: column;
   min-width: 30vw;
   max-width: 95vw;
-  padding-left: 20px;
-  padding-right: 20px;
   margin: 25px;
 }
 .imgContainers {
@@ -28,6 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .optionsEllipses {
   height: 30px;
@@ -37,6 +36,9 @@
 .optionsEllipses:hover {
   cursor: pointer;
   opacity: 75%;
+}
+.postInfoContainer {
+  padding: 15px;
 }
 .iconsContainer {
   display: flex;
