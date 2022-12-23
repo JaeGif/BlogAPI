@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import Post from './Post';
 import uniqid from 'uniqid';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
+import style from './posts.module.css';
 
 function Posts() {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
@@ -15,7 +16,8 @@ function Posts() {
       setPosts(res);
     }
     fetchPosts();
-  }, [limitCounter]);
+  }, []);
+  console.log(posts.posts);
   const getMorePosts = () => {
     setLimitCounter(limitCounter + 1);
   };
@@ -28,7 +30,11 @@ function Posts() {
       </div>
     );
   } else {
-    return <LoadingIcon />;
+    return (
+      <div className={style.loadingIconContainer}>
+        <LoadingIcon />
+      </div>
+    );
   }
 }
 
