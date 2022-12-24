@@ -54,6 +54,11 @@
   color: grey;
   font-size: 0.75rem;
 }
+.viewAllComments {
+  font-size: 0.9rem;
+  color: grey;
+  cursor: pointer;
+}
 .userNameEmphasis {
   font-weight: bold;
   font-style: normal;

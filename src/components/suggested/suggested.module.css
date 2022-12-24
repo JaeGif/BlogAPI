@@ -1,0 +1,12 @@
+.profileContainer {
+  display: flex;
+  align-items: center;
+  width: 75%;
+  justify-content: space-between;
+}
+.switchUserBtn {
+  color: rgb(0, 68, 185);
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+}

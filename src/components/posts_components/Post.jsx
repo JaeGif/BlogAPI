@@ -31,7 +31,10 @@ function Post({ postObj }) {
       setIsComments(false);
       setCountComments(0);
     }
-  }, [comments]);
+  }, [comments, like]);
+
+  function likedBy() {}
+
   return (
     <div className={style.postContainer}>
       <span className={style.userDateHead}>
@@ -74,8 +77,10 @@ function Post({ postObj }) {
           <em className={style.userNameEmphasis}>{user.userName}</em> {post}
         </p>
         <p className={style.datePublished}>{createdAt.toUpperCase()}</p>
+        <p className={style.viewAllComments}>
+          {isComments ? `View all ${countComments} comments` : ''}
+        </p>
       </div>
-      {isComments ? `View all ${countComments} comments` : ''}
       {/*       <Comments comments={comments} />
        */}{' '}
       <AddCommentInput />
