@@ -21,6 +21,7 @@ function AddCommentInput() {
           placeholder='Add a comment...'
         ></textarea>
         <button
+          type='button'
           className={
             isValue ? `${style.postBtn} ${style.activePost}` : style.postBtn
           }

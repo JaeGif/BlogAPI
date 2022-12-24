@@ -50,3 +50,11 @@
   cursor: pointer;
   height: 35px;
 }
+.datePublished {
+  color: grey;
+  font-size: 0.75rem;
+}
+.userNameEmphasis {
+  font-weight: bold;
+  font-style: normal;
+}

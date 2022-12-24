@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Comment from '../comments/Comment';
 import style from './post.module.css';
 import uniqid from 'uniqid';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
+import Comments from '../comments/Comments';
+import { useState } from 'react';
 
 function Post({ postObj }) {
+  const [isComments, setIsComments] = useState(false);
+  const [countComments, setCountComments] = useState(0);
   const {
     createdAt,
     image,
@@ -17,11 +21,24 @@ function Post({ postObj }) {
     user,
     _id,
   } = postObj;
+
+  useEffect(() => {
+    console.log(comments);
+    if (comments.length !== 0) {
+      setIsComments(true);
+      setCountComments(comments.length);
+    } else {
+      setIsComments(false);
+      setCountComments(0);
+    }
+  }, [comments]);
   return (
     <div className={style.postContainer}>
       <span className={style.userDateHead}>
         <div>
-          <p>{user.userName}</p>
+          <p>
+            <em className={style.userNameEmphasis}>{user.userName}</em>
+          </p>
         </div>
         <div className={style.optionsEllipses}>
           <img
@@ -54,14 +71,13 @@ function Post({ postObj }) {
         </span>
         <span>Liked by ... usernames and {like} more</span>
         <p>
-          <em>{createdAt}</em>
+          <em className={style.userNameEmphasis}>{user.userName}</em> {post}
         </p>
+        <p className={style.datePublished}>{createdAt.toUpperCase()}</p>
       </div>
-      <div>
-        {comments.map((comment) => (
-          <Comment key={uniqid()} commentObj={comment} />
-        ))}
-      </div>
+      {isComments ? `View all ${countComments} comments` : ''}
+      {/*       <Comments comments={comments} />
+       */}{' '}
       <AddCommentInput />
     </div>
   );
