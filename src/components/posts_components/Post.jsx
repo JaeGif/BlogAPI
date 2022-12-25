@@ -39,6 +39,7 @@ function Post({ postObj }) {
     <div className={style.postContainer}>
       <span className={style.userDateHead}>
         <div>
+          <img className={style.userAvatar} src={user.avatar.url}></img>
           <p>
             <em className={style.userNameEmphasis}>{user.userName}</em>
           </p>
