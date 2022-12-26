@@ -2,10 +2,11 @@ import React from 'react';
 import style from '../suggested.module.css';
 
 function SuggestedUserProfile({ user }) {
+  console.log(user);
   return (
     <div>
       <div className={style.profileContainer}>
-        <img alt='profile image'></img>
+        <img /* src={user.avatar.url} */ alt='profile image'></img>
 
         <div>
           <p>{user.userName}</p>

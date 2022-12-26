@@ -1,0 +1,25 @@
+.userNameEmphasis {
+  font-weight: bold;
+  font-style: normal;
+  font-size: 0.9rem;
+}
+.userAvatarCutout {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.userAvatar {
+  display: inline;
+  margin: 0, auto;
+  height: 100%;
+  position: relative;
+  right: 10px;
+}
+.nameAvatarHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

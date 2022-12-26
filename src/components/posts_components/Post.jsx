@@ -5,6 +5,7 @@ import uniqid from 'uniqid';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import Comments from '../comments/Comments';
 import { useState } from 'react';
+import UserProfile from '../userProfileHead/userProfile';
 
 function Post({ postObj }) {
   const [isComments, setIsComments] = useState(false);
@@ -38,14 +39,7 @@ function Post({ postObj }) {
   return (
     <div className={style.postContainer}>
       <span className={style.userDateHead}>
-        <div>
-          <div className={style.userAvatarCutout}>
-            <img className={style.userAvatar} src={user.avatar.url}></img>
-          </div>
-          <p>
-            <em className={style.userNameEmphasis}>{user.userName}</em>
-          </p>
-        </div>
+        <UserProfile user={user} />
         <div className={style.optionsEllipses}>
           <img
             className={style.optionsEllipses}
