@@ -32,8 +32,8 @@
   flex-direction: column;
   background-color: white;
   border-radius: 8px;
-  min-width: 37.5vw;
-  min-height: 72.5vh;
+  min-width: 40vw;
+  min-height: 77.5vh;
 }
 .headingNewPost {
   border-bottom: solid 1px rgb(200, 200, 200);
@@ -42,6 +42,7 @@
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  font-weight: bold;
 }
 .innerPostModalContainer {
   display: flex;
