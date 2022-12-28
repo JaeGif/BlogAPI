@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import style from './newpost.module.css';
+import PreviewImage from './PreviewImage';
 import UploadImages from './UploadImages';
+import ImageOptions from './ImageOptions';
 
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
@@ -75,15 +77,10 @@ function NewPost({ newPostModal }) {
           onClick={(e) => e.stopPropagation()}
         >
           {images.length > 0 ? (
-            <div>
-              {images.map((image, idx) => {
-                return (
-                  <p key={idx}>
-                    <img src={image} alt='' />{' '}
-                  </p>
-                );
-              })}
-            </div>
+            <>
+              <PreviewImage images={images} />
+              <ImageOptions />
+            </>
           ) : (
             <UploadImages handleFiles={handleFiles} />
           )}

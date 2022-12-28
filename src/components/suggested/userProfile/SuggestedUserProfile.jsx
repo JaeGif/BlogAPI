@@ -2,7 +2,6 @@ import React from 'react';
 import style from '../suggested.module.css';
 
 function SuggestedUserProfile({ user }) {
-  console.log(user);
   return (
     <div>
       <div className={style.profileContainer}>

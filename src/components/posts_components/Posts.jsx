@@ -17,7 +17,6 @@ function Posts() {
     }
     fetchPosts();
   }, []);
-  console.log(posts.posts);
   const getMorePosts = () => {
     setLimitCounter(limitCounter + 1);
   };

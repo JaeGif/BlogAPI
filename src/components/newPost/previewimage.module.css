@@ -1,0 +1,11 @@
+.previewImagesContainer {
+  width: 100%;
+}
+.previewImageWrapper {
+  max-width: 40vw;
+  min-width: 300px;
+}
+
+.previewImage {
+  width: 100%;
+}

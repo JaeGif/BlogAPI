@@ -24,7 +24,6 @@ function Post({ postObj }) {
   } = postObj;
 
   useEffect(() => {
-    console.log(comments);
     if (comments.length !== 0) {
       setIsComments(true);
       setCountComments(comments.length);

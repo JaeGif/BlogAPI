@@ -33,6 +33,7 @@
   background-color: white;
   border-radius: 8px;
   min-width: 40vw;
+  max-width: 97.5vw;
   min-height: 77.5vh;
 }
 .headingNewPost {
