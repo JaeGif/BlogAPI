@@ -1,13 +1,62 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './newpost.module.css';
+import UploadImages from './UploadImages';
 
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
 function NewPost({ newPostModal }) {
-  const getFile = useRef(null);
-  const fileUpload = (ref) => {
-    ref.current.click();
+  const [imageFiles, setImageFiles] = useState([]);
+  const [images, setImages] = useState([]);
+
+  const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
+  const handleFiles = (e) => {
+    const { files } = e.target;
+    const validImageFiles = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file.type.match(imageTypeRegex)) {
+        validImageFiles.push(file);
+      }
+    }
+    if (validImageFiles.length) {
+      setImageFiles(validImageFiles);
+      return;
+    }
+    alert(
+      'DEV ALERT RED CODE RED CODE: Selected images are not of valid type!'
+    );
   };
+
+  useEffect(() => {
+    const images = [],
+      fileReaders = [];
+    let isCancel = false;
+    if (imageFiles.length) {
+      imageFiles.forEach((file) => {
+        const fileReader = new FileReader();
+        fileReaders.push(fileReader);
+        fileReader.onload = (e) => {
+          const { result } = e.target;
+          if (result) {
+            images.push(result);
+          }
+          if (images.length === imageFiles.length && !isCancel) {
+            setImages(images);
+          }
+        };
+        fileReader.readAsDataURL(file);
+      });
+    }
+    return () => {
+      isCancel = true;
+      fileReaders.forEach((fileReader) => {
+        if (fileReader.readyState === 1) {
+          fileReader.abort();
+        }
+      });
+    };
+  }, [imageFiles]);
+
   return (
     <div
       className={style.modalContainerFullScreenCenter}
@@ -25,19 +74,19 @@ function NewPost({ newPostModal }) {
           className={style.postModalContainer}
           onClick={(e) => e.stopPropagation()}
         >
-          <span className={style.headingNewPost}>Create New Post</span>
-          <div className={style.innerPostModalContainer}>
-            <img src='./src/assets/favicons/upload.svg' alt='upload img'></img>
-            <p className={style.instructionsTxt}>Drag photos here</p>
-            <input type='file' ref={getFile} style={{ display: 'none' }} />
-            <button
-              type='button'
-              className={style.selectPhotoBtn}
-              onClick={() => fileUpload(getFile)}
-            >
-              Select from computer
-            </button>
-          </div>
+          {images.length > 0 ? (
+            <div>
+              {images.map((image, idx) => {
+                return (
+                  <p key={idx}>
+                    <img src={image} alt='' />{' '}
+                  </p>
+                );
+              })}
+            </div>
+          ) : (
+            <UploadImages handleFiles={handleFiles} />
+          )}
         </div>
       </div>
     </div>
