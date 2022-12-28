@@ -9,13 +9,16 @@ import NewPost from './components/newPost/NewPost';
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
+  const newPostModal = () => {
+    isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
+  };
 
   return (
     <div className='App'>
-      <Sidebar />
+      <Sidebar newPostModal={newPostModal} />
       <Posts />
       <Suggested />
-      {isNewPostModal ? <NewPost /> : <></>}
+      {isNewPostModal ? <NewPost newPostModal={newPostModal} /> : <></>}
     </div>
   );
 }

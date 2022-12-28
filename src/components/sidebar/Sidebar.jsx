@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './sidebar.module.css';
 
-function Sidebar() {
+function Sidebar({ newPostModal }) {
   return (
     <div>
       <div className={style.optionsSidebar}>
@@ -70,8 +70,8 @@ function Sidebar() {
           </a>
         </div>
         <div>
-          <a href='#'>
-            <span className={style.optionSpan}>
+          <a>
+            <span className={style.optionSpan} onClick={() => newPostModal()}>
               <img
                 className={`${style.optionsIcons} ${style.newPostIcon}`}
                 src='./src/assets/favicons/add.svg'
