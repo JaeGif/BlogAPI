@@ -1,0 +1,9 @@
+States for Redux:
+
+Use redux to store the full application state so I don't need to use
+prop drilling to deliver the state to the correct component.
+
+// Redux needs to track;
+
+1. Current data loaded
+2. What modals are open

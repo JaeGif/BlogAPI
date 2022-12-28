@@ -6,6 +6,8 @@ import Sidebar from './components/sidebar/Sidebar';
 import Suggested from './components/suggested/Suggested';
 
 function App() {
+  const [isNewPostModal, setIsNewPostModal] = useState(false);
+
   return (
     <div className='App'>
       <Sidebar />
