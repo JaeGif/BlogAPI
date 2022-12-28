@@ -15,7 +15,7 @@ function NewPost() {
         <div className={style.postModalContainer}>
           <span className={style.headingNewPost}>Create New Post</span>
           <div className={style.innerPostModalContainer}>
-            <img alt='upload img'></img>
+            <img src='./src/assets/favicons/upload.svg' alt='upload img'></img>
             <p className={style.instructionsTxt}>Drag photos here</p>
             <button type='button' className={style.selectPhotoBtn}>
               Select from computer

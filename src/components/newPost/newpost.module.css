@@ -25,20 +25,18 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  border: solid 1px red;
 }
 .postModalContainer {
   display: flex;
   align-items: center;
   flex-direction: column;
   background-color: white;
-  border: solid green 1px;
   border-radius: 8px;
   min-width: 37.5vw;
   min-height: 72.5vh;
 }
 .headingNewPost {
-  border-bottom: solid 1px grey;
+  border-bottom: solid 1px rgb(200, 200, 200);
   width: 100%;
   display: flex;
   justify-content: center;
