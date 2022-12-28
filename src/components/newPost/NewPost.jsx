@@ -6,13 +6,17 @@ import style from './newpost.module.css';
 function NewPost() {
   return (
     <div className={style.modalContainerFullScreenCenter}>
-      <span className={style.closeModalBtn}>&#10005;</span>
-      <div>
+      <div className={style.paddingWrapper}>
+        <span className={style.closeModalBtnContainer}>
+          <p className={style.closeModalBtn}>&#10005;</p>
+        </span>
+      </div>
+      <div className={style.postModalWrapper}>
         <div className={style.postModalContainer}>
-          <span>Create New Post</span>
+          <span className={style.headingNewPost}>Create New Post</span>
           <div className={style.innerPostModalContainer}>
             <img alt='upload img'></img>
-            <p>Drag photos here</p>
+            <p className={style.instructionsTxt}>Drag photos here</p>
             <button type='button' className={style.selectPhotoBtn}>
               Select from computer
             </button>

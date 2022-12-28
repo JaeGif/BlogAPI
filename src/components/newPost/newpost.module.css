@@ -1,38 +1,71 @@
 .modalContainerFullScreenCenter {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   position: absolute;
   z-index: 5;
   background-color: rgba(24, 24, 24, 0.7);
-  padding: 20px;
 }
 
-.closeModalBtn {
-  font-size: 28px;
+.closeModalBtnContainer {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  height: 20vh;
-  color: white;
+  height: 10vh;
 }
-
-.postModalContainer {
-  min-width: 30vw;
+.closeModalBtn {
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+}
+.paddingWrapper {
+  padding-right: 25px;
+}
+.postModalWrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  border: solid 1px red;
+}
+.postModalContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   background-color: white;
+  border: solid green 1px;
+  border-radius: 8px;
+  min-width: 37.5vw;
+  min-height: 72.5vh;
+}
+.headingNewPost {
+  border-bottom: solid 1px grey;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .innerPostModalContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  flex: 1;
+  padding: 15px;
+}
+.instructionsTxt {
+  font-size: 1.8rem;
 }
 .selectPhotoBtn {
   color: white;
-  background-color: rgb(0, 68, 185);
+  background-color: rgb(45, 153, 255);
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  padding: 7.5px 12.5px 7.5px 12.5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.selectPhotoBtn:hover {
+  background-color: rgb(45, 110, 255);
 }
