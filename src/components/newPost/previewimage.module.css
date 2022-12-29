@@ -1,7 +1,7 @@
 .previewImagesContainer {
   display: flex;
   justify-content: center;
-  border-right: solid 1px black;
+  border-right: solid 1px rgb(200, 200, 200);
 }
 .previewImageWrapper {
   max-width: 60vw;
@@ -12,16 +12,27 @@
 }
 .optionsWrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   width: 60%;
   line-height: 0.2rem;
 }
+.headerOptsContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  line-height: 0.2rem;
+}
 .optionsRuleSpanArea {
-  width: 30%;
+  width: 50%;
   text-align: center;
 }
 .rule {
   height: 1px;
-  color: black;
+  background-color: rgb(200, 200, 200);
+}
+.adjustmentBtns {
+  cursor: pointer;
+}
+.selected {
   background-color: black;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import style from './adjustments.module.css';
 function Adjustments() {
   return (
     <div>

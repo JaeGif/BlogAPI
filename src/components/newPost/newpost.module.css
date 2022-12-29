@@ -5,7 +5,6 @@
   z-index: 5;
   background-color: rgba(24, 24, 24, 0.7);
 }
-
 .closeModalBtnContainer {
   display: flex;
   justify-content: flex-end;

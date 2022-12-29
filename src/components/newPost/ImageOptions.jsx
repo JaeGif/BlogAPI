@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './previewimage.module.css';
+import Filters from './imageOptions/Filters';
+import Adjustments from './imageOptions/Adjustments';
 
 function ImageOptions() {
+  const [selectedFilter, setSelectedFilter] = useState(true);
+
+  const clickedAdjustOrFilter = (clicked) => {
+    if (clicked === 'filter') {
+      setSelectedFilter(true);
+    } else {
+      setSelectedFilter(false);
+    }
+  };
   return (
     <div className={style.optionsWrapper}>
-      <div className={style.optionsRuleSpanArea}>
-        <p>Filters</p>
-        <hr className={style.rule}></hr>
+      <div className={style.headerOptsContainer}>
+        <div
+          className={style.optionsRuleSpanArea}
+          onClick={() => clickedAdjustOrFilter('filter')}
+        >
+          <p className={style.adjustmentBtns}>Filters</p>
+          {selectedFilter ? (
+            <hr className={`${style.rule} ${style.selected}`} />
+          ) : (
+            <hr className={style.rule} />
+          )}
+        </div>
+        <div
+          className={style.optionsRuleSpanArea}
+          onClick={() => clickedAdjustOrFilter('adjust')}
+        >
+          <p className={style.adjustmentBtns}>Adjustments</p>
+          {selectedFilter ? (
+            <hr className={style.rule} />
+          ) : (
+            <hr className={`${style.rule} ${style.selected}`} />
+          )}
+        </div>
       </div>
-
-      <div className={style.optionsRuleSpanArea}>
-        <p>Adjustments</p>
-        <hr className={style.rule}></hr>
-      </div>
+      {selectedFilter ? <Filters /> : <Adjustments />}
     </div>
   );
 }
