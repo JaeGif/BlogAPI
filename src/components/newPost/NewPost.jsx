@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './newpost.module.css';
-import PreviewImage from './PreviewImage';
 import UploadImages from './UploadImages';
-import ImageOptions from './ImageOptions';
+import FullPreviewPage from './imageOptions/FullPreviewPage';
 
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
@@ -73,18 +72,11 @@ function NewPost({ newPostModal }) {
       </div>
       <div className={style.postModalWrapper}>
         <div
-          className={
-            images.length > 0
-              ? style.postPreviewContainer
-              : style.postModalContainer
-          }
+          className={style.postModalContainer}
           onClick={(e) => e.stopPropagation()}
         >
           {images.length > 0 ? (
-            <>
-              <PreviewImage images={images} />
-              <ImageOptions />
-            </>
+            <FullPreviewPage images={images} />
           ) : (
             <UploadImages handleFiles={handleFiles} />
           )}

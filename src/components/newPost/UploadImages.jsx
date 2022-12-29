@@ -9,7 +9,9 @@ function UploadImages({ handleFiles }) {
 
   return (
     <>
-      <span className={style.headingNewPost}>Create New Post</span>
+      <span className={style.headingNewPost}>
+        <p>Create New Post</p>
+      </span>
       <div className={style.innerPostModalContainer}>
         <img src='./src/assets/favicons/upload.svg' alt='upload img'></img>
         <p className={style.instructionsTxt}>Drag photos here</p>
