@@ -4,8 +4,58 @@ function Filters() {
   return (
     <div>
       <fieldset>
-        <img></img>
-        <input type='radio' />
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
+        <div>
+          <img alt='Filter example'></img>
+          <input type='radio' />
+        </div>
       </fieldset>
     </div>
   );

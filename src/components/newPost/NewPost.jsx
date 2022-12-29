@@ -73,7 +73,11 @@ function NewPost({ newPostModal }) {
       </div>
       <div className={style.postModalWrapper}>
         <div
-          className={style.postModalContainer}
+          className={
+            images.length > 0
+              ? style.postPreviewContainer
+              : style.postModalContainer
+          }
           onClick={(e) => e.stopPropagation()}
         >
           {images.length > 0 ? (

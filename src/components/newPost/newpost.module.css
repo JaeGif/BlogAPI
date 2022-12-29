@@ -36,6 +36,14 @@
   max-width: 97.5vw;
   min-height: 77.5vh;
 }
+.postPreviewContainer {
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  min-width: 40vw;
+  max-width: 97.5vw;
+  min-height: 77.5vh;
+}
 .headingNewPost {
   border-bottom: solid 1px rgb(200, 200, 200);
   width: 100%;

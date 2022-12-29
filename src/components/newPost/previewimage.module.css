@@ -1,11 +1,27 @@
 .previewImagesContainer {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: solid 1px black;
 }
 .previewImageWrapper {
-  max-width: 40vw;
+  max-width: 60vw;
   min-width: 300px;
 }
-
 .previewImage {
   width: 100%;
+}
+.optionsWrapper {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  line-height: 0.2rem;
+}
+.optionsRuleSpanArea {
+  width: 30%;
+  text-align: center;
+}
+.rule {
+  height: 1px;
+  color: black;
+  background-color: black;
 }
