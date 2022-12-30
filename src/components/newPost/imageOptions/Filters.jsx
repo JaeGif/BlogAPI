@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import './filtersSelect.css';
+import style from './filtersSelect.module.css';
 
 function Filters() {
   const [filter, setFilter] = useState('none');
@@ -11,44 +11,96 @@ function Filters() {
   return (
     <div>
       <fieldset>
-        <div>
-          <img id='filter-1977' alt='1977'></img>
+        <div className={style.filterExampleWrapper}>
+          <img
+            className={style.filterExample}
+            id='filter-1977'
+            alt='1977'
+          ></img>
+        </div>
+        <div className={style.filterExampleWrapper}>
+          <img
+            className={style.filterExample}
+            id='filter-aden'
+            alt='aden'
+          ></img>
+        </div>
+        <div className={style.filterExampleWrapper}>
+          <img
+            className={style.filterExample}
+            id='filter-amaro'
+            alt='amaro'
+          ></img>
         </div>
         <div>
-          <img id='filter-aden' alt='aden'></img>
+          <img
+            className={style.filterExample}
+            id='filter-ashby'
+            alt='ashby'
+          ></img>
         </div>
         <div>
-          <img id='filter-amaro' alt='amaro'></img>
+          <img
+            className={style.filterExample}
+            id='filter-brannan'
+            alt='brannan'
+          ></img>
         </div>
         <div>
-          <img id='filter-ashby' alt='ashby'></img>
+          <img
+            className={style.filterExample}
+            id='filter-brooklyn'
+            alt='brooklyn'
+          ></img>
         </div>
         <div>
-          <img id='filter-brannan' alt='brannan'></img>
+          <img
+            className={style.filterExample}
+            id='filter-charmes'
+            alt='charmes'
+          ></img>
         </div>
         <div>
-          <img id='filter-brooklyn' alt='brooklyn'></img>
+          <img
+            className={style.filterExample}
+            id='filter-clarendon'
+            alt='clarendon'
+          ></img>
         </div>
         <div>
-          <img id='filter-charmes' alt='charmes'></img>
+          <img
+            className={style.filterExample}
+            id='filter-crema'
+            alt='crema'
+          ></img>
         </div>
         <div>
-          <img id='filter-clarendon' alt='clarendon'></img>
+          <img
+            className={style.filterExample}
+            id='filter-dogpatch'
+            alt='dogpatch'
+          ></img>
         </div>
         <div>
-          <img id='filter-crema' alt='crema'></img>
+          <img
+            className={style.filterExample}
+            id='filter-earlybird'
+            alt='earlybird'
+          ></img>
         </div>
         <div>
-          <img id='filter-dogpatch' alt='dogpatch'></img>
+          <img
+            className={style.filterExample}
+            id='filter-gingham'
+            alt='gingham'
+          ></img>
         </div>
         <div>
-          <img id='filter-earlybird' alt='earlybird'></img>
-        </div>
-        <div>
-          <img id='filter-gingham' alt='gingham'></img>
-        </div>
-        <div>
-          <img id='filter-ginza' alt='ginza'></img>
+          <img
+            className={style.filterExample}
+            id='filter-ginza'
+            alt='ginza'
+          ></img>
         </div>
       </fieldset>
     </div>

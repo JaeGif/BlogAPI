@@ -8,6 +8,8 @@ import { useState } from 'react';
 import UserProfile from '../userProfileHead/userProfile';
 
 function Post({ postObj }) {
+  const apiURL = import.meta.env.VITE_RAILWAY_URL;
+
   const [isComments, setIsComments] = useState(false);
   const [countComments, setCountComments] = useState(0);
   const {
@@ -16,7 +18,6 @@ function Post({ postObj }) {
     like,
     post,
     published,
-    title,
     comments,
     updatedAt,
     user,
@@ -47,7 +48,7 @@ function Post({ postObj }) {
         </div>
       </span>
       <div className={style.imgContainers}>
-        <img className={style.postImages} src={`${image.url}`}></img>
+        <img className={style.postImages} src={`${apiURL}/${image.url}`}></img>
       </div>
       <div className={style.postInfoContainer}>
         <span className={style.iconsContainer}>

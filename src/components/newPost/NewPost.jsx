@@ -2,12 +2,49 @@ import React, { useState, useEffect } from 'react';
 import style from './newpost.module.css';
 import UploadImages from './UploadImages';
 import FullPreviewPage from './imageOptions/FullPreviewPage';
+import SubmitPost from './SubmitPost';
 
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
+
 function NewPost({ newPostModal }) {
+  const apiURL = import.meta.env.VITE_RAILWAY_URL;
+  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const dummyUser = {
+    avatar: {
+      id: '9263f45c70879dbc56faa5c4',
+      url: 'https://instaapi-production.up.railway.app/uploads/823fce52b33a845ef7554dd9/avatar.jpg',
+    },
+    _id: '823fce52b33a845ef7554dd9',
+    firstName: 'Neal',
+    lastName: 'Morissette',
+    email: 'Tia_Kris@hotmail.com',
+    userName: 'Eldridge_Feest40',
+    isAdmin: false,
+  };
+
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
+  const [user, setUser] = useState({
+    id: dummyUser._id,
+    userName: dummyUser.userName,
+    avatar: {
+      id: dummyUser.avatar.id,
+      url: dummyUser.avatar.url,
+    },
+  });
+  const [post, setPost] = useState('');
+
+  const [postStep, setPostStep] = useState(0);
+
+  // The form data needs to be modified with the data from the selections, and
+  // submitted in a hidden form at the final page.
+
+  const removeImagesAndReturn = () => {
+    setImages([]);
+    setImageFiles([]);
+    decPostStep();
+  };
 
   const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
   const handleFiles = (e) => {
@@ -21,6 +58,7 @@ function NewPost({ newPostModal }) {
     }
     if (validImageFiles.length) {
       setImageFiles(validImageFiles);
+      setPostStep(1);
       return;
     }
     alert(
@@ -58,6 +96,49 @@ function NewPost({ newPostModal }) {
     };
   }, [imageFiles]);
 
+  const incPostStep = () => {
+    setPostStep(postStep + 1);
+  };
+  const decPostStep = () => {
+    setPostStep(postStep - 1);
+  };
+  const submitPost = () => {
+    let data = new FormData();
+    data.append('image', imageFiles[0]);
+    data.append('user', JSON.stringify(dummyUser));
+    data.append('post', post);
+    console.log(data);
+    fetch(`${apiURL}/api/posts`, {
+      method: 'POST',
+      body: data,
+    });
+  };
+
+  const renderPostStep = () => {
+    switch (postStep) {
+      case 0:
+        return <UploadImages handleFiles={handleFiles} />;
+
+      case 1:
+        return (
+          <FullPreviewPage
+            returnToUpload={removeImagesAndReturn}
+            nextStep={incPostStep}
+            images={images}
+          />
+        );
+      case 2:
+        return (
+          <SubmitPost
+            setPost={setPost}
+            prevStep={decPostStep}
+            submit={submitPost}
+          />
+        );
+      default:
+        return <>BIG UH OH</>;
+    }
+  };
   return (
     <div
       className={style.modalContainerFullScreenCenter}
@@ -75,11 +156,7 @@ function NewPost({ newPostModal }) {
           className={style.postModalContainer}
           onClick={(e) => e.stopPropagation()}
         >
-          {images.length > 0 ? (
-            <FullPreviewPage images={images} />
-          ) : (
-            <UploadImages handleFiles={handleFiles} />
-          )}
+          {renderPostStep()}
         </div>
       </div>
     </div>

@@ -1,0 +1,12 @@
+.filterExample:hover {
+  cursor: pointer;
+  border: solid 1px rgb(200, 200, 200);
+}
+.filterExampleWrapper {
+  height: 30px;
+  width: 30px;
+  border: solid red 1px;
+}
+.selected {
+  border: solid 1px blue;
+}

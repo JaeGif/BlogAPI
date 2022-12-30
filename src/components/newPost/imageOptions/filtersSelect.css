@@ -1,7 +1,0 @@
-img:hover {
-  cursor: pointer;
-  border: solid 1px rgb(200, 200, 200);
-}
-.selected {
-  border: solid 1px blue;
-}

@@ -18,6 +18,7 @@ function UploadImages({ handleFiles }) {
         <input
           type='file'
           ref={getFile}
+          name='image'
           accept='image/*'
           style={{ display: 'none' }}
           onChange={(e) => handleFiles(e)}
