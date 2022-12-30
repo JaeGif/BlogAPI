@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './newpost.module.css';
 
-function SubmitPost({ prevStep, submit, setPost }) {
+function SubmitPost({ prevStep, submit, addPost }) {
   return (
     <div>
       <span className={style.headingPreviewEdits}>
@@ -17,7 +17,7 @@ function SubmitPost({ prevStep, submit, setPost }) {
         </p>
       </span>
       <textarea
-        onChange={() => setPost()}
+        onChange={(e) => addPost(e)}
         name='post'
         placeholder='Add a caption?'
       ></textarea>

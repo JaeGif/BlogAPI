@@ -34,11 +34,7 @@ function NewPost({ newPostModal }) {
     },
   });
   const [post, setPost] = useState('');
-
   const [postStep, setPostStep] = useState(0);
-
-  // The form data needs to be modified with the data from the selections, and
-  // submitted in a hidden form at the final page.
 
   const removeImagesAndReturn = () => {
     setImages([]);
@@ -102,6 +98,9 @@ function NewPost({ newPostModal }) {
   const decPostStep = () => {
     setPostStep(postStep - 1);
   };
+  const addPost = (e) => {
+    setPost(e.target.value);
+  };
   const submitPost = () => {
     let data = new FormData();
     data.append('image', imageFiles[0]);
@@ -111,7 +110,7 @@ function NewPost({ newPostModal }) {
     fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,
-    });
+    }).then(newPostModal());
   };
 
   const renderPostStep = () => {
@@ -130,7 +129,8 @@ function NewPost({ newPostModal }) {
       case 2:
         return (
           <SubmitPost
-            setPost={setPost}
+            exitModal={newPostModal}
+            addPost={addPost}
             prevStep={decPostStep}
             submit={submitPost}
           />
