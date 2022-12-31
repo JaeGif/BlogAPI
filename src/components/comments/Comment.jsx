@@ -6,7 +6,6 @@ function Comment({ commentObj }) {
       <span>
         <h3>{commentObj.user.userName}</h3>
         <h3>
-          {' '}
           {commentObj.edited
             ? `edited at ${commentObj.updatedAt}`
             : commentObj.createdAt}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './AddCommentInput.module.css';
 import CommentLoadingIcon from './utility/CommentLoadingIcon.jsx';
 
-function AddCommentInput({ post }) {
+function AddCommentInput({ post, updateParentPost }) {
   const dummyUser = {
     avatar: {
       id: '96aeffbdfeafb48bbfbc8cea',
@@ -20,7 +20,6 @@ function AddCommentInput({ post }) {
 
   const [isValue, setIsValue] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-
   const [comment, setComment] = useState('');
   const [user, setUser] = useState({
     id: dummyUser._id,
@@ -63,6 +62,7 @@ function AddCommentInput({ post }) {
     }).then(() => {
       resetData();
       setSubmitting(false);
+      updateParentPost();
     });
   };
 
