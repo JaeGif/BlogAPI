@@ -1,7 +1,9 @@
 .lds_roller {
-  width: 100%;
-  height: 100%;
-  display: inline-block;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 .lds_roller div {
