@@ -2,10 +2,11 @@
   width: 100%;
   border-top: 1px solid rgb(200, 200, 200);
 }
-.formElement {
+.formContainer {
   display: flex;
   justify-content: space-between;
-  padding: 12.5px;
+  align-items: center;
+  padding: 10.5px;
 }
 .commentInput {
   resize: none;
@@ -26,4 +27,9 @@
 .activePost {
   cursor: pointer;
   color: rgb(0, 61, 166);
+}
+.loadingIconContainer {
+  height: 1.25rem;
+  width: 1.25rem;
+  position: relative;
 }

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import './App.css';
 import './assets/filters/filters.css';
 import Posts from './components/posts_components/Posts';

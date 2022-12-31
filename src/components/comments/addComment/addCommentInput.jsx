@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import style from './AddCommentInput.module.css';
+import CommentLoadingIcon from './utility/CommentLoadingIcon.jsx';
 
 function AddCommentInput({ post }) {
   const dummyUser = {
@@ -18,6 +19,8 @@ function AddCommentInput({ post }) {
   };
 
   const [isValue, setIsValue] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
   const [comment, setComment] = useState('');
   const [user, setUser] = useState({
     id: dummyUser._id,
@@ -57,29 +60,45 @@ function AddCommentInput({ post }) {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       mode: 'no-cors',
-    }).then(resetData());
+    }).then(() => {
+      resetData();
+      setSubmitting(false);
+    });
   };
 
   return (
     <span className={style.commentAreaContainer}>
-      <textarea
-        onChange={(e) => {
-          checkValue(e);
-          setCommentHandler(e);
-        }}
-        className={style.commentInput}
-        name='comment'
-        type='text'
-        placeholder='Add a comment...'
-      ></textarea>
-      <p
-        onClick={submitComment}
-        className={
-          isValue ? `${style.postBtn} ${style.activePost}` : style.postBtn
-        }
-      >
-        Post
-      </p>
+      <div className={style.formContainer}>
+        <textarea
+          onChange={(e) => {
+            checkValue(e);
+            setCommentHandler(e);
+          }}
+          className={style.commentInput}
+          name='comment'
+          type='text'
+          placeholder='Add a comment...'
+        ></textarea>
+
+        {submitting ? (
+          <div className={style.loadingIconContainer}>
+            <CommentLoadingIcon />
+          </div>
+        ) : (
+          <button
+            type='button'
+            onClick={() => {
+              submitComment();
+              setSubmitting(true);
+            }}
+            className={
+              isValue ? `${style.postBtn} ${style.activePost}` : style.postBtn
+            }
+          >
+            Post
+          </button>
+        )}
+      </div>
     </span>
   );
 }
