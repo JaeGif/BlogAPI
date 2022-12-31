@@ -31,7 +31,7 @@ function AddCommentInput({ post }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
 
-  const commentRoute = `${localURL}/api/posts/${post}`;
+  const commentRoute = `${apiURL}/api/posts/${post}`;
 
   const checkValue = (e) => {
     if (e.target.value !== '') {
