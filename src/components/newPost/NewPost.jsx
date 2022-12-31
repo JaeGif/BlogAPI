@@ -101,16 +101,23 @@ function NewPost({ newPostModal }) {
   const addPost = (e) => {
     setPost(e.target.value);
   };
+  const resetData = () => {
+    setImages([]);
+    setImageFiles([]);
+    setPost('');
+  };
   const submitPost = () => {
     let data = new FormData();
     data.append('image', imageFiles[0]);
-    data.append('user', JSON.stringify(dummyUser));
+    data.append('user', JSON.stringify(user));
     data.append('post', post);
-    console.log(data);
     fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,
-    }).then(newPostModal());
+    }).then(() => {
+      resetData();
+      newPostModal();
+    });
   };
 
   const renderPostStep = () => {

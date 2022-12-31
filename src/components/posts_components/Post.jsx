@@ -80,7 +80,7 @@ function Post({ postObj }) {
       </div>
       {/*       <Comments comments={comments} />
        */}{' '}
-      <AddCommentInput />
+      <AddCommentInput post={_id} />
     </div>
   );
 }
