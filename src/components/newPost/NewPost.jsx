@@ -147,23 +147,25 @@ function NewPost({ newPostModal }) {
     }
   };
   return (
-    <div
-      className={style.modalContainerFullScreenCenter}
-      onClick={() => newPostModal()}
-    >
-      <div className={style.paddingWrapper}>
-        <span className={style.closeModalBtnContainer}>
-          <p className={style.closeModalBtn} onClick={() => newPostModal()}>
-            &#10005;
-          </p>
-        </span>
-      </div>
-      <div className={style.postModalWrapper}>
-        <div
-          className={style.postModalContainer}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {renderPostStep()}
+    <div>
+      <div
+        className={style.modalContainerFullScreenCenter}
+        onClick={() => newPostModal()}
+      >
+        <div className={style.paddingWrapper}>
+          <span className={style.closeModalBtnContainer}>
+            <p className={style.closeModalBtn} onClick={() => newPostModal()}>
+              &#10005;
+            </p>
+          </span>
+        </div>
+        <div className={style.postModalWrapper}>
+          <div
+            className={style.postModalContainer}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {renderPostStep()}
+          </div>
         </div>
       </div>
     </div>

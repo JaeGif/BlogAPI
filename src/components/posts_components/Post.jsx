@@ -6,6 +6,7 @@ import AddCommentInput from '../comments/addComment/AddCommentInput';
 import Comments from '../comments/Comments';
 import { useState } from 'react';
 import UserProfile from '../userProfileHead/userProfile';
+import FullPost from '../fullPost/FullPost';
 
 function Post({ postObj }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
@@ -13,6 +14,8 @@ function Post({ postObj }) {
 
   const [isComments, setIsComments] = useState(false);
   const [countComments, setCountComments] = useState(0);
+  const [displayPost, setDisplayPost] = useState(false);
+
   const {
     createdAt,
     image,
@@ -29,6 +32,10 @@ function Post({ postObj }) {
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [tempLikes, setTempLikes] = useState(like);
+
+  const toggleDisplayFullPost = () => {
+    displayPost ? setDisplayPost(false) : setDisplayPost(true);
+  };
 
   const handleLike = () => {
     if (isLiked) {
@@ -122,11 +129,16 @@ function Post({ postObj }) {
           <em className={style.userNameEmphasis}>{user.userName}</em> {post}
         </p>
         <p className={style.datePublished}>{createdAt.toUpperCase()}</p>
-        <p className={style.viewAllComments}>
+        <p onClick={toggleDisplayFullPost} className={style.viewAllComments}>
           {isComments ? `View all ${countComments} comments` : ''}
         </p>
       </div>
       <AddCommentInput updateParentPost={updateParentPost} post={_id} />
+      {displayPost ? (
+        <FullPost postObj={postObj} toggleFullPost={toggleDisplayFullPost} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

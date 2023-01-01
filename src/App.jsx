@@ -8,6 +8,8 @@ import NewPost from './components/newPost/NewPost';
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
+  const [displayPost, setDisplayPost] = useState(false);
+
   const newPostModal = () => {
     isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
   };
@@ -18,6 +20,11 @@ function App() {
       <Posts />
       <Suggested />
       {isNewPostModal ? <NewPost newPostModal={newPostModal} /> : <></>}
+      {displayPost ? (
+        <FullPost postObj={postObj} toggleFullPost={toggleDisplayFullPost} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
