@@ -1,22 +1,12 @@
 import React from 'react';
-import UserProfile from '../userProfileHead/userProfile';
+import PostDetailsExpanded from '../posts_components/PostDetailsExpanded';
+import UserProfileAvatar from '../userProfileHead/userProfileAvatar';
+import style from './comment.module.css';
 
 function Comment({ commentObj }) {
   return (
     <div>
-      <span>
-        <UserProfile user={commentObj.user} />
-
-        <h3>
-          {commentObj.edited
-            ? `edited at ${commentObj.updatedAt}`
-            : commentObj.createdAt}
-        </h3>
-      </span>
-      <p>{commentObj.comment}</p>
-      <div>
-        <p>Likes: {commentObj.like}</p>
-      </div>
+      <PostDetailsExpanded postObj={commentObj} />
     </div>
   );
 }

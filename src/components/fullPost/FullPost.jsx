@@ -6,7 +6,7 @@ import PostDetailsExpanded from '../posts_components/PostDetailsExpanded';
 import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 
-function FullPost({ postObj, toggleFullPost }) {
+function FullPost({ postObj, toggleFullPost, updateParentPost }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
   const {
@@ -62,7 +62,10 @@ function FullPost({ postObj, toggleFullPost }) {
                     <Comments comments={comments} />
                   </div>
                 </div>
-                <AddCommentInput />
+                <AddCommentInput
+                  updateParentPost={updateParentPost}
+                  post={_id}
+                />
               </div>
             </div>
           </div>

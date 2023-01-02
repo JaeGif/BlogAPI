@@ -144,7 +144,11 @@ function Post({ postObj }) {
         <AddCommentInput updateParentPost={updateParentPost} post={_id} />
       </div>
       {displayPost ? (
-        <FullPost postObj={postObj} toggleFullPost={toggleDisplayFullPost} />
+        <FullPost
+          postObj={postObj}
+          toggleFullPost={toggleDisplayFullPost}
+          updateParentPost={updateParentPost}
+        />
       ) : (
         <></>
       )}

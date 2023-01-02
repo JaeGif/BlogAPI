@@ -13,7 +13,7 @@ function PostDetailsExpanded({ postObj }) {
               {postObj.user.userName}
             </p>
             <p className={`${style.postWrap} ${style.textSizing}`}>
-              {postObj.post}
+              {postObj.post ? postObj.post : postObj.comment}
             </p>
           </div>
           <p className={style.textSizing}>
