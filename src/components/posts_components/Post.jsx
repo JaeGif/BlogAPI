@@ -103,7 +103,7 @@ function Post({ postObj, refresh }) {
         </span>
         <div className={style.imgContainers}>
           <img
-            className={style.postImages}
+            className={`${style.postImages} ${image.filter}`}
             src={`${apiURL}/${image.url}`}
           ></img>
         </div>

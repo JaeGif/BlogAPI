@@ -1,12 +1,32 @@
+.filtersContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  flex-wrap: wrap;
+  max-width: 100%;
+  overflow: scroll;
+  gap: 10px;
+}
+.filterExample {
+  height: 100px;
+  width: 100px;
+  border-radius: 5px;
+  border: 2px solid rgb(255, 255, 255);
+}
 .filterExample:hover {
   cursor: pointer;
-  border: solid 1px rgb(200, 200, 200);
+  border: solid 2px blue;
 }
 .filterExampleWrapper {
-  height: 30px;
-  width: 30px;
-  border: solid red 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.selected {
-  border: solid 1px blue;
+.selected > img {
+  border: solid 2px blue;
+}
+.selected > p {
+  color: blue;
 }

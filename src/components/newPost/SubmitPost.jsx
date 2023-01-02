@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 import style from './newpost.module.css';
 
-function SubmitPost({ prevStep, submit, addPost, isSubmitting }) {
+function SubmitPost({ prevStep, submit, addPost, isSubmitting, changeAlt }) {
   return (
     <div>
       <span className={style.headingPreviewEdits}>
@@ -35,7 +35,12 @@ function SubmitPost({ prevStep, submit, addPost, isSubmitting }) {
       ></textarea>
       <span>
         <label htmlFor='altText'>Accessibility</label>
-        <input name='altText' type='text' placeholder='alt-text' />
+        <input
+          onChange={(e) => changeAlt(e)}
+          name='altText'
+          type='text'
+          placeholder='alt-text'
+        />
       </span>
     </div>
   );

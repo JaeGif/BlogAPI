@@ -1,19 +1,26 @@
 .previewImagesContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-color: black;
   border-right: solid 1px rgb(200, 200, 200);
 }
 .previewImageWrapper {
   max-width: 60vw;
   min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .previewImage {
   width: 100%;
+  max-height: 80vh;
 }
 .optionsWrapper {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 30vw;
+  max-height: 80vh;
   line-height: 0.2rem;
 }
 .headerOptsContainer {

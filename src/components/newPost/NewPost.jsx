@@ -33,7 +33,17 @@ function NewPost({ newPostModal, refresh }) {
       url: dummyUser.avatar.url,
     },
   });
+  const [filter, setFilter] = useState('none');
+  const [alt, setAlt] = useState(`image posted by ${user.userName}`);
+
+  const handleFilter = (e) => {
+    setFilter(e.currentTarget.id);
+  };
+  const changeAlt = (e) => {
+    setAlt(e.target.value);
+  };
   const [post, setPost] = useState('');
+
   const [postStep, setPostStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -107,12 +117,15 @@ function NewPost({ newPostModal, refresh }) {
     setImageFiles([]);
     setPost('');
   };
+
   const submitPost = () => {
     setIsSubmitting(true);
     let data = new FormData();
     data.append('image', imageFiles[0]);
     data.append('user', JSON.stringify(user));
     data.append('post', post);
+    data.append('filter', filter);
+    data.append('alt', alt);
     fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,
@@ -135,6 +148,8 @@ function NewPost({ newPostModal, refresh }) {
             returnToUpload={removeImagesAndReturn}
             nextStep={incPostStep}
             images={images}
+            filter={filter}
+            handleFilters={handleFilter}
           />
         );
       case 2:
@@ -145,6 +160,7 @@ function NewPost({ newPostModal, refresh }) {
             prevStep={decPostStep}
             submit={submitPost}
             isSubmitting={isSubmitting}
+            changeAlt={changeAlt}
           />
         );
       default:

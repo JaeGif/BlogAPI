@@ -3,7 +3,13 @@ import PreviewImage from '../PreviewImage';
 import ImageOptions from '../ImageOptions';
 import style from '../newpost.module.css';
 
-function FullPreviewPage({ images, returnToUpload, nextStep }) {
+function FullPreviewPage({
+  images,
+  returnToUpload,
+  nextStep,
+  handleFilters,
+  filter,
+}) {
   return (
     <>
       <span className={style.headingPreviewEdits}>
@@ -19,8 +25,8 @@ function FullPreviewPage({ images, returnToUpload, nextStep }) {
         </p>
       </span>
       <div className={style.postPreviewContainer}>
-        <PreviewImage images={images} />
-        <ImageOptions />
+        <PreviewImage filter={filter} images={images} />
+        <ImageOptions handleFilters={handleFilters} />
       </div>
     </>
   );

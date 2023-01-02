@@ -12,7 +12,6 @@
   width: 100%;
   z-index: 1;
 }
-
 .filter-1977 {
   -webkit-filter: sepia(0.5) hue-rotate(-30deg) saturate(1.4);
   filter: sepia(0.5) hue-rotate(-30deg) saturate(1.4);
