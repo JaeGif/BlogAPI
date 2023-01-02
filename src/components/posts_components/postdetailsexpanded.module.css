@@ -1,0 +1,37 @@
+.postExpandedContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.postExpandedWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+.postWrap {
+  overflow-wrap: normal;
+}
+.textSizing {
+  font-size: 0.75rem;
+  padding: 0;
+  margin: 0;
+}
+.userName {
+  font-weight: bold;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+.timestamp {
+  font-size: 0.7rem;
+}
+.postFirstLine {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 5px;
+  width: 100%;
+  gap: 5px;
+}

@@ -1,10 +1,12 @@
 import React from 'react';
+import UserProfile from '../userProfileHead/userProfile';
 
 function Comment({ commentObj }) {
   return (
     <div>
       <span>
-        <h3>{commentObj.user.userName}</h3>
+        <UserProfile user={commentObj.user} />
+
         <h3>
           {commentObj.edited
             ? `edited at ${commentObj.updatedAt}`

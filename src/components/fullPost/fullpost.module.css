@@ -37,12 +37,12 @@
   align-items: center;
   flex-direction: column;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 0px 8px 8px 0px;
   min-width: 40vw;
   max-width: 97.5vw;
   min-height: 77.5vh;
 }
-.postPreviewContainer {
+.innerContent {
   display: flex;
   background-color: white;
   border-radius: 8px;
@@ -50,15 +50,45 @@
   max-width: 97.5vw;
   min-height: 77.5vh;
 }
-
-.innerPostModalContainer {
+.imageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  flex: 1;
-  padding: 15px;
+  height: 77.5vh;
+  max-width: 35vw;
+  background-color: black;
+  border-right: solid 1px rgb(200, 200, 200);
 }
-.instructionsTxt {
-  font-size: 1.8rem;
+.imageSizing {
+  max-width: 100%;
+  max-height: 100%;
+}
+.postSideWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 30vw;
+}
+.postCommentsContainer {
+  overflow: scroll;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.userHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: solid 1px rgb(200, 200, 200);
+  height: fit-content;
+}
+.optionsEllipses {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+.optionsEllipses:hover {
+  cursor: pointer;
+  opacity: 75%;
 }
