@@ -161,6 +161,8 @@ function NewPost({ newPostModal, refresh }) {
             submit={submitPost}
             isSubmitting={isSubmitting}
             changeAlt={changeAlt}
+            images={images}
+            filter={filter}
           />
         );
       default:

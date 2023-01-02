@@ -3,7 +3,7 @@ import style from './previewimage.module.css';
 import Filters from './imageOptions/Filters';
 import Adjustments from './imageOptions/Adjustments';
 
-function ImageOptions({ handleFilters }) {
+function ImageOptions({ handleFilters, currentSelectedFilter }) {
   const [selectedFilter, setSelectedFilter] = useState(true);
 
   const clickedAdjustOrFilter = (clicked) => {
@@ -40,7 +40,10 @@ function ImageOptions({ handleFilters }) {
         </div>
       </div>
       {selectedFilter ? (
-        <Filters chosenFilter={handleFilters} />
+        <Filters
+          chosenFilter={handleFilters}
+          currentSelectedFilter={currentSelectedFilter}
+        />
       ) : (
         <Adjustments />
       )}

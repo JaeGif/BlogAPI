@@ -26,7 +26,10 @@ function FullPreviewPage({
       </span>
       <div className={style.postPreviewContainer}>
         <PreviewImage filter={filter} images={images} />
-        <ImageOptions handleFilters={handleFilters} />
+        <ImageOptions
+          handleFilters={handleFilters}
+          currentSelectedFilter={filter}
+        />
       </div>
     </>
   );

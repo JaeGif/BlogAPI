@@ -80,13 +80,14 @@
 }
 .headingPreviewEdits {
   border-bottom: solid 1px rgb(200, 200, 200);
-  width: 100%;
   display: flex;
   justify-content: space-around;
+  width: 100%;
   align-items: center;
   gap: 40%;
   font-weight: bold;
 }
+
 .returnArrow {
   height: 2rem;
   line-height: 0;
@@ -96,4 +97,27 @@
 .continueNewPostText {
   color: rgb(45, 110, 255);
   cursor: pointer;
+}
+.headingSubmitPost {
+  border-bottom: solid 1px rgb(200, 200, 200);
+  display: flex;
+  justify-content: space-around;
+  gap: 30%;
+  align-items: center;
+  width: 100%;
+  font-weight: bold;
+}
+.submitContainer {
+  width: 100%;
+}
+.postInput {
+  resize: none;
+  height: 50%;
+}
+.innerSubmitContainer {
+  display: flex;
+}
+.postFormContainer {
+  display: flex;
+  flex-direction: column;
 }
