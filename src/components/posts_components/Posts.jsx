@@ -5,10 +5,11 @@ import uniqid from 'uniqid';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import style from './posts.module.css';
 
-function Posts() {
+function Posts({ refresh, refreshFn }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const [posts, setPosts] = useState([]);
   const [limitCounter, setLimitCounter] = useState(0);
+
   useEffect(() => {
     async function fetchPosts() {
       const data = await fetch(`${apiURL}/api/posts`, { mode: 'cors' });
@@ -16,7 +17,8 @@ function Posts() {
       setPosts(res);
     }
     fetchPosts();
-  }, []);
+  }, [refresh]);
+
   const getMorePosts = () => {
     setLimitCounter(limitCounter + 1);
   };
@@ -24,7 +26,7 @@ function Posts() {
     return (
       <div>
         {posts.posts.map((post) => (
-          <Post key={uniqid()} postObj={post} />
+          <Post key={uniqid()} postObj={post} refresh={refreshFn} />
         ))}
       </div>
     );

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 import style from './newpost.module.css';
 
-function SubmitPost({ prevStep, submit, addPost }) {
+function SubmitPost({ prevStep, submit, addPost, isSubmitting }) {
   return (
     <div>
       <span className={style.headingPreviewEdits}>
@@ -12,9 +13,20 @@ function SubmitPost({ prevStep, submit, addPost }) {
           onClick={() => prevStep()}
         ></img>
         <p>Edit</p>
-        <p onClick={submit} className={style.continueNewPostText}>
-          Submit
-        </p>
+        <div>
+          {isSubmitting ? (
+            <CommentLoadingIcon />
+          ) : (
+            <p
+              onClick={() => {
+                submit();
+              }}
+              className={style.continueNewPostText}
+            >
+              Submit
+            </p>
+          )}
+        </div>
       </span>
       <textarea
         onChange={(e) => addPost(e)}

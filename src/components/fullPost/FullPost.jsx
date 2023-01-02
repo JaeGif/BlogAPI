@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Comments from '../comments/Comments';
 import Comment from '../comments/Comment';
 import style from './fullpost.module.css';
 import PostDetailsExpanded from '../posts_components/PostDetailsExpanded';
 import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
+import LoadingIcon from '../utlity_Components/LoadingIcon';
 
 function FullPost({ postObj, toggleFullPost, updateParentPost }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
+
+  const [singlePost, setSinglePost] = useState();
+  const [isPostLoaded, setIsPostLoaded] = useState(false);
+
   const {
     createdAt,
     image,
@@ -20,6 +25,17 @@ function FullPost({ postObj, toggleFullPost, updateParentPost }) {
     user,
     _id,
   } = postObj;
+
+  /*   useEffect(() => {
+    async function fetchPostById() {
+      const data = await fetch(`${apiURL}/api/posts/${_id}`, { mode: 'cors' });
+      const res = data.json();
+      setSinglePost(res);
+      setIsPostLoaded(true);
+    }
+    fetchPostById();
+  }, []); */
+
   return (
     <div className={style.fullScreenContainer}>
       <div

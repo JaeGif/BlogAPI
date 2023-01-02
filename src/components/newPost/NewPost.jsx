@@ -7,7 +7,7 @@ import SubmitPost from './SubmitPost';
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
 
-function NewPost({ newPostModal }) {
+function NewPost({ newPostModal, refresh }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
   const dummyUser = {
@@ -35,6 +35,7 @@ function NewPost({ newPostModal }) {
   });
   const [post, setPost] = useState('');
   const [postStep, setPostStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const removeImagesAndReturn = () => {
     setImages([]);
@@ -107,6 +108,7 @@ function NewPost({ newPostModal }) {
     setPost('');
   };
   const submitPost = () => {
+    setIsSubmitting(true);
     let data = new FormData();
     data.append('image', imageFiles[0]);
     data.append('user', JSON.stringify(user));
@@ -117,6 +119,8 @@ function NewPost({ newPostModal }) {
     }).then(() => {
       resetData();
       newPostModal();
+      refresh();
+      setIsSubmitting(false);
     });
   };
 
@@ -140,6 +144,7 @@ function NewPost({ newPostModal }) {
             addPost={addPost}
             prevStep={decPostStep}
             submit={submitPost}
+            isSubmitting={isSubmitting}
           />
         );
       default:

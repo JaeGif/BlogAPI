@@ -8,7 +8,10 @@ import NewPost from './components/newPost/NewPost';
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
-
+  const [isRefresh, setIsRefresh] = useState(false);
+  const refreshContent = () => {
+    isRefresh ? setIsRefresh(false) : setIsRefresh(true);
+  };
   const newPostModal = () => {
     isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
   };
@@ -16,9 +19,13 @@ function App() {
   return (
     <div className='App'>
       <Sidebar newPostModal={newPostModal} />
-      <Posts />
+      <Posts refresh={isRefresh} refreshFn={refreshContent} />
       <Suggested />
-      {isNewPostModal ? <NewPost newPostModal={newPostModal} /> : <></>}
+      {isNewPostModal ? (
+        <NewPost newPostModal={newPostModal} refresh={setIsRefresh} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

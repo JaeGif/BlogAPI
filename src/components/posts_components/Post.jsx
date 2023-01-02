@@ -8,7 +8,7 @@ import { useState } from 'react';
 import UserProfile from '../userProfileHead/userProfile';
 import FullPost from '../fullPost/FullPost';
 
-function Post({ postObj }) {
+function Post({ postObj, refresh }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
 
@@ -65,6 +65,7 @@ function Post({ postObj }) {
 
   const updateParentPost = () => {
     setIsNewComment(true);
+    refresh();
   };
 
   useEffect(() => {
@@ -119,6 +120,7 @@ function Post({ postObj }) {
               />
             </svg>
             <img
+              onClick={toggleDisplayFullPost}
               className={style.icons}
               src='./src/assets/favicons/comment.svg'
               alt='comments'
