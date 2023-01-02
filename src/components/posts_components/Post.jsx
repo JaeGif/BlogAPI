@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import Comment from '../comments/Comment';
 import style from './post.module.css';
-import uniqid from 'uniqid';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
-import Comments from '../comments/Comments';
 import { useState } from 'react';
 import UserProfile from '../userProfileHead/userProfile';
 import FullPost from '../fullPost/FullPost';
@@ -105,6 +102,7 @@ function Post({ postObj, refresh }) {
           <img
             className={`${style.postImages} ${image.filter}`}
             src={`${apiURL}/${image.url}`}
+            alt={image.alt}
           ></img>
         </div>
         <div className={style.postInfoContainer}>

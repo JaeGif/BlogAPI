@@ -59,7 +59,7 @@ function FullPost({ postObj, toggleFullPost, updateParentPost }) {
                 <img
                   className={style.imageSizing}
                   src={`${apiURL}/${image.url}`}
-                  alt='default alt'
+                  alt={image.alt}
                 />
               </div>
               <div className={style.postSideWrapper}>

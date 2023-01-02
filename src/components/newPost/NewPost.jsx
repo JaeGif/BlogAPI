@@ -126,6 +126,7 @@ function NewPost({ newPostModal, refresh }) {
     data.append('post', post);
     data.append('filter', filter);
     data.append('alt', alt);
+
     fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,
