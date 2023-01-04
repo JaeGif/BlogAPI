@@ -164,6 +164,7 @@ function NewPost({ newPostModal, refresh }) {
             changeAlt={changeAlt}
             images={images}
             filter={filter}
+            user={user}
           />
         );
       default:

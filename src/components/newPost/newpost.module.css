@@ -87,7 +87,6 @@
   gap: 40%;
   font-weight: bold;
 }
-
 .returnArrow {
   height: 2rem;
   line-height: 0;
@@ -107,12 +106,16 @@
   width: 100%;
   font-weight: bold;
 }
-.submitContainer {
-  width: 100%;
-}
 .postInput {
   resize: none;
   height: 50%;
+  border: none;
+  font-size: 1rem;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  padding: 15px;
+}
+.postInput:focus {
+  outline: none;
 }
 .innerSubmitContainer {
   display: flex;
@@ -120,4 +123,76 @@
 .postFormContainer {
   display: flex;
   flex-direction: column;
+  min-width: 22.5vw;
+}
+.textSizing {
+  font-size: 0.85rem;
+  padding: 0;
+  margin: 0;
+}
+.userName {
+  font-weight: 900;
+}
+.userHeadSubmit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px;
+}
+.lowerInputsContainer {
+  display: flex;
+  flex-direction: column;
+}
+.expandChevrons {
+  height: 25px;
+}
+.accordianContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px 0px 15px;
+}
+.a11yContainer {
+  flex-direction: column;
+  padding: 0px 15px 0px 15px;
+}
+.a11yLabel {
+  font-size: 0.85rem;
+  color: rgb(110, 110, 110);
+}
+.locationInput {
+  border: none;
+  outline: none;
+  padding: 5px 15px 5px 5px;
+}
+.locationIcon {
+  height: 1rem;
+}
+.locationWrapper {
+  border-bottom: 1px solid rgb(200, 200, 200);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.locationInput:focus {
+  border: none;
+  outline: none;
+  padding: 5px 15px 5px 5px;
+}
+.altInput:focus {
+  padding: 5px 15px 5px 15px;
+}
+.altInput {
+  padding: 5px 15px 5px 15px;
+}
+.altInput,
+.altInput:focus {
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+  outline: none;
+}
+.altInput,
+.locationInput {
+  height: 1.75rem;
+  font-size: 1rem;
 }
