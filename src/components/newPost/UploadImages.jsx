@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import DragDrop from './DragDrop';
 import style from './newpost.module.css';
 
 function UploadImages({ handleFiles }) {
@@ -14,6 +15,7 @@ function UploadImages({ handleFiles }) {
       </span>
       <div className={style.innerPostModalContainer}>
         <img src='./src/assets/favicons/upload.svg' alt='upload img'></img>
+        <DragDrop handleChange={handleFiles} />
         <p className={style.instructionsTxt}>Drag photos here</p>
         <input
           type='file'
@@ -21,7 +23,7 @@ function UploadImages({ handleFiles }) {
           name='image'
           accept='image/*'
           style={{ display: 'none' }}
-          onChange={(e) => handleFiles(e)}
+          onChange={(e) => handleFiles(e.target.files)}
           multiple
         />
         <button

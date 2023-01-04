@@ -53,12 +53,19 @@ function NewPost({ newPostModal, refresh }) {
     decPostStep();
   };
 
-  const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
-  const handleFiles = (e) => {
-    const { files } = e.target;
+  const handleFiles = (file) => {
+    let files;
+    if (!file.length) {
+      files = [file];
+    } else {
+      files = file;
+    }
+    const imageTypeRegex = /image\/(png|jpg|jpeg|gif)/gm;
+
     const validImageFiles = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      console.log(file);
       if (file.type.match(imageTypeRegex)) {
         validImageFiles.push(file);
       }
