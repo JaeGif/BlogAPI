@@ -50,7 +50,7 @@ function Post({ postObj, refresh }) {
   const submitLike = () => {
     let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
     data.append('like', tempLikes);
-    fetch(`${localURL}/api/posts/${_id}`, {
+    fetch(`${apiURL}/api/posts/${_id}`, {
       method: 'POST',
       body: data,
       headers: {
@@ -107,15 +107,12 @@ function Post({ postObj, refresh }) {
         <div className={style.imgContainers}>
           {isVideo ? (
             <video className={`${style.postImages} ${image.filter}`} controls>
-              <source
-                src={`${localURL}/${image.url}`}
-                type='video/mp4'
-              ></source>
+              <source src={`${apiURL}/${image.url}`} type='video/mp4'></source>
             </video>
           ) : (
             <img
               className={`${style.postImages} ${image.filter}`}
-              src={`${localURL}/${image.url}`}
+              src={`${apiURL}/${image.url}`}
               alt={image.alt}
             ></img>
           )}

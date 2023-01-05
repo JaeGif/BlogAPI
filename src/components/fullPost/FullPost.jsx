@@ -62,14 +62,14 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
                     controls
                   >
                     <source
-                      src={`${localURL}/${image.url}`}
+                      src={`${apiURL}/${image.url}`}
                       type='video/mp4'
                     ></source>
                   </video>
                 ) : (
                   <img
                     className={`${style.imageSizing} ${image.filter}`}
-                    src={`${localURL}/${image.url}`}
+                    src={`${apiURL}/${image.url}`}
                     alt={image.alt}
                   />
                 )}
