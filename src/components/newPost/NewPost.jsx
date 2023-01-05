@@ -34,7 +34,7 @@ function NewPost({ newPostModal, refresh }) {
     },
   });
   const [filter, setFilter] = useState('none');
-  const [alt, setAlt] = useState(`image posted by ${user.userName}`);
+  const [alt, setAlt] = useState(null);
 
   const handleFilter = (e) => {
     setFilter(e.currentTarget.id);
@@ -42,11 +42,15 @@ function NewPost({ newPostModal, refresh }) {
   const changeAlt = (e) => {
     setAlt(e.target.value);
   };
-  const [post, setPost] = useState('');
+  const [post, setPost] = useState(null);
+  const [location, setLocation] = useState(null);
 
   const [postStep, setPostStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleLocation = (e) => {
+    setLocation(e.target.value);
+  };
   const removeImagesAndReturn = () => {
     setImages([]);
     setImageFiles([]);
@@ -60,13 +64,14 @@ function NewPost({ newPostModal, refresh }) {
     } else {
       files = file;
     }
-    const imageTypeRegex = /image\/(png|jpg|jpeg|gif)/gm;
+    const contentTypeRegex =
+      /(audio|image|video|x-(?:[0-9A-Za-z!#$%&'*+.^_`|~-]+))\/([0-9A-Za-z!#$%&'*+.^_`|~-]+)/g;
 
     const validImageFiles = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       console.log(file);
-      if (file.type.match(imageTypeRegex)) {
+      if (file.type.match(contentTypeRegex)) {
         validImageFiles.push(file);
       }
     }
@@ -131,10 +136,12 @@ function NewPost({ newPostModal, refresh }) {
     data.append('image', imageFiles[0]);
     data.append('user', JSON.stringify(user));
     data.append('post', post);
+    data.append('location', location);
     data.append('filter', filter);
     data.append('alt', alt);
 
-    fetch(`${apiURL}/api/posts`, {
+    console.log(data);
+    fetch(`${localURL}/api/posts`, {
       method: 'POST',
       body: data,
     }).then(() => {
@@ -172,6 +179,7 @@ function NewPost({ newPostModal, refresh }) {
             images={images}
             filter={filter}
             user={user}
+            changeLocation={handleLocation}
           />
         );
       default:

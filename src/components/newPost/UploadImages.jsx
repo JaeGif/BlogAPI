@@ -21,7 +21,7 @@ function UploadImages({ handleFiles }) {
           type='file'
           ref={getFile}
           name='image'
-          accept='image/*'
+          accept='image/jpg, image/jpeg, image/png, video/mp4'
           style={{ display: 'none' }}
           onChange={(e) => handleFiles(e.target.files)}
           multiple

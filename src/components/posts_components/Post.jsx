@@ -23,12 +23,14 @@ function Post({ postObj, refresh }) {
     updatedAt,
     user,
     _id,
+    location,
   } = postObj;
 
   // If a new comment is added, the individual post needs to refresh just comments
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [tempLikes, setTempLikes] = useState(like);
+  const [isVideo, setIsVideo] = useState(false);
 
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
@@ -73,6 +75,9 @@ function Post({ postObj, refresh }) {
       setIsComments(false);
       setCountComments(0);
     }
+    if (postObj.image.contentType === 'video/mp4') {
+      setIsVideo(true);
+    }
   }, [isNewComment, isLiked]);
 
   const numberOfLikes = () => {
@@ -91,6 +96,7 @@ function Post({ postObj, refresh }) {
       <div className={style.postContainer}>
         <span className={style.userDateHead}>
           <UserProfile user={user} />
+          <p>{location}</p>
           <div className={style.optionsEllipses}>
             <img
               className={style.optionsEllipses}
@@ -99,11 +105,20 @@ function Post({ postObj, refresh }) {
           </div>
         </span>
         <div className={style.imgContainers}>
-          <img
-            className={`${style.postImages} ${image.filter}`}
-            src={`${apiURL}/${image.url}`}
-            alt={image.alt}
-          ></img>
+          {isVideo ? (
+            <video className={`${style.postImages} ${image.filter}`} controls>
+              <source
+                src={`${localURL}/${image.url}`}
+                type='video/mp4'
+              ></source>
+            </video>
+          ) : (
+            <img
+              className={`${style.postImages} ${image.filter}`}
+              src={`${localURL}/${image.url}`}
+              alt={image.alt}
+            ></img>
+          )}
         </div>
         <div className={style.postInfoContainer}>
           <span className={style.iconsContainer}>
@@ -123,7 +138,6 @@ function Post({ postObj, refresh }) {
               src='./src/assets/favicons/comment.svg'
               alt='comments'
             ></img>
-
             <img
               className={style.icons}
               src='./src/assets/favicons/send.svg'
@@ -148,6 +162,7 @@ function Post({ postObj, refresh }) {
           postObj={postObj}
           toggleFullPost={toggleDisplayFullPost}
           updateParentPost={updateParentPost}
+          isVideo={isVideo}
         />
       ) : (
         <></>

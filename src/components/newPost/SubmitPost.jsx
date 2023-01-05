@@ -13,6 +13,7 @@ function SubmitPost({
   images,
   filter,
   user,
+  changeLocation,
 }) {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
 

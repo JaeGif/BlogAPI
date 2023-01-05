@@ -7,7 +7,7 @@ import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 
-function FullPost({ postObj, toggleFullPost, updateParentPost }) {
+function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
 
@@ -56,11 +56,23 @@ function FullPost({ postObj, toggleFullPost, updateParentPost }) {
           >
             <div className={style.innerContent}>
               <div className={style.imageContainer}>
-                <img
-                  className={style.imageSizing}
-                  src={`${apiURL}/${image.url}`}
-                  alt={image.alt}
-                />
+                {isVideo ? (
+                  <video
+                    className={`${style.imageSizing} ${image.filter}`}
+                    controls
+                  >
+                    <source
+                      src={`${localURL}/${image.url}`}
+                      type='video/mp4'
+                    ></source>
+                  </video>
+                ) : (
+                  <img
+                    className={`${style.imageSizing} ${image.filter}`}
+                    src={`${localURL}/${image.url}`}
+                    alt={image.alt}
+                  />
+                )}
               </div>
               <div className={style.postSideWrapper}>
                 <div>
