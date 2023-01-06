@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import uniqid from 'uniqid';
+import UserPostPreview from './UserPostPreview';
 
 function UserPublished({ isUserPage, user }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
 
-  const [userPosts, setUserPosts] = useState();
+  const [userPosts, setUserPosts] = useState([]);
+  const [postsFound, setPostsFound] = useState(false);
 
   useEffect(() => {
     async function findPostsUserId() {
@@ -12,13 +15,28 @@ function UserPublished({ isUserPage, user }) {
         mode: 'cors',
       });
       const data = await res.json();
-      setUserPosts(data);
+
+      setUserPosts(data.posts);
     }
     findPostsUserId();
-    console.log(userPosts);
   }, []);
 
-  return <div>posts</div>;
+  useEffect(() => {
+    if (userPosts.length) {
+      setPostsFound(true);
+      console.log(`${apiURL}/${userPosts[1].image.url}`);
+    }
+  }, [userPosts]);
+
+  return (
+    <div>
+      {postsFound ? (
+        userPosts.map((post) => <UserPostPreview post={post} />)
+      ) : (
+        <>Waiting</>
+      )}
+    </div>
+  );
 }
 
 export default UserPublished;

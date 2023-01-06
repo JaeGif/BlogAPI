@@ -36,7 +36,7 @@ function UserPageLayout() {
         mode: 'cors',
       });
       const data = await res.json();
-      setUser(data);
+      setUser(data.user);
       setIsUser(true);
     }
     findUserById();
