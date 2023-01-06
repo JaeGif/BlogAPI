@@ -1,0 +1,5 @@
+.contentLayoutGrid {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  border: solid 1px blue;
+}

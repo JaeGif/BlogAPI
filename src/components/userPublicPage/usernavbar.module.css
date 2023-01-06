@@ -1,0 +1,14 @@
+.navLayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  border-top: solid 1px rgb(200, 200, 200);
+}
+.optionWrapper:hover {
+  cursor: pointer;
+}
+.selected {
+  border-top: solid 1px black;
+}

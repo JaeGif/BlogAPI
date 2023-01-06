@@ -6,7 +6,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import Suggested from './components/suggested/Suggested';
 import NewPost from './components/newPost/NewPost';
 import './assets/filters/filters.css';
-import UserPublished from './components/userPublicPage/UserPublished';
+import UserPageLayout from './components/userPublicPage/UserPageLayout';
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
@@ -41,7 +41,7 @@ function App() {
         goToHomePage={goToHomePage}
       />
       {isUserPage ? (
-        <UserPublished
+        <UserPageLayout
           isUserPage={isUserPage}
           closeUserPageModal={closeUserPageModal}
         />
