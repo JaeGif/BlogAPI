@@ -14,7 +14,7 @@ function UserNavBar({
       <div
         className={
           isPosted
-            ? `${style.optionWrapper} selected`
+            ? `${style.optionWrapper} ${style.selected}`
             : `${style.optionWrapper}`
         }
         onClick={() => handleNavPosted()}
@@ -23,7 +23,9 @@ function UserNavBar({
       </div>
       <div
         className={
-          isSaved ? `${style.optionWrapper} selected` : `${style.optionWrapper}`
+          isSaved
+            ? `${style.optionWrapper} ${style.selected}`
+            : `${style.optionWrapper}`
         }
         onClick={() => handleNavSaved()}
       >
@@ -32,7 +34,7 @@ function UserNavBar({
       <div
         className={
           isTagged
-            ? `${style.optionWrapper} selected`
+            ? `${style.optionWrapper} ${style.selected}`
             : `${style.optionWrapper}`
         }
         onClick={() => handleNavTagged()}
