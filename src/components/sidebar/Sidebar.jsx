@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './sidebar.module.css';
 
-function Sidebar({ newPostModal }) {
+function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
   return (
     <div>
       <div className={style.optionsSidebar}>
@@ -11,7 +11,7 @@ function Sidebar({ newPostModal }) {
         </div>
         <div>
           <a href='#'>
-            <span className={style.optionSpan}>
+            <span onClick={() => goToHomePage()} className={style.optionSpan}>
               <img
                 className={style.optionsIcons}
                 src='./src/assets/favicons/home.svg'
@@ -83,11 +83,14 @@ function Sidebar({ newPostModal }) {
         </div>
         <div>
           <a href='#'>
-            <span className={style.optionSpan}>
+            <span
+              onClick={() => openUserPageModal()}
+              className={style.optionSpan}
+            >
               <img
                 className={style.optionsIcons}
                 src='./src/assets/favicons/fingerprint.svg'
-                alt='user account'
+                alt='user home page'
               />
               <h2>Profile</h2>
             </span>
