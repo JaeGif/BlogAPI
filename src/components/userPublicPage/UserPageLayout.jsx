@@ -6,12 +6,16 @@ import UserSaved from './profileSections/UserSaved';
 import UserTagged from './profileSections/UserTagged';
 import UserNavBar from './UserNavBar';
 import UserPublicHeader from './profileSections/UserHeader';
+import LoadingIcon from '../utlity_Components/LoadingIcon';
 
 function UserPageLayout() {
   // fetch user from user who is logged in
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
+
+  const [user, setUser] = useState();
+  const [isUser, setIsUser] = useState(false);
 
   const dummyUser = {
     avatar: {
@@ -28,8 +32,14 @@ function UserPageLayout() {
 
   useEffect(() => {
     async function findUserById() {
-      const data = await fetch(`${apiURL}/api/users/${dummyUser._id}`);
+      const res = await fetch(`${apiURL}/api/users/${dummyUser._id}`, {
+        mode: 'cors',
+      });
+      const data = await res.json();
+      setUser(data);
+      setIsUser(true);
     }
+    findUserById();
   }, []);
 
   // default state of user page layout
@@ -54,20 +64,26 @@ function UserPageLayout() {
   };
 
   return (
-    <div className={style.layoutContainer}>
-      <UserPublicHeader user={dummyUser} />
-      <UserNavBar
-        handleNavPosted={handleNavPosted}
-        handleNavSaved={handleNavSaved}
-        handleNavTagged={handleNavTagged}
-        isPosted={isPosted}
-        isSaved={isSaved}
-        isTagged={isTagged}
-      />
-      {isPosted ? <UserPublished user={dummyUser} /> : <></>}
-      {isSaved ? <UserSaved user={dummyUser} /> : <></>}
-      {isTagged ? <UserTagged user={dummyUser} /> : <></>}
-    </div>
+    <>
+      {isUser ? (
+        <div className={style.layoutContainer}>
+          <UserPublicHeader user={user} />
+          <UserNavBar
+            handleNavPosted={handleNavPosted}
+            handleNavSaved={handleNavSaved}
+            handleNavTagged={handleNavTagged}
+            isPosted={isPosted}
+            isSaved={isSaved}
+            isTagged={isTagged}
+          />
+          {isPosted ? <UserPublished user={user} /> : <></>}
+          {isSaved ? <UserSaved user={user} /> : <></>}
+          {isTagged ? <UserTagged user={user} /> : <></>}
+        </div>
+      ) : (
+        <LoadingIcon />
+      )}
+    </>
   );
 }
 
