@@ -1,9 +1,9 @@
-States for Redux:
+Messages Options need to be developed separately and integrated into the application.
+Messages will require a working knowledge of WebSockets for real-time communication
 
-Use redux to store the full application state so I don't need to use
-prop drilling to deliver the state to the correct component.
+Notifications requires the friend system to be fleshed out first as following will be the 
+most important available notification, followed by likes/comments
 
-// Redux needs to track;
-
-1. Current data loaded
-2. What modals are open
+Search function will be the last to be implemented as it will search through 
+all available data, there's no point in implementing it before the other
+features are fully implemented.
