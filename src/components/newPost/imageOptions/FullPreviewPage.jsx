@@ -9,6 +9,7 @@ function FullPreviewPage({
   nextStep,
   handleFilters,
   filter,
+  isVideoPreview,
 }) {
   return (
     <>
@@ -25,7 +26,11 @@ function FullPreviewPage({
         </p>
       </span>
       <div className={style.postPreviewContainer}>
-        <PreviewImage filter={filter} images={images} />
+        <PreviewImage
+          filter={filter}
+          images={images}
+          isVideoPreview={isVideoPreview}
+        />
         <ImageOptions
           handleFilters={handleFilters}
           currentSelectedFilter={filter}

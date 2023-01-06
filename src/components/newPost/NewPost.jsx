@@ -35,6 +35,7 @@ function NewPost({ newPostModal, refresh }) {
   });
   const [filter, setFilter] = useState('none');
   const [alt, setAlt] = useState(null);
+  const [isVideoPreview, setIsVideoPreview] = useState(false);
 
   const handleFilter = (e) => {
     setFilter(e.currentTarget.id);
@@ -65,12 +66,15 @@ function NewPost({ newPostModal, refresh }) {
       files = file;
     }
     const contentTypeRegex =
-      /(audio|image|video|x-(?:[0-9A-Za-z!#$%&'*+.^_`|~-]+))\/([0-9A-Za-z!#$%&'*+.^_`|~-]+)/g;
+      /(image|video|x-(?:[0-9A-Za-z!#$%&'*+.^_`|~-]+))\/([0-9A-Za-z!#$%&'*+.^_`|~-]+)/g;
 
     const validImageFiles = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       console.log(file);
+      if (file.type == 'video/mp4') {
+        setIsVideoPreview(true);
+      }
       if (file.type.match(contentTypeRegex)) {
         validImageFiles.push(file);
       }
@@ -141,7 +145,7 @@ function NewPost({ newPostModal, refresh }) {
     data.append('alt', alt);
 
     console.log(data);
-    fetch(`${localURL}/api/posts`, {
+    fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,
     }).then(() => {
@@ -165,6 +169,7 @@ function NewPost({ newPostModal, refresh }) {
             images={images}
             filter={filter}
             handleFilters={handleFilter}
+            isVideoPreview={isVideoPreview}
           />
         );
       case 2:
@@ -180,6 +185,7 @@ function NewPost({ newPostModal, refresh }) {
             filter={filter}
             user={user}
             changeLocation={handleLocation}
+            isVideoPreview={isVideoPreview}
           />
         );
       default:

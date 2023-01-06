@@ -14,6 +14,7 @@ function SubmitPost({
   filter,
   user,
   changeLocation,
+  isVideoPreview,
 }) {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
 
@@ -48,7 +49,11 @@ function SubmitPost({
         </div>
       </span>
       <div className={style.innerSubmitContainer}>
-        <PreviewImage images={images} filter={filter} />
+        <PreviewImage
+          images={images}
+          filter={filter}
+          isVideoPreview={isVideoPreview}
+        />
         <div className={style.postFormContainer}>
           <span className={style.userHeadSubmit}>
             <UserProfileAvatar user={user} />
