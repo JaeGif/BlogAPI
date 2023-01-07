@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import uniqid from 'uniqid';
+import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
 
@@ -12,9 +13,12 @@ function UserPublished({ isUserPage, user }) {
 
   useEffect(() => {
     async function findPostsUserId() {
-      const res = await fetch(`${apiURL}/api/posts?user=${user._id}`, {
-        mode: 'cors',
-      });
+      const res = await fetch(
+        `${apiURL}/api/posts?user=${user._id}&returnLimit=18`,
+        {
+          mode: 'cors',
+        }
+      );
       const data = await res.json();
 
       setUserPosts(data.posts);
@@ -34,14 +38,7 @@ function UserPublished({ isUserPage, user }) {
       {postsFound ? (
         userPosts.map((post) => <UserPostPreview post={post} />)
       ) : (
-        <>
-          Dev warning only waiting for post wtf is wrong something aint right
-          here maybe check on fetchAPI's string, did ya change the string Jae?
-          check that first always the problem handling 20 strings at once. Maybe
-          you oughta add somethign to the project to manage dev build and
-          production build? Nahhhhh just keep doing it this way Jae you're doing
-          juuuuust fine.
-        </>
+        <LoadingIcon />
       )}
     </div>
   );

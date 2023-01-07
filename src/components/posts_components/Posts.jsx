@@ -24,7 +24,7 @@ function Posts({ refresh, refreshFn }) {
   };
   if (typeof posts.posts !== 'undefined') {
     return (
-      <div>
+      <div className={style.postsMargin}>
         {posts.posts.map((post) => (
           <Post key={uniqid()} postObj={post} refresh={refreshFn} />
         ))}

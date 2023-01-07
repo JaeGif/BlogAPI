@@ -9,6 +9,6 @@ body {
 }
 .App {
   display: grid;
-  grid-template-columns: 1.75fr 2.5fr 2fr;
+  grid-template-columns: 1fr 2.5fr 2fr;
   grid-template-rows: 1fr;
 }
