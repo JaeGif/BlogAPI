@@ -19,6 +19,8 @@ function UserNavBar({
         }
         onClick={() => handleNavPosted()}
       >
+        <img className={style.icons} src='./src/assets/favicons/grid.svg' />
+
         <p>Posts</p>
       </div>
       <div
@@ -29,6 +31,8 @@ function UserNavBar({
         }
         onClick={() => handleNavSaved()}
       >
+        <img className={style.icons} src='./src/assets/favicons/bookmark.svg' />
+
         <p>Saved</p>
       </div>
       <div
@@ -39,6 +43,7 @@ function UserNavBar({
         }
         onClick={() => handleNavTagged()}
       >
+        <img className={style.icons} src='./src/assets/favicons/tagged.svg' />
         <p>Tagged</p>
       </div>
     </span>

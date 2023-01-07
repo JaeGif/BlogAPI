@@ -9,6 +9,15 @@
 .optionWrapper:hover {
   cursor: pointer;
 }
+.optionWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
 .selected {
   border-top: solid 1px black;
+}
+.icons {
+  height: 17.5px;
 }
