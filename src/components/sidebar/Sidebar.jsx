@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../App';
+import { ApiContext, UserContext } from '../../App';
 import style from './sidebar.module.css';
 
 function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
   const user = useContext(UserContext);
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = useContext(ApiContext);
 
   return (
     <div>

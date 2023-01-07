@@ -3,14 +3,13 @@ import style from './newpost.module.css';
 import UploadImages from './UploadImages';
 import FullPreviewPage from './imageOptions/FullPreviewPage';
 import SubmitPost from './SubmitPost';
-import { UserContext } from '../../App';
+import { ApiContext, UserContext } from '../../App';
 
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
 
 function NewPost({ newPostModal, refresh }) {
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = useContext(ApiContext);
   const user = useContext(UserContext);
 
   const [imageFiles, setImageFiles] = useState([]);
@@ -48,22 +47,18 @@ function NewPost({ newPostModal, refresh }) {
     } else {
       files = file;
     }
-    const contentTypeRegex =
-      /(image|video|x-(?:[0-9A-Za-z!#$%&'*+.^_`|~-]+))\/([0-9A-Za-z!#$%&'*+.^_`|~-]+)/g;
 
     const validImageFiles = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      console.log(file);
       if (file.type == 'video/mp4') {
         setIsVideoPreview(true);
       }
-      if (file.type.match(contentTypeRegex)) {
-        validImageFiles.push(file);
-      }
+      validImageFiles.push(file);
     }
     if (validImageFiles.length) {
       setImageFiles(validImageFiles);
+
       setPostStep(1);
       return;
     }
@@ -120,6 +115,8 @@ function NewPost({ newPostModal, refresh }) {
   const submitPost = () => {
     setIsSubmitting(true);
     let data = new FormData();
+    console.log('images', imageFiles[0]);
+
     data.append('image', imageFiles[0]);
     data.append('user', JSON.stringify(user));
     data.append('post', post);

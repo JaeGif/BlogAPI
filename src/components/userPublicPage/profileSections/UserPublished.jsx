@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import uniqid from 'uniqid';
+import { ApiContext } from '../../../App';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
 
 function UserPublished({ isUserPage, user }) {
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = useContext(ApiContext);
 
   const [userPosts, setUserPosts] = useState([]);
   const [postsFound, setPostsFound] = useState(false);

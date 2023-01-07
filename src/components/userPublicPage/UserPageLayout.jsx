@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import style from './userpagelayout.module.css';
 
 import UserPublished from './profileSections/UserPublished';
@@ -7,12 +7,11 @@ import UserTagged from './profileSections/UserTagged';
 import UserNavBar from './UserNavBar';
 import UserPublicHeader from './profileSections/UserHeader';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
+import { ApiContext } from '../../App';
 
 function UserPageLayout({ user }) {
   // fetch user from user who is logged in
-
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = useContext(ApiContext);
 
   const [userData, setUserData] = useState();
   const [isUser, setIsUser] = useState(false);

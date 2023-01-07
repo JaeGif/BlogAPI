@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import style from './post.module.css';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
+import { ApiContext } from '../../App';
 
 function Post({ postObj, refresh }) {
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = useContext(ApiContext);
 
   const [isComments, setIsComments] = useState(false);
   const [countComments, setCountComments] = useState(0);

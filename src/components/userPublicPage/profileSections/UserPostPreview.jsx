@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import style from './userpostpreview.module.css';
 import FullPost from '../../fullPost/FullPost';
+import { ApiContext } from '../../../App';
 
 function UserPostPreview({ post }) {
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = useContext(ApiContext);
   const [isVideo, setIsVideo] = useState(false);
   const [displayPost, setDisplayPost] = useState(false);
 

@@ -1,16 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import style from './userheader.module.css';
-import { UserContext } from '../../../App';
+import { ApiContext, UserContext } from '../../../App';
 
 function UserPublicHeader({ user }) {
   const loggedInUser = useContext(UserContext);
+  const apiURL = useContext(ApiContext);
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [postCount, setPostCount] = useState(0);
   const [followerCount, setFollowerCount] = useState(0);
   const [followsCount, setFollowsCount] = useState(0);
-
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
 
   useEffect(() => {
     if (user._id === loggedInUser._id) {

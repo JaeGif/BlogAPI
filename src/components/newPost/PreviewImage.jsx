@@ -2,7 +2,6 @@ import React from 'react';
 import style from './previewimage.module.css';
 
 function PreviewImage({ images, filter, isVideoPreview }) {
-  console.log(isVideoPreview);
   return (
     <div className={style.previewImagesContainer}>
       {images.map((image, idx) => {

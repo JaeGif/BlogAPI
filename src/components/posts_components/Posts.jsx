@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState, useRef } from 'react';
 import Post from './Post';
 import uniqid from 'uniqid';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import style from './posts.module.css';
+import { ApiContext } from '../../App';
 
 function Posts({ refresh, refreshFn }) {
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
+  const apiURL = useContext(ApiContext);
+
   const [posts, setPosts] = useState([]);
   const [limitCounter, setLimitCounter] = useState(0);
 

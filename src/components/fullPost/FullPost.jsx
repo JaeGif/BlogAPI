@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Comments from '../comments/Comments';
 import Comment from '../comments/Comment';
 import style from './fullpost.module.css';
@@ -7,10 +7,10 @@ import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
+import { ApiContext } from '../../App';
 
 function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = useContext(ApiContext);
 
   const [singlePost, setSinglePost] = useState();
   const [isPostLoaded, setIsPostLoaded] = useState(false);
@@ -27,16 +27,6 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
     user,
     _id,
   } = postObj;
-
-  /*   useEffect(() => {
-    async function fetchPostById() {
-      const data = await fetch(`${apiURL}/api/posts/${_id}`, { mode: 'cors' });
-      const res = data.json();
-      setSinglePost(res);
-      setIsPostLoaded(true);
-    }
-    fetchPostById();
-  }, []); */
 
   return (
     <div className={style.fullScreenContainer}>

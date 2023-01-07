@@ -1,37 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { ApiContext, UserContext } from '../../../App';
 import style from './AddCommentInput.module.css';
 import CommentLoadingIcon from './utility/CommentLoadingIcon.jsx';
 
 function AddCommentInput({ post, updateParentPost }) {
-  const dummyUser = {
-    avatar: {
-      id: '96aeffbdfeafb48bbfbc8cea',
-      url: 'https://instaapi-production.up.railway.app/uploads/fe0db393eeaeaa8530a38e1d/avatar.jpg',
-    },
-    _id: 'fe0db393eeaeaa8530a38e1d',
-    firstName: 'Osborne',
-    lastName: 'Crooks',
-    email: 'Lavonne_Bradtke@yahoo.com',
-    userName: 'Rhea67',
-    password: 'XECx6ylxRz4ylw5',
-    isAdmin: false,
-    __v: 0,
-  };
+  const user = useContext(UserContext);
+  const apiURL = useContext(ApiContext);
 
   const [isValue, setIsValue] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [comment, setComment] = useState('');
-  const [user, setUser] = useState({
-    id: dummyUser._id,
-    userName: dummyUser.userName,
-    avatar: {
-      id: dummyUser.avatar.id,
-      url: dummyUser.avatar.url,
-    },
-  });
-
-  const apiURL = import.meta.env.VITE_RAILWAY_URL;
-  const localURL = import.meta.env.VITE_LOCAL_URL;
 
   const commentRoute = `${apiURL}/api/posts/${post}`;
 
