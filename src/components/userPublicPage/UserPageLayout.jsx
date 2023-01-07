@@ -8,35 +8,22 @@ import UserNavBar from './UserNavBar';
 import UserPublicHeader from './profileSections/UserHeader';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 
-function UserPageLayout() {
+function UserPageLayout({ user }) {
   // fetch user from user who is logged in
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
 
-  const [user, setUser] = useState();
+  const [userData, setUserData] = useState();
   const [isUser, setIsUser] = useState(false);
-
-  const dummyUser = {
-    avatar: {
-      id: '9263f45c70879dbc56faa5c4',
-      url: 'https://instaapi-production.up.railway.app/uploads/823fce52b33a845ef7554dd9/avatar.jpg',
-    },
-    _id: '823fce52b33a845ef7554dd9',
-    firstName: 'Neal',
-    lastName: 'Morissette',
-    email: 'Tia_Kris@hotmail.com',
-    userName: 'Eldridge_Feest40',
-    isAdmin: false,
-  };
 
   useEffect(() => {
     async function findUserById() {
-      const res = await fetch(`${apiURL}/api/users/${dummyUser._id}`, {
+      const res = await fetch(`${apiURL}/api/users/${user._id}`, {
         mode: 'cors',
       });
       const data = await res.json();
-      setUser(data.user);
+      setUserData(data.user);
       setIsUser(true);
     }
     findUserById();
@@ -76,9 +63,9 @@ function UserPageLayout() {
             isSaved={isSaved}
             isTagged={isTagged}
           />
-          {isPosted ? <UserPublished user={user} /> : <></>}
-          {isSaved ? <UserSaved user={user} /> : <></>}
-          {isTagged ? <UserTagged user={user} /> : <></>}
+          {isPosted ? <UserPublished user={userData} /> : <></>}
+          {isSaved ? <UserSaved user={userData} /> : <></>}
+          {isTagged ? <UserTagged user={userData} /> : <></>}
         </div>
       ) : (
         <LoadingIcon />

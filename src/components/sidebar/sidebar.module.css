@@ -62,3 +62,14 @@ a {
   border: solid 2px black;
   border-radius: 12px;
 }
+.avatarCircle {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+}
+.optionsImage {
+  height: 35px;
+}

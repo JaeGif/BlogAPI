@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../App';
 import style from './sidebar.module.css';
 
 function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
+  const user = useContext(UserContext);
+  const apiURL = import.meta.env.VITE_RAILWAY_URL;
+  const localURL = import.meta.env.VITE_LOCAL_URL;
+
   return (
     <div>
       <div className={style.optionsSidebar}>
@@ -87,11 +92,13 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
               onClick={() => openUserPageModal()}
               className={style.optionSpan}
             >
-              <img
-                className={style.optionsIcons}
-                src='./src/assets/favicons/fingerprint.svg'
-                alt='user home page'
-              />
+              <div className={`${style.avatarCircle}`}>
+                <img
+                  className={`${style.optionsImage}`}
+                  src={`${apiURL}/uploads/${user._id}/avatar.jpg`}
+                  alt='user home page'
+                />
+              </div>
               <h2>Profile</h2>
             </span>
           </a>

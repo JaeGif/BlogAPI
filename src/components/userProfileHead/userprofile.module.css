@@ -22,4 +22,19 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding: 5px;
+}
+.nameLocationHeader {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.nameLocationHeader > p {
+  margin: 5px;
+  padding: 0;
+  line-height: 0.75rem;
+}
+.locationStrip {
+  font-size: 0.8rem;
+  font-style: normal;
 }

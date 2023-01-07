@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './userprofile.module.css';
 
 function UserProfile({ user }) {

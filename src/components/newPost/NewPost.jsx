@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import style from './newpost.module.css';
 import UploadImages from './UploadImages';
 import FullPreviewPage from './imageOptions/FullPreviewPage';
 import SubmitPost from './SubmitPost';
+import { UserContext } from '../../App';
 
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
@@ -10,29 +11,11 @@ import SubmitPost from './SubmitPost';
 function NewPost({ newPostModal, refresh }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
-  const dummyUser = {
-    avatar: {
-      id: '9263f45c70879dbc56faa5c4',
-      url: 'https://instaapi-production.up.railway.app/uploads/823fce52b33a845ef7554dd9/avatar.jpg',
-    },
-    _id: '823fce52b33a845ef7554dd9',
-    firstName: 'Neal',
-    lastName: 'Morissette',
-    email: 'Tia_Kris@hotmail.com',
-    userName: 'Eldridge_Feest40',
-    isAdmin: false,
-  };
+  const user = useContext(UserContext);
 
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
-  const [user, setUser] = useState({
-    id: dummyUser._id,
-    userName: dummyUser.userName,
-    avatar: {
-      id: dummyUser.avatar.id,
-      url: dummyUser.avatar.url,
-    },
-  });
+
   const [filter, setFilter] = useState('none');
   const [alt, setAlt] = useState(null);
   const [isVideoPreview, setIsVideoPreview] = useState(false);

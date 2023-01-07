@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import style from './post.module.css';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import { useState } from 'react';
-import UserProfile from '../userProfileHead/userProfile';
 import FullPost from '../fullPost/FullPost';
+import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
 
 function Post({ postObj, refresh }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
@@ -95,8 +95,7 @@ function Post({ postObj, refresh }) {
     <div>
       <div className={style.postContainer}>
         <span className={style.userDateHead}>
-          <UserProfile user={user} />
-          <p>{location}</p>
+          <UserProfileLocationHeader user={user} location={location} />
           <div className={style.optionsEllipses}>
             <img
               className={style.optionsEllipses}

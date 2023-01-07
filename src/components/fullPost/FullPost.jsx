@@ -6,6 +6,7 @@ import PostDetailsExpanded from '../posts_components/PostDetailsExpanded';
 import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
+import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
 
 function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
@@ -22,6 +23,7 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
     published,
     comments,
     updatedAt,
+    location,
     user,
     _id,
   } = postObj;
@@ -77,7 +79,10 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
               <div className={style.postSideWrapper}>
                 <div>
                   <span className={style.userHead}>
-                    <UserProfile user={user} />
+                    <UserProfileLocationHeader
+                      user={user}
+                      location={location}
+                    />
                     <div className={style.optionsEllipses}>
                       <img
                         className={style.optionsEllipses}
