@@ -18,7 +18,7 @@
   left: 0;
   width: 15vw;
   padding: 10px;
-  border-right: solid rgb(200, 200, 200) 1px;
+  border-right: solid var(--greyHighlight) 1px;
   background-color: white;
 }
 .optionsSidebar > div {
@@ -51,7 +51,7 @@
 }
 .optionSpan:hover {
   cursor: pointer;
-  background-color: rgb(227, 227, 227);
+  background-color: rgb(220, 220, 220);
 }
 a {
   text-decoration: none;

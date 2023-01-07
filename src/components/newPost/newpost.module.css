@@ -46,7 +46,7 @@
   min-height: 77.5vh;
 }
 .headingNewPost {
-  border-bottom: solid 1px rgb(200, 200, 200);
+  border-bottom: solid 1px var(--greyHighlight);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -79,7 +79,7 @@
   background-color: rgb(45, 110, 255);
 }
 .headingPreviewEdits {
-  border-bottom: solid 1px rgb(200, 200, 200);
+  border-bottom: solid 1px var(--greyHighlight);
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -98,7 +98,7 @@
   cursor: pointer;
 }
 .headingSubmitPost {
-  border-bottom: solid 1px rgb(200, 200, 200);
+  border-bottom: solid 1px var(--greyHighlight);
   display: flex;
   justify-content: space-around;
   gap: 30%;
@@ -111,7 +111,7 @@
   height: 50%;
   border: none;
   font-size: 1rem;
-  border-bottom: 1px solid rgb(200, 200, 200);
+  border-bottom: 1px solid var(--greyHighlight);
   padding: 15px;
 }
 .postInput:focus {
@@ -169,7 +169,7 @@
   height: 1rem;
 }
 .locationWrapper {
-  border-bottom: 1px solid rgb(200, 200, 200);
+  border-bottom: 1px solid var(--greyHighlight);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -187,7 +187,7 @@
 }
 .altInput,
 .altInput:focus {
-  border: 1px solid rgb(200, 200, 200);
+  border: 1px solid var(--greyHighlight);
   border-radius: 5px;
   outline: none;
 }

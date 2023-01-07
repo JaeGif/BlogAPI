@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   background-color: black;
-  border-right: solid 1px rgb(200, 200, 200);
+  border-right: solid 1px var(--greyHighlight);
 }
 .previewImageWrapper {
   max-width: 60vw;
@@ -35,7 +35,7 @@
 }
 .rule {
   height: 1px;
-  background-color: rgb(200, 200, 200);
+  background-color: var(--greyHighlight);
 }
 .adjustmentBtns {
   cursor: pointer;

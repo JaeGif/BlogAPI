@@ -3,7 +3,7 @@
 }
 .postContainer {
   display: flex;
-  border: solid 1px rgb(200, 200, 200);
+  border: solid 1px var(--greyHighlight);
   border-radius: 8px;
   flex-direction: column;
   min-width: 30vw;

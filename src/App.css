@@ -1,3 +1,8 @@
+:root {
+  --userLayoutGridGap: 2vw;
+  --userPreviewContentHeight: 20vw;
+  --greyHighlight: rgb(200, 200, 200);
+}
 body {
   margin: 0;
   padding: 0;
