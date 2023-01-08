@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import uniqid from 'uniqid';
+import { ApiContext } from '../../../App';
+import UserPostPreview from './UserPostPreview';
+import style from './userpublished.module.css';
 
-function UserSaved() {
-  return <div>UserSaved</div>;
+function UserPublished({ user }) {
+  const apiURL = useContext(ApiContext);
+  const [userSaved, seUserSaved] = useState(user.savedPosts);
+
+  return (
+    <div className={style.contentLayoutGrid}>
+      {userSaved.map((post) => (
+        <UserPostPreview key={uniqid()} post={post} />
+      ))}
+    </div>
+  );
 }
 
-export default UserSaved;
+export default UserPublished;

@@ -30,9 +30,16 @@
 .optionSpan > .optionsIcons {
   transition: transform 0.2s ease-in-out;
 }
-.optionSpan:hover > .optionsIcons {
-  transform: scale(115%);
+.optionSpan > .avatarCircle {
+  transition: transform 0.2s ease-in-out;
 }
+.optionSpan:hover > .optionsIcons {
+  transform: scale(110%);
+}
+.optionSpan:hover > .avatarCircle {
+  transform: scale(110%);
+}
+
 .optionSpan {
   background-color: white;
   border: none;
@@ -51,7 +58,7 @@
 }
 .optionSpan:hover {
   cursor: pointer;
-  background-color: rgb(220, 220, 220);
+  background-color: rgb(230, 230, 230);
 }
 a {
   text-decoration: none;
@@ -69,6 +76,7 @@ a {
   height: 35px;
   display: flex;
   justify-content: center;
+  border: solid 1px black;
 }
 .optionsImage {
   height: 35px;

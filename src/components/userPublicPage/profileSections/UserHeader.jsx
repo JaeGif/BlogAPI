@@ -19,7 +19,6 @@ function UserPublicHeader({ user }) {
         `${apiURL}/api/posts?user=${user._id}&returnLimit=0`
       );
       const data = await res.json();
-      console.log(data);
       setPostCount(data.posts.length);
     }
     countUserPosts();

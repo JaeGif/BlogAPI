@@ -53,7 +53,7 @@ function App() {
 
   return (
     <UserContext.Provider value={loggedInUser}>
-      <ApiContext.Provider value={apiURL}>
+      <ApiContext.Provider value={localURL}>
         <div className='App'>
           <Sidebar
             newPostModal={newPostModal}

@@ -5,7 +5,7 @@ import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
 
-function UserPublished({ isUserPage, user }) {
+function UserPublished({ user }) {
   const apiURL = useContext(ApiContext);
 
   const [userPosts, setUserPosts] = useState([]);
@@ -29,14 +29,13 @@ function UserPublished({ isUserPage, user }) {
   useEffect(() => {
     if (userPosts.length) {
       setPostsFound(true);
-      console.log(`${apiURL}/${userPosts[1].image.url}`);
     }
   }, [userPosts]);
 
   return (
     <div className={style.contentLayoutGrid}>
       {postsFound ? (
-        userPosts.map((post) => <UserPostPreview post={post} />)
+        userPosts.map((post) => <UserPostPreview key={uniqid()} post={post} />)
       ) : (
         <LoadingIcon />
       )}
