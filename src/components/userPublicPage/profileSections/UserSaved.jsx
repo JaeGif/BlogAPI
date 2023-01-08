@@ -6,14 +6,20 @@ import style from './userpublished.module.css';
 
 function UserPublished({ user }) {
   const apiURL = useContext(ApiContext);
-  const [userSaved, seUserSaved] = useState(user.savedPosts);
+  const [userSaved, setUserSaved] = useState(user.savedPosts);
 
   return (
-    <div className={style.contentLayoutGrid}>
-      {userSaved.map((post) => (
-        <UserPostPreview key={uniqid()} post={post} />
-      ))}
-    </div>
+    <>
+      {userSaved.length ? (
+        <div className={style.contentLayoutGrid}>
+          {userSaved.map((post) => (
+            <UserPostPreview key={uniqid()} post={post} />
+          ))}
+        </div>
+      ) : (
+        <h2>Hmm, there's nothing here ...</h2>
+      )}
+    </>
   );
 }
 

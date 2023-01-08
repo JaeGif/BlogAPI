@@ -28,8 +28,6 @@ function Post({ postObj, refresh }) {
     location,
   } = postObj;
 
-  console.log(loggedInUser._id, user.id);
-
   // If a new comment is added, the individual post needs to refresh just comments
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -51,6 +49,7 @@ function Post({ postObj, refresh }) {
       submitLike();
     }
   };
+
   const submitLike = () => {
     let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
     data.append('like', tempLikes);
@@ -65,8 +64,9 @@ function Post({ postObj, refresh }) {
       console.log('done');
     });
   };
+
   const handleSavePost = () => {
-    let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
+    let data = new URLSearchParams();
     data.append('savedPost', JSON.stringify(postObj));
     fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
       method: 'PUT',
@@ -103,6 +103,7 @@ function Post({ postObj, refresh }) {
       setIsCurrentUser(true);
     }
   });
+
   const numberOfLikes = () => {
     switch (tempLikes) {
       case 0:

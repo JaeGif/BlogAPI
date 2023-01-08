@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { ApiContext } from '../../App';
 import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
 import style from './newpost.module.css';
@@ -15,14 +16,25 @@ function SubmitPost({
   user,
   changeLocation,
   isVideoPreview,
+  handleTagged,
 }) {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
-
+  const [isTagging, setIsTagging] = useState(false);
+  const apiURL = useContext(ApiContext);
   const handleA11yOpen = () => {
     isAccessibilityOpen
       ? setIsAccessibilityOpen(false)
       : setIsAccessibilityOpen(true);
   };
+  const addTagToggle = () => {};
+  const findUserByUserName = async (userName) => {
+    const res = await fetch(`${apiURL}/api/users?userName=${userName}`, {
+      mode: 'cors',
+    });
+    const data = await res.json();
+    () => handleTagged(data);
+  };
+
   return (
     <>
       <span className={style.headingSubmitPost}>
@@ -49,11 +61,13 @@ function SubmitPost({
         </div>
       </span>
       <div className={style.innerSubmitContainer}>
-        <PreviewImage
-          images={images}
-          filter={filter}
-          isVideoPreview={isVideoPreview}
-        />
+        <div onClick={addTagToggle}>
+          <PreviewImage
+            images={images}
+            filter={filter}
+            isVideoPreview={isVideoPreview}
+          />
+        </div>
         <div className={style.postFormContainer}>
           <span className={style.userHeadSubmit}>
             <UserProfileAvatar user={user} />

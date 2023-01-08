@@ -18,6 +18,7 @@ function NewPost({ newPostModal, refresh }) {
   const [filter, setFilter] = useState('none');
   const [alt, setAlt] = useState(null);
   const [isVideoPreview, setIsVideoPreview] = useState(false);
+  const [tagged, setTagged] = useState([]);
 
   const handleFilter = (e) => {
     setFilter(e.currentTarget.id);
@@ -31,6 +32,9 @@ function NewPost({ newPostModal, refresh }) {
   const [postStep, setPostStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleTagged = (tagged) => {
+    setTagged(tagged);
+  };
   const handleLocation = (e) => {
     setLocation(e.target.value);
   };
@@ -123,6 +127,7 @@ function NewPost({ newPostModal, refresh }) {
     data.append('location', location);
     data.append('filter', filter);
     data.append('alt', alt);
+    data.append('tagged', JSON.stringify(tagged));
 
     console.log(data);
     fetch(`${apiURL}/api/posts`, {
@@ -166,6 +171,7 @@ function NewPost({ newPostModal, refresh }) {
             user={user}
             changeLocation={handleLocation}
             isVideoPreview={isVideoPreview}
+            handleTagged={handleTagged}
           />
         );
       default:

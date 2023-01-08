@@ -11,6 +11,7 @@ function UserPostPreview({ post }) {
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
+
   const updateParentPost = () => {
     console.log('refresh?');
   };
