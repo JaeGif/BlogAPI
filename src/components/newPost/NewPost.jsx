@@ -38,11 +38,9 @@ function NewPost({ newPostModal, refresh }) {
   const removeTag = (key) => {
     for (let i = 0; i < tagged.length; i++) {
       if (tagged[i].key === key) {
-        console.log('removed,', tagged[i]);
         const taggedCopy = [...tagged];
         taggedCopy.splice(i, 1);
         setTagged(taggedCopy);
-        console.log('removed,', tagged);
       }
     }
   };
@@ -138,7 +136,7 @@ function NewPost({ newPostModal, refresh }) {
     data.append('location', location);
     data.append('filter', filter);
     data.append('alt', alt);
-    data.append('tagged', JSON.stringify(tagged));
+    data.append('taggedPost', JSON.stringify(tagged));
 
     console.log(data);
     fetch(`${apiURL}/api/posts`, {
