@@ -4,7 +4,7 @@ import UploadImages from './UploadImages';
 import FullPreviewPage from './imageOptions/FullPreviewPage';
 import SubmitPost from './SubmitPost';
 import { ApiContext, UserContext } from '../../App';
-
+import uniqid from 'uniqid';
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
 
@@ -33,11 +33,16 @@ function NewPost({ newPostModal, refresh }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleTagged = (tag) => {
-    setTagged(tagged.concat(tag));
+    setTagged(tagged.concat({ key: uniqid(), user: tag }));
   };
   const removeTag = (key) => {
     for (let i = 0; i < tagged.length; i++) {
-      if (tagged) {
+      if (tagged[i].key === key) {
+        console.log('removed,', tagged[i]);
+        const taggedCopy = [...tagged];
+        taggedCopy.splice(i, 1);
+        setTagged(taggedCopy);
+        console.log('removed,', tagged);
       }
     }
   };
@@ -179,6 +184,7 @@ function NewPost({ newPostModal, refresh }) {
             isVideoPreview={isVideoPreview}
             handleTagged={handleTagged}
             tagged={tagged}
+            removeTag={removeTag}
           />
         );
       default:

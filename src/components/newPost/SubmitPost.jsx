@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { ApiContext } from '../../App';
 import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
@@ -20,10 +20,12 @@ function SubmitPost({
   isVideoPreview,
   handleTagged,
   tagged,
+  removeTag,
 }) {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
   const [isTagging, setIsTagging] = useState(false);
   const [userFindResults, setUserFindResults] = useState([]);
+  const [changedTagged, setChangedTagged] = useState(tagged);
 
   const apiURL = useContext(ApiContext);
   const handleA11yOpen = () => {
@@ -45,6 +47,10 @@ function SubmitPost({
     setUserFindResults(data.users);
     () => handleTagged(data);
   };
+  useEffect(() => {
+    setChangedTagged(tagged);
+    console.log(changedTagged);
+  }, [tagged]);
 
   return (
     <>
@@ -73,12 +79,20 @@ function SubmitPost({
       </span>
       <div className={style.innerSubmitContainer}>
         <div className={style.tagWrapper} onClick={addTagToggle}>
-          {tagged.length ? (
+          {changedTagged.length ? (
             <div className={style.tagsContainer}>
-              {tagged.map((user) => (
-                <span className={style.taggedUsersContainer}>
-                  {user.userName}
+              {tagged.map((obj) => (
+                <span
+                  key={uniqid()}
+                  className={style.taggedUsersContainer}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {obj.user.userName}
                   <img
+                    onClick={(e) => {
+                      removeTag(obj.key);
+                      e.stopPropagation();
+                    }}
                     className={style.removeTaggedButton}
                     src='./src/assets/favicons/close.svg'
                   />
