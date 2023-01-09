@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { ApiContext } from '../../App';
 import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
+import UserSearchOverview from '../userSearchOverview/UserSearchOverview';
 import style from './newpost.module.css';
 import PreviewImage from './PreviewImage';
 
@@ -20,18 +21,31 @@ function SubmitPost({
 }) {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
   const [isTagging, setIsTagging] = useState(false);
+  const [userFindResults, setUserFindResults] = useState([]);
+
   const apiURL = useContext(ApiContext);
   const handleA11yOpen = () => {
     isAccessibilityOpen
       ? setIsAccessibilityOpen(false)
       : setIsAccessibilityOpen(true);
   };
-  const addTagToggle = () => {};
+  const addTagToggle = () => {
+    isTagging
+      ? () => {
+          setIsTagging(false);
+          setUserFindResults([]);
+        }
+      : setIsTagging(true);
+  };
   const findUserByUserName = async (userName) => {
-    const res = await fetch(`${apiURL}/api/users?userName=${userName}`, {
-      mode: 'cors',
-    });
+    const res = await fetch(
+      `${apiURL}/api/users?username=${userName}&reqLimit=${5}&skipToPage=${0}`,
+      {
+        mode: 'cors',
+      }
+    );
     const data = await res.json();
+    setUserFindResults(data.users);
     () => handleTagged(data);
   };
 
@@ -61,7 +75,33 @@ function SubmitPost({
         </div>
       </span>
       <div className={style.innerSubmitContainer}>
-        <div onClick={addTagToggle}>
+        <div className={style.tagWrapper} onClick={addTagToggle}>
+          {isTagging ? (
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className={style.taggingModal}
+            >
+              <span className={style.tagSearchWrapper}>
+                <h3>Tag:</h3>
+                <input
+                  onChange={(e) => findUserByUserName(e.target.value)}
+                  className={style.searchUsersInput}
+                  placeholder='Search'
+                />
+              </span>
+              {userFindResults.length ? (
+                <div className={style.usersResultsContainer}>
+                  {userFindResults.map((user) => (
+                    <UserSearchOverview user={user} />
+                  ))}
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
           <PreviewImage
             images={images}
             filter={filter}

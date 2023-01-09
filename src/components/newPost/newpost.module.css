@@ -196,3 +196,42 @@
   height: 1.75rem;
   font-size: 1rem;
 }
+.tagWrapper {
+  position: relative;
+}
+.taggingModal {
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-direction: column;
+  top: 30%;
+  left: 20%;
+  background-color: white;
+  width: 60%;
+  border-radius: 4px 4px 0px 0px;
+}
+.tagSearchWrapper {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  gap: 5px;
+  overflow: hidden;
+  border-bottom: solid 1px var(--greyHighlight);
+}
+.tagSearchWrapper > h3 {
+  padding-left: 5px;
+}
+.searchUsersInput {
+  height: 1.2rem;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.usersResultsContainer {
+  display: flex;
+  flex-direction: column;
+}
