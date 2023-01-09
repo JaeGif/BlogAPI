@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import uniqid from 'uniqid';
 import { ApiContext } from '../../../App';
+import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
 
@@ -21,14 +22,18 @@ function UserTagged({ user }) {
   };
   return (
     <>
-      {userTagged.length ? (
-        <div className={style.contentLayoutGrid}>
-          {userTagged.map((post) => (
-            <UserPostPreview key={uniqid()} post={post} />
-          ))}
-        </div>
+      {userTaggedIdx.length ? (
+        userTagged.length ? (
+          <div className={style.contentLayoutGrid}>
+            {userTagged.map((post) => (
+              <UserPostPreview key={uniqid()} post={post} />
+            ))}
+          </div>
+        ) : (
+          <LoadingIcon />
+        )
       ) : (
-        <h2>Hmm, there's nothing here ...</h2>
+        <h2>Hmm, there's nothing here...</h2>
       )}
     </>
   );
