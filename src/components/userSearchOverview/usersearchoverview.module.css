@@ -1,7 +1,8 @@
 .overviewContainer {
   display: flex;
   overflow: scroll;
-  max-height: 260px;
+  cursor: pointer;
+  padding: 5px;
 }
 .userAvatarCutout {
   height: 40px;

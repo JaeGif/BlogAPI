@@ -5,6 +5,7 @@ import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
 import UserSearchOverview from '../userSearchOverview/UserSearchOverview';
 import style from './newpost.module.css';
 import PreviewImage from './PreviewImage';
+import uniqid from 'uniqid';
 
 function SubmitPost({
   prevStep,
@@ -18,6 +19,7 @@ function SubmitPost({
   changeLocation,
   isVideoPreview,
   handleTagged,
+  tagged,
 }) {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
   const [isTagging, setIsTagging] = useState(false);
@@ -30,12 +32,7 @@ function SubmitPost({
       : setIsAccessibilityOpen(true);
   };
   const addTagToggle = () => {
-    isTagging
-      ? () => {
-          setIsTagging(false);
-          setUserFindResults([]);
-        }
-      : setIsTagging(true);
+    isTagging ? setIsTagging(false) : setIsTagging(true);
   };
   const findUserByUserName = async (userName) => {
     const res = await fetch(
@@ -76,12 +73,27 @@ function SubmitPost({
       </span>
       <div className={style.innerSubmitContainer}>
         <div className={style.tagWrapper} onClick={addTagToggle}>
+          {tagged.length ? (
+            <div className={style.tagsContainer}>
+              {tagged.map((user) => (
+                <span className={style.taggedUsersContainer}>
+                  {user.userName}
+                  <img
+                    className={style.removeTaggedButton}
+                    src='./src/assets/favicons/close.svg'
+                  />
+                </span>
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
           {isTagging ? (
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className={style.taggingModal}
-            >
-              <span className={style.tagSearchWrapper}>
+            <div className={style.taggingModal}>
+              <span
+                className={style.tagSearchWrapper}
+                onClick={(e) => e.stopPropagation()}
+              >
                 <h3>Tag:</h3>
                 <input
                   onChange={(e) => findUserByUserName(e.target.value)}
@@ -92,7 +104,11 @@ function SubmitPost({
               {userFindResults.length ? (
                 <div className={style.usersResultsContainer}>
                   {userFindResults.map((user) => (
-                    <UserSearchOverview user={user} />
+                    <UserSearchOverview
+                      key={uniqid()}
+                      handleClick={() => handleTagged(user)}
+                      user={user}
+                    />
                   ))}
                 </div>
               ) : (

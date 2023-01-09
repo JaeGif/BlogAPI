@@ -32,8 +32,14 @@ function NewPost({ newPostModal, refresh }) {
   const [postStep, setPostStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleTagged = (tagged) => {
-    setTagged(tagged);
+  const handleTagged = (tag) => {
+    setTagged(tagged.concat(tag));
+  };
+  const removeTag = (key) => {
+    for (let i = 0; i < tagged.length; i++) {
+      if (tagged) {
+      }
+    }
   };
   const handleLocation = (e) => {
     setLocation(e.target.value);
@@ -172,6 +178,7 @@ function NewPost({ newPostModal, refresh }) {
             changeLocation={handleLocation}
             isVideoPreview={isVideoPreview}
             handleTagged={handleTagged}
+            tagged={tagged}
           />
         );
       default:
