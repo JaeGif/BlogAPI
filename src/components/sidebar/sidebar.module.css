@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Dancing';
-  src: url('/src/assets/fonts/dancingScript.ttf');
+  src: url('./assets/fonts/dancingScript.ttf');
 }
 .brandName {
   font-family: 'Dancing';
