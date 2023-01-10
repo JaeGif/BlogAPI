@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { PathContext } from '../../App';
 import DragDrop from './DragDrop';
 import style from './newpost.module.css';

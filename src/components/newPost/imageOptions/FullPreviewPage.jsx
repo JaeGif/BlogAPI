@@ -17,7 +17,7 @@ function FullPreviewPage({
         <img
           className={style.returnArrow}
           alt='back arrow'
-          src='./src/assets/favicons/redo.svg'
+          src='/assets/favicons/redo.svg'
           onClick={() => returnToUpload()}
         ></img>
         <p>Edit</p>

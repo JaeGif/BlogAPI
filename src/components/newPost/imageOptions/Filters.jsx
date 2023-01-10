@@ -14,7 +14,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample}`}
           alt='original'
         ></img>
@@ -30,7 +30,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-1977`}
           alt='1977'
         ></img>
@@ -46,7 +46,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-aden`}
           alt='aden'
         ></img>
@@ -62,7 +62,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-amaro`}
           alt='amaro'
         ></img>
@@ -78,7 +78,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-ashby`}
           alt='ashby'
         ></img>
@@ -94,7 +94,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-brannan`}
           alt='brannan'
         ></img>
@@ -111,7 +111,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-brooklyn`}
           alt='brooklyn'
         ></img>
@@ -127,7 +127,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-charmes`}
           alt='charmes'
         ></img>
@@ -143,7 +143,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-clarendon`}
           alt='clarendon'
         ></img>
@@ -159,7 +159,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-crema`}
           alt='crema'
         ></img>
@@ -175,7 +175,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-dogpatch`}
           alt='dogpatch'
         ></img>
@@ -191,7 +191,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-earlybird`}
           alt='earlybird'
         ></img>
@@ -207,7 +207,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-gingham`}
           alt='gingham'
         ></img>
@@ -223,7 +223,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-ginza`}
           alt='ginza'
         ></img>
@@ -239,7 +239,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
         }
       >
         <img
-          src='./src/assets/filters/filterExamples/cityfilter.jpg'
+          src='/filters/filterExamples/cityfilter.jpg'
           className={`${style.filterExample} filter-hefe`}
           alt='hefe'
         ></img>

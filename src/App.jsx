@@ -4,7 +4,7 @@ import Posts from './components/posts_components/Posts';
 import Sidebar from './components/sidebar/Sidebar';
 import Suggested from './components/suggested/Suggested';
 import NewPost from './components/newPost/NewPost';
-import './filters/filters.css';
+import './filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
