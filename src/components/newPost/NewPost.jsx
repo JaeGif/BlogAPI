@@ -138,7 +138,6 @@ function NewPost({ newPostModal, refresh }) {
     data.append('alt', alt);
     data.append('taggedPost', JSON.stringify(tagged));
 
-    console.log(data);
     fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,

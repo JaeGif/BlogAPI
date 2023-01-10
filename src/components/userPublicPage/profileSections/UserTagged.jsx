@@ -11,14 +11,22 @@ function UserTagged({ user }) {
   const [userTagged, setUserTagged] = useState([]);
 
   useEffect(() => {
-    for (let i = 0; i < userTaggedIdx.length; i++) {
-      fetchPostById(userTaggedIdx[i]);
+    let userTaggedPosts = [];
+    async function returnIntermediateData() {
+      for (let i = 0; i < userTaggedIdx.length; i++) {
+        const post = await fetchPostById(userTaggedIdx[i]);
+        userTaggedPosts.push(post);
+      }
+      setUserTagged(userTagged.concat(userTaggedPosts));
+      console.log(userTaggedPosts.length, userTagged.length);
     }
-  }, [userTaggedIdx]);
+    returnIntermediateData();
+  }, []);
   const fetchPostById = async (id) => {
+    console.log(`searching for ${id}`);
     const res = await fetch(`${apiURL}/api/posts/${id}`);
     const data = await res.json();
-    setUserTagged(userTagged.concat(data.post));
+    return data.post;
   };
   return (
     <>
