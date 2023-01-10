@@ -9,7 +9,7 @@ import './assets/filters/filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
-
+const PathContext = React.createContext(null);
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
@@ -29,6 +29,8 @@ function App() {
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
+  const localPath = import.meta.env.VITE_LOCAL_PATH;
+  const productionPath = import.meta.env.VITE_BASE_PATH;
 
   const refreshContent = () => {
     isRefresh ? setIsRefresh(false) : setIsRefresh(true);
@@ -52,35 +54,37 @@ function App() {
   };
 
   return (
-    <UserContext.Provider value={loggedInUser}>
-      <ApiContext.Provider value={localURL}>
-        <div className='App'>
-          <Sidebar
-            newPostModal={newPostModal}
-            openUserPageModal={openUserPageModal}
-            goToHomePage={goToHomePage}
-          />
-          {isUserPage ? (
-            <UserPageLayout
-              isUserPage={isUserPage}
-              closeUserPageModal={closeUserPageModal}
-              user={loggedInUser}
+    <PathContext.Provider value={localPath}>
+      <UserContext.Provider value={loggedInUser}>
+        <ApiContext.Provider value={apiURL}>
+          <div className='App'>
+            <Sidebar
+              newPostModal={newPostModal}
+              openUserPageModal={openUserPageModal}
+              goToHomePage={goToHomePage}
             />
-          ) : (
-            <>
-              <Posts refresh={isRefresh} refreshFn={refreshContent} />
-              <Suggested />
-            </>
-          )}
-          {isNewPostModal ? (
-            <NewPost newPostModal={newPostModal} refresh={setIsRefresh} />
-          ) : (
-            <></>
-          )}
-        </div>
-      </ApiContext.Provider>
-    </UserContext.Provider>
+            {isUserPage ? (
+              <UserPageLayout
+                isUserPage={isUserPage}
+                closeUserPageModal={closeUserPageModal}
+                user={loggedInUser}
+              />
+            ) : (
+              <>
+                <Posts refresh={isRefresh} refreshFn={refreshContent} />
+                <Suggested />
+              </>
+            )}
+            {isNewPostModal ? (
+              <NewPost newPostModal={newPostModal} refresh={setIsRefresh} />
+            ) : (
+              <></>
+            )}
+          </div>
+        </ApiContext.Provider>
+      </UserContext.Provider>
+    </PathContext.Provider>
   );
 }
 
-export { App, UserContext, ApiContext };
+export { App, UserContext, ApiContext, PathContext };

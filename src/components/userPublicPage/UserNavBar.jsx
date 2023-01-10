@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { PathContext } from '../../App';
 import style from './usernavbar.module.css';
 
 function UserNavBar({
@@ -9,6 +10,8 @@ function UserNavBar({
   isSaved,
   isTagged,
 }) {
+  const basePath = useContext(PathContext);
+
   return (
     <span className={style.navLayout}>
       <div
@@ -19,7 +22,10 @@ function UserNavBar({
         }
         onClick={() => handleNavPosted()}
       >
-        <img className={style.icons} src='./src/assets/favicons/grid.svg' />
+        <img
+          className={style.icons}
+          src={`${basePath}/assets/favicons/grid.svg`}
+        />
 
         <p>Posts</p>
       </div>
@@ -31,7 +37,10 @@ function UserNavBar({
         }
         onClick={() => handleNavSaved()}
       >
-        <img className={style.icons} src='./src/assets/favicons/bookmark.svg' />
+        <img
+          className={style.icons}
+          src={`${basePath}/assets/favicons/bookmark.svg`}
+        />
 
         <p>Saved</p>
       </div>
@@ -43,7 +52,10 @@ function UserNavBar({
         }
         onClick={() => handleNavTagged()}
       >
-        <img className={style.icons} src='./src/assets/favicons/tagged.svg' />
+        <img
+          className={style.icons}
+          src={`${basePath}/assets/favicons/tagged.svg`}
+        />
         <p>Tagged</p>
       </div>
     </span>

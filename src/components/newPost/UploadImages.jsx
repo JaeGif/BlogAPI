@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
+import { PathContext } from '../../App';
 import DragDrop from './DragDrop';
 import style from './newpost.module.css';
 
 function UploadImages({ handleFiles }) {
   const getFile = useRef(null);
+  const basePath = useContext(PathContext);
   const fileUpload = (ref) => {
     ref.current.click();
   };
@@ -14,7 +16,10 @@ function UploadImages({ handleFiles }) {
         <p>Create New Post</p>
       </span>
       <div className={style.innerPostModalContainer}>
-        <img src='./src/assets/favicons/upload.svg' alt='upload img'></img>
+        <img
+          src={`${basePath}/assets/favicons/upload.svg`}
+          alt='upload img'
+        ></img>
         <DragDrop handleChange={handleFiles} />
         <p className={style.instructionsTxt}>Drag photos here</p>
         <input

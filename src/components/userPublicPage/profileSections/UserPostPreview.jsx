@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import style from './userpostpreview.module.css';
 import FullPost from '../../fullPost/FullPost';
-import { ApiContext } from '../../../App';
+import { ApiContext, PathContext } from '../../../App';
 
 function UserPostPreview({ post }) {
   const apiURL = useContext(ApiContext);
+  const basePath = useContext(PathContext);
   const [isVideo, setIsVideo] = useState(false);
   const [displayPost, setDisplayPost] = useState(false);
 
@@ -34,7 +35,7 @@ function UserPostPreview({ post }) {
               <span className={style.contentIndicatorWrapper}>
                 <img
                   className={style.contentIndicatorIcon}
-                  src='./src/assets/favicons/movie.svg'
+                  src={`${basePath}/assets/favicons/movie.svg`}
                   alt='indicate video'
                 />
               </span>
@@ -50,7 +51,7 @@ function UserPostPreview({ post }) {
               <span className={style.contentIndicatorWrapper}>
                 <img
                   className={style.contentIndicatorIcon}
-                  src='./src/assets/favicons/photo.svg'
+                  src={`/assets/favicons/photo.svg`}
                   alt='indicate photo'
                 />
               </span>

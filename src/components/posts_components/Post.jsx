@@ -4,11 +4,12 @@ import AddCommentInput from '../comments/addComment/AddCommentInput';
 import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
-import { ApiContext, UserContext } from '../../App';
+import { ApiContext, PathContext, UserContext } from '../../App';
 
 function Post({ postObj, refresh }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
+  const basePath = useContext(PathContext);
 
   const [isComments, setIsComments] = useState(false);
   const [countComments, setCountComments] = useState(0);
@@ -123,7 +124,7 @@ function Post({ postObj, refresh }) {
           <div className={style.optionsEllipses}>
             <img
               className={style.optionsEllipses}
-              src='./src/assets/favicons/horizontalellipse.svg'
+              src={`${basePath}/assets/favicons/horizontalellipse.svg`}
             ></img>
           </div>
         </span>
@@ -156,12 +157,12 @@ function Post({ postObj, refresh }) {
               <img
                 onClick={toggleDisplayFullPost}
                 className={style.icons}
-                src='./src/assets/favicons/comment.svg'
+                src={`${basePath}/assets/favicons/comment.svg`}
                 alt='comments'
               ></img>
               <img
                 className={style.icons}
-                src='./src/assets/favicons/send.svg'
+                src={`${basePath}/assets/favicons/send.svg`}
                 alt='private message'
               ></img>
             </span>
@@ -171,7 +172,7 @@ function Post({ postObj, refresh }) {
               <img
                 onClick={handleSavePost}
                 className={style.icons}
-                src='./src/assets/favicons/bookmark.svg'
+                src={`${basePath}/assets/favicons/bookmark.svg`}
                 alt='save post'
               ></img>
             )}

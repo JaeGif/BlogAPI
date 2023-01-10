@@ -7,10 +7,11 @@ import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
-import { ApiContext } from '../../App';
+import { ApiContext, PathContext, UserContext } from '../../App';
 
 function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
   const apiURL = useContext(ApiContext);
+  const basePath = UserContext(PathContext);
 
   const [singlePost, setSinglePost] = useState();
   const [isPostLoaded, setIsPostLoaded] = useState(false);
@@ -76,7 +77,7 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
                     <div className={style.optionsEllipses}>
                       <img
                         className={style.optionsEllipses}
-                        src='./src/assets/favicons/horizontalellipse.svg'
+                        src={`${basePath}/assets/favicons/horizontalellipse.svg`}
                       ></img>
                     </div>
                   </span>

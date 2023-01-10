@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ApiContext } from '../../App';
+import { ApiContext, PathContext } from '../../App';
 import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
 import UserSearchOverview from '../userSearchOverview/UserSearchOverview';
@@ -28,6 +28,7 @@ function SubmitPost({
   const [changedTagged, setChangedTagged] = useState(tagged);
 
   const apiURL = useContext(ApiContext);
+  const basePath = useContext(PathContext);
   const handleA11yOpen = () => {
     isAccessibilityOpen
       ? setIsAccessibilityOpen(false)
@@ -58,7 +59,7 @@ function SubmitPost({
         <img
           className={style.returnArrow}
           alt='back arrow'
-          src='./src/assets/favicons/redo.svg'
+          src={`${basePath}/assets/favicons/redo.svg`}
           onClick={() => prevStep()}
         ></img>
         <p>Create new post</p>
@@ -94,7 +95,7 @@ function SubmitPost({
                       e.stopPropagation();
                     }}
                     className={style.removeTaggedButton}
-                    src='./src/assets/favicons/close.svg'
+                    src={`${basePath}/assets/favicons/close.svg`}
                   />
                 </span>
               ))}
@@ -162,7 +163,7 @@ function SubmitPost({
               />
               <img
                 className={style.locationIcon}
-                src='./src/assets/favicons/location.svg'
+                src={`${basePath}/assets/favicons/location.svg`}
               />
             </span>
             <div onClick={handleA11yOpen}>
@@ -171,12 +172,12 @@ function SubmitPost({
                 {isAccessibilityOpen ? (
                   <img
                     className={style.expandChevrons}
-                    src='./src/assets/favicons/expandmore.svg'
+                    src={`${basePath}/assets/favicons/expandmore.svg`}
                   />
                 ) : (
                   <img
                     className={style.expandChevrons}
-                    src='./src/assets/favicons/expandless.svg'
+                    src={`${basePath}/assets/favicons/expandless.svg`}
                   />
                 )}
               </span>
