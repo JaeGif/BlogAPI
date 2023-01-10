@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react';
 import './App.css';
-import './assets/filters/filters.css';
 import Posts from './components/posts_components/Posts';
 import Sidebar from './components/sidebar/Sidebar';
 import Suggested from './components/suggested/Suggested';
 import NewPost from './components/newPost/NewPost';
-import './assets/filters/filters.css';
+import './filters/filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
 const PathContext = React.createContext(null);
+
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
@@ -26,7 +26,6 @@ function App() {
     userName: 'Eldridge_Feest40',
     isAdmin: false,
   });
-
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
   const localPath = import.meta.env.VITE_LOCAL_PATH;
