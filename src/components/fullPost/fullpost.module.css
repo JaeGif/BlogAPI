@@ -92,3 +92,19 @@
   cursor: pointer;
   opacity: 75%;
 }
+.taggedUsersContainer {
+  width: 100%;
+  gap: 15px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(40, 40, 40);
+  color: white;
+}
+.tagsContainer {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  position: absolute;
+}

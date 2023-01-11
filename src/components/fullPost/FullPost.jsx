@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import uniqid from 'uniqid';
 import Comments from '../comments/Comments';
 import Comment from '../comments/Comment';
 import style from './fullpost.module.css';
@@ -10,12 +11,6 @@ import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHea
 import { ApiContext, PathContext, UserContext } from '../../App';
 
 function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
-  const apiURL = useContext(ApiContext);
-  const basePath = useContext(PathContext);
-
-  const [singlePost, setSinglePost] = useState();
-  const [isPostLoaded, setIsPostLoaded] = useState(false);
-
   const {
     createdAt,
     image,
@@ -27,7 +22,20 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
     location,
     user,
     _id,
+    tagged,
   } = postObj;
+
+  const apiURL = useContext(ApiContext);
+  const basePath = useContext(PathContext);
+  const [revealTags, setRevealTags] = useState(false);
+  const [isPostLoaded, setIsPostLoaded] = useState(false);
+  const [tags, setTags] = useState(tagged);
+
+  const toggleRevealTags = () => {
+    revealTags ? setRevealTags(false) : setRevealTags(true);
+    console.log(revealTags);
+    console.log(tags);
+  };
 
   return (
     <div className={style.fullScreenContainer}>
@@ -48,7 +56,26 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className={style.innerContent}>
-              <div className={style.imageContainer}>
+              <div onClick={toggleRevealTags} className={style.imageContainer}>
+                {revealTags ? (
+                  <div className={style.tagsContainer}>
+                    {tags.length ? (
+                      tags.map((tag) => (
+                        <span
+                          key={uniqid()}
+                          className={style.taggedUsersContainer}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {tag.user.userName}
+                        </span>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                ) : (
+                  <></>
+                )}
                 {isVideo ? (
                   <video
                     className={`${style.imageSizing} ${image.filter}`}
