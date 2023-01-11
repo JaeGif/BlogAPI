@@ -11,7 +11,7 @@ import { ApiContext, PathContext, UserContext } from '../../App';
 
 function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
   const apiURL = useContext(ApiContext);
-  const basePath = UserContext(PathContext);
+  const basePath = useContext(PathContext);
 
   const [singlePost, setSinglePost] = useState();
   const [isPostLoaded, setIsPostLoaded] = useState(false);
