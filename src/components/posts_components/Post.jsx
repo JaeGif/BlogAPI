@@ -5,6 +5,7 @@ import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
 import { ApiContext, PathContext, UserContext } from '../../App';
+import { MongooseError } from 'mongoose';
 
 function Post({ postObj, refresh }) {
   const apiURL = useContext(ApiContext);
@@ -33,6 +34,7 @@ function Post({ postObj, refresh }) {
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [tempLikes, setTempLikes] = useState(like);
+  const [likedBy, setLikedBy] = useState(like);
   const [isVideo, setIsVideo] = useState(false);
 
   const toggleDisplayFullPost = () => {
@@ -41,19 +43,32 @@ function Post({ postObj, refresh }) {
 
   const handleLike = () => {
     if (isLiked) {
-      setTempLikes(tempLikes - 1);
       setIsLiked(false);
+      const tempLikedBy = likedBy;
+      tempLikedBy.pop();
+      setLikedBy(tempLikedBy);
       submitLike();
     } else {
-      setTempLikes(tempLikes + 1);
       setIsLiked(true);
+      setLikedBy(
+        likedBy.concat({
+          _id: loggedInUser._id,
+          userName: loggedInUser.userName,
+        })
+      );
       submitLike();
     }
   };
 
   const submitLike = () => {
     let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
-    data.append('like', tempLikes);
+    data.append(
+      'like',
+      JSON.stringify({
+        _id: loggedInUser._id,
+        userName: loggedInUser.userName,
+      })
+    );
     fetch(`${apiURL}/api/posts/${_id}`, {
       method: 'POST',
       body: data,
@@ -97,6 +112,8 @@ function Post({ postObj, refresh }) {
     if (postObj.image.contentType === 'video/mp4') {
       setIsVideo(true);
     }
+    if (like.length) {
+    }
   }, [isNewComment, isLiked]);
 
   useEffect(() => {
@@ -106,13 +123,16 @@ function Post({ postObj, refresh }) {
   });
 
   const numberOfLikes = () => {
-    switch (tempLikes) {
+    switch (likedBy.length) {
       case 0:
         return 'No one has liked this yet ...';
       case 1:
-        return 'One person has liked this.';
+        return `${likedBy[0].userName} liked this.`;
       default:
-        return `Liked by ${tempLikes} people.`;
+        return `Liked by ${likedBy[0].userName} ${likedBy[1].userName} and ${
+          likedBy.length - 2
+        } more.
+        }`;
     }
   };
 
