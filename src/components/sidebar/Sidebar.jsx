@@ -89,7 +89,7 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
         <div>
           <a href='#'>
             <span
-              onClick={() => openUserPageModal()}
+              onClick={() => openUserPageModal(user._id)}
               className={style.optionSpan}
             >
               <div className={`${style.avatarCircle}`}>

@@ -14,28 +14,31 @@ function UserPublished({ user }) {
   useEffect(() => {
     async function findPostsUserId() {
       const res = await fetch(
-        `${apiURL}/api/posts?user=${user._id}&returnLimit=18`,
+        `${apiURL}/api/posts?userid=${user._id}&returnLimit=18`,
         {
           mode: 'cors',
         }
       );
+      console.log('finding new posts for', `${user.userName}`);
       const data = await res.json();
-
+      console.log(data.posts);
+      setPostsFound(true);
       setUserPosts(data.posts);
     }
     findPostsUserId();
+    console.log(userPosts);
   }, []);
-
-  useEffect(() => {
-    if (userPosts.length) {
-      setPostsFound(true);
-    }
-  }, [userPosts]);
 
   return (
     <div className={style.contentLayoutGrid}>
       {postsFound ? (
-        userPosts.map((post) => <UserPostPreview key={uniqid()} post={post} />)
+        userPosts.length ? (
+          userPosts.map((post) => (
+            <UserPostPreview key={uniqid()} post={post} />
+          ))
+        ) : (
+          <h2>Hmm, there's nothing here...</h2>
+        )
       ) : (
         <LoadingIcon />
       )}

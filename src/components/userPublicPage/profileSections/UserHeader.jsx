@@ -16,7 +16,7 @@ function UserPublicHeader({ user }) {
     }
     async function countUserPosts() {
       const res = await fetch(
-        `${apiURL}/api/posts?user=${user._id}&returnLimit=0`
+        `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`
       );
       const data = await res.json();
       setPostCount(data.posts.length);

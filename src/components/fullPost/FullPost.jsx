@@ -8,7 +8,12 @@ import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
-import { ApiContext, PathContext, UserContext } from '../../App';
+import {
+  ApiContext,
+  PathContext,
+  UserContext,
+  ProfileContext,
+} from '../../App';
 
 function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
   const {
@@ -27,6 +32,8 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
 
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
+  const getUserProfile = useContext(ProfileContext);
+
   const [revealTags, setRevealTags] = useState(false);
   const [isPostLoaded, setIsPostLoaded] = useState(false);
   const [tags, setTags] = useState(tagged);
@@ -34,7 +41,7 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
   const toggleRevealTags = () => {
     revealTags ? setRevealTags(false) : setRevealTags(true);
     console.log(revealTags);
-    console.log(tags);
+    console.log(tags[0].user);
   };
 
   return (
@@ -64,7 +71,10 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
                         <span
                           key={uniqid()}
                           className={style.taggedUsersContainer}
-                          onClick={(e) => e.stopPropagation()}
+                          onClick={(e) => {
+                            getUserProfile(tag.user._id);
+                            e.stopPropagation();
+                          }}
                         >
                           {tag.user.userName}
                         </span>

@@ -18,12 +18,10 @@ function UserTagged({ user }) {
         userTaggedPosts.push(post);
       }
       setUserTagged(userTagged.concat(userTaggedPosts));
-      console.log(userTaggedPosts.length, userTagged.length);
     }
     returnIntermediateData();
   }, []);
   const fetchPostById = async (id) => {
-    console.log(`searching for ${id}`);
     const res = await fetch(`${apiURL}/api/posts/${id}`);
     const data = await res.json();
     return data.post;
