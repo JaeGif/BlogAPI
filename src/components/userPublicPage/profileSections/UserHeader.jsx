@@ -41,7 +41,7 @@ function UserPublicHeader({ user }) {
             </div>
           ) : (
             <div>
-              <button>Follow</button>
+              <button className={style.followButton}>Follow</button>
             </div>
           )}
         </div>

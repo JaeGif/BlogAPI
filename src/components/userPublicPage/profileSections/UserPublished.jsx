@@ -14,7 +14,7 @@ function UserPublished({ user }) {
   useEffect(() => {
     async function findPostsUserId() {
       const res = await fetch(
-        `${apiURL}/api/posts?userid=${user._id}&returnLimit=18`,
+        `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`,
         {
           mode: 'cors',
         }
@@ -37,7 +37,9 @@ function UserPublished({ user }) {
             <UserPostPreview key={uniqid()} post={post} />
           ))
         ) : (
-          <h2>Hmm, there's nothing here...</h2>
+          <h2 className={style.noDataFoundMessage}>
+            Hmm, there's nothing here ...
+          </h2>
         )
       ) : (
         <LoadingIcon />

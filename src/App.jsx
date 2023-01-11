@@ -33,7 +33,6 @@ function App() {
   const localURL = import.meta.env.VITE_LOCAL_URL;
   const localPath = import.meta.env.VITE_LOCAL_PATH;
   const productionPath = import.meta.env.VITE_BASE_PATH;
-  const currentURLPath = useContext(ApiContext);
 
   const refreshContent = () => {
     isRefresh ? setIsRefresh(false) : setIsRefresh(true);
@@ -45,6 +44,7 @@ function App() {
     isUserPage ? setIsUserPage(false) : setIsUserPage(true);
   };
   const handleUserProfileCheckout = async (userId) => {
+    console.log(localURL);
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
     });

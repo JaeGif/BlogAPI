@@ -51,3 +51,15 @@
 .editButton:hover {
   background-color: var(--greyHighlight);
 }
+.followButton {
+  background-color: #0095f6;
+  border: none;
+  border-radius: 5px;
+  padding: 7.5px 15px 7.5px 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+}
+.followButton:hover {
+  background-color: #0074cc;
+}

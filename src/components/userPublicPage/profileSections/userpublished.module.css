@@ -3,3 +3,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--userLayoutGridGap);
 }
+.noDataFoundMessage {
+  grid-column: 2/3;
+  width: 100%;
+}
