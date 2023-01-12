@@ -22,7 +22,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 5px;
+  padding: 10px 10px 10px 0px;
 }
 .nameLocationHeader {
   display: flex;
@@ -30,9 +30,9 @@
   flex-direction: column;
 }
 .nameLocationHeader > p {
-  margin: 5px;
+  margin: 3px;
   padding: 0;
-  line-height: 0.75rem;
+  line-height: 0.5rem;
 }
 .locationStrip {
   font-size: 0.8rem;

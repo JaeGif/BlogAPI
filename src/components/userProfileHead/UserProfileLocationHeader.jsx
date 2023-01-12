@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './userprofile.module.css';
 
 function UserProfileLocationHeader({ user, location }) {
+  const [isLocation, setIsLocation] = useState(true);
+
+  useEffect(() => {
+    if (location === '') {
+      setIsLocation(false);
+    }
+  });
+
   return (
     <div className={style.nameAvatarHeader}>
       <div className={style.userAvatarCutout}>
@@ -11,9 +19,13 @@ function UserProfileLocationHeader({ user, location }) {
         <p>
           <em className={style.userNameEmphasis}>{user.userName}</em>
         </p>
-        <p>
-          <em className={style.locationStrip}>{location}</em>
-        </p>
+        {isLocation ? (
+          <p>
+            <em className={style.locationStrip}>{location}</em>
+          </p>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
