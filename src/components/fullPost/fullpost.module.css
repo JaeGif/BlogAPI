@@ -100,7 +100,21 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgb(40, 40, 40);
+  border-radius: 5px;
+  margin-bottom: 2px;
   color: white;
+  cursor: pointer;
+}
+.taggedUsersContainer::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 100%;
+  left: 1.5em;
+  border: 0.75rem solid transparent;
+  border-top: none;
+  border-bottom-color: rgb(40, 40, 40);
 }
 .tagsContainer {
   display: flex;

@@ -33,7 +33,6 @@ function Post({ postObj, refresh }) {
   // If a new comment is added, the individual post needs to refresh just comments
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [tempLikes, setTempLikes] = useState(like);
   const [likedBy, setLikedBy] = useState(like);
   const [isVideo, setIsVideo] = useState(false);
 
@@ -113,6 +112,13 @@ function Post({ postObj, refresh }) {
       setIsVideo(true);
     }
     if (like.length) {
+      console.log(like);
+
+      for (let i = 0; i < like.length; i++) {
+        if (like[i]._id === loggedInUser._id) {
+          setIsLiked(true);
+        }
+      }
     }
   }, [isNewComment, isLiked]);
 
@@ -128,8 +134,10 @@ function Post({ postObj, refresh }) {
         return 'No one has liked this yet ...';
       case 1:
         return `${likedBy[0].userName} liked this.`;
+      case 2:
+        return `Liked by ${likedBy[0].userName} and ${likedBy[1].userName}.`;
       default:
-        return `Liked by ${likedBy[0].userName} ${likedBy[1].userName} and ${
+        return `Liked by ${likedBy[0].userName}, ${likedBy[1].userName} and ${
           likedBy.length - 2
         } more.
         }`;
