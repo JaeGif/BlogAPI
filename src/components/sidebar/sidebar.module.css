@@ -6,7 +6,14 @@
   font-family: 'Dancing';
 }
 .brandContainer {
-  padding-left: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1rem;
+  width: 100%;
 }
 .optionsSidebar {
   display: flex;
@@ -21,23 +28,40 @@
   border-right: solid var(--greyHighlight) 1px;
   background-color: white;
 }
+.minifiedBar {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  padding: 10px;
+  border-right: solid var(--greyHighlight) 1px;
+  background-color: white;
+}
 .optionsSidebar > div {
   width: 100%;
 }
 .optionsIcons {
-  height: 30px;
+  height: 36px;
 }
-.optionSpan > .optionsIcons {
+.optionSpan > .optionsIcons,
+.optionSpan > .githubIcon,
+.optionSpan > .newPostIcon {
   transition: transform 0.2s ease-in-out;
 }
 .optionSpan > .avatarCircle {
   transition: transform 0.2s ease-in-out;
 }
-.optionSpan:hover > .optionsIcons {
-  transform: scale(110%);
+.optionSpan:hover > .optionsIcons,
+.optionSpan:hover > .githubIcon,
+.optionSpan:hover > .newPostIcon {
+  transform: scale(105%);
 }
 .optionSpan:hover > .avatarCircle {
-  transform: scale(110%);
+  transform: scale(105%);
 }
 
 .optionSpan {
@@ -68,6 +92,7 @@ a {
   padding: 0;
   border: solid 2px black;
   border-radius: 12px;
+  height: 35px;
 }
 .avatarCircle {
   border-radius: 50%;
@@ -80,4 +105,10 @@ a {
 }
 .optionsImage {
   height: 35px;
+}
+.instagramIcon {
+  margin: 16px 0px 28px 0px;
+}
+.githubIcon {
+  height: 37.5px;
 }
