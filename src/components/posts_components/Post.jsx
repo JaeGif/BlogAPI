@@ -66,6 +66,10 @@ function Post({ postObj, refresh }) {
       JSON.stringify({
         _id: loggedInUser._id,
         userName: loggedInUser.userName,
+        avatar: {
+          _id: loggedInUser.avatar._id,
+          url: loggedInUser.avatar.url,
+        },
       })
     );
     fetch(`${apiURL}/api/posts/${_id}`, {

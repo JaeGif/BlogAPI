@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ApiContext, PathContext, UserContext } from '../../App';
+import NotificationsLayout from './notificationsBar/NotificationsLayout';
 import style from './sidebar.module.css';
 
 function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
@@ -39,6 +40,7 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
 
   return (
     <div>
+      {isNotifications ? <NotificationsLayout /> : <></>}
       <div
         className={
           isMinified ? `${style.minifiedBar}` : `${style.optionsSidebar}`
@@ -59,85 +61,73 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
           )}
         </div>
         <div>
-          <a href='#'>
-            <span onClick={() => goToHomePage()} className={style.optionSpan}>
-              <img
-                className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/home.svg`}
-                alt='home'
-              />
-              {isMinified ? <></> : <h2>Home</h2>}
-            </span>
-          </a>
+          <span onClick={() => goToHomePage()} className={style.optionSpan}>
+            <img
+              className={style.optionsIcons}
+              src={`${basePath}/assets/favicons/home.svg`}
+              alt='home'
+            />
+            {isMinified ? <></> : <h2>Home</h2>}
+          </span>
         </div>
         <div>
-          <a href='#'>
-            <span className={style.optionSpan} onClick={() => toggleSearch()}>
-              <img
-                className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/search.svg`}
-                alt='search'
-              />
-              {isMinified ? <></> : <h2>Search</h2>}
-            </span>
-          </a>
+          <span className={style.optionSpan} onClick={() => toggleSearch()}>
+            <img
+              className={style.optionsIcons}
+              src={`${basePath}/assets/favicons/search.svg`}
+              alt='search'
+            />
+            {isMinified ? <></> : <h2>Search</h2>}
+          </span>
         </div>
 
         <div>
-          <a href='#'>
-            <span className={style.optionSpan}>
-              <img
-                className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/chat.svg`}
-                alt='messages'
-              />
-              {isMinified ? <></> : <h2>Messages</h2>}
-            </span>
-          </a>
+          <span className={style.optionSpan}>
+            <img
+              className={style.optionsIcons}
+              src={`${basePath}/assets/favicons/chat.svg`}
+              alt='messages'
+            />
+            {isMinified ? <></> : <h2>Messages</h2>}
+          </span>
         </div>
         <div>
-          <a href='#'>
-            <span
-              className={style.optionSpan}
-              onClick={() => toggleNotifications()}
-            >
-              <img
-                className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/favorite.svg`}
-                alt='notifications'
-              />
-              {isMinified ? <></> : <h2>Notifications</h2>}
-            </span>
-          </a>
+          <span
+            className={style.optionSpan}
+            onClick={() => toggleNotifications()}
+          >
+            <img
+              className={style.optionsIcons}
+              src={`${basePath}/assets/favicons/favorite.svg`}
+              alt='notifications'
+            />
+            {isMinified ? <></> : <h2>Notifications</h2>}
+          </span>
         </div>
         <div>
-          <a>
-            <span className={style.optionSpan} onClick={() => newPostModal()}>
-              <img
-                className={`${style.newPostIcon}`}
-                src={`${basePath}/assets/favicons/add.svg`}
-                alt='New Post'
-              />
-              {isMinified ? <></> : <h2>Create</h2>}
-            </span>
-          </a>
+          <span className={style.optionSpan} onClick={() => newPostModal()}>
+            <img
+              className={`${style.newPostIcon}`}
+              src={`${basePath}/assets/favicons/add.svg`}
+              alt='New Post'
+            />
+            {isMinified ? <></> : <h2>Create</h2>}
+          </span>
         </div>
         <div>
-          <a href='#'>
-            <span
-              onClick={() => openUserPageModal(user._id)}
-              className={style.optionSpan}
-            >
-              <div className={`${style.avatarCircle}`}>
-                <img
-                  className={`${style.optionsImage}`}
-                  src={`${apiURL}/uploads/${user._id}/avatar.jpg`}
-                  alt='user home page'
-                />
-              </div>
-              {isMinified ? <></> : <h2>Profile</h2>}
-            </span>
-          </a>
+          <span
+            onClick={() => openUserPageModal(user._id)}
+            className={style.optionSpan}
+          >
+            <div className={`${style.avatarCircle}`}>
+              <img
+                className={`${style.optionsImage}`}
+                src={`${apiURL}/uploads/${user._id}/avatar.jpg`}
+                alt='user home page'
+              />
+            </div>
+            {isMinified ? <></> : <h2>Profile</h2>}
+          </span>
         </div>
         <div>
           <a href='https://github.com/JaeGif' target='_blank' rel='noreferrer'>

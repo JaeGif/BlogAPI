@@ -2,6 +2,7 @@
   --userLayoutGridGap: 2vw;
   --userPreviewContentHeight: 20vw;
   --greyHighlight: rgb(200, 200, 200);
+  --optionsSlideBarWidth: 20vw;
 }
 body {
   margin: 0;
