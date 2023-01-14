@@ -6,7 +6,7 @@
   width: 100%;
 }
 .notificationWrapper:hover {
-  background-color: var(--greyHighlight);
+  background-color: var(--grey-1);
 }
 .notificationsMinorWrapper {
   width: 100%;

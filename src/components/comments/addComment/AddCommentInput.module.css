@@ -1,6 +1,6 @@
 .commentAreaContainer {
   width: 100%;
-  border-top: 1px solid var(--greyHighlight);
+  border-top: 1px solid var(--grey-2);
   height: fit-content;
 }
 .formContainer {
@@ -27,7 +27,7 @@
 }
 .activePost {
   cursor: pointer;
-  color: rgb(0, 61, 166);
+  color: var(--blue-3);
 }
 .loadingIconContainer {
   height: 1.25rem;

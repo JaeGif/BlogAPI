@@ -70,6 +70,13 @@ function Post({ postObj, refresh }) {
           _id: loggedInUser.avatar._id,
           url: loggedInUser.avatar.url,
         },
+        post: {
+          _id: _id,
+          thumbnail: {
+            url: image.url,
+            alt: image.alt,
+          },
+        },
       })
     );
     fetch(`${apiURL}/api/posts/${_id}`, {

@@ -4,6 +4,9 @@
   cursor: pointer;
   padding: 5px;
 }
+.overviewContainer:hover {
+  background-color: var(--grey-1);
+}
 .userAvatarCutout {
   height: 40px;
   width: 40px;

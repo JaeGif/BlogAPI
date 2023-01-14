@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { ProfileContext } from '../../../App';
 import style from './notification.module.css';
 
 function Notification({ notification }) {
   const [message, setMessage] = useState('');
+  const getUserProfile = useContext(ProfileContext);
   useEffect(() => {
     switch (notification.type) {
       case 'post/like':
@@ -30,7 +32,12 @@ function Notification({ notification }) {
         />
       </div>
       <p>
-        <em className={style.userName}>{notification.user.userName}</em>{' '}
+        <em
+          onClick={() => getUserProfile(notification.user._id)}
+          className={style.userName}
+        >
+          {notification.user.userName}
+        </em>{' '}
         {message}
       </p>
     </div>

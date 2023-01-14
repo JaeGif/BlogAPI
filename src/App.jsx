@@ -11,6 +11,7 @@ const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
 const PathContext = React.createContext(null);
 const ProfileContext = React.createContext(null);
+const PostContext = React.createContext(null);
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
@@ -51,6 +52,9 @@ function App() {
   const openUserPageModal = () => {
     setIsUserPage(true);
   };
+  const handlePostCheckout = async (postId) => {
+    // needs a post id, so notifs now need a post obj
+  };
   const handleUserProfileCheckout = async (userId) => {
     console.log(localURL);
     const res = await fetch(`${localURL}/api/users/${userId}`, {
@@ -81,34 +85,36 @@ function App() {
   };
 
   return (
-    <ProfileContext.Provider value={handleUserProfileCheckout}>
-      <PathContext.Provider value={localPath}>
-        <UserContext.Provider value={loggedInUser}>
-          <ApiContext.Provider value={localURL}>
-            <div className='App'>
-              <Sidebar
-                newPostModal={newPostModal}
-                openUserPageModal={openUserPageModal}
-                goToHomePage={goToHomePage}
-              />
-              {isUserPage ? (
-                <UserPageLayout isUserPage={isUserPage} user={userProfile} />
-              ) : (
-                <>
-                  <Posts refresh={isRefresh} refreshFn={refreshContent} />
-                  <Suggested />
-                </>
-              )}
-              {isNewPostModal ? (
-                <NewPost newPostModal={newPostModal} refresh={setIsRefresh} />
-              ) : (
-                <></>
-              )}
-            </div>
-          </ApiContext.Provider>
-        </UserContext.Provider>
-      </PathContext.Provider>
-    </ProfileContext.Provider>
+    <PostContext.Provider value={handlePostCheckout}>
+      <ProfileContext.Provider value={handleUserProfileCheckout}>
+        <PathContext.Provider value={localPath}>
+          <UserContext.Provider value={loggedInUser}>
+            <ApiContext.Provider value={localURL}>
+              <div className='App'>
+                <Sidebar
+                  newPostModal={newPostModal}
+                  openUserPageModal={openUserPageModal}
+                  goToHomePage={goToHomePage}
+                />
+                {isUserPage ? (
+                  <UserPageLayout isUserPage={isUserPage} user={userProfile} />
+                ) : (
+                  <>
+                    <Posts refresh={isRefresh} refreshFn={refreshContent} />
+                    <Suggested />
+                  </>
+                )}
+                {isNewPostModal ? (
+                  <NewPost newPostModal={newPostModal} refresh={setIsRefresh} />
+                ) : (
+                  <></>
+                )}
+              </div>
+            </ApiContext.Provider>
+          </UserContext.Provider>
+        </PathContext.Provider>
+      </ProfileContext.Provider>
+    </PostContext.Provider>
   );
 }
 

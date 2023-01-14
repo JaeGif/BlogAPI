@@ -1,0 +1,13 @@
+.clearSearchHistory {
+  color: var(--blue-1);
+  cursor: pointer;
+  font-weight: 600;
+}
+.clearSearchHistory:hover {
+  color: var(--blue-3);
+}
+.headingContainer {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 15px;
+}
