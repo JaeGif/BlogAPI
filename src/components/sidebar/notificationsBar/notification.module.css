@@ -1,0 +1,28 @@
+.notificationWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+.notificationWrapper:hover {
+  background-color: var(--greyHighlight);
+}
+.notificationsMinorWrapper {
+  width: 100%;
+}
+.avatarContainer {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.userAvatar {
+  height: 40px;
+}
+.userName {
+  font-weight: 600;
+}

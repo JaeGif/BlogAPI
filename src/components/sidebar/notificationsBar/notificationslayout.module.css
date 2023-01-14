@@ -1,0 +1,29 @@
+.notificationsWrapper {
+  grid-column: 2/3;
+  display: flex;
+  flex-direction: column;
+}
+.notifsHeader {
+  padding: 10px 0px 0px 15px;
+}
+.searchBoxContainer {
+  border-bottom: solid 1px var(--greyHighlight);
+  padding-bottom: 20px;
+}
+.searchContainer {
+}
+.searchInput {
+  background-image: url('./assets/favicons/search-grey.svg');
+  background-repeat: no-repeat;
+  background-size: 22.5px;
+  background-position: left 5px center;
+  height: 35px;
+  padding-left: 30px;
+  width: 300px;
+  border: 1px solid var(--greyHighlight);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.searchInput:focus {
+  outline: none;
+}

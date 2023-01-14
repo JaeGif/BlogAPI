@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ApiContext, PathContext, UserContext } from '../../../App';
 import uniqid from 'uniqid';
 import Notification from './Notification';
+import style from './notificationslayout.module.css';
 
 function NotificationsLayout() {
   const loggedInUser = useContext(UserContext);
@@ -35,17 +36,22 @@ function NotificationsLayout() {
     }
     findUserNotifications();
   }, []);
-  console.log(recentNotifications);
 
   return (
-    <div>
-      {recentNotifications.length ? (
-        recentNotifications.map((notification) => (
-          <Notification key={uniqid()} notification={notification} />
-        ))
-      ) : (
-        <p>No new notifications.</p>
-      )}
+    <div className={style.notificationsWrapper}>
+      <div className={style.notifsHeader}>
+        <h1>Notifications</h1>
+        <p>This Month</p>
+      </div>
+      <div className={style.notificationsMinorWrapper}>
+        {recentNotifications.length ? (
+          recentNotifications.map((notification) => (
+            <Notification key={uniqid()} notification={notification} />
+          ))
+        ) : (
+          <p>No new notifications.</p>
+        )}
+      </div>
     </div>
   );
 }
