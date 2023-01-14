@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import uniqid from 'uniqid';
 import { ProfileContext } from '../../../App';
 import UserSearchOverview from '../../userSearchOverview/UserSearchOverview';
+import LoadingIcon from '../../utlity_Components/LoadingIcon';
 
-function RecentSearch({ recentSearches }) {
+function RecentSearch({ recentSearches, recentSearchesIdx }) {
   const getUserProfile = useContext(ProfileContext);
   return (
     <div>
@@ -19,8 +20,10 @@ function RecentSearch({ recentSearches }) {
             <UserSearchOverview key={uniqid()} user={user.user} />
           </div>
         ))
+      ) : recentSearchesIdx ? (
+        <LoadingIcon />
       ) : (
-        <p>No recent searches</p>
+        <p>No recent searches.</p>
       )}
     </div>
   );

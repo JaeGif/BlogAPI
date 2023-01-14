@@ -83,7 +83,10 @@ function SearchLayout() {
         ) : isSearching ? (
           <LoadingIcon />
         ) : (
-          <RecentSearch recentSearches={recentSearches} />
+          <RecentSearch
+            recentSearches={recentSearches}
+            recentSearchesIdx={recentSearchesIdx}
+          />
         )}
 
         {searchFound ? (
