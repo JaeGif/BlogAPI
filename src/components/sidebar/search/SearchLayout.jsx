@@ -1,24 +1,47 @@
 import React, { useState, useContext } from 'react';
-import { UserContext, ApiContext } from '../../../App';
+import { UserContext, ApiContext, ProfileContext } from '../../../App';
+import UserSearchOverview from '../../userSearchOverview/UserSearchOverview';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import style from '../notificationsBar/notificationslayout.module.css';
 import RecentSearch from './RecentSearch';
-import SearchResult from './SearchResult';
+import uniqid from 'uniqid';
 
 function SearchLayout() {
   const loggedInUser = useContext(UserContext);
-  const [isTyping, setIsTyping] = useState(false);
+  const apiURL = useContext(ApiContext);
+  const getUserProfile = useContext(ProfileContext);
+
+  const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchFound, setSearchFound] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleTypingInput = () => {
-    setIsTyping(true);
+  const searchForUsers = async (e) => {
+    setIsSearching(true);
+    setHasSearched(true);
+
+    let query = e.target.value;
+    if (query === '') {
+      setIsSearching(false);
+      setHasSearched(false);
+      setSearchResults([]);
+      setSearchFound(false);
+      return;
+    }
+    const res = await fetch(`${apiURL}/api/users?q=${query}`, { mode: 'cors' });
+    const data = await res.json();
+    setIsSearching(false);
+    setSearchResults(data.users);
+    if (data.users.length) {
+      setSearchFound(true);
+    } else {
+      setSearchFound(false);
+    }
   };
-
-  const searchForUsers = async () => {};
-
+  const emptyFunction = (user) => {
+    return;
+  };
   return (
     <div className={style.notificationsWrapper}>
       <div className={style.searchBoxContainer}>
@@ -26,8 +49,7 @@ function SearchLayout() {
           <h1>Search</h1>
           <span className={style.searchContainer}>
             <input
-              onClick={handleTypingInput}
-              on
+              onChange={(e) => searchForUsers(e)}
               className={style.searchInput}
               placeholder='Search'
               type='text'
@@ -37,14 +59,34 @@ function SearchLayout() {
         </div>
       </div>
       <div className={style.notifsHeader}>
-        {isSearching ? (
+        {hasSearched ? (
+          isSearching ? (
+            <LoadingIcon />
+          ) : (
+            <></>
+          )
+        ) : isSearching ? (
           <LoadingIcon />
         ) : (
           <RecentSearch recentSearches={recentSearches} />
         )}
+        {/*         {isSearching ? (
+          <LoadingIcon />
+        ) : (
+          <RecentSearch recentSearches={recentSearches} />
+        )} */}
         {searchFound ? (
           searchResults.length ? (
-            searchResults.map((result) => <SearchResult />)
+            searchResults.map((result) => (
+              <div
+                onClick={(e) => {
+                  getUserProfile(result._id);
+                  e.stopPropagation();
+                }}
+              >
+                <UserSearchOverview key={uniqid()} user={result} />
+              </div>
+            ))
           ) : (
             <p>No results.</p>
           )
