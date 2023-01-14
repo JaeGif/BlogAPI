@@ -50,7 +50,20 @@ function App() {
     });
     const data = await res.json();
     setUserProfile(data.user);
+    addSearchToRecents(userId);
     toggleUserPageModal();
+  };
+  const addSearchToRecents = async (userId) => {
+    let data = new URLSearchParams();
+    data.append('searched', userId);
+    const res = await fetch(`${localURL}/api/users/${loggedInUser._id}`, {
+      method: 'PUT',
+      body: data,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      mode: 'cors',
+    });
   };
   const goToHomePage = () => {
     // the default config is home page, so this function needs to

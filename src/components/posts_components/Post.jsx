@@ -116,8 +116,6 @@ function Post({ postObj, refresh }) {
       setIsVideo(true);
     }
     if (like.length) {
-      console.log(like);
-
       for (let i = 0; i < like.length; i++) {
         if (like[i]._id === loggedInUser._id) {
           setIsLiked(true);
