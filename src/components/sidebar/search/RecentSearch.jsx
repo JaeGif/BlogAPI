@@ -12,11 +12,11 @@ function RecentSearch({ recentSearches }) {
         recentSearches.map((user) => (
           <div
             onClick={(e) => {
-              getUserProfile(user._id);
+              getUserProfile(user.user._id);
               e.stopPropagation();
             }}
           >
-            <UserSearchOverview key={uniqid()} user={user} />
+            <UserSearchOverview key={uniqid()} user={user.user} />
           </div>
         ))
       ) : (

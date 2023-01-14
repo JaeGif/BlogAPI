@@ -27,6 +27,14 @@ function App() {
     email: 'Tia_Kris@hotmail.com',
     userName: 'Eldridge_Feest40',
     isAdmin: false,
+    recentSearches: [
+      'c4d010ce73f9354bf41aa72d',
+      '823fce52b33a845ef7554dd9',
+      'c4d010ce73f9354bf41aa72d',
+      'd4b51d5d9e0e47b2aefaf89d',
+      'd4b51d5d9e0e47b2aefaf89d',
+      'b45cbb77f719d4ed691f1041',
+    ],
   });
   const [userProfile, setUserProfile] = useState(loggedInUser);
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
@@ -40,8 +48,8 @@ function App() {
   const newPostModal = () => {
     isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
   };
-  const toggleUserPageModal = () => {
-    isUserPage ? setIsUserPage(false) : setIsUserPage(true);
+  const openUserPageModal = () => {
+    setIsUserPage(true);
   };
   const handleUserProfileCheckout = async (userId) => {
     console.log(localURL);
@@ -51,7 +59,7 @@ function App() {
     const data = await res.json();
     setUserProfile(data.user);
     addSearchToRecents(userId);
-    toggleUserPageModal();
+    openUserPageModal();
   };
   const addSearchToRecents = async (userId) => {
     let data = new URLSearchParams();
@@ -80,7 +88,7 @@ function App() {
             <div className='App'>
               <Sidebar
                 newPostModal={newPostModal}
-                openUserPageModal={toggleUserPageModal}
+                openUserPageModal={openUserPageModal}
                 goToHomePage={goToHomePage}
               />
               {isUserPage ? (

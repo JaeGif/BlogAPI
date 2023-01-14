@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UserContext, ApiContext, ProfileContext } from '../../../App';
 import UserSearchOverview from '../../userSearchOverview/UserSearchOverview';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
@@ -14,6 +14,9 @@ function SearchLayout() {
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchFound, setSearchFound] = useState(false);
+  const [recentSearchesIdx, setRecentSearchesIdx] = useState(
+    loggedInUser.recentSearches
+  );
   const [recentSearches, setRecentSearches] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -39,9 +42,21 @@ function SearchLayout() {
       setSearchFound(false);
     }
   };
-  const emptyFunction = (user) => {
-    return;
+
+  const checkForRecents = async () => {
+    const history = await Promise.all(
+      recentSearchesIdx.map(async (id) => {
+        const res = await fetch(`${apiURL}/api/users/${id}`);
+        return res.json();
+      })
+    );
+    console.log(history);
+    setRecentSearches(history);
   };
+  useEffect(() => {
+    checkForRecents();
+  }, []);
+
   return (
     <div className={style.notificationsWrapper}>
       <div className={style.searchBoxContainer}>
@@ -70,11 +85,7 @@ function SearchLayout() {
         ) : (
           <RecentSearch recentSearches={recentSearches} />
         )}
-        {/*         {isSearching ? (
-          <LoadingIcon />
-        ) : (
-          <RecentSearch recentSearches={recentSearches} />
-        )} */}
+
         {searchFound ? (
           searchResults.length ? (
             searchResults.map((result) => (
