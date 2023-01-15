@@ -19,10 +19,10 @@ function SearchLayout() {
   );
   const [recentSearches, setRecentSearches] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [updatedRecents, setUpdatedRecents] = useState(false);
+  const [userUpdated, setUserUpdated] = useState(loggedInUser);
 
   const handleRecentsUpdate = () => {
-    updatedRecents ? setUpdatedRecents(false) : setUpdatedRecents(true);
+    updateUser();
     console.log('toggled update');
   };
   const searchForUsers = async (e) => {
@@ -47,7 +47,14 @@ function SearchLayout() {
       setSearchFound(false);
     }
   };
-
+  const updateUser = async () => {
+    const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
+      mode: 'cors',
+    });
+    const data = await res.json();
+    setUserUpdated(data.user);
+    setRecentSearchesIdx(data.user.recentSearches);
+  };
   const checkForRecents = async () => {
     const history = await Promise.all(
       recentSearchesIdx.map(async (id) => {
@@ -55,12 +62,14 @@ function SearchLayout() {
         return res.json();
       })
     );
+    console.log(userUpdated.recentSearches);
     setRecentSearches(history);
+    console.log('send check', history);
   };
   useEffect(() => {
     checkForRecents();
     console.log('check recents call');
-  }, [updatedRecents]);
+  }, [recentSearchesIdx]);
 
   return (
     <div className={style.notificationsWrapper}>
@@ -89,6 +98,7 @@ function SearchLayout() {
           <LoadingIcon />
         ) : (
           <RecentSearch
+            key={uniqid()}
             recentSearches={recentSearches}
             recentSearchesIdx={recentSearchesIdx}
             updatedRecents={handleRecentsUpdate}
@@ -113,17 +123,7 @@ function SearchLayout() {
         ) : (
           <></>
         )}
-        {/* Here will show users recent search history, limited to last 10searches only */}
       </div>
-      {/*   <div className={style.notificationsMinorWrapper}>
-    {recentNotifications.length ? (
-      recentNotifications.map((notification) => (
-        <Notification key={uniqid()} notification={notification} />
-      ))
-    ) : (
-      <p>No new notifications.</p>
-    )}
-  </div> */}
     </div>
   );
 }

@@ -18,13 +18,10 @@ function RecentSearch({ recentSearches, recentSearchesIdx, updatedRecents }) {
 
   const clearLoggedInUserHistory = async (notificationIdx) => {
     let notificationId = '';
-    console.log(recentSearches);
-    console.log(notificationIdx);
     if (notificationIdx.length) {
       for (let i = 0; i < notificationIdx.length; i++) {
         let data = new URLSearchParams();
         notificationId = notificationIdx[i].toString();
-        console.log(notificationId);
 
         data.append('removeRecent', notificationId);
         const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
@@ -35,7 +32,6 @@ function RecentSearch({ recentSearches, recentSearchesIdx, updatedRecents }) {
           },
           mode: 'cors',
         });
-        console.log(res);
       }
     }
     updatedRecents();

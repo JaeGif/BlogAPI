@@ -121,7 +121,7 @@ function SubmitPost({
                   {userFindResults.map((user) => (
                     <UserSearchOverview
                       key={uniqid()}
-                      handleClick={() => handleTagged(user)}
+                      handleClick={handleTagged}
                       user={user}
                     />
                   ))}

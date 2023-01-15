@@ -59,7 +59,6 @@ function App() {
         mode: 'cors',
       });
       const data = await res.json();
-      console.log(data.user);
       setLoggedInUser(data.user);
       setLoggedIn(true);
       setUserProfile(data.user);
