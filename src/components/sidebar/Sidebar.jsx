@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ApiContext, PathContext, UserContext } from '../../App';
 import NotificationsLayout from './notificationsBar/NotificationsLayout';
 import SearchLayout from './search/SearchLayout';
@@ -11,37 +11,37 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
   const [isNotifications, setIsNotifications] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isMinified, setIsMinified] = useState(false);
+  const [open, setOpen] = useState('');
 
-  const toggleSearch = (e) => {
-    e.target.stopPropagation;
-
-    setIsNotifications(false);
-    if (isSearch) {
-      setIsSearch(false);
-    } else {
-      setIsSearch(true);
+  const handleOpen = (openString) => {
+    let modString = openString;
+    if (openString === open) {
+      modString = '';
     }
-    toggleMini();
+    setOpen(modString);
   };
-  const toggleNotifications = (e) => {
-    e.target.stopPropagation;
-
-    setIsSearch(false);
-    if (isNotifications) {
-      setIsNotifications(false);
-    } else {
-      setIsNotifications(true);
-    }
-    toggleMini();
-  };
-
-  const toggleMini = () => {
-    if (isNotifications || isSearch) {
-      setIsMinified(true);
-    } else {
-      setIsMinified(false);
+  const switchOptionsExpansion = () => {
+    switch (open) {
+      case 'notifications':
+        setIsMinified(true);
+        setIsSearch(false);
+        setIsNotifications(true);
+        break;
+      case 'search':
+        setIsMinified(true);
+        setIsNotifications(false);
+        setIsSearch(true);
+        break;
+      default:
+        setIsMinified(false);
+        setIsNotifications(false);
+        setIsSearch(false);
+        break;
     }
   };
+  useEffect(() => {
+    switchOptionsExpansion();
+  }, [open]);
 
   return (
     <div>
@@ -84,7 +84,13 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
             </a>
           </div>
           <div>
-            <span className={style.optionSpan} onClick={(e) => toggleSearch(e)}>
+            <span
+              className={style.optionSpan}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpen('search');
+              }}
+            >
               <img
                 className={style.optionsIcons}
                 src={`${basePath}/assets/favicons/search.svg`}
@@ -107,7 +113,10 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
           <div>
             <span
               className={style.optionSpan}
-              onClick={(e) => toggleNotifications(e)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpen('notifications');
+              }}
             >
               <img
                 className={style.optionsIcons}

@@ -21,7 +21,6 @@
   justify-content: flex-start;
   align-items: center;
   width: var(--optionsSideBarWidth);
-  border-right: solid var(--greyHighlight) 1px;
   background-color: white;
 }
 .minifiedBar {
@@ -110,16 +109,16 @@ a {
   height: 100vh;
   position: fixed;
   left: 0;
-
   z-index: 3;
-  border: solid 1px red;
   width: fit-content;
+  background-color: white;
+  border: 1px solid var(--greyHighlight);
 }
 .outlineExpanded {
   background-color: white;
-  border: 1px solid var(--greyHighlight);
   border-radius: 8px;
   width: var(--optionsBarExpanded);
   display: grid;
   grid-template-columns: 1fr 5fr;
+  border: 1px solid var(--greyHighlight);
 }
