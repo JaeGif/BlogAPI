@@ -23,6 +23,8 @@ function SearchLayout() {
 
   const handleRecentsUpdate = () => {
     updateUser();
+    setHasSearched(false);
+    setIsSearching(false);
     console.log('toggled update');
   };
   const searchForUsers = async (e) => {
@@ -66,6 +68,7 @@ function SearchLayout() {
     setRecentSearches(history);
     console.log('send check', history);
   };
+
   useEffect(() => {
     checkForRecents();
     console.log('check recents call');
@@ -111,6 +114,7 @@ function SearchLayout() {
               <div
                 onClick={(e) => {
                   getUserProfile(result._id);
+                  handleRecentsUpdate();
                   e.stopPropagation();
                 }}
               >
