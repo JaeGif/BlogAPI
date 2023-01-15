@@ -4,6 +4,7 @@
   align-items: center;
   gap: 5px;
   width: 100%;
+  cursor: pointer;
 }
 .notificationWrapper:hover {
   background-color: var(--grey-1);
@@ -25,4 +26,8 @@
 }
 .userName {
   font-weight: 600;
+  font-style: normal;
+}
+.userName:hover {
+  text-decoration: underline;
 }

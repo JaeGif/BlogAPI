@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { ProfileContext } from '../../../App';
+import { ProfileContext, PostContext } from '../../../App';
 import style from './notification.module.css';
 
 function Notification({ notification }) {
   const [message, setMessage] = useState('');
   const getUserProfile = useContext(ProfileContext);
+  const getPostFull = useContext(PostContext);
   useEffect(() => {
     switch (notification.type) {
       case 'post/like':
@@ -23,7 +24,13 @@ function Notification({ notification }) {
   }, []);
 
   return (
-    <div className={style.notificationWrapper}>
+    <div
+      className={style.notificationWrapper}
+      onClick={(e) => {
+        e.stopPropagation();
+        getPostFull(notification.post._id);
+      }}
+    >
       <div className={style.avatarContainer}>
         <img
           className={style.userAvatar}
@@ -33,7 +40,10 @@ function Notification({ notification }) {
       </div>
       <p>
         <em
-          onClick={() => getUserProfile(notification.user._id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            getUserProfile(notification.user._id);
+          }}
           className={style.userName}
         >
           {notification.user.userName}

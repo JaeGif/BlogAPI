@@ -7,6 +7,8 @@ import Suggested from './components/suggested/Suggested';
 import NewPost from './components/newPost/NewPost';
 import './filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
+import FullPost from './components/fullPost/FullPost';
+
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
 const PathContext = React.createContext(null);
@@ -17,6 +19,9 @@ function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [isUserPage, setIsUserPage] = useState(false);
+  const [displayPost, setDisplayPost] = useState(false);
+  const [postCheckout, setPostCheckout] = useState();
+  const [postContentIsVideo, setPostContentIsVideo] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({
     avatar: {
       id: '9263f45c70879dbc56faa5c4',
@@ -54,9 +59,23 @@ function App() {
   };
   const handlePostCheckout = async (postId) => {
     // needs a post id, so notifs now need a post obj
+    const res = await fetch(`${localURL}/api/posts/${postId}`, {
+      mode: 'cors',
+    });
+    const data = await res.json();
+    setPostCheckout(data.post);
+    console.log(data);
+    if (data.post.image.contentType === 'video/mp4') {
+      setPostContentIsVideo(true);
+    } else {
+      setPostContentIsVideo(false);
+    }
+    setDisplayPost(true);
+  };
+  const toggleDisplayFullPost = () => {
+    displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
   const handleUserProfileCheckout = async (userId) => {
-    console.log(localURL);
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
     });
@@ -109,6 +128,17 @@ function App() {
                 ) : (
                   <></>
                 )}
+                {displayPost ? (
+                  <div>
+                    <FullPost
+                      postObj={postCheckout}
+                      toggleFullPost={toggleDisplayFullPost}
+                      isVideo={postContentIsVideo}
+                    />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </ApiContext.Provider>
           </UserContext.Provider>
@@ -118,4 +148,11 @@ function App() {
   );
 }
 
-export { App, UserContext, ApiContext, PathContext, ProfileContext };
+export {
+  App,
+  UserContext,
+  ApiContext,
+  PathContext,
+  ProfileContext,
+  PostContext,
+};
