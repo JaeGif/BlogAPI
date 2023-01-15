@@ -10,7 +10,12 @@ import UserSearchOverview from '../../userSearchOverview/UserSearchOverview';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import style from './recentsearch.module.css';
 
-function RecentSearch({ recentSearches, recentSearchesIdx, updatedRecents }) {
+function RecentSearch({
+  recentSearches,
+  recentSearchesIdx,
+  updatedRecents,
+  handleOpen,
+}) {
   const getUserProfile = useContext(ProfileContext);
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
@@ -57,9 +62,11 @@ function RecentSearch({ recentSearches, recentSearchesIdx, updatedRecents }) {
       {recentSearches.length ? (
         recentSearches.map((user) => (
           <span
+            key={uniqid()}
             className={style.searchContainer}
             onClick={(e) => {
               getUserProfile(user.user._id);
+              handleOpen('');
               e.stopPropagation();
             }}
           >

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { ProfileContext, PostContext, ApiContext } from '../../../App';
 import style from './notification.module.css';
 
-function Notification({ notification }) {
+function Notification({ notification, handleOpen }) {
   const [message, setMessage] = useState('');
   const apiURL = useContext(ApiContext);
   const getUserProfile = useContext(ProfileContext);
@@ -40,6 +40,7 @@ function Notification({ notification }) {
         isLike
           ? (e) => {
               e.stopPropagation();
+              handleOpen('');
               getPostFull(notification.post._id);
             }
           : undefined
@@ -57,6 +58,7 @@ function Notification({ notification }) {
         <em
           onClick={(e) => {
             e.stopPropagation();
+            handleOpen('');
             getUserProfile(notification.user._id);
           }}
           className={style.userName}

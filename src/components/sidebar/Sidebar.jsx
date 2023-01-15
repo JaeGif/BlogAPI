@@ -168,8 +168,12 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
             </a>
           </div>
         </div>
-        {isNotifications ? <NotificationsLayout /> : <></>}
-        {isSearch ? <SearchLayout /> : <></>}
+        {isNotifications ? (
+          <NotificationsLayout handleOpen={handleOpen} />
+        ) : (
+          <></>
+        )}
+        {isSearch ? <SearchLayout handleOpen={handleOpen} /> : <></>}
       </div>
     </div>
   );

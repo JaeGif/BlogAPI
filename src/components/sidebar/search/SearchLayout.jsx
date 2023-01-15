@@ -6,7 +6,7 @@ import style from '../notificationsBar/notificationslayout.module.css';
 import RecentSearch from './RecentSearch';
 import uniqid from 'uniqid';
 
-function SearchLayout() {
+function SearchLayout({ handleOpen }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const getUserProfile = useContext(ProfileContext);
@@ -23,14 +23,11 @@ function SearchLayout() {
 
   const handleRecentsUpdate = () => {
     updateUser();
-    setHasSearched(false);
-    setIsSearching(false);
     console.log('toggled update');
   };
   const searchForUsers = async (e) => {
     setIsSearching(true);
     setHasSearched(true);
-
     let query = e.target.value;
     if (query === '') {
       setIsSearching(false);
@@ -56,6 +53,13 @@ function SearchLayout() {
     const data = await res.json();
     setUserUpdated(data.user);
     setRecentSearchesIdx(data.user.recentSearches);
+    resetAllConditionalFields();
+  };
+  const resetAllConditionalFields = () => {
+    setIsSearching(false);
+    setHasSearched(false);
+    setSearchResults([]);
+    setSearchFound(false);
   };
   const checkForRecents = async () => {
     const history = await Promise.all(
@@ -102,6 +106,7 @@ function SearchLayout() {
         ) : (
           <RecentSearch
             key={uniqid()}
+            handleOpen={handleOpen}
             recentSearches={recentSearches}
             recentSearchesIdx={recentSearchesIdx}
             updatedRecents={handleRecentsUpdate}
@@ -115,10 +120,15 @@ function SearchLayout() {
                 onClick={(e) => {
                   getUserProfile(result._id);
                   handleRecentsUpdate();
+                  handleOpen('');
                   e.stopPropagation();
                 }}
               >
-                <UserSearchOverview key={uniqid()} user={result} />
+                <UserSearchOverview
+                  key={uniqid()}
+                  user={result}
+                  handleClick={handleRecentsUpdate}
+                />
               </div>
             ))
           ) : (
