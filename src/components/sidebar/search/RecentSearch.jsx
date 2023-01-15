@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 import uniqid from 'uniqid';
-import { ApiContext, ProfileContext, UserContext } from '../../../App';
+import {
+  ApiContext,
+  PathContext,
+  ProfileContext,
+  UserContext,
+} from '../../../App';
 import UserSearchOverview from '../../userSearchOverview/UserSearchOverview';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import style from './recentsearch.module.css';
@@ -9,13 +14,18 @@ function RecentSearch({ recentSearches, recentSearchesIdx, updatedRecents }) {
   const getUserProfile = useContext(ProfileContext);
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
+  const baseURL = useContext(PathContext);
 
   const clearLoggedInUserHistory = async (notificationIdx) => {
     let notificationId = '';
+    console.log(recentSearches);
+    console.log(notificationIdx);
     if (notificationIdx.length) {
       for (let i = 0; i < notificationIdx.length; i++) {
         let data = new URLSearchParams();
         notificationId = notificationIdx[i].toString();
+        console.log(notificationId);
+
         data.append('removeRecent', notificationId);
         const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
           method: 'PUT',
@@ -25,10 +35,12 @@ function RecentSearch({ recentSearches, recentSearchesIdx, updatedRecents }) {
           },
           mode: 'cors',
         });
+        console.log(res);
       }
     }
     updatedRecents();
   };
+
   return (
     <div>
       <span className={style.headingContainer}>
@@ -48,14 +60,23 @@ function RecentSearch({ recentSearches, recentSearchesIdx, updatedRecents }) {
       </span>
       {recentSearches.length ? (
         recentSearches.map((user) => (
-          <div
+          <span
+            className={style.searchContainer}
             onClick={(e) => {
               getUserProfile(user.user._id);
               e.stopPropagation();
             }}
           >
             <UserSearchOverview key={uniqid()} user={user.user} />
-          </div>
+            <img
+              onClick={(e) => {
+                e.stopPropagation();
+                clearLoggedInUserHistory([user.user._id]);
+              }}
+              className={style.removeResult}
+              src={`${baseURL}/assets/favicons/close-grey.svg`}
+            />
+          </span>
         ))
       ) : recentSearchesIdx.length ? (
         <LoadingIcon />

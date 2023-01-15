@@ -3,6 +3,7 @@
   overflow: scroll;
   cursor: pointer;
   padding: 5px;
+  gap: 5px;
 }
 .overviewContainer:hover {
   background-color: var(--grey-1);
