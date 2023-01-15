@@ -1,21 +1,31 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { ProfileContext, PostContext } from '../../../App';
+import { ProfileContext, PostContext, ApiContext } from '../../../App';
 import style from './notification.module.css';
 
 function Notification({ notification }) {
   const [message, setMessage] = useState('');
+  const apiURL = useContext(ApiContext);
   const getUserProfile = useContext(ProfileContext);
   const getPostFull = useContext(PostContext);
+  // alternate notification types to change the layout slightly
+  const [isLike, setIsLike] = useState(false);
+  const [isFollow, setIsFollow] = useState(false);
+  const [isTag, setIsTag] = useState(false);
+
   useEffect(() => {
+    console.log(notification);
     switch (notification.type) {
       case 'post/like':
         setMessage('liked your post.');
+        setIsLike(true);
         break;
       case 'user/follow':
         setMessage('started following you.');
+        setIsFollow(true);
         break;
       case 'user/tagged':
         setMessage('tagged you in a post.');
+        setIsTag(true);
         break;
       default:
         console.log('SOMETHING IS PRETTY WRONG');
@@ -26,10 +36,14 @@ function Notification({ notification }) {
   return (
     <div
       className={style.notificationWrapper}
-      onClick={(e) => {
-        e.stopPropagation();
-        getPostFull(notification.post._id);
-      }}
+      onClick={
+        isLike
+          ? (e) => {
+              e.stopPropagation();
+              getPostFull(notification.post._id);
+            }
+          : undefined
+      }
     >
       <div className={style.avatarContainer}>
         <img
@@ -38,6 +52,7 @@ function Notification({ notification }) {
           alt='profile image'
         />
       </div>
+
       <p>
         <em
           onClick={(e) => {
@@ -50,6 +65,17 @@ function Notification({ notification }) {
         </em>{' '}
         {message}
       </p>
+      {isLike ? (
+        <div className={style.thumbnailContainer}>
+          <img
+            className={style.postThumbnail}
+            src={`${apiURL}/${notification.post.thumbnail.url}`}
+            alt={notification.post.thumbnail.alt}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

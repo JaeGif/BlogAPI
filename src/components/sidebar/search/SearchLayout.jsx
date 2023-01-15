@@ -19,7 +19,12 @@ function SearchLayout() {
   );
   const [recentSearches, setRecentSearches] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [updatedRecents, setUpdatedRecents] = useState(false);
 
+  const handleRecentsUpdate = () => {
+    updatedRecents ? setUpdatedRecents(false) : setUpdatedRecents(true);
+    console.log('toggled update');
+  };
   const searchForUsers = async (e) => {
     setIsSearching(true);
     setHasSearched(true);
@@ -50,12 +55,12 @@ function SearchLayout() {
         return res.json();
       })
     );
-    console.log(history);
     setRecentSearches(history);
   };
   useEffect(() => {
     checkForRecents();
-  }, []);
+    console.log('check recents call');
+  }, [updatedRecents]);
 
   return (
     <div className={style.notificationsWrapper}>
@@ -86,6 +91,7 @@ function SearchLayout() {
           <RecentSearch
             recentSearches={recentSearches}
             recentSearchesIdx={recentSearchesIdx}
+            updatedRecents={handleRecentsUpdate}
           />
         )}
 

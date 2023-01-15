@@ -2,7 +2,6 @@ import React from 'react';
 import style from './usersearchoverview.module.css';
 
 function UserSearchOverview({ user, handleClick }) {
-  console.log(user);
   return (
     <div onClick={() => handleClick(user)} className={style.overviewContainer}>
       <div className={style.userAvatarCutout}>
