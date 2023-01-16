@@ -11,8 +11,11 @@ function UserPublicHeader({ user }) {
   const [followsCount, setFollowsCount] = useState(0);
 
   useEffect(() => {
+    console.log('checking useEffect');
     if (user._id === loggedInUser._id) {
       setIsCurrentUser(true);
+    } else {
+      setIsCurrentUser(false);
     }
     async function countUserPosts() {
       const res = await fetch(

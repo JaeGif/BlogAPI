@@ -65,6 +65,12 @@ function App() {
     }
     fetchLoggedInUserData('823fce52b33a845ef7554dd9');
   }, []);
+  const resetModalValues = () => {
+    setIsUserPage(false);
+    setIsNewPostModal(false);
+    setIsRefresh(false);
+    setDisplayPost(false);
+  };
 
   const refreshContent = () => {
     isRefresh ? setIsRefresh(false) : setIsRefresh(true);
@@ -82,7 +88,6 @@ function App() {
     });
     const data = await res.json();
     setPostCheckout(data.post);
-    console.log(data);
     if (data.post.image.contentType === 'video/mp4') {
       setPostContentIsVideo(true);
     } else {
@@ -119,6 +124,7 @@ function App() {
     // return the modals to their default configs only.
     setIsNewPostModal(false);
     setIsUserPage(false);
+    setDisplayPost(false);
   };
 
   return (
@@ -132,7 +138,7 @@ function App() {
                   <div className='App'>
                     <Sidebar
                       newPostModal={newPostModal}
-                      openUserPageModal={openUserPageModal}
+                      openUserPageModal={handleUserProfileCheckout}
                       goToHomePage={goToHomePage}
                     />
                     {isUserPage ? (

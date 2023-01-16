@@ -17,6 +17,8 @@ function UserPageLayout({ user }) {
   const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
+    setIsUser(false);
+    console.log('rerun data search');
     async function findUserById() {
       const res = await fetch(`${apiURL}/api/users/${user._id}`, {
         mode: 'cors',
@@ -26,7 +28,7 @@ function UserPageLayout({ user }) {
       setIsUser(true);
     }
     findUserById();
-  }, []);
+  }, [user]);
 
   // default state of user page layout
   const [isPosted, setIsPosted] = useState(true);
