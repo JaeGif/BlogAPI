@@ -12,6 +12,7 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
   const [isSearch, setIsSearch] = useState(false);
   const [isMinified, setIsMinified] = useState(false);
   const [open, setOpen] = useState('');
+  const [newNotification, setNewNotification] = useState(false);
 
   const handleOpen = (openString) => {
     let modString = openString;
@@ -26,6 +27,7 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
         setIsMinified(true);
         setIsSearch(false);
         setIsNotifications(true);
+        handleSeenNotifications();
         break;
       case 'search':
         setIsMinified(true);
@@ -39,9 +41,25 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
         break;
     }
   };
+  const handleSeenNotifications = () => {
+    // handle seen notifs once notifications are opened, new notification symbol is removed.
+    setNewNotification(false);
+  };
   useEffect(() => {
+    // open sidebar modules
     switchOptionsExpansion();
   }, [open]);
+
+  useEffect(() => {
+    // check for new notifications on first load
+    for (let i = 0; i < user.notifications.length; i++) {
+      if (!user.notifications[i].seen) {
+        setNewNotification(true);
+      } else {
+        setNewNotification(false);
+      }
+    }
+  }, []);
 
   return (
     <div>
@@ -118,11 +136,18 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
                 handleOpen('notifications');
               }}
             >
-              <img
-                className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/favorite.svg`}
-                alt='notifications'
-              />
+              <div className={style.notificationsContainer}>
+                <img
+                  className={style.optionsIcons}
+                  src={`${basePath}/assets/favicons/favorite.svg`}
+                  alt='notifications'
+                />
+                {newNotification ? (
+                  <div className={style.newNotifications}> </div>
+                ) : (
+                  <></>
+                )}
+              </div>
               {isMinified ? <></> : <h2>Notifications</h2>}
             </span>
           </div>

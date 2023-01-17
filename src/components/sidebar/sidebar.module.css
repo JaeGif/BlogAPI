@@ -122,3 +122,18 @@ a {
   grid-template-columns: 1fr 5fr;
   border: 1px solid var(--greyHighlight);
 }
+.notificationsContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.newNotifications {
+  position: absolute;
+  right: 0;
+  top: 1px;
+  height: 11px;
+  width: 11px;
+  border-radius: 50%;
+  background-color: rgb(255, 47, 47);
+}

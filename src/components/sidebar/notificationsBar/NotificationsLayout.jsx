@@ -8,17 +8,30 @@ function NotificationsLayout({ handleOpen }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
 
-  const [recentNotifications, setRecentNotifications] = useState([]);
+  const [recentNotifications, setRecentNotifications] = useState(
+    loggedInUser.notifications
+  );
   // notifications get username, action, date, userID
 
   useEffect(() => {
     async function findUserNotifications() {
       console.log('finding notifs');
-      const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`);
-      const data = await res.json();
-      setRecentNotifications(data.user.notifications);
+      let data = new URLSearchParams();
+      data.append('seen', true);
+      // send seen notifications to db
+      const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
+        mode: 'cors',
+        method: 'PUT',
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      const notifications = await res.json();
+      setRecentNotifications(notifications.user.notifications);
     }
     findUserNotifications();
+    console.log('checked notifs');
   }, []);
 
   return (

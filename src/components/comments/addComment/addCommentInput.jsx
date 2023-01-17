@@ -36,7 +36,7 @@ function AddCommentInput({ post, updateParentPost }) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      mode: 'no-cors',
+      mode: 'cors',
     }).then(() => {
       resetData();
       setSubmitting(false);
