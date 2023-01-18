@@ -4,17 +4,19 @@ import Post from './Post';
 import uniqid from 'uniqid';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import style from './posts.module.css';
-import { ApiContext } from '../../App';
+import { ApiContext, UserContext } from '../../App';
 
 function Posts({ refresh, refreshFn }) {
   const apiURL = useContext(ApiContext);
-
+  const loggedInUser = useContext(UserContext);
   const [posts, setPosts] = useState([]);
   const [limitCounter, setLimitCounter] = useState(0);
 
   useEffect(() => {
     async function fetchPosts() {
-      const data = await fetch(`${apiURL}/api/posts`, { mode: 'cors' });
+      const data = await fetch(`${apiURL}/api/posts?u=${loggedInUser._id}`, {
+        mode: 'cors',
+      });
       const res = await data.json();
       setPosts(res);
     }

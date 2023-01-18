@@ -5,13 +5,14 @@ import { ApiContext, UserContext } from '../../../App';
 function UserPublicHeader({ user }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
+
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [postCount, setPostCount] = useState(0);
-  const [followerCount, setFollowerCount] = useState(0);
-  const [followsCount, setFollowsCount] = useState(0);
+  const [followerCount, setFollowerCount] = useState(user.followers.length);
+  const [followsCount, setFollowsCount] = useState(user.following.length);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
-    console.log('checking useEffect');
     if (user._id === loggedInUser._id) {
       setIsCurrentUser(true);
     } else {
@@ -24,8 +25,107 @@ function UserPublicHeader({ user }) {
       const data = await res.json();
       setPostCount(data.posts.length);
     }
+    for (let i = 0; i < loggedInUser.following.length; i++) {
+      if (loggedInUser.following[i] === user._id) {
+        setIsFollowing(true);
+        break;
+      }
+    }
     countUserPosts();
-  });
+  }, []);
+
+  const addFollowingToCurrentUser = async () => {
+    // first add to logged in users list.
+    setIsFollowing(true);
+    console.log('follow to current');
+
+    let data = new URLSearchParams();
+    data.append(
+      'follow',
+      JSON.stringify({ _id: user._id, type: 'following/add' })
+    );
+    const followingRes = await fetch(
+      `${apiURL}/api/users/${loggedInUser._id}`,
+      {
+        mode: 'cors',
+        method: 'PUT',
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+  };
+  const addFollowerToUser = async () => {
+    // add follower to this user
+    console.log('follow to user');
+
+    let data = new URLSearchParams();
+    data.append(
+      'follow',
+      JSON.stringify({ _id: loggedInUser._id, type: 'follower/add' })
+    );
+    const followingRes = await fetch(`${apiURL}/api/users/${user._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      body: data,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  };
+  const removeFollowingFromCurrentUser = async () => {
+    setIsFollowing(false);
+    let data = new URLSearchParams();
+    data.append(
+      'follow',
+      JSON.stringify({
+        _id: user._id,
+        type: 'following/remove',
+      })
+    );
+    const followingRes = await fetch(
+      `${apiURL}/api/users/${loggedInUser._id}`,
+      {
+        mode: 'cors',
+        method: 'PUT',
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+  };
+  const removeFollowerFromUser = async () => {
+    let data = new URLSearchParams();
+    data.append(
+      'follow',
+      JSON.stringify({
+        _id: user._id,
+        type: 'follower/remove',
+      })
+    );
+    const followingRes = await fetch(`${apiURL}/api/users/${user._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      body: data,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  };
+  const handleFollow = () => {
+    console.log('follow send');
+    addFollowerToUser();
+    addFollowingToCurrentUser();
+  };
+
+  const handleUnFollow = () => {
+    console.log('unfollow send');
+
+    removeFollowerFromUser();
+    removeFollowingFromCurrentUser();
+  };
 
   return (
     <div className={style.profileAvatarContainer}>
@@ -44,7 +144,18 @@ function UserPublicHeader({ user }) {
             </div>
           ) : (
             <div>
-              <button className={style.followButton}>Follow</button>
+              <button
+                onClick={
+                  isFollowing ? () => handleUnFollow() : () => handleFollow()
+                }
+                className={
+                  isFollowing
+                    ? `${style.unFollowButton} ${style.followButton}`
+                    : `${style.followButton}`
+                }
+              >
+                {isFollowing ? 'Following' : 'Follow'}
+              </button>
             </div>
           )}
         </div>

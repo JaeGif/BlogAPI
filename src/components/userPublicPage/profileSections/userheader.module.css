@@ -49,10 +49,10 @@
   cursor: pointer;
 }
 .editButton:hover {
-  background-color: var(--greyHighlight);
+  background-color: var(--grey-2);
 }
 .followButton {
-  background-color: #0095f6;
+  background-color: var(--blue-1);
   border: none;
   border-radius: 5px;
   padding: 7.5px 15px 7.5px 15px;
@@ -61,5 +61,12 @@
   color: white;
 }
 .followButton:hover {
-  background-color: #0074cc;
+  background-color: var(--blue-2);
+}
+.unFollowButton {
+  color: black;
+  background-color: var(--grey-1);
+}
+.unFollowButton:hover {
+  background-color: var(--grey-2);
 }
