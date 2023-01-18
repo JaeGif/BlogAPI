@@ -43,3 +43,6 @@
 .postThumbnail {
   height: 40px;
 }
+.unViewed {
+  background-color: var(--grey-1);
+}

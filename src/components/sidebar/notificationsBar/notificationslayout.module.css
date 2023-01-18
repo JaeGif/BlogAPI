@@ -10,7 +10,9 @@
   border-bottom: solid 1px var(--greyHighlight);
   padding-bottom: 20px;
 }
-.searchContainer {
+.notificationsMinorWrapper {
+  display: flex;
+  flex-direction: column-reverse;
 }
 .searchInput {
   background-image: url('./assets/favicons/search-grey.svg');

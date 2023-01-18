@@ -55,10 +55,10 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
     for (let i = 0; i < user.notifications.length; i++) {
       if (!user.notifications[i].seen) {
         setNewNotification(true);
-      } else {
-        setNewNotification(false);
+        return;
       }
     }
+    setNewNotification(false);
   }, []);
 
   return (

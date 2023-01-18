@@ -11,6 +11,7 @@ function Notification({ notification, handleOpen }) {
   const [isLike, setIsLike] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
   const [isTag, setIsTag] = useState(false);
+  const [isViewed, setIsViewed] = useState(notification.seen);
 
   useEffect(() => {
     console.log(notification);
@@ -35,7 +36,11 @@ function Notification({ notification, handleOpen }) {
 
   return (
     <div
-      className={style.notificationWrapper}
+      className={
+        isViewed
+          ? `${style.notificationWrapper}`
+          : `${style.notificationWrapper} ${style.unViewed}`
+      }
       onClick={
         isLike
           ? (e) => {

@@ -132,8 +132,9 @@ a {
   position: absolute;
   right: 0;
   top: 1px;
-  height: 11px;
-  width: 11px;
+  height: 10px;
+  width: 10px;
   border-radius: 50%;
   background-color: rgb(255, 47, 47);
+  border: solid 2px white;
 }
