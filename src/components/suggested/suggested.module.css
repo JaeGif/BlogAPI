@@ -3,10 +3,93 @@
   align-items: center;
   width: 75%;
   justify-content: space-between;
+  margin: 25px;
+}
+.userContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 .switchUserBtn {
-  color: rgb(0, 68, 185);
+  color: var(--blue-4);
   font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
+}
+.avatarContainer {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avatarContainer > img {
+  height: 60px;
+}
+.nameContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.nameContainer > p {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+}
+.userName {
+  font-weight: 600;
+}
+.realName {
+  color: var(--grey-5);
+}
+.moreSuggestionsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+.suggestedUserAvatarContainer {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.suggestedUserAvatarContainer > img {
+  height: 40px;
+}
+.individualSuggestion {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: fit-content;
+  max-width: 80%;
+  margin: 0;
+  padding: 0;
+}
+.individualContainer {
+  display: flex;
+  align-items: center;
+  width: 75%;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.suggestedUsersContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  margin-left: 20px;
+}
+.switchUserBtn:hover {
+  color: var(--blue-1);
+}
+.following {
+  color: var(--grey-3);
 }

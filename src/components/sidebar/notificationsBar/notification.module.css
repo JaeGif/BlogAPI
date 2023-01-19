@@ -3,14 +3,17 @@
   justify-content: space-around;
   align-items: center;
   gap: 5px;
-  width: 100%;
   cursor: pointer;
+  padding-right: 5px;
 }
 .notificationWrapper:hover {
   background-color: var(--grey-1);
 }
 .notificationsMinorWrapper {
   width: 100%;
+}
+.messageP {
+  flex: 1;
 }
 .avatarContainer {
   height: 40px;

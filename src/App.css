@@ -4,12 +4,15 @@
   --greyHighlight: rgb(200, 200, 200);
   --grey-1: rgb(235, 235, 235);
   --grey-2: rgb(200, 200, 200);
-  --grey-3: 
+  --grey-3: rgb(180, 180, 180);
+  --grey-4: rgb(150, 150, 150);
+  --grey-5: rgb(100, 100, 100);
   --optionsSideBarWidth: 200px;
   --optionsBarExpanded: 450px;
   --blue-1: rgb(0, 149, 246);
   --blue-2: rgb(0, 116, 204);
   --blue-3: rgb(0, 99, 186);
+  --blue-4: rgb(0, 80, 150);
 }
 body {
   margin: 0;

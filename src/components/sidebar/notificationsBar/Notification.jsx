@@ -59,7 +59,7 @@ function Notification({ notification, handleOpen }) {
         />
       </div>
 
-      <p>
+      <p className={style.messageP}>
         <em
           onClick={(e) => {
             e.stopPropagation();
