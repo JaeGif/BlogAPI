@@ -23,9 +23,52 @@ function SuggestedUserProfile({ user }) {
     }
     getUser();
   }, []);
+
+  const addFollowingToCurrentUser = async () => {
+    // first add to logged in users list.
+    setIsFollowing(true);
+
+    let data = new URLSearchParams();
+    data.append(
+      'follow',
+      JSON.stringify({ _id: user.user, type: 'following/add' })
+    );
+    const followingRes = await fetch(
+      `${apiURL}/api/users/${loggedInUser._id}`,
+      {
+        mode: 'cors',
+        method: 'PUT',
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+  };
+  const addFollowerToUser = async () => {
+    // add follower to this user
+
+    let data = new URLSearchParams();
+    data.append(
+      'follow',
+      JSON.stringify({ _id: loggedInUser._id, type: 'follower/add' })
+    );
+    const followingRes = await fetch(`${apiURL}/api/users/${user.user}`, {
+      mode: 'cors',
+      method: 'PUT',
+      body: data,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  };
+
   const handleFollow = () => {
     setIsFollowing(true);
+    addFollowerToUser();
+    addFollowingToCurrentUser();
   };
+
   return (
     <div className={style.individualSuggestion}>
       {dataFound ? (
