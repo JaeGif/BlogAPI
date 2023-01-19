@@ -21,6 +21,7 @@ function Suggested() {
       );
       const data = await res.json();
       setSuggestedUsers(data.suggested);
+      console.log(data.suggested);
     }
     getSuggestions();
   }, []);

@@ -7,8 +7,10 @@
 }
 .userContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  width: 200px;
+  overflow: hidden;
   gap: 10px;
 }
 .switchUserBtn {
@@ -69,7 +71,7 @@
   justify-content: flex-start;
   align-items: center;
   min-width: fit-content;
-  max-width: 80%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -77,7 +79,7 @@
   display: flex;
   align-items: center;
   width: 75%;
-  justify-content: space-between;
+  justify-content: center;
   cursor: pointer;
 }
 .suggestedUsersContainer {

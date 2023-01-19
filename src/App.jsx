@@ -67,7 +67,7 @@ function App() {
     // Modesto45 User d4b51d5d9e0e47b2aefaf89d
     // Rhea67 fe0db393eeaeaa8530a38e1d
     // Noberto Gleason e8ce217fbb667ca248d349b4
-    fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d');
+    fetchLoggedInUserData('823fce52b33a845ef7554dd9');
   }, []);
   const resetModalValues = () => {
     setIsUserPage(false);

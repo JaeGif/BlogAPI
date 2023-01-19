@@ -9,6 +9,8 @@ function SuggestedUserProfile({ user }) {
   const [userData, setUserData] = useState();
   const [dataFound, setDataFound] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [message, setMessage] = useState('');
+  console.log(user.type);
 
   useEffect(() => {
     console.log('fethcing');
@@ -18,8 +20,19 @@ function SuggestedUserProfile({ user }) {
       });
       const data = await res.json();
       setUserData(data.user);
-      console.log(data.user);
       setDataFound(true);
+
+      switch (user.type) {
+        case 'following/follows':
+          setMessage('friend of a friend ...');
+          break;
+        case 'user/follower':
+          setMessage('follows you ...');
+          break;
+        default:
+          setMessage("this user's just cool");
+          break;
+      }
     }
     getUser();
   }, []);
@@ -91,6 +104,9 @@ function SuggestedUserProfile({ user }) {
                 </p>
               </div>
             </div>
+            <p>
+              <em>{message}</em>
+            </p>
           </div>
 
           <p
