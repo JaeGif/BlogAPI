@@ -11,6 +11,7 @@ function Notification({ notification, handleOpen }) {
   const [isLike, setIsLike] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
   const [isTag, setIsTag] = useState(false);
+  const [notificationRetrieved, setNotificationRetrieved] = useState(false);
   const [isViewed, setIsViewed] = useState(notification.seen);
 
   useEffect(() => {
@@ -19,14 +20,19 @@ function Notification({ notification, handleOpen }) {
       case 'post/like':
         setMessage('liked your post.');
         setIsLike(true);
+        setNotificationRetrieved(true);
         break;
       case 'user/follow':
         setMessage('started following you.');
         setIsFollow(true);
+        setNotificationRetrieved(true);
+
         break;
       case 'user/tagged':
         setMessage('tagged you in a post.');
         setIsTag(true);
+        setNotificationRetrieved(true);
+
         break;
       default:
         console.log('SOMETHING IS PRETTY WRONG');
@@ -48,31 +54,63 @@ function Notification({ notification, handleOpen }) {
               handleOpen('');
               getPostFull(notification.post._id);
             }
+          : isTag
+          ? (e) => {
+              e.stopPropagation();
+              handleOpen('');
+              getPostFull(notification.post._id);
+            }
           : undefined
       }
     >
       <div className={style.avatarContainer}>
         <img
           className={style.userAvatar}
-          src={notification.user.avatar.url}
+          src={
+            notificationRetrieved
+              ? isTag
+                ? notification.post.user.avatar.url
+                : notification.user.avatar.url
+              : ''
+          }
           alt='profile image'
         />
       </div>
 
       <p className={style.messageP}>
         <em
-          onClick={(e) => {
-            e.stopPropagation();
-            handleOpen('');
-            getUserProfile(notification.user._id);
-          }}
+          onClick={
+            isTag
+              ? (e) => {
+                  e.stopPropagation();
+                  handleOpen('');
+                  getUserProfile(notification.post.user._id);
+                }
+              : (e) => {
+                  e.stopPropagation();
+                  handleOpen('');
+                  getUserProfile(notification.user._id);
+                }
+          }
           className={style.userName}
         >
-          {notification.user.userName}
+          {notificationRetrieved
+            ? isTag
+              ? notification.post.user.userName
+              : notification.user.userName
+            : ''}
         </em>{' '}
         {message}
       </p>
       {isLike ? (
+        <div className={style.thumbnailContainer}>
+          <img
+            className={style.postThumbnail}
+            src={`${apiURL}/${notification.post.thumbnail.url}`}
+            alt={notification.post.thumbnail.alt}
+          />
+        </div>
+      ) : isTag ? (
         <div className={style.thumbnailContainer}>
           <img
             className={style.postThumbnail}
