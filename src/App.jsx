@@ -8,6 +8,8 @@ import NewPost from './components/newPost/NewPost';
 import './filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
 import FullPost from './components/fullPost/FullPost';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 /* {
     avatar: {
@@ -67,7 +69,7 @@ function App() {
     // Modesto45 User d4b51d5d9e0e47b2aefaf89d
     // Rhea67 fe0db393eeaeaa8530a38e1d
     // Noberto Gleason e8ce217fbb667ca248d349b4
-    fetchLoggedInUserData('823fce52b33a845ef7554dd9');
+    fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d');
   }, []);
   const resetModalValues = () => {
     setIsUserPage(false);
@@ -186,6 +188,7 @@ function App() {
           <p>Log in page goes here</p>
         </div>
       )}
+      <ReactQueryDevtools />
     </div>
   );
 }

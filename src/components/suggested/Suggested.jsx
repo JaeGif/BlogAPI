@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import style from './suggested.module.css';
 import SuggestedUserProfile from './userProfile/SuggestedUserProfile';
 import uniqid from 'uniqid';
 import { ApiContext, UserContext } from '../../App';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import LoadingIcon from '../utlity_Components/LoadingIcon';
 
 function Suggested() {
   // Return a short list of suggested users ~5 users when this element is generated
@@ -10,22 +12,42 @@ function Suggested() {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const [suggestedUsers, setSuggestedUsers] = useState([]);
-  useEffect(() => {
-    async function getSuggestions() {
-      const numberOfSuggestedUsers = 5;
-      const res = await fetch(
-        `${apiURL}/api/users/${loggedInUser._id}?s=${numberOfSuggestedUsers}`,
-        {
-          mode: 'cors',
-        }
-      );
-      const data = await res.json();
-      setSuggestedUsers(data.suggested);
-      console.log(data.suggested);
-    }
-    getSuggestions();
-  }, []);
+  const queryClient = useQueryClient();
+  const numberOfSuggestedUsers = 5;
 
+  /*   useEffect(() => {
+    getSuggestions();
+  }, []); */
+
+  async function getSuggestions() {
+    const res = await fetch(
+      `${apiURL}/api/users/${loggedInUser._id}?s=${numberOfSuggestedUsers}`,
+      {
+        mode: 'cors',
+      }
+    );
+    const data = await res.json();
+    return data.suggested;
+  }
+  const suggestionsQuery = useQuery({
+    queryKey: ['users', loggedInUser._id, { s: numberOfSuggestedUsers }],
+    queryFn: getSuggestions,
+  });
+
+  if (suggestionsQuery.isError) console.log(err);
+  if (suggestionsQuery.data === null) {
+    return (
+      <div className={style.moreSuggestionsContainer}>
+        <p>
+          <em>Check later for more suggestions.</em>
+        </p>
+      </div>
+    );
+  }
+
+  /*   const getSuggestions = useMemo(() => getSuggestions(), [loggedInUser])
+useMemo is just a performance enhancer, the state may be rerendered regardless.
+ */
   return (
     <div>
       <div className={style.profileContainer}>
@@ -42,17 +64,22 @@ function Suggested() {
         </div>
         <p className={style.switchUserBtn}>Switch</p>
       </div>
-      {suggestedUsers.length ? (
+      {suggestionsQuery.isLoading ? (
+        <LoadingIcon />
+      ) : (
         <>
           <span className={style.profileContainer}>
             <p>Suggestions For You</p>
           </span>
           <div className={style.suggestedUsersContainer}>
-            {suggestedUsers.map((user) => (
+            {suggestionsQuery.data.map((user) => (
               <SuggestedUserProfile key={uniqid()} user={user} />
             ))}
           </div>
         </>
+      )}
+      {suggestionsQuery.data ? (
+        <></>
       ) : (
         <div className={style.moreSuggestionsContainer}>
           <p>

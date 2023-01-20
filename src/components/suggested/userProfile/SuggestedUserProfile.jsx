@@ -1,41 +1,42 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ApiContext, ProfileContext, UserContext } from '../../../App';
 import style from '../suggested.module.css';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import LoadingIcon from '../../utlity_Components/LoadingIcon';
 
 function SuggestedUserProfile({ user }) {
   const handleUserCheckout = useContext(ProfileContext);
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
-  const [userData, setUserData] = useState();
-  const [dataFound, setDataFound] = useState(false);
+
   const [isFollowing, setIsFollowing] = useState(false);
-  const [message, setMessage] = useState('');
-  console.log(user.type);
 
-  useEffect(() => {
-    console.log('fethcing');
-    async function getUser() {
-      const res = await fetch(`${apiURL}/api/users/${user.user}`, {
-        mode: 'cors',
-      });
-      const data = await res.json();
-      setUserData(data.user);
-      setDataFound(true);
-
-      switch (user.type) {
-        case 'following/follows':
-          setMessage('friend of a friend ...');
-          break;
-        case 'user/follower':
-          setMessage('follows you ...');
-          break;
-        default:
-          setMessage("this user's just cool");
-          break;
-      }
+  async function getUser() {
+    const res = await fetch(`${apiURL}/api/users/${user.user}`, {
+      mode: 'cors',
+    });
+    const data = await res.json();
+    let message;
+    switch (user.type) {
+      case 'following/follows':
+        message = 'friend of a friend ...';
+        break;
+      case 'user/follower':
+        message = 'follows you ...';
+        break;
+      default:
+        message = "this user's just cool";
+        break;
     }
-    getUser();
-  }, []);
+    data.message = message;
+    return data;
+  }
+
+  const userQuery = useQuery({
+    queryKey: ['users', user.user],
+    queryFn: getUser,
+  });
 
   const addFollowingToCurrentUser = async () => {
     // first add to logged in users list.
@@ -75,7 +76,6 @@ function SuggestedUserProfile({ user }) {
       },
     });
   };
-
   const handleFollow = () => {
     setIsFollowing(true);
     addFollowerToUser();
@@ -84,28 +84,33 @@ function SuggestedUserProfile({ user }) {
 
   return (
     <div className={style.individualSuggestion}>
-      {dataFound ? (
+      {userQuery.isLoading ? (
+        <></>
+      ) : (
         <>
           <div
             onClick={(e) => {
               e.stopPropagation();
-              handleUserCheckout(userData._id);
+              handleUserCheckout(userQuery.data.user._id);
             }}
             className={style.individualContainer}
           >
             <div className={style.userContainer}>
               <div className={style.suggestedUserAvatarContainer}>
-                <img src={userData.avatar.url} alt='profile image'></img>
+                <img
+                  src={userQuery.data.user.avatar.url}
+                  alt='profile image'
+                ></img>
               </div>
               <div className={style.nameContainer}>
-                <p className={style.userName}>{userData.userName}</p>
+                <p className={style.userName}>{userQuery.data.user.userName}</p>
                 <p className={style.realName}>
-                  {userData.firstName} {userData.lastName}
+                  {userQuery.data.user.firstName} {userQuery.data.user.lastName}
                 </p>
               </div>
             </div>
             <p>
-              <em>{message}</em>
+              <em>{userQuery.data.message}</em>
             </p>
           </div>
 
@@ -120,8 +125,6 @@ function SuggestedUserProfile({ user }) {
             {isFollowing ? 'Following' : 'Follow'}
           </p>
         </>
-      ) : (
-        <></>
       )}
     </div>
   );
