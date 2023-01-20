@@ -28,7 +28,7 @@ function NotificationsLayout({ handleOpen }) {
         },
       });
       const notifications = await res.json();
-      setRecentNotifications(notifications.user.notifications);
+      setRecentNotifications(notifications.notifications);
     }
     findUserNotifications();
     console.log('checked notifs');
