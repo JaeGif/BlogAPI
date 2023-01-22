@@ -4,45 +4,40 @@ import { ApiContext } from '../../../App';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
+import { useQuery } from '@tanstack/react-query';
 
 function UserPublished({ user }) {
   const apiURL = useContext(ApiContext);
 
-  const [userPosts, setUserPosts] = useState([]);
-  const [postsFound, setPostsFound] = useState(false);
+  async function findPostsUserId() {
+    const res = await fetch(
+      `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`,
+      {
+        mode: 'cors',
+      }
+    );
+    console.log('finding new posts for', `${user.userName}`);
+    const data = await res.json();
+    return data.posts;
+  }
 
-  useEffect(() => {
-    async function findPostsUserId() {
-      const res = await fetch(
-        `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`,
-        {
-          mode: 'cors',
-        }
-      );
-      console.log('finding new posts for', `${user.userName}`);
-      const data = await res.json();
-      console.log(data.posts);
-      setPostsFound(true);
-      setUserPosts(data.posts);
-    }
-    findPostsUserId();
-    console.log(userPosts);
-  }, []);
+  const userPostsQuery = useQuery({
+    queryKey: ['posts', { userid: user._id }],
+    queryFn: findPostsUserId,
+  });
 
   return (
     <div className={style.contentLayoutGrid}>
-      {postsFound ? (
-        userPosts.length ? (
-          userPosts.map((post) => (
-            <UserPostPreview key={uniqid()} post={post} />
-          ))
-        ) : (
-          <h2 className={style.noDataFoundMessage}>
-            Hmm, there's nothing here ...
-          </h2>
-        )
-      ) : (
+      {userPostsQuery.isLoading ? (
         <LoadingIcon />
+      ) : userPostsQuery.data ? (
+        userPostsQuery.data.map((post) => (
+          <UserPostPreview key={uniqid()} post={post} />
+        ))
+      ) : (
+        <h2 className={style.noDataFoundMessage}>
+          Hmm, there's nothing here ...
+        </h2>
       )}
     </div>
   );
