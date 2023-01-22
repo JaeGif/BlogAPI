@@ -4,7 +4,7 @@ import { ApiContext } from '../../../App';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
-
+import { useQuery } from '@tanstack/react-query';
 function UserTagged({ user }) {
   const apiURL = useContext(ApiContext);
   const [userTaggedIdx, setUserTaggedIdx] = useState(user.taggedPosts);
@@ -26,6 +26,7 @@ function UserTagged({ user }) {
     const data = await res.json();
     return data.post;
   };
+
   return (
     <>
       {userTaggedIdx.length ? (
