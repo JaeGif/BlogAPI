@@ -10,7 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 function Posts({ refresh, refreshFn }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
-  const [posts, setPosts] = useState([]);
   const [limitCounter, setLimitCounter] = useState(0);
   /* 
   useEffect(() => {

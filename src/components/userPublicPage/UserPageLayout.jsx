@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import style from './userpagelayout.module.css';
+import { useQuery } from '@tanstack/react-query';
 
 import UserPublished from './profileSections/UserPublished';
 import UserSaved from './profileSections/UserSaved';
@@ -13,10 +14,7 @@ function UserPageLayout({ user }) {
   // fetch user from user who is logged in
   const apiURL = useContext(ApiContext);
 
-  const [userData, setUserData] = useState();
-  const [isUser, setIsUser] = useState(false);
-
-  useEffect(() => {
+  /*   useEffect(() => {
     setIsUser(false);
     console.log('rerun data search');
     async function findUserById() {
@@ -28,7 +26,21 @@ function UserPageLayout({ user }) {
       setIsUser(true);
     }
     findUserById();
-  }, [user]);
+  }, [user]); */
+  async function findUserById() {
+    const res = await fetch(`${apiURL}/api/users/${user._id}`, {
+      mode: 'cors',
+    });
+    const data = await res.json();
+    return data.user;
+    setUserData(data.user);
+    setIsUser(true);
+  }
+
+  const userQuery = useQuery({
+    queryKey: ['user', user._id],
+    queryFn: findUserById,
+  });
 
   // default state of user page layout
   const [isPosted, setIsPosted] = useState(true);
@@ -53,7 +65,7 @@ function UserPageLayout({ user }) {
 
   return (
     <>
-      {isUser ? (
+      {userQuery.data ? (
         <div className={style.layoutContainer}>
           <UserPublicHeader user={user} />
           <UserNavBar
@@ -64,12 +76,14 @@ function UserPageLayout({ user }) {
             isSaved={isSaved}
             isTagged={isTagged}
           />
-          {isPosted ? <UserPublished user={userData} /> : <></>}
-          {isSaved ? <UserSaved user={userData} /> : <></>}
-          {isTagged ? <UserTagged user={userData} /> : <></>}
+          {isPosted ? <UserPublished user={userQuery.data} /> : <></>}
+          {isSaved ? <UserSaved user={userQuery.data} /> : <></>}
+          {isTagged ? <UserTagged user={userQuery.data} /> : <></>}
         </div>
-      ) : (
+      ) : userQuery.isLoading ? (
         <LoadingIcon />
+      ) : (
+        <>There's something wrong here... 404</>
       )}
     </>
   );
