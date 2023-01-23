@@ -9,6 +9,7 @@ import './filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
 import FullPost from './components/fullPost/FullPost';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 /* {
@@ -54,23 +55,30 @@ function App() {
   const localPath = import.meta.env.VITE_LOCAL_PATH;
   const productionPath = import.meta.env.VITE_BASE_PATH;
 
-  useEffect(() => {
+  /*   useEffect(() => {
     // set logged in user
-    async function fetchLoggedInUserData(userId) {
-      const res = await fetch(`${localURL}/api/users/${userId}`, {
-        mode: 'cors',
-      });
-      const data = await res.json();
-      setLoggedInUser(data.user);
-      setLoggedIn(true);
-      setUserProfile(data.user);
-    }
+
     // Eldritch Feast User; Neal Morrison. 823fce52b33a845ef7554dd9
     // Modesto45 User d4b51d5d9e0e47b2aefaf89d
     // Rhea67 fe0db393eeaeaa8530a38e1d
     // Noberto Gleason e8ce217fbb667ca248d349b4
     fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d');
-  }, []);
+  }, []); */
+
+  async function fetchLoggedInUserData(userId) {
+    const res = await fetch(`${localURL}/api/users/${userId}`, {
+      mode: 'cors',
+    });
+    const data = await res.json();
+    setLoggedInUser(data.user);
+    setLoggedIn(true);
+    setUserProfile(data.user);
+  }
+  const userQuery = useQuery({
+    queryKey: ['users', { userId: 'd4b51d5d9e0e47b2aefaf89d' }],
+    queryFn: () => fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d'),
+  });
+
   const resetModalValues = () => {
     setIsUserPage(false);
     setIsNewPostModal(false);

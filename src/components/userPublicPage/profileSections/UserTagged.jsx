@@ -21,6 +21,7 @@ function UserTagged({ user }) {
     }
     returnIntermediateData();
   }, []);
+
   const fetchPostById = async (id) => {
     const res = await fetch(`${apiURL}/api/posts/${id}`);
     const data = await res.json();
