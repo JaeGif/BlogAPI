@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import style from './userheader.module.css';
 import { ApiContext, UserContext } from '../../../App';
+import { useQuery } from '@tanstack/react-query';
 
 function UserPublicHeader({ user }) {
   const loggedInUser = useContext(UserContext);
@@ -18,21 +19,29 @@ function UserPublicHeader({ user }) {
     } else {
       setIsCurrentUser(false);
     }
-    async function countUserPosts() {
-      const res = await fetch(
-        `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`
-      );
-      const data = await res.json();
-      setPostCount(data.posts.length);
-    }
+
     for (let i = 0; i < loggedInUser.following.length; i++) {
       if (loggedInUser.following[i] === user._id) {
         setIsFollowing(true);
         break;
       }
     }
-    countUserPosts();
   }, []);
+
+  async function countUserPosts() {
+    const res = await fetch(
+      `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`
+    );
+    const data = await res.json();
+    return data.posts;
+    setPostCount(data.posts.length);
+  }
+  // something wrong with this query
+  const userAllPostsQuery = useQuery({
+    queryKey: ['posts', { userid: user._id }],
+    queryFn: countUserPosts,
+  });
+  console.log(userAllPostsQuery);
 
   const addFollowingToCurrentUser = async () => {
     // first add to logged in users list.
@@ -161,7 +170,8 @@ function UserPublicHeader({ user }) {
         </div>
         <div className={style.userStatsContainer}>
           <p>
-            <em className={style.stats}>{postCount}</em> posts
+            <em className={style.stats}>{userAllPostsQuery.data.length}</em>{' '}
+            posts
           </p>
           <p>
             <em className={style.stats}>{followerCount}</em> followers

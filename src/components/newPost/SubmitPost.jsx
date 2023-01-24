@@ -5,6 +5,7 @@ import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
 import UserSearchOverview from '../userSearchOverview/UserSearchOverview';
 import style from './newpost.module.css';
 import PreviewImage from './PreviewImage';
+import { useQuery } from '@tanstack/react-query';
 import uniqid from 'uniqid';
 
 function SubmitPost({
@@ -47,6 +48,7 @@ function SubmitPost({
     const data = await res.json();
     setUserFindResults(data.users);
     () => handleTagged(data);
+    return data.users;
   };
   useEffect(() => {
     setChangedTagged(tagged);
