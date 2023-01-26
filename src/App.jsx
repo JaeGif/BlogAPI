@@ -11,6 +11,7 @@ import FullPost from './components/fullPost/FullPost';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import LoginPage from './components/auth/login/LoginPage';
 
 /* {
     avatar: {
@@ -70,10 +71,11 @@ function App() {
       mode: 'cors',
     });
     const data = await res.json();
-    setLoggedInUser(data.user);
     setLoggedIn(true);
     setUserProfile(data.user);
+    return data.user;
   }
+
   const userQuery = useQuery({
     queryKey: ['users', { userId: 'd4b51d5d9e0e47b2aefaf89d' }],
     queryFn: () => fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d'),
@@ -124,7 +126,7 @@ function App() {
   const addSearchToRecents = async (userId) => {
     let data = new URLSearchParams();
     data.append('searched', userId);
-    const res = await fetch(`${localURL}/api/users/${loggedInUser._id}`, {
+    const res = await fetch(`${localURL}/api/users/${userQuery.data._id}`, {
       method: 'PUT',
       body: data,
       headers: {
@@ -147,7 +149,7 @@ function App() {
         <PostContext.Provider value={handlePostCheckout}>
           <ProfileContext.Provider value={handleUserProfileCheckout}>
             <PathContext.Provider value={localPath}>
-              <UserContext.Provider value={loggedInUser}>
+              <UserContext.Provider value={userQuery.data}>
                 <ApiContext.Provider value={localURL}>
                   <div className='App'>
                     <Sidebar
@@ -193,7 +195,7 @@ function App() {
         </PostContext.Provider>
       ) : (
         <div>
-          <p>Log in page goes here</p>
+          <LoginPage />
         </div>
       )}
       <ReactQueryDevtools />
