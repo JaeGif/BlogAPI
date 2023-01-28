@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LoginPage from './components/auth/login/LoginPage';
+import CreateAccount from './components/auth/createAccount/CreateAccount';
 
 /* {
     avatar: {
@@ -39,6 +40,7 @@ const ApiContext = React.createContext(null);
 const PathContext = React.createContext(null);
 const ProfileContext = React.createContext(null);
 const PostContext = React.createContext(null);
+const TokenContext = React.createContext(null);
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
@@ -50,6 +52,8 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState({});
+  const [hasAccount, setHasAccount] = useState(true);
+  const [token, setToken] = useState(null);
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
@@ -69,18 +73,44 @@ function App() {
   async function fetchLoggedInUserData(userId) {
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
+      headers: {
+        Authorization: 'Bearer' + ' ' + token,
+      },
     });
     const data = await res.json();
     setLoggedIn(true);
     setUserProfile(data.user);
-    return data.user;
+    console.log(data.user);
   }
 
-  const userQuery = useQuery({
+  /*   const userQuery = useQuery({
     queryKey: ['users', { userId: 'd4b51d5d9e0e47b2aefaf89d' }],
     queryFn: () => fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d'),
   });
+ */
+  const handleLogin = async (username, password) => {
+    console.log('handle handling');
+    const userData = new URLSearchParams();
+    userData.append('username', username);
+    userData.append('password', password);
 
+    const res = await fetch(`${localURL}/login`, {
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: userData,
+    });
+    console.log(res);
+    if (res.status === 200) {
+      const data = await res.json();
+      setToken(data.token);
+      fetchLoggedInUserData(data.user);
+    } else {
+      console.log(res.status);
+    }
+  };
   const resetModalValues = () => {
     setIsUserPage(false);
     setIsNewPostModal(false);
@@ -142,62 +172,81 @@ function App() {
     setIsUserPage(false);
     setDisplayPost(false);
   };
+  const handleHasAccount = () => {
+    setHasAccount(true);
+  };
+  const handleDoesNotHaveAccount = () => {
+    setHasAccount(false);
+  };
 
   return (
     <div>
-      {loggedIn ? (
-        <PostContext.Provider value={handlePostCheckout}>
-          <ProfileContext.Provider value={handleUserProfileCheckout}>
-            <PathContext.Provider value={localPath}>
-              <UserContext.Provider value={userQuery.data}>
-                <ApiContext.Provider value={localURL}>
-                  <div className='App'>
-                    <Sidebar
-                      newPostModal={newPostModal}
-                      openUserPageModal={handleUserProfileCheckout}
-                      goToHomePage={goToHomePage}
-                    />
-                    {isUserPage ? (
-                      <UserPageLayout
-                        isUserPage={isUserPage}
-                        user={userProfile}
-                      />
-                    ) : (
-                      <>
-                        <Posts refresh={isRefresh} refreshFn={refreshContent} />
-                        <Suggested />
-                      </>
-                    )}
-                    {isNewPostModal ? (
-                      <NewPost
+      <ApiContext.Provider value={localURL}>
+        {loggedIn ? (
+          <TokenContext.Provider value={token}>
+            <PostContext.Provider value={handlePostCheckout}>
+              <ProfileContext.Provider value={handleUserProfileCheckout}>
+                <PathContext.Provider value={localPath}>
+                  <UserContext.Provider value={userProfile}>
+                    <div className='App'>
+                      <Sidebar
                         newPostModal={newPostModal}
-                        refresh={setIsRefresh}
+                        openUserPageModal={handleUserProfileCheckout}
+                        goToHomePage={goToHomePage}
                       />
-                    ) : (
-                      <></>
-                    )}
-                    {displayPost ? (
-                      <div>
-                        <FullPost
-                          postObj={postCheckout}
-                          toggleFullPost={toggleDisplayFullPost}
-                          isVideo={postContentIsVideo}
+                      {isUserPage ? (
+                        <UserPageLayout
+                          isUserPage={isUserPage}
+                          user={userProfile}
                         />
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </ApiContext.Provider>
-              </UserContext.Provider>
-            </PathContext.Provider>
-          </ProfileContext.Provider>
-        </PostContext.Provider>
-      ) : (
-        <div>
-          <LoginPage />
-        </div>
-      )}
+                      ) : (
+                        <>
+                          <Posts
+                            refresh={isRefresh}
+                            refreshFn={refreshContent}
+                          />
+                          <Suggested />
+                        </>
+                      )}
+                      {isNewPostModal ? (
+                        <NewPost
+                          newPostModal={newPostModal}
+                          refresh={setIsRefresh}
+                        />
+                      ) : (
+                        <></>
+                      )}
+                      {displayPost ? (
+                        <div>
+                          <FullPost
+                            postObj={postCheckout}
+                            toggleFullPost={toggleDisplayFullPost}
+                            isVideo={postContentIsVideo}
+                          />
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  </UserContext.Provider>
+                </PathContext.Provider>
+              </ProfileContext.Provider>
+            </PostContext.Provider>
+          </TokenContext.Provider>
+        ) : (
+          <div>
+            {hasAccount ? (
+              <LoginPage
+                handleDoesNotHaveAccount={handleDoesNotHaveAccount}
+                handleLogIn={handleLogin}
+              />
+            ) : (
+              <CreateAccount handleHasAccount={handleHasAccount} />
+            )}
+          </div>
+        )}
+      </ApiContext.Provider>
+
       <ReactQueryDevtools />
     </div>
   );

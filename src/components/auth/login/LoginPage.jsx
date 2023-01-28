@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './loginpage.module.css';
 
-function LoginPage() {
+function LoginPage({ handleDoesNotHaveAccount, handleLogIn }) {
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
   return (
     <div className={style.modalWrapper}>
       <div className={style.logInContainer}>
@@ -11,6 +20,7 @@ function LoginPage() {
           <form>
             <div className={style.formAlignment}>
               <input
+                onChange={(e) => handleUsernameChange(e)}
                 className={style.textInput}
                 name='username'
                 placeholder='Username'
@@ -19,6 +29,7 @@ function LoginPage() {
                 required
               />
               <input
+                onChange={(e) => handlePasswordChange(e)}
                 className={style.textInput}
                 name='password'
                 type='password'
@@ -26,7 +37,16 @@ function LoginPage() {
                 placeholder='Password'
                 required
               />
-              <button className={style.submitButton}>Log In</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleLogIn(username, password);
+                }}
+                className={style.submitButton}
+              >
+                Log In
+              </button>
             </div>
           </form>
           <div className={style.orContainer}>
@@ -38,7 +58,15 @@ function LoginPage() {
           <div className={style.additionalLoginOptions}>
             <div className={style.createAcctRedirectContainer}>
               <a className={style.createAcctRedirect}>
-                <button className={style.createAcctBtn}>Create Account</button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDoesNotHaveAccount();
+                  }}
+                  className={style.createAcctBtn}
+                >
+                  Create Account
+                </button>
               </a>
             </div>
             <div className={style.createAcctRedirectContainer}>

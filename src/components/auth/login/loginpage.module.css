@@ -107,3 +107,10 @@ a {
   width: 100%;
   gap: 5px;
 }
+.userHasAccountBtn {
+  color: var(--blue-3);
+  cursor: pointer;
+}
+.userHasAccountBtn:hover {
+  color: var(--grey5);
+}

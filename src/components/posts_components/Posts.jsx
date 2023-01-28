@@ -20,6 +20,12 @@ function Posts({ refresh, refreshFn }) {
   async function fetchPosts() {
     const res = await fetch(`${apiURL}/api/posts?u=${loggedInUser._id}`, {
       mode: 'cors',
+      headers: {
+        Authorization:
+          'Bearer' +
+          ' ' +
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYzZDM4MDU0MDUwOWJhZjU1OTE5NmE1MCIsImV4cGlyZSI6MTY3NTQxMDU5Njc0M30.Lz0310zGg_TuMsGeSBs-kFedDKqGAkKyUBGTijI7uxs',
+      },
     });
     const data = await res.json();
     return data;
