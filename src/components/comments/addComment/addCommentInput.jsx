@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { ApiContext, UserContext } from '../../../App';
+import { ApiContext, TokenContext, UserContext } from '../../../App';
 import style from './AddCommentInput.module.css';
 import CommentLoadingIcon from './utility/CommentLoadingIcon.jsx';
 
 function AddCommentInput({ post, updateParentPost }) {
   const user = useContext(UserContext);
   const apiURL = useContext(ApiContext);
+  const token = useContext(TokenContext);
 
   const [isValue, setIsValue] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -34,6 +35,7 @@ function AddCommentInput({ post, updateParentPost }) {
       method: 'POST',
       body: data,
       headers: {
+        Authorization: 'Bearer' + ' ' + token,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       mode: 'cors',

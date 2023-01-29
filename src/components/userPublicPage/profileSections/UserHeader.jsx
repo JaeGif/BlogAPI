@@ -1,14 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import style from './userheader.module.css';
-import { ApiContext, UserContext } from '../../../App';
+import { ApiContext, TokenContext, UserContext } from '../../../App';
 import { useQuery } from '@tanstack/react-query';
 
 function UserPublicHeader({ user }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
+  const token = useContext(TokenContext);
 
   const [isCurrentUser, setIsCurrentUser] = useState(false);
-  const [postCount, setPostCount] = useState(0);
   const [followerCount, setFollowerCount] = useState(user.followers.length);
   const [followsCount, setFollowsCount] = useState(user.following.length);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -30,18 +30,22 @@ function UserPublicHeader({ user }) {
 
   async function countUserPosts() {
     const res = await fetch(
-      `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`
+      `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`,
+      {
+        mode: 'cors',
+        headers: {
+          Authorization: 'Bearer' + ' ' + token,
+        },
+      }
     );
     const data = await res.json();
     return data.posts;
-    setPostCount(data.posts.length);
   }
   // something wrong with this query
   const userAllPostsQuery = useQuery({
     queryKey: ['posts', { userid: user._id }],
     queryFn: countUserPosts,
   });
-  console.log(userAllPostsQuery);
 
   const addFollowingToCurrentUser = async () => {
     // first add to logged in users list.
@@ -61,6 +65,7 @@ function UserPublicHeader({ user }) {
         body: data,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer' + ' ' + token,
         },
       }
     );
@@ -80,6 +85,7 @@ function UserPublicHeader({ user }) {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer' + ' ' + token,
       },
     });
   };
@@ -101,6 +107,7 @@ function UserPublicHeader({ user }) {
         body: data,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer' + ' ' + token,
         },
       }
     );
@@ -120,6 +127,7 @@ function UserPublicHeader({ user }) {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer' + ' ' + token,
       },
     });
   };
@@ -139,10 +147,7 @@ function UserPublicHeader({ user }) {
   return (
     <div className={style.profileAvatarContainer}>
       <div className={style.profileAvatarWrapper}>
-        <img
-          className={style.avatarImg}
-          src={`${apiURL}/uploads/${user._id}/avatar.jpg`}
-        />
+        <img className={style.avatarImg} src={`${apiURL}/${user.avatar.url}`} />
       </div>
       <div className={style.optionsColumn}>
         <div className={style.optionsWrapper}>
@@ -170,7 +175,9 @@ function UserPublicHeader({ user }) {
         </div>
         <div className={style.userStatsContainer}>
           <p>
-            <em className={style.stats}>{userAllPostsQuery.data.length}</em>{' '}
+            <em className={style.stats}>
+              {userAllPostsQuery.data ? userAllPostsQuery.data.length : 0}
+            </em>{' '}
             posts
           </p>
           <p>

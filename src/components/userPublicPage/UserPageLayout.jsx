@@ -8,11 +8,12 @@ import UserTagged from './profileSections/UserTagged';
 import UserNavBar from './UserNavBar';
 import UserPublicHeader from './profileSections/UserHeader';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
-import { ApiContext } from '../../App';
+import { ApiContext, TokenContext } from '../../App';
 
 function UserPageLayout({ user }) {
   // fetch user from user who is logged in
   const apiURL = useContext(ApiContext);
+  const token = useContext(TokenContext);
 
   /*   useEffect(() => {
     setIsUser(false);
@@ -30,11 +31,12 @@ function UserPageLayout({ user }) {
   async function findUserById() {
     const res = await fetch(`${apiURL}/api/users/${user._id}`, {
       mode: 'cors',
+      headers: {
+        Authorization: 'Bearer' + ' ' + token,
+      },
     });
     const data = await res.json();
     return data.user;
-    setUserData(data.user);
-    setIsUser(true);
   }
 
   const userQuery = useQuery({

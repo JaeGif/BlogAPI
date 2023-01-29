@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ApiContext, PathContext } from '../../App';
+import { ApiContext, PathContext, TokenContext } from '../../App';
 import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
 import UserSearchOverview from '../userSearchOverview/UserSearchOverview';
@@ -30,6 +30,8 @@ function SubmitPost({
 
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
+  const token = useContext(TokenContext);
+
   const handleA11yOpen = () => {
     isAccessibilityOpen
       ? setIsAccessibilityOpen(false)
@@ -38,11 +40,14 @@ function SubmitPost({
   const addTagToggle = () => {
     isTagging ? setIsTagging(false) : setIsTagging(true);
   };
-  const findUserByUserName = async (userName) => {
+  const findUserByUserName = async (username) => {
     const res = await fetch(
-      `${apiURL}/api/users?username=${userName}&reqLimit=${5}&skipToPage=${0}`,
+      `${apiURL}/api/users?username=${username}&reqLimit=${5}&skipToPage=${0}`,
       {
         mode: 'cors',
+        headers: {
+          Authorization: 'Bearer' + ' ' + token,
+        },
       }
     );
     const data = await res.json();
@@ -90,7 +95,7 @@ function SubmitPost({
                   className={style.taggedUsersContainer}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {obj.user.userName}
+                  {obj.user.username}
                   <img
                     onClick={(e) => {
                       removeTag(obj.key);
@@ -145,7 +150,7 @@ function SubmitPost({
           <span className={style.userHeadSubmit}>
             <UserProfileAvatar user={user} />
             <p className={`${style.textSizing} ${style.userName}`}>
-              {user.userName}
+              {user.username}
             </p>
           </span>
           <textarea

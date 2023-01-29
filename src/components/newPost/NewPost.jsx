@@ -3,7 +3,7 @@ import style from './newpost.module.css';
 import UploadImages from './UploadImages';
 import FullPreviewPage from './imageOptions/FullPreviewPage';
 import SubmitPost from './SubmitPost';
-import { ApiContext, UserContext } from '../../App';
+import { ApiContext, TokenContext, UserContext } from '../../App';
 import uniqid from 'uniqid';
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
@@ -11,6 +11,7 @@ import uniqid from 'uniqid';
 function NewPost({ newPostModal, refresh }) {
   const apiURL = useContext(ApiContext);
   const user = useContext(UserContext);
+  const token = useContext(TokenContext);
 
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
@@ -141,6 +142,9 @@ function NewPost({ newPostModal, refresh }) {
     fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,
+      headers: {
+        Authorization: 'Bearer' + ' ' + token,
+      },
     }).then(() => {
       resetData();
       newPostModal();

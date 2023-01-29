@@ -6,7 +6,7 @@ function CreateAccount({ handleHasAccount }) {
   const apiURL = useContext(ApiContext);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [userName, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -14,8 +14,8 @@ function CreateAccount({ handleHasAccount }) {
     let data = new URLSearchParams();
     data.append('firstName', firstName);
     data.append('lastName', lastName);
-    data.append('username', userName);
-    data.append('password', firstName);
+    data.append('username', username);
+    data.append('password', password);
     data.append('email', '');
 
     const res = await fetch(`${apiURL}/register`, {
@@ -36,8 +36,8 @@ function CreateAccount({ handleHasAccount }) {
   const handleLastName = (e) => {
     setLastName(e.target.value);
   };
-  const handleUserName = (e) => {
-    setUserName(e.target.value);
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
@@ -63,7 +63,7 @@ function CreateAccount({ handleHasAccount }) {
     } else {
       err.lastName = true;
     }
-    if (typeof userName !== 'string') {
+    if (typeof username !== 'string') {
       err.username = false;
     } else {
       err.username = true;
@@ -130,7 +130,7 @@ function CreateAccount({ handleHasAccount }) {
                 required
               />
               <input
-                onChange={(e) => handleUserName(e)}
+                onChange={(e) => handleUsername(e)}
                 className={style.textInput}
                 name='username'
                 type='text'

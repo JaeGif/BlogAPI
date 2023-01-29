@@ -169,7 +169,7 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
               <div className={`${style.avatarCircle}`}>
                 <img
                   className={`${style.optionsImage}`}
-                  src={`${apiURL}/uploads/${user._id}/avatar.jpg`}
+                  src={`${apiURL}/${user.avatar.url}`}
                   alt='user home page'
                 />
               </div>

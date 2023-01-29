@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import uniqid from 'uniqid';
-import { ApiContext } from '../../../App';
+import { ApiContext, TokenContext } from '../../../App';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
@@ -8,12 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 
 function UserPublished({ user }) {
   const apiURL = useContext(ApiContext);
+  const token = useContext(TokenContext);
 
   async function findPostsUserId() {
     const res = await fetch(
       `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`,
       {
         mode: 'cors',
+        headers: { Authorization: 'Bearer' + ' ' + token },
       }
     );
     console.log('finding new posts for', `${user.userName}`);
@@ -30,7 +32,7 @@ function UserPublished({ user }) {
     <div className={style.contentLayoutGrid}>
       {userPostsQuery.isLoading ? (
         <LoadingIcon />
-      ) : userPostsQuery.data ? (
+      ) : userPostsQuery.data.length ? (
         userPostsQuery.data.map((post) => (
           <UserPostPreview key={uniqid()} post={post} />
         ))

@@ -2,28 +2,28 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import style from './suggested.module.css';
 import SuggestedUserProfile from './userProfile/SuggestedUserProfile';
 import uniqid from 'uniqid';
-import { ApiContext, UserContext } from '../../App';
+import { ApiContext, UserContext, TokenContext } from '../../App';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 
-function Suggested() {
+function Suggested({ handleLogOut }) {
   // Return a short list of suggested users ~5 users when this element is generated
   // Here is a dummy list with the users data;
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
+  const token = useContext(TokenContext);
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const queryClient = useQueryClient();
   const numberOfSuggestedUsers = 5;
-
-  /*   useEffect(() => {
-    getSuggestions();
-  }, []); */
 
   async function getSuggestions() {
     const res = await fetch(
       `${apiURL}/api/users/${loggedInUser._id}?s=${numberOfSuggestedUsers}`,
       {
         mode: 'cors',
+        headers: {
+          Authorization: 'Bearer' + ' ' + token,
+        },
       }
     );
     const data = await res.json();
@@ -45,24 +45,26 @@ function Suggested() {
     );
   }
 
-  /*   const getSuggestions = useMemo(() => getSuggestions(), [loggedInUser])
-useMemo is just a performance enhancer, the state may be rerendered regardless.
- */
   return (
     <div>
       <div className={style.profileContainer}>
         <div className={style.userContainer}>
           <div className={style.avatarContainer}>
-            <img src={loggedInUser.avatar.url} alt='profile avatar'></img>
+            <img
+              src={`${apiURL}/${loggedInUser.avatar.url}`}
+              alt='profile avatar'
+            ></img>
           </div>
           <div className={style.nameContainer}>
-            <p className={style.userName}>{loggedInUser.userName}</p>
+            <p className={style.userName}>{loggedInUser.username}</p>
             <p className={style.realName}>
               {loggedInUser.firstName} {loggedInUser.lastName}
             </p>
           </div>
         </div>
-        <p className={style.switchUserBtn}>Switch</p>
+        <p onClick={() => handleLogOut()} className={style.switchUserBtn}>
+          Switch
+        </p>
       </div>
       {suggestionsQuery.isLoading ? (
         <LoadingIcon />

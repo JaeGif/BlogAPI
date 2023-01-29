@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ApiContext } from '../../App';
 import style from './userprofile.module.css';
 
 function UserProfileLocationHeader({ user, location }) {
   const [isLocation, setIsLocation] = useState(true);
-
+  const apiURL = useContext(ApiContext);
   useEffect(() => {
     if (location === '') {
       setIsLocation(false);
@@ -13,7 +14,10 @@ function UserProfileLocationHeader({ user, location }) {
   return (
     <div className={style.nameAvatarHeader}>
       <div className={style.userAvatarCutout}>
-        <img className={style.userAvatar} src={user.avatar.url}></img>
+        <img
+          className={style.userAvatar}
+          src={`${apiURL}/${user.avatar.url}`}
+        ></img>
       </div>
       <div className={style.nameLocationHeader}>
         <p>

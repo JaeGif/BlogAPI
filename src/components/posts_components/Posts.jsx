@@ -4,12 +4,13 @@ import Post from './Post';
 import uniqid from 'uniqid';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import style from './posts.module.css';
-import { ApiContext, UserContext } from '../../App';
+import { ApiContext, UserContext, TokenContext } from '../../App';
 import { useQuery } from '@tanstack/react-query';
 
 function Posts({ refresh, refreshFn }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
+  const token = useContext(TokenContext);
   const [limitCounter, setLimitCounter] = useState(0);
   /* 
   useEffect(() => {
@@ -21,10 +22,7 @@ function Posts({ refresh, refreshFn }) {
     const res = await fetch(`${apiURL}/api/posts?u=${loggedInUser._id}`, {
       mode: 'cors',
       headers: {
-        Authorization:
-          'Bearer' +
-          ' ' +
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYzZDM4MDU0MDUwOWJhZjU1OTE5NmE1MCIsImV4cGlyZSI6MTY3NTQxMDU5Njc0M30.Lz0310zGg_TuMsGeSBs-kFedDKqGAkKyUBGTijI7uxs',
+        Authorization: 'Bearer' + ' ' + token,
       },
     });
     const data = await res.json();
@@ -40,22 +38,27 @@ function Posts({ refresh, refreshFn }) {
     setLimitCounter(limitCounter + 1);
   };
 
-  console.log(postsForUserQuery.data);
-  if (postsForUserQuery.data) {
-    return (
-      <div className={style.postsMargin}>
-        {postsForUserQuery.data.posts.map((post) => (
-          <Post key={uniqid()} postObj={post} refresh={refreshFn} />
-        ))}
-      </div>
-    );
-  } else if (postsForUserQuery.isLoading) {
-    return (
-      <div className={style.loadingIconContainer}>
-        <LoadingIcon />
-      </div>
-    );
-  }
+  console.log(postsForUserQuery.data.posts);
+
+  return (
+    <>
+      {postsForUserQuery.isLoading ? (
+        <div className={style.loadingIconContainer}>
+          <LoadingIcon />
+        </div>
+      ) : postsForUserQuery.data.posts.length ? (
+        <div className={style.postsMargin}>
+          {postsForUserQuery.data.posts.map((post) => (
+            <Post key={uniqid()} postObj={post} refresh={refreshFn} />
+          ))}
+        </div>
+      ) : (
+        <div className={style.postsMargin}>
+          <p>You're not currently following anyone with active posts.</p>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default Posts;

@@ -4,13 +4,13 @@ import AddCommentInput from '../comments/addComment/AddCommentInput';
 import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
-import { ApiContext, PathContext, UserContext } from '../../App';
-import { MongooseError } from 'mongoose';
+import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
 
 function Post({ postObj, refresh }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const basePath = useContext(PathContext);
+  const token = useContext(TokenContext);
 
   const [isComments, setIsComments] = useState(false);
   const [countComments, setCountComments] = useState(0);
@@ -84,6 +84,7 @@ function Post({ postObj, refresh }) {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer' + ' ' + token,
       },
       mode: 'cors',
     }).then(() => {
@@ -99,6 +100,7 @@ function Post({ postObj, refresh }) {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer' + ' ' + token,
       },
       mode: 'cors',
     }).then(() => {

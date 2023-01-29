@@ -70,16 +70,19 @@ function App() {
     fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d');
   }, []); */
 
-  async function fetchLoggedInUserData(userId) {
+  async function fetchLoggedInUserData(userId, freshToken) {
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
       headers: {
-        Authorization: 'Bearer' + ' ' + token,
+        Authorization: 'Bearer' + ' ' + freshToken,
       },
     });
     const data = await res.json();
-    setLoggedIn(true);
+
     setUserProfile(data.user);
+    setLoggedInUser(data.user);
+    setLoggedIn(true);
+
     console.log(data.user);
   }
 
@@ -106,7 +109,7 @@ function App() {
     if (res.status === 200) {
       const data = await res.json();
       setToken(data.token);
-      fetchLoggedInUserData(data.user);
+      fetchLoggedInUserData(data.user, data.token);
     } else {
       console.log(res.status);
     }
@@ -131,6 +134,7 @@ function App() {
     // needs a post id, so notifs now need a post obj
     const res = await fetch(`${localURL}/api/posts/${postId}`, {
       mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
     setPostCheckout(data.post);
@@ -147,6 +151,7 @@ function App() {
   const handleUserProfileCheckout = async (userId) => {
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
     setUserProfile(data.user);
@@ -156,11 +161,12 @@ function App() {
   const addSearchToRecents = async (userId) => {
     let data = new URLSearchParams();
     data.append('searched', userId);
-    const res = await fetch(`${localURL}/api/users/${userQuery.data._id}`, {
+    const res = await fetch(`${localURL}/api/users/${loggedInUser._id}`, {
       method: 'PUT',
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer' + ' ' + token,
       },
       mode: 'cors',
     });
@@ -178,6 +184,10 @@ function App() {
   const handleDoesNotHaveAccount = () => {
     setHasAccount(false);
   };
+  const handleLogOut = () => {
+    setLoggedIn(false);
+    setHasAccount(true);
+  };
 
   return (
     <div>
@@ -187,7 +197,7 @@ function App() {
             <PostContext.Provider value={handlePostCheckout}>
               <ProfileContext.Provider value={handleUserProfileCheckout}>
                 <PathContext.Provider value={localPath}>
-                  <UserContext.Provider value={userProfile}>
+                  <UserContext.Provider value={loggedInUser}>
                     <div className='App'>
                       <Sidebar
                         newPostModal={newPostModal}
@@ -205,7 +215,7 @@ function App() {
                             refresh={isRefresh}
                             refreshFn={refreshContent}
                           />
-                          <Suggested />
+                          <Suggested handleLogOut={handleLogOut} />
                         </>
                       )}
                       {isNewPostModal ? (
@@ -259,4 +269,5 @@ export {
   PathContext,
   ProfileContext,
   PostContext,
+  TokenContext,
 };
