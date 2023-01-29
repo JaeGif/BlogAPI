@@ -41,7 +41,7 @@ function UserTagged({ user }) {
           <LoadingIcon />
         )
       ) : (
-        <h2>Hmm, there's nothing here...</h2>
+        <h2>Hmm, there's nothing here ...</h2>
       )}
     </>
   );

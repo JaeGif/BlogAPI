@@ -76,7 +76,7 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
                             e.stopPropagation();
                           }}
                         >
-                          {tag.user.userName}
+                          {tag.user.username}
                         </span>
                       ))
                     ) : (

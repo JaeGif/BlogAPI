@@ -52,7 +52,7 @@ function Post({ postObj, refresh }) {
       setLikedBy(
         likedBy.concat({
           _id: loggedInUser._id,
-          userName: loggedInUser.userName,
+          username: loggedInUser.username,
         })
       );
       submitLike();
@@ -65,7 +65,7 @@ function Post({ postObj, refresh }) {
       'like',
       JSON.stringify({
         _id: loggedInUser._id,
-        userName: loggedInUser.userName,
+        username: loggedInUser.username,
         avatar: {
           _id: loggedInUser.avatar._id,
           url: loggedInUser.avatar.url,
@@ -144,11 +144,11 @@ function Post({ postObj, refresh }) {
       case 0:
         return 'No one has liked this yet ...';
       case 1:
-        return `${likedBy[0].userName} liked this.`;
+        return `${likedBy[0].username} liked this.`;
       case 2:
-        return `Liked by ${likedBy[0].userName} and ${likedBy[1].userName}.`;
+        return `Liked by ${likedBy[0].username} and ${likedBy[1].username}.`;
       default:
-        return `Liked by ${likedBy[0].userName}, ${likedBy[1].userName} and ${
+        return `Liked by ${likedBy[0].userNnme}, ${likedBy[1].username} and ${
           likedBy.length - 2
         } more.
         }`;
@@ -220,7 +220,7 @@ function Post({ postObj, refresh }) {
             <em>{numberOfLikes()}</em>
           </span>
           <p>
-            <em className={style.userNameEmphasis}>{user.userName}</em> {post}
+            <em className={style.userNameEmphasis}>{user.username}</em> {post}
           </p>
           <p className={style.datePublished}>{createdAt.toUpperCase()}</p>
           <p onClick={toggleDisplayFullPost} className={style.viewAllComments}>

@@ -21,7 +21,7 @@ function UserProfileLocationHeader({ user, location }) {
       </div>
       <div className={style.nameLocationHeader}>
         <p>
-          <em className={style.userNameEmphasis}>{user.userName}</em>
+          <em className={style.userNameEmphasis}>{user.username}</em>
         </p>
         {isLocation ? (
           <p>

@@ -69,8 +69,8 @@ function Notification({ notification, handleOpen }) {
           src={
             notificationRetrieved
               ? isTag
-                ? notification.post.user.avatar.url
-                : notification.user.avatar.url
+                ? `${apiURL}/${notification.post.user.avatar.url}`
+                : `${apiURL}/${notification.user.avatar.url}`
               : ''
           }
           alt='profile image'
@@ -96,8 +96,8 @@ function Notification({ notification, handleOpen }) {
         >
           {notificationRetrieved
             ? isTag
-              ? notification.post.user.userName
-              : notification.user.userName
+              ? notification.post.user.username
+              : notification.user.username
             : ''}
         </em>{' '}
         {message}

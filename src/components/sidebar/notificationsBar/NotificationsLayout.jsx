@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ApiContext, PathContext, UserContext } from '../../../App';
+import {
+  ApiContext,
+  PathContext,
+  TokenContext,
+  UserContext,
+} from '../../../App';
 import uniqid from 'uniqid';
 import Notification from './Notification';
 import style from './notificationslayout.module.css';
@@ -7,6 +12,7 @@ import style from './notificationslayout.module.css';
 function NotificationsLayout({ handleOpen }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
+  const token = useContext(TokenContext);
 
   const [recentNotifications, setRecentNotifications] = useState(
     loggedInUser.notifications
@@ -25,6 +31,7 @@ function NotificationsLayout({ handleOpen }) {
         body: data,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer' + ' ' + token,
         },
       });
       const notifications = await res.json();

@@ -26,7 +26,7 @@ function UserPublicHeader({ user }) {
         break;
       }
     }
-  }, []);
+  });
 
   async function countUserPosts() {
     const res = await fetch(
@@ -151,7 +151,7 @@ function UserPublicHeader({ user }) {
       </div>
       <div className={style.optionsColumn}>
         <div className={style.optionsWrapper}>
-          <p className={style.userName}>{user.userName}</p>
+          <p className={style.userName}>{user.username}</p>
           {isCurrentUser ? (
             <div>
               <button className={style.editButton}>Edit Profile</button>
