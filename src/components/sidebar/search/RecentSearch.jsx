@@ -4,6 +4,7 @@ import {
   ApiContext,
   PathContext,
   ProfileContext,
+  TokenContext,
   UserContext,
 } from '../../../App';
 import UserSearchOverview from '../../userSearchOverview/UserSearchOverview';
@@ -19,6 +20,7 @@ function RecentSearch({
   const getUserProfile = useContext(ProfileContext);
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
+  const token = useContext(TokenContext);
   const baseURL = useContext(PathContext);
 
   const clearLoggedInUserHistory = async (notificationIdx) => {
@@ -34,6 +36,7 @@ function RecentSearch({
           body: data,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: 'Bearer' + ' ' + token,
           },
           mode: 'cors',
         });

@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ApiContext, ProfileContext, UserContext } from '../../../App';
+import {
+  ApiContext,
+  ProfileContext,
+  TokenContext,
+  UserContext,
+} from '../../../App';
 import style from '../suggested.module.css';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -8,6 +13,7 @@ import LoadingIcon from '../../utlity_Components/LoadingIcon';
 function SuggestedUserProfile({ user }) {
   const handleUserCheckout = useContext(ProfileContext);
   const apiURL = useContext(ApiContext);
+  const token = useContext(TokenContext);
   const loggedInUser = useContext(UserContext);
 
   const [isFollowing, setIsFollowing] = useState(false);
@@ -15,6 +21,7 @@ function SuggestedUserProfile({ user }) {
   async function getUser() {
     const res = await fetch(`${apiURL}/api/users/${user.user}`, {
       mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
     let message;
@@ -55,6 +62,7 @@ function SuggestedUserProfile({ user }) {
         body: data,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer' + ' ' + token,
         },
       }
     );
@@ -73,6 +81,7 @@ function SuggestedUserProfile({ user }) {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer' + ' ' + token,
       },
     });
   };

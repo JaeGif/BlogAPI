@@ -38,8 +38,6 @@ function Posts({ refresh, refreshFn }) {
     setLimitCounter(limitCounter + 1);
   };
 
-  console.log(postsForUserQuery.data.posts);
-
   return (
     <>
       {postsForUserQuery.isLoading ? (
