@@ -107,7 +107,7 @@ function SuggestedUserProfile({ user }) {
             <div className={style.userContainer}>
               <div className={style.suggestedUserAvatarContainer}>
                 <img
-                  src={userQuery.data.user.avatar.url}
+                  src={`${apiURL}/${userQuery.data.user.avatar.url}`}
                   alt='profile image'
                 ></img>
               </div>

@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ApiContext } from '../../App';
 import style from './userprofile.module.css';
 
 function UserProfileAvatar({ user }) {
+  const apiURL = useContext(ApiContext);
   return (
     <div className={style.nameAvatarHeader}>
       <div className={style.userAvatarCutout}>
-        <img className={style.userAvatar} src={user.avatar.url}></img>
+        <img
+          className={style.userAvatar}
+          src={`${apiURL}/${user.avatar.url}`}
+        ></img>
       </div>
     </div>
   );

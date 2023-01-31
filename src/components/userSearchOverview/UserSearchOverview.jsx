@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ApiContext } from '../../App';
 import style from './usersearchoverview.module.css';
 
 function UserSearchOverview({ user, handleClick }) {
+  const apiURL = useContext(ApiContext);
+
   return (
     <div onClick={() => handleClick(user)} className={style.overviewContainer}>
       <div className={style.userAvatarCutout}>
-        <img className={style.userAvatar} src={user.avatar.url}></img>
+        <img
+          className={style.userAvatar}
+          src={`${apiURL}/${user.avatar.url}`}
+        ></img>
       </div>
       <div className={style.nameContainer}>
         <p className={style.username}>{user.userName}</p>
