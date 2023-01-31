@@ -22,7 +22,7 @@ function UserPostPreview({ post }) {
       setIsVideo(true);
     }
   });
-
+  console.log(post.image.filter);
   return (
     <div>
       <div
@@ -34,12 +34,14 @@ function UserPostPreview({ post }) {
             <>
               <span className={style.contentIndicatorWrapper}>
                 <img
-                  className={style.contentIndicatorIcon}
+                  className={`${style.contentIndicatorIcon} `}
                   src={`${basePath}/assets/favicons/movie.svg`}
                   alt='indicate video'
                 />
               </span>
-              <video className={style.squarePreviewContent}>
+              <video
+                className={`${style.squarePreviewContent} ${post.image.filter}`}
+              >
                 <source
                   src={`${apiURL}/${post.image.url}`}
                   type='video/mp4'
@@ -56,7 +58,7 @@ function UserPostPreview({ post }) {
                 />
               </span>
               <img
-                className={style.squarePreviewContent}
+                className={`${style.squarePreviewContent} ${post.image.filter}`}
                 src={`${apiURL}/${post.image.url}`}
               />
             </>

@@ -83,6 +83,7 @@ function SearchLayout({ handleOpen }) {
     );
     console.log(userUpdated.recentSearches);
     setRecentSearches(history);
+
     console.log('send check', history);
   };
 
