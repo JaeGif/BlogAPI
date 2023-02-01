@@ -1,9 +1,2 @@
 Messages Options need to be developed separately and integrated into the application.
 Messages will require a working knowledge of WebSockets for real-time communication
-
-Notifications requires the friend system to be fleshed out first as following will be the 
-most important available notification, followed by likes/comments
-
-Search function will be the last to be implemented as it will search through 
-all available data, there's no point in implementing it before the other
-features are fully implemented.
