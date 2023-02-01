@@ -4,7 +4,12 @@ import NotificationsLayout from './notificationsBar/NotificationsLayout';
 import SearchLayout from './search/SearchLayout';
 import style from './sidebar.module.css';
 
-function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
+function Sidebar({
+  newPostModal,
+  openUserPageModal,
+  goToHomePage,
+  refreshLoggedInUserData,
+}) {
   const user = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
@@ -28,6 +33,7 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
         setIsSearch(false);
         setIsNotifications(true);
         handleSeenNotifications();
+        refreshLoggedInUserData();
         break;
       case 'search':
         setIsMinified(true);

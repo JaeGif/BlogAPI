@@ -91,6 +91,9 @@ function SearchLayout({ handleOpen }) {
     checkForRecents();
     console.log('check recents call');
   }, [recentSearchesIdx]);
+  useEffect(() => {
+    updateUser();
+  }, []);
 
   return (
     <div className={style.notificationsWrapper}>

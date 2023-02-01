@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import uniqid from 'uniqid';
-import { ApiContext } from '../../../App';
+import { ApiContext, TokenContext } from '../../../App';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
 import { useQuery } from '@tanstack/react-query';
 function UserTagged({ user }) {
   const apiURL = useContext(ApiContext);
+  const token = useContext(TokenContext);
   const [userTaggedIdx, setUserTaggedIdx] = useState(user.taggedPosts);
   const [userTagged, setUserTagged] = useState([]);
 
@@ -23,7 +24,10 @@ function UserTagged({ user }) {
   }, []);
 
   const fetchPostById = async (id) => {
-    const res = await fetch(`${apiURL}/api/posts/${id}`);
+    const res = await fetch(`${apiURL}/api/posts/${id}`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
     const data = await res.json();
     return data.post;
   };

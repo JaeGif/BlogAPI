@@ -84,8 +84,6 @@ function App() {
     setUserProfile(data.user);
     setLoggedInUser(data.user);
     setLoggedIn(true);
-
-    console.log(data.user);
   }
 
   /*   const userQuery = useQuery({
@@ -173,6 +171,19 @@ function App() {
       mode: 'cors',
     });
   };
+
+  async function refreshLoggedInUserData() {
+    const res = await fetch(`${localURL}/api/users/${loggedInUser._id}`, {
+      mode: 'cors',
+      headers: {
+        Authorization: 'Bearer' + ' ' + token,
+      },
+    });
+    const data = await res.json();
+    console.log('refresh user');
+    setUserProfile(data.user);
+    setLoggedInUser(data.user);
+  }
   const goToHomePage = () => {
     // the default config is home page, so this function needs to
     // return the modals to their default configs only.
@@ -212,6 +223,7 @@ function App() {
                         newPostModal={newPostModal}
                         openUserPageModal={handleUserProfileCheckout}
                         goToHomePage={goToHomePage}
+                        refreshLoggedInUserData={refreshLoggedInUserData}
                       />
                       {isUserPage ? (
                         isEditProfile ? (

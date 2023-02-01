@@ -13,7 +13,8 @@ function Notification({ notification, handleOpen }) {
   const [isTag, setIsTag] = useState(false);
   const [notificationRetrieved, setNotificationRetrieved] = useState(false);
   const [isViewed, setIsViewed] = useState(notification.seen);
-
+  console.log(notification);
+  console.log(isViewed);
   useEffect(() => {
     console.log(notification);
     switch (notification.type) {
@@ -31,7 +32,6 @@ function Notification({ notification, handleOpen }) {
         setMessage('tagged you in a post.');
         setIsTag(true);
         setNotificationRetrieved(true);
-
         break;
       default:
         console.log('SOMETHING IS PRETTY WRONG');

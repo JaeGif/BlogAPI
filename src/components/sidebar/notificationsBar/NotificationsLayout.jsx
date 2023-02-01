@@ -35,6 +35,7 @@ function NotificationsLayout({ handleOpen }) {
         },
       });
       const notifications = await res.json();
+      console.log(notifications.notifications);
       setRecentNotifications(notifications.notifications);
     }
     findUserNotifications();
