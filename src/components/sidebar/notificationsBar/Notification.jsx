@@ -26,7 +26,6 @@ function Notification({ notification, handleOpen }) {
         setMessage('started following you.');
         setIsFollow(true);
         setNotificationRetrieved(true);
-
         break;
       case 'user/tagged':
         setMessage('tagged you in a post.');
@@ -59,6 +58,12 @@ function Notification({ notification, handleOpen }) {
               e.stopPropagation();
               handleOpen('');
               getPostFull(notification.post._id);
+            }
+          : isFollow
+          ? (e) => {
+              e.stopPropagation();
+              handleOpen('');
+              getUserProfile(notification.user._id);
             }
           : undefined
       }

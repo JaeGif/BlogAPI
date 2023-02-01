@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LoginPage from './components/auth/login/LoginPage';
 import CreateAccount from './components/auth/createAccount/CreateAccount';
+import EditProfile from './components/userPublicPage/EditProfile';
 
 /* {
     avatar: {
@@ -54,6 +55,7 @@ function App() {
   const [userProfile, setUserProfile] = useState({});
   const [hasAccount, setHasAccount] = useState(true);
   const [token, setToken] = useState(null);
+  const [isEditProfile, setIsEditProfile] = useState(false);
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
@@ -177,6 +179,7 @@ function App() {
     setIsNewPostModal(false);
     setIsUserPage(false);
     setDisplayPost(false);
+    setIsEditProfile(false);
   };
   const handleHasAccount = () => {
     setHasAccount(true);
@@ -187,6 +190,12 @@ function App() {
   const handleLogOut = () => {
     setLoggedIn(false);
     setHasAccount(true);
+  };
+  const handleOpenEditProfile = () => {
+    setIsEditProfile(true);
+  };
+  const handleCloseEditProfile = () => {
+    setIsEditProfile(false);
   };
 
   return (
@@ -205,10 +214,14 @@ function App() {
                         goToHomePage={goToHomePage}
                       />
                       {isUserPage ? (
-                        <UserPageLayout
-                          isUserPage={isUserPage}
-                          user={userProfile}
-                        />
+                        isEditProfile ? (
+                          <EditProfile />
+                        ) : (
+                          <UserPageLayout
+                            openEditUser={handleOpenEditProfile}
+                            user={userProfile}
+                          />
+                        )
                       ) : (
                         <>
                           <Posts

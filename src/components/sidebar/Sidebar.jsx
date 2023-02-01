@@ -91,7 +91,12 @@ function Sidebar({ newPostModal, openUserPageModal, goToHomePage }) {
           </div>
           <div>
             <a href='#'>
-              <span onClick={() => goToHomePage()} className={style.optionSpan}>
+              <span
+                onClick={() => {
+                  goToHomePage();
+                }}
+                className={style.optionSpan}
+              >
                 <img
                   className={style.optionsIcons}
                   src={`${basePath}/assets/favicons/home.svg`}

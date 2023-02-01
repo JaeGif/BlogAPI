@@ -3,7 +3,7 @@ import style from './userheader.module.css';
 import { ApiContext, TokenContext, UserContext } from '../../../App';
 import { useQuery } from '@tanstack/react-query';
 
-function UserPublicHeader({ user }) {
+function UserPublicHeader({ user, openEditUser }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
@@ -154,7 +154,14 @@ function UserPublicHeader({ user }) {
           <p className={style.userName}>{user.username}</p>
           {isCurrentUser ? (
             <div>
-              <button className={style.editButton}>Edit Profile</button>
+              <button
+                onClick={() => {
+                  openEditUser();
+                }}
+                className={style.editButton}
+              >
+                Edit Profile
+              </button>
             </div>
           ) : (
             <div>

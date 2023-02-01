@@ -10,7 +10,7 @@ import UserPublicHeader from './profileSections/UserHeader';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import { ApiContext, TokenContext } from '../../App';
 
-function UserPageLayout({ user }) {
+function UserPageLayout({ user, openEditUser }) {
   // fetch user from user who is logged in
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
@@ -69,7 +69,7 @@ function UserPageLayout({ user }) {
     <>
       {userQuery.data ? (
         <div className={style.layoutContainer}>
-          <UserPublicHeader user={user} />
+          <UserPublicHeader openEditUser={openEditUser} user={user} />
           <UserNavBar
             handleNavPosted={handleNavPosted}
             handleNavSaved={handleNavSaved}
