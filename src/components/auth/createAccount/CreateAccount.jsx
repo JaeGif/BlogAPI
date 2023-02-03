@@ -16,7 +16,6 @@ function CreateAccount({ handleHasAccount }) {
     data.append('lastName', lastName);
     data.append('username', username);
     data.append('password', password);
-    data.append('email', '');
 
     const res = await fetch(`${apiURL}/register`, {
       mode: 'cors',

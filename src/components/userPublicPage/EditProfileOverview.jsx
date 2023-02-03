@@ -67,7 +67,7 @@ function EditProfileOverview() {
             <input
               type='text'
               name='website'
-              defaultValue={'nothing right now'}
+              defaultValue={loggedInUser.website}
               placeholder='Personal website'
             />
           </div>
@@ -78,7 +78,7 @@ function EditProfileOverview() {
         <div>
           <div className={style.labelInputWrapper}>
             <label htmlFor='bio'>Bio</label>
-            <textarea name='bio'>nothing right now</textarea>
+            <textarea name='bio' defaultValue={loggedInUser.bio}></textarea>
           </div>
         </div>
         <div className={style.infoWrapper}>
