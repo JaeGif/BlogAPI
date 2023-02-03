@@ -1,0 +1,111 @@
+.editWrapper {
+  border-radius: 5px;
+  border: solid 1px red;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  grid-column: 2/4;
+}
+.optionsBarContainer {
+  border: solid 1px red;
+}
+.displayOptionWrapper {
+  border: solid 1px red;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+/* EditProfileOverview.jsx */
+
+.userAvatarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.avatarCutout {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.userAvatar {
+  height: 50px;
+}
+.userAvatarContainer {
+}
+.userAvatarOptionsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.userAvatarOptionsContainer > p {
+  padding: 0;
+  margin: 0;
+}
+.username {
+}
+.changeAvatarBtn {
+  color: var(--blue-1);
+  font-weight: 600;
+  cursor: pointer;
+}
+.changeAvatarBtn:hover {
+  color: var(--blue-4);
+}
+.realnameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.usernameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.submitContainer {
+}
+.labelInputWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.userOptionsWrapper {
+  display: flex;
+  min-width: 500px;
+  max-width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+}
+.userOptionsWrapper > div {
+  min-width: 450px;
+}
+.infoWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 400px;
+}
+.infoWrapper > p {
+  color: var(--grey-5);
+  font-size: 0.9rem;
+}
+.labelInputWrapper > input,
+.labelInputWrapper > textarea {
+  width: 300px;
+  height: 1.5rem;
+}
+.labelInputWrapper > textarea {
+  resize: vertical;
+}
+.labelInputWrapper > label {
+  font-weight: 600;
+}

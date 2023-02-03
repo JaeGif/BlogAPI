@@ -13,6 +13,8 @@
   --blue-2: rgb(0, 116, 204);
   --blue-3: rgb(0, 99, 186);
   --blue-4: rgb(0, 80, 150);
+  --blue-5: rgb(0, 60, 130);
+  --blue-5: rgb(0, 40, 110);
 }
 body {
   margin: 0;
