@@ -1,11 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import style from './editprofile.module.css';
 import { ApiContext, TokenContext, UserContext } from '../../App';
 
-function EditProfileOverview() {
+function EditProfileOverview({ refreshLoggedInUserData }) {
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
   const apiURL = useContext(ApiContext);
+  const getFile = useRef(null);
+  const fileUpload = (ref) => {
+    ref.current.click();
+  };
 
   const [firstName, setFirstName] = useState(undefined);
   const [lastName, setLastName] = useState(undefined);
@@ -15,7 +19,7 @@ function EditProfileOverview() {
 
   const handlePOSTEdits = async () => {
     console.log('click');
-    let data = new FormData();
+    let data = new URLSearchParams();
     let dataObj = {
       firstName: firstName,
       lastName: lastName,
@@ -31,10 +35,24 @@ function EditProfileOverview() {
       headers: { Authorization: 'Bearer' + ' ' + token },
       body: data,
     });
-
+    refreshLoggedInUserData();
     const status = res;
     console.log(status);
   };
+
+  const handleProfilePhotoChange = async (file) => {
+    console.log(file);
+    let data = new FormData();
+    data.append('image', file[0]);
+    const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+      body: data,
+    });
+    refreshLoggedInUserData();
+  };
+
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
   };
@@ -62,7 +80,20 @@ function EditProfileOverview() {
         </div>
         <div className={style.userAvatarOptionsContainer}>
           <p className={style.username}>{loggedInUser.username}</p>
-          <p className={style.changeAvatarBtn}>Change profile photo</p>
+          <p
+            onClick={() => fileUpload(getFile)}
+            className={style.changeAvatarBtn}
+          >
+            Change profile photo
+          </p>
+          <input
+            type='file'
+            ref={getFile}
+            name='image'
+            accept='image/jpg, image/jpeg, image/png'
+            style={{ display: 'none' }}
+            onChange={(e) => handleProfilePhotoChange(e.target.files)}
+          />
         </div>
       </div>
       <div className={style.userOptionsWrapper}>

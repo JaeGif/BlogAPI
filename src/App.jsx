@@ -227,7 +227,9 @@ function App() {
                       />
                       {isUserPage ? (
                         isEditProfile ? (
-                          <EditProfile />
+                          <EditProfile
+                            refreshLoggedInUserData={refreshLoggedInUserData}
+                          />
                         ) : (
                           <UserPageLayout
                             openEditUser={handleOpenEditProfile}
