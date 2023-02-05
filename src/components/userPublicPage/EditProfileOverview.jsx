@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import style from './editprofile.module.css';
 import { ApiContext, TokenContext, UserContext } from '../../App';
 
@@ -6,6 +6,51 @@ function EditProfileOverview() {
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
   const apiURL = useContext(ApiContext);
+
+  const [firstName, setFirstName] = useState(undefined);
+  const [lastName, setLastName] = useState(undefined);
+  const [username, setUsername] = useState(undefined);
+  const [website, setWebsite] = useState(undefined);
+  const [bio, setBio] = useState(undefined);
+
+  const handlePOSTEdits = async () => {
+    console.log('click');
+    let data = new FormData();
+    let dataObj = {
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      website: website,
+      bio: bio,
+    };
+    data.append('editUser', JSON.stringify(dataObj));
+    console.log(data);
+    const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+      body: data,
+    });
+
+    const status = res;
+    console.log(status);
+  };
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+  const handleWebsiteChange = (e) => {
+    setWebsite(e.target.value);
+  };
+  const handleBioChange = (e) => {
+    setBio(e.target.value);
+  };
+
   return (
     <div>
       <div className={style.userAvatarContainer}>
@@ -25,6 +70,7 @@ function EditProfileOverview() {
           <div className={style.labelInputWrapper}>
             <label htmlFor='first name'>First Name</label>
             <input
+              onChange={(e) => handleFirstNameChange(e)}
               type='text'
               name='first name'
               defaultValue={loggedInUser.firstName}
@@ -34,6 +80,7 @@ function EditProfileOverview() {
           <div className={style.labelInputWrapper}>
             <label htmlFor='last name'>Last Name</label>
             <input
+              onChange={(e) => handleLastNameChange(e)}
               type='text'
               name='last name'
               defaultValue={loggedInUser.lastName}
@@ -51,6 +98,7 @@ function EditProfileOverview() {
           <div className={style.labelInputWrapper}>
             <label htmlFor='username'>Username</label>
             <input
+              onChange={(e) => handleUsernameChange(e)}
               type='text'
               name='username'
               defaultValue={loggedInUser.username}
@@ -65,6 +113,7 @@ function EditProfileOverview() {
           <div className={style.labelInputWrapper}>
             <label htmlFor='website'>Website</label>
             <input
+              onChange={(e) => handleWebsiteChange(e)}
               type='text'
               name='website'
               defaultValue={loggedInUser.website}
@@ -78,14 +127,26 @@ function EditProfileOverview() {
         <div>
           <div className={style.labelInputWrapper}>
             <label htmlFor='bio'>Bio</label>
-            <textarea name='bio' defaultValue={loggedInUser.bio}></textarea>
+            <textarea
+              onChange={(e) => handleBioChange(e)}
+              name='bio'
+              defaultValue={loggedInUser.bio}
+            ></textarea>
           </div>
         </div>
         <div className={style.infoWrapper}>
           <p>About you, your pet, or just anything you want to say.</p>
         </div>
       </div>
-      <span className={style.submitContainer}></span>
+      <span className={style.submitContainer}>
+        <button
+          onClick={handlePOSTEdits}
+          type='button'
+          className={style.submitBtn}
+        >
+          Submit
+        </button>
+      </span>
     </div>
   );
 }

@@ -35,6 +35,20 @@
 .userStatsContainer {
   display: flex;
   gap: 5vw;
+  padding: 0;
+  margin: 0;
+}
+.userInfo > p {
+  padding: 0;
+  margin: 0;
+}
+.userInfo > a {
+  color: rgb(51, 102, 204);
+}
+.realName {
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
 }
 .stats {
   font-weight: 600;

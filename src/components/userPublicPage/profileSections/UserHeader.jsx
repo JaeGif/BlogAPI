@@ -180,19 +180,30 @@ function UserPublicHeader({ user, openEditUser }) {
             </div>
           )}
         </div>
-        <div className={style.userStatsContainer}>
-          <p>
-            <em className={style.stats}>
-              {userAllPostsQuery.data ? userAllPostsQuery.data.length : 0}
-            </em>{' '}
-            posts
-          </p>
-          <p>
-            <em className={style.stats}>{followerCount}</em> followers
-          </p>
-          <p>
-            <em className={style.stats}>{followsCount}</em> following
-          </p>
+        <div className={style.userInfoContainer}>
+          <div className={style.userStatsContainer}>
+            <p>
+              <em className={style.stats}>
+                {userAllPostsQuery.data ? userAllPostsQuery.data.length : 0}
+              </em>{' '}
+              posts
+            </p>
+            <p>
+              <em className={style.stats}>{followerCount}</em> followers
+            </p>
+            <p>
+              <em className={style.stats}>{followsCount}</em> following
+            </p>
+          </div>
+          <div className={style.userInfo}>
+            <p className={style.realName}>
+              {user.firstName} {user.lastName}
+            </p>
+            <p>{user.bio}</p>
+            <a href={`${user.website}`} rel='noreferrer' target='_blank'>
+              {user.website}
+            </a>
+          </div>
         </div>
       </div>
     </div>
