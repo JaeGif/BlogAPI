@@ -100,6 +100,7 @@ div.selected {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 .userOptionsWrapper {
   display: flex;
@@ -149,4 +150,11 @@ div.selected {
 }
 .submitBtn:hover {
   background-color: var(--blue-2);
+}
+.visibilityIcon {
+  height: 25px;
+  position: absolute;
+  right: 5px;
+  z-index: 5;
+  cursor: pointer;
 }
