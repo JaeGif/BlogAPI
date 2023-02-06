@@ -8,6 +8,7 @@ function ChangePasswordOverview() {
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
   const ref = useRef([]);
+
   let oldPasswordRef;
   let newPasswordRef;
   let confirmPasswordRef;
@@ -26,7 +27,6 @@ function ChangePasswordOverview() {
     newPasswordRef = ref.current[1];
     confirmPasswordRef = ref.current[2];
   });
-
   const handleOldPassword = (e) => {
     setOldPassword(e.target.value);
   };
@@ -77,8 +77,23 @@ function ChangePasswordOverview() {
       console.log('no match buddy');
     }
   };
-  const sendNewPassword = () => {
+  const sendNewPassword = async () => {
     console.log('sent');
+    let data = new URLSearchParams();
+    data.append(
+      'changePassword',
+      JSON.stringify({
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      })
+    );
+    const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+      body: data,
+    });
+    console.log(res);
   };
   return (
     <div>
