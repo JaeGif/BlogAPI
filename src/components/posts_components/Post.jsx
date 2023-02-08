@@ -5,6 +5,8 @@ import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
 import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
+import Content from './Content';
+import { useQuery } from '@tanstack/react-query';
 
 function Post({ postObj, refresh }) {
   const apiURL = useContext(ApiContext);
@@ -19,7 +21,7 @@ function Post({ postObj, refresh }) {
 
   const {
     createdAt,
-    image,
+    images,
     like,
     post,
     published,
@@ -29,12 +31,11 @@ function Post({ postObj, refresh }) {
     _id,
     location,
   } = postObj;
-
+  console.log(postObj);
   // If a new comment is added, the individual post needs to refresh just comments
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likedBy, setLikedBy] = useState(like);
-  const [isVideo, setIsVideo] = useState(false);
 
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
@@ -121,9 +122,7 @@ function Post({ postObj, refresh }) {
       setIsComments(false);
       setCountComments(0);
     }
-    if (postObj.image.contentType === 'video/mp4') {
-      setIsVideo(true);
-    }
+
     if (like.length) {
       for (let i = 0; i < like.length; i++) {
         if (like[i]._id === loggedInUser._id) {
@@ -148,18 +147,34 @@ function Post({ postObj, refresh }) {
       case 2:
         return `Liked by ${likedBy[0].username} and ${likedBy[1].username}.`;
       default:
-        return `Liked by ${likedBy[0].userNnme}, ${likedBy[1].username} and ${
+        return `Liked by ${likedBy[0].username}, ${likedBy[1].username} and ${
           likedBy.length - 2
         } more.
         }`;
     }
   };
+  const fetchUser = async () => {
+    const res = await fetch(`${apiURL}/api/users/${user}`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const data = await res.json();
+    return data.user;
+  };
 
-  return (
+  const userQuery = useQuery({
+    queryKey: ['users', user],
+    queryFn: fetchUser,
+  });
+
+  return userQuery.data ? (
     <div>
       <div className={style.postContainer}>
         <span className={style.userDateHead}>
-          <UserProfileLocationHeader user={user} location={location} />
+          <UserProfileLocationHeader
+            userData={userQuery.data}
+            location={location}
+          />
           <div className={style.optionsEllipses}>
             <img
               className={style.optionsEllipses}
@@ -167,19 +182,9 @@ function Post({ postObj, refresh }) {
             ></img>
           </div>
         </span>
-        <div className={style.imgContainers}>
-          {isVideo ? (
-            <video className={`${style.postImages} ${image.filter}`} controls>
-              <source src={`${apiURL}/${image.url}`} type='video/mp4'></source>
-            </video>
-          ) : (
-            <img
-              className={`${style.postImages} ${image.filter}`}
-              src={`${apiURL}/${image.url}`}
-              alt={image.alt}
-            ></img>
-          )}
-        </div>
+        {images.map((img) => (
+          <Content imageId={img} />
+        ))}
         <div className={style.postInfoContainer}>
           <span className={style.iconsContainer}>
             <span className={style.iconsSpacing}>
@@ -234,12 +239,14 @@ function Post({ postObj, refresh }) {
           postObj={postObj}
           toggleFullPost={toggleDisplayFullPost}
           updateParentPost={updateParentPost}
-          isVideo={isVideo}
+          userData={userQuery.data}
         />
       ) : (
         <></>
       )}
     </div>
+  ) : (
+    <></>
   );
 }
 

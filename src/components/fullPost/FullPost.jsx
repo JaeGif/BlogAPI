@@ -14,11 +14,18 @@ import {
   UserContext,
   ProfileContext,
 } from '../../App';
+import Content from '../posts_components/Content';
 
-function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
+function FullPost({
+  postObj,
+  toggleFullPost,
+  updateParentPost,
+  isVideo,
+  userData,
+}) {
   const {
     createdAt,
-    image,
+    images,
     like,
     post,
     published,
@@ -72,7 +79,7 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
                           key={uniqid()}
                           className={style.taggedUsersContainer}
                           onClick={(e) => {
-                            getUserProfile(tag.user._id);
+                            getUserProfile(tag.user);
                             e.stopPropagation();
                           }}
                         >
@@ -86,29 +93,15 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
                 ) : (
                   <></>
                 )}
-                {isVideo ? (
-                  <video
-                    className={`${style.imageSizing} ${image.filter}`}
-                    controls
-                  >
-                    <source
-                      src={`${apiURL}/${image.url}`}
-                      type='video/mp4'
-                    ></source>
-                  </video>
-                ) : (
-                  <img
-                    className={`${style.imageSizing} ${image.filter}`}
-                    src={`${apiURL}/${image.url}`}
-                    alt={image.alt}
-                  />
-                )}
+                {images.map((img) => (
+                  <Content imageId={img} />
+                ))}
               </div>
               <div className={style.postSideWrapper}>
                 <div>
                   <span className={style.userHead}>
                     <UserProfileLocationHeader
-                      user={user}
+                      userData={userData}
                       location={location}
                     />
                     <div className={style.optionsEllipses}>
@@ -119,7 +112,10 @@ function FullPost({ postObj, toggleFullPost, updateParentPost, isVideo }) {
                     </div>
                   </span>
                   <div className={style.postCommentsContainer}>
-                    <PostDetailsExpanded postObj={postObj} />
+                    <PostDetailsExpanded
+                      postObj={postObj}
+                      userData={userData}
+                    />
                     <Comments comments={comments} />
                   </div>
                 </div>

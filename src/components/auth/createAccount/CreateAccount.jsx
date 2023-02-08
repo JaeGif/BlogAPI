@@ -25,7 +25,6 @@ function CreateAccount({ handleHasAccount }) {
       },
       body: data,
     });
-    const dataDecode = await res.json();
   };
 
   const handleFirstName = (e) => {

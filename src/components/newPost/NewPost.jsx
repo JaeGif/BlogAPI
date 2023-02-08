@@ -132,7 +132,7 @@ function NewPost({ newPostModal, refresh }) {
     console.log('images', imageFiles[0]);
 
     data.append('image', imageFiles[0]);
-    data.append('user', JSON.stringify(user));
+    data.append('user', user._id);
     data.append('post', post);
     data.append('location', location);
     data.append('filter', filter);

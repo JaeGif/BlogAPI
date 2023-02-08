@@ -34,7 +34,7 @@ function Suggested({ handleLogOut }) {
     queryFn: getSuggestions,
   });
 
-  if (suggestionsQuery.isError) console.log(err);
+  if (suggestionsQuery.isError) console.log(suggestionsQuery.error);
   if (suggestionsQuery.data === null) {
     return (
       <div className={style.moreSuggestionsContainer}>
