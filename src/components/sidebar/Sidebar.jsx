@@ -180,7 +180,7 @@ function Sidebar({
               <div className={`${style.avatarCircle}`}>
                 <img
                   className={`${style.optionsImage}`}
-                  src={`${apiURL}/${user.avatar.url}`}
+                  src={`${apiURL}/${user.avatar}`}
                   alt='user home page'
                 />
               </div>

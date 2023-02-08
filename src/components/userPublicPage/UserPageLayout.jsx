@@ -15,19 +15,6 @@ function UserPageLayout({ user, openEditUser }) {
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
 
-  /*   useEffect(() => {
-    setIsUser(false);
-    console.log('rerun data search');
-    async function findUserById() {
-      const res = await fetch(`${apiURL}/api/users/${user._id}`, {
-        mode: 'cors',
-      });
-      const data = await res.json();
-      setUserData(data.user);
-      setIsUser(true);
-    }
-    findUserById();
-  }, [user]); */
   async function findUserById() {
     const res = await fetch(`${apiURL}/api/users/${user._id}`, {
       mode: 'cors',
@@ -69,7 +56,10 @@ function UserPageLayout({ user, openEditUser }) {
     <>
       {userQuery.data ? (
         <div className={style.layoutContainer}>
-          <UserPublicHeader openEditUser={openEditUser} user={user} />
+          <UserPublicHeader
+            openEditUser={openEditUser}
+            userData={userQuery.data}
+          />
           <UserNavBar
             handleNavPosted={handleNavPosted}
             handleNavSaved={handleNavSaved}

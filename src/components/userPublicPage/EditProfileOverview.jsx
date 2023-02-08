@@ -75,7 +75,7 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
         <div className={style.avatarCutout}>
           <img
             className={style.userAvatar}
-            src={`${apiURL}/${loggedInUser.avatar.url}`}
+            src={`${apiURL}/${loggedInUser.avatar}`}
           />
         </div>
         <div className={style.userAvatarOptionsContainer}>

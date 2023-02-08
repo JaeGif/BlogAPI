@@ -105,7 +105,6 @@ function App() {
       },
       body: userData,
     });
-    console.log(res);
     if (res.status === 200) {
       const data = await res.json();
       setToken(data.token);

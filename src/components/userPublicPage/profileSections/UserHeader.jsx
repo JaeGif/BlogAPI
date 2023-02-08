@@ -3,18 +3,18 @@ import style from './userheader.module.css';
 import { ApiContext, TokenContext, UserContext } from '../../../App';
 import { useQuery } from '@tanstack/react-query';
 
-function UserPublicHeader({ user, openEditUser }) {
+function UserPublicHeader({ userData, openEditUser }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
 
   const [isCurrentUser, setIsCurrentUser] = useState(false);
-  const [followerCount, setFollowerCount] = useState(user.followers.length);
-  const [followsCount, setFollowsCount] = useState(user.following.length);
+  const [followerCount, setFollowerCount] = useState(userData.followers.length);
+  const [followsCount, setFollowsCount] = useState(userData.following.length);
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
-    if (user._id === loggedInUser._id) {
+    if (userData._id === loggedInUser._id) {
       setIsCurrentUser(true);
     } else {
       setIsCurrentUser(false);
@@ -43,7 +43,7 @@ function UserPublicHeader({ user, openEditUser }) {
   }
   // something wrong with this query
   const userAllPostsQuery = useQuery({
-    queryKey: ['posts', { userid: user._id }],
+    queryKey: ['posts', { userid: userData._id }],
     queryFn: countUserPosts,
   });
 
@@ -79,7 +79,7 @@ function UserPublicHeader({ user, openEditUser }) {
       'follow',
       JSON.stringify({ _id: loggedInUser._id, type: 'follower/add' })
     );
-    const followingRes = await fetch(`${apiURL}/api/users/${user._id}`, {
+    const followingRes = await fetch(`${apiURL}/api/users/${userData._id}`, {
       mode: 'cors',
       method: 'PUT',
       body: data,
@@ -95,7 +95,7 @@ function UserPublicHeader({ user, openEditUser }) {
     data.append(
       'follow',
       JSON.stringify({
-        _id: user._id,
+        _id: userData._id,
         type: 'following/remove',
       })
     );
@@ -117,7 +117,7 @@ function UserPublicHeader({ user, openEditUser }) {
     data.append(
       'follow',
       JSON.stringify({
-        _id: user._id,
+        _id: userData._id,
         type: 'follower/remove',
       })
     );
@@ -147,11 +147,11 @@ function UserPublicHeader({ user, openEditUser }) {
   return (
     <div className={style.profileAvatarContainer}>
       <div className={style.profileAvatarWrapper}>
-        <img className={style.avatarImg} src={`${apiURL}/${user.avatar.url}`} />
+        <img className={style.avatarImg} src={`${apiURL}/${userData.avatar}`} />
       </div>
       <div className={style.optionsColumn}>
         <div className={style.optionsWrapper}>
-          <p className={style.userName}>{user.username}</p>
+          <p className={style.userName}>{userData.username}</p>
           {isCurrentUser ? (
             <div>
               <button
@@ -197,11 +197,11 @@ function UserPublicHeader({ user, openEditUser }) {
           </div>
           <div className={style.userInfo}>
             <p className={style.realName}>
-              {user.firstName} {user.lastName}
+              {userData.firstName} {userData.lastName}
             </p>
-            <p>{user.bio}</p>
-            <a href={`${user.website}`} rel='noreferrer' target='_blank'>
-              {user.website}
+            <p>{userData.bio}</p>
+            <a href={`${userData.website}`} rel='noreferrer' target='_blank'>
+              {userData.website}
             </a>
           </div>
         </div>

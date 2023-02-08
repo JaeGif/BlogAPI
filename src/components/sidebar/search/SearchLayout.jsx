@@ -143,7 +143,7 @@ function SearchLayout({ handleOpen }) {
               >
                 <UserSearchOverview
                   key={uniqid()}
-                  user={result}
+                  userData={result}
                   handleClick={handleRecentsUpdate}
                 />
               </div>
