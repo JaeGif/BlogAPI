@@ -21,7 +21,7 @@ function UserPublicHeader({ userData, openEditUser }) {
     }
 
     for (let i = 0; i < loggedInUser.following.length; i++) {
-      if (loggedInUser.following[i] === user._id) {
+      if (loggedInUser.following[i] === userData._id) {
         setIsFollowing(true);
         break;
       }
@@ -30,7 +30,7 @@ function UserPublicHeader({ userData, openEditUser }) {
 
   async function countUserPosts() {
     const res = await fetch(
-      `${apiURL}/api/posts?userid=${user._id}&returnLimit=0`,
+      `${apiURL}/api/posts?userid=${userData._id}&returnLimit=0`,
       {
         mode: 'cors',
         headers: {

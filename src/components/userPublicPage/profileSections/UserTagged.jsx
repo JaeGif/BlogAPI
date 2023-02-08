@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 function UserTagged({ user }) {
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
+
   const [userTaggedIdx, setUserTaggedIdx] = useState(user.taggedPosts);
   const [userTagged, setUserTagged] = useState([]);
 

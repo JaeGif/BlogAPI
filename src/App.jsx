@@ -92,7 +92,6 @@ function App() {
   });
  */
   const handleLogin = async (username, password) => {
-    console.log('handle handling');
     const userData = new URLSearchParams();
     userData.append('username', username);
     userData.append('password', password);

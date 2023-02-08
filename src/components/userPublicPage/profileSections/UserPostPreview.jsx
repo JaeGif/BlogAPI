@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import style from './userpostpreview.module.css';
 import FullPost from '../../fullPost/FullPost';
-import { ApiContext, PathContext } from '../../../App';
+import { ApiContext, PathContext, TokenContext } from '../../../App';
+import { useQuery } from '@tanstack/react-query';
 
-function UserPostPreview({ post }) {
+function UserPostPreview({ post, userData }) {
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
+  const token = useContext(TokenContext);
   const [isVideo, setIsVideo] = useState(false);
   const [displayPost, setDisplayPost] = useState(false);
+  console.log(post);
 
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
@@ -17,13 +20,27 @@ function UserPostPreview({ post }) {
     console.log('refresh?');
   };
 
+  const fetchThumbnail = async () => {
+    const res = await fetch(`${apiURL}/api/images/${post.images[0]}`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const data = await res.json();
+    return data.image;
+  };
+
   useEffect(() => {
-    if (post.image.contentType === 'video/mp4') {
+    if (post.contentType === 'video/mp4') {
       setIsVideo(true);
     }
   });
-  console.log(post.image.filter);
-  return (
+
+  const thumbnailQuery = useQuery({
+    queryKey: ['images', { imageid: post.images[0] }],
+    queryFn: fetchThumbnail,
+  });
+  console.log(thumbnailQuery.data);
+  return thumbnailQuery.data ? (
     <div>
       <div
         onClick={toggleDisplayFullPost}
@@ -40,10 +57,10 @@ function UserPostPreview({ post }) {
                 />
               </span>
               <video
-                className={`${style.squarePreviewContent} ${post.image.filter}`}
+                className={`${style.squarePreviewContent} ${thumbnailQuery.data.filter}`}
               >
                 <source
-                  src={`${apiURL}/${post.image.url}`}
+                  src={`${apiURL}/${thumbnailQuery.data.url}`}
                   type='video/mp4'
                 ></source>
               </video>
@@ -58,8 +75,8 @@ function UserPostPreview({ post }) {
                 />
               </span>
               <img
-                className={`${style.squarePreviewContent} ${post.image.filter}`}
-                src={`${apiURL}/${post.image.url}`}
+                className={`${style.squarePreviewContent} ${thumbnailQuery.filter}`}
+                src={`${apiURL}/${thumbnailQuery.data.url}`}
               />
             </>
           )}
@@ -71,11 +88,14 @@ function UserPostPreview({ post }) {
           toggleFullPost={toggleDisplayFullPost}
           updateParentPost={updateParentPost}
           isVideo={isVideo}
+          userData={userData}
         />
       ) : (
         <></>
       )}
     </div>
+  ) : (
+    <></>
   );
 }
 

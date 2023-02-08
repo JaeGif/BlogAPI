@@ -18,7 +18,7 @@ function UserPublished({ user }) {
         headers: { Authorization: 'Bearer' + ' ' + token },
       }
     );
-    console.log('finding new posts for', `${user.userName}`);
+    console.log('finding new posts for', `${user.username}`);
     const data = await res.json();
     return data.posts;
   }
@@ -27,14 +27,15 @@ function UserPublished({ user }) {
     queryKey: ['posts', { userid: user._id }],
     queryFn: findPostsUserId,
   });
+  console.log(userPostsQuery);
 
-  return (
+  return userPostsQuery.data ? (
     <div className={style.contentLayoutGrid}>
       {userPostsQuery.isLoading ? (
         <LoadingIcon />
       ) : userPostsQuery.data.length ? (
         userPostsQuery.data.map((post) => (
-          <UserPostPreview key={uniqid()} post={post} />
+          <UserPostPreview key={uniqid()} post={post} userData={user} />
         ))
       ) : (
         <h2 className={style.noDataFoundMessage}>
@@ -42,6 +43,8 @@ function UserPublished({ user }) {
         </h2>
       )}
     </div>
+  ) : (
+    <></>
   );
 }
 

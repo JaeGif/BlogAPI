@@ -27,7 +27,7 @@ function UserPageLayout({ user, openEditUser }) {
   }
 
   const userQuery = useQuery({
-    queryKey: ['user', user._id],
+    queryKey: ['user', { userid: user._id }],
     queryFn: findUserById,
   });
   console.log(userQuery);
