@@ -3,7 +3,6 @@
   background-color: black;
   overflow: hidden;
   width: 35vw;
-  height: 46vw;
   background-color: black;
   position: relative;
   display: flex;
@@ -44,7 +43,6 @@
   display: none;
 }
 .contentWrapper {
-  position: absolute;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -5,11 +5,23 @@ import Content from './Content';
 function ImageSlider({ images }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [leftShift, setLeftShift] = useState('0vw');
+  const [leftHidden, setLeftHidden] = useState(true);
+  const [rightHidden, setRightHidden] = useState(false);
 
   useEffect(() => {
     console.log(imageIndex);
+    if (imageIndex === 0) {
+      setLeftHidden(true);
+    } else {
+      setLeftHidden(false);
+    }
     if (imageIndex < 0) {
       return;
+    }
+    if (imageIndex === images.length - 1) {
+      setRightHidden(true);
+    } else {
+      setRightHidden(false);
     }
     if (imageIndex >= images.length) {
       return;
@@ -40,10 +52,16 @@ function ImageSlider({ images }) {
 
   return (
     <div className={style.carouselWrapper}>
-      <div className={`${style.icon} ${style.previous}`}>
+      <div
+        className={
+          leftHidden
+            ? `${style.icon} ${style.previous} ${style.hidden}`
+            : `${style.icon} ${style.previous}`
+        }
+      >
         <img
           onClick={handleDecIndex}
-          className={style.arrow}
+          className={`${style.arrow}`}
           src='/assets/favicons/previous.svg'
           alt='left arrow'
         />
@@ -56,10 +74,16 @@ function ImageSlider({ images }) {
           <Content imageId={img} />
         ))}
       </div>
-      <div className={`${style.icon} ${style.next}`}>
+      <div
+        className={
+          rightHidden
+            ? `${style.icon} ${style.next} ${style.hidden}`
+            : `${style.icon} ${style.next}`
+        }
+      >
         <img
           onClick={handleIncIndex}
-          className={style.arrow}
+          className={`${style.arrow} `}
           src='assets/favicons/next.svg'
           alt='right arrow'
         />

@@ -54,7 +54,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 77.5vh;
   max-width: 35vw;
   background-color: black;
   border-right: solid 1px var(--greyHighlight);

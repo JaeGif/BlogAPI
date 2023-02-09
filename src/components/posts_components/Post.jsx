@@ -166,7 +166,15 @@ function Post({ postObj, refresh }) {
     queryKey: ['users', user],
     queryFn: fetchUser,
   });
-
+  const detectDoubleClick = (e) => {
+    switch (e.detail) {
+      case 2:
+        handleLike();
+        break;
+      default:
+        break;
+    }
+  };
   return userQuery.data ? (
     <div>
       <div className={style.postContainer}>
@@ -182,7 +190,9 @@ function Post({ postObj, refresh }) {
             ></img>
           </div>
         </span>
-        <ImageSlider images={images} />
+        <div onClick={detectDoubleClick}>
+          <ImageSlider images={images} />
+        </div>
         <div className={style.postInfoContainer}>
           <span className={style.iconsContainer}>
             <span className={style.iconsSpacing}>

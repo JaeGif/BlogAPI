@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import uniqid from 'uniqid';
 import Comments from '../comments/Comments';
 import Comment from '../comments/Comment';
+import ImageSlider from '../posts_components/ImageSlider';
 import style from './fullpost.module.css';
 import PostDetailsExpanded from '../posts_components/PostDetailsExpanded';
 import UserProfile from '../userProfileHead/userProfile';
@@ -93,9 +94,7 @@ function FullPost({
                 ) : (
                   <></>
                 )}
-                {images.map((img) => (
-                  <Content imageId={img} />
-                ))}
+                <ImageSlider images={images} />
               </div>
               <div className={style.postSideWrapper}>
                 <div>
