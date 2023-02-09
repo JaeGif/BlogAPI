@@ -49,6 +49,7 @@ function SearchLayout({ handleOpen }) {
     const data = await res.json();
     setIsSearching(false);
     setSearchResults(data.users);
+    console.log('data', data);
     if (data.users.length) {
       setSearchFound(true);
     } else {
@@ -84,7 +85,7 @@ function SearchLayout({ handleOpen }) {
     console.log(userUpdated.recentSearches);
     setRecentSearches(history);
 
-    console.log('send check', history);
+    console.log('history', history);
   };
 
   useEffect(() => {
@@ -94,7 +95,9 @@ function SearchLayout({ handleOpen }) {
   useEffect(() => {
     updateUser();
   }, []);
+  console.log(searchFound);
 
+  console.log('search results', searchResults);
   return (
     <div className={style.notificationsWrapper}>
       <div className={style.searchBoxContainer}>

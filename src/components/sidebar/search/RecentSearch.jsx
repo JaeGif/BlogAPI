@@ -73,7 +73,7 @@ function RecentSearch({
               e.stopPropagation();
             }}
           >
-            <UserSearchOverview key={uniqid()} user={user.user} />
+            <UserSearchOverview key={uniqid()} userData={user.user} />
             <img
               onClick={(e) => {
                 e.stopPropagation();
