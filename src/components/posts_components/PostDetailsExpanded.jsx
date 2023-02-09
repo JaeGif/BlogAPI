@@ -3,7 +3,6 @@ import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
 import style from './postdetailsexpanded.module.css';
 
 function PostDetailsExpanded({ postObj, userData }) {
-  console.log(userData);
   return (
     <div className={style.postExpandedContainer}>
       <div className={style.postExpandedWrapper}>

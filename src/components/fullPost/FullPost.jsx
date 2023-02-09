@@ -116,7 +116,7 @@ function FullPost({
                       postObj={postObj}
                       userData={userData}
                     />
-                    <Comments comments={comments} />
+                    <Comments comments={comments} userData={userData} />
                   </div>
                 </div>
                 <AddCommentInput
