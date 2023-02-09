@@ -26,7 +26,6 @@ function Content({ imageId }) {
     queryFn: fetchContent,
   });
 
-  console.log(contentQuery.data);
   return contentQuery.data ? (
     <div className={style.imgContainers}>
       {isVideo ? (

@@ -10,17 +10,7 @@
   max-width: 95vw;
   margin: 25px;
 }
-.imgContainers {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.postImages {
-  min-width: 30vw;
-  max-width: 90vw;
-  width: 100%;
-}
+
 .userDateHead {
   display: flex;
   align-items: center;
@@ -67,4 +57,14 @@
 }
 .iconsSpacing {
   gap: 1vw;
+}
+
+.postImages {
+  width: 35vw;
+}
+.imgContainers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

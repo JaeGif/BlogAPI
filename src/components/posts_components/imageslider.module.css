@@ -1,0 +1,52 @@
+.carouselWrapper {
+  position: relative;
+  background-color: black;
+  overflow: hidden;
+  width: 35vw;
+  height: 46vw;
+  background-color: black;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.previous {
+  left: 5px;
+  position: relative;
+}
+.next {
+  right: 5px;
+}
+.icon {
+  position: absolute;
+  z-index: 30;
+  color: black;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  border-radius: 50%;
+  background-color: hsla(0, 0%, 100%, 0.85);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon:hover {
+  cursor: pointer;
+}
+.carouselWrapper:hover .icon {
+  opacity: 1;
+}
+.arrow {
+  height: 27.5px;
+}
+.hidden {
+  display: none;
+}
+.contentWrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: transform 0.5s ease-in-out;
+}

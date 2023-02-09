@@ -5,8 +5,8 @@ import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
 import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
-import Content from './Content';
 import { useQuery } from '@tanstack/react-query';
+import ImageSlider from './ImageSlider';
 
 function Post({ postObj, refresh }) {
   const apiURL = useContext(ApiContext);
@@ -182,9 +182,7 @@ function Post({ postObj, refresh }) {
             ></img>
           </div>
         </span>
-        {images.map((img) => (
-          <Content imageId={img} />
-        ))}
+        <ImageSlider images={images} />
         <div className={style.postInfoContainer}>
           <span className={style.iconsContainer}>
             <span className={style.iconsSpacing}>
