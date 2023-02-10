@@ -12,8 +12,6 @@ function Suggested({ handleLogOut }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
-  const [suggestedUsers, setSuggestedUsers] = useState([]);
-  const queryClient = useQueryClient();
   const numberOfSuggestedUsers = 5;
 
   async function getSuggestions() {
@@ -35,15 +33,6 @@ function Suggested({ handleLogOut }) {
   });
 
   if (suggestionsQuery.isError) console.log(suggestionsQuery.error);
-  if (suggestionsQuery.data === null) {
-    return (
-      <div className={style.moreSuggestionsContainer}>
-        <p>
-          <em>Check later for more suggestions.</em>
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -51,7 +40,7 @@ function Suggested({ handleLogOut }) {
         <div className={style.userContainer}>
           <div className={style.avatarContainer}>
             <img
-              src={`${apiURL}/${loggedInUser.avatar.url}`}
+              src={`${apiURL}/${loggedInUser.avatar}`}
               alt='profile avatar'
             ></img>
           </div>
@@ -80,14 +69,18 @@ function Suggested({ handleLogOut }) {
           </div>
         </>
       )}
-      {suggestionsQuery.data ? (
-        <></>
+      {suggestionsQuery.isFetched ? (
+        suggestionsQuery.data.length ? (
+          <div className={style.moreSuggestionsContainer}>
+            <p>
+              <em>Check later for more suggestions.</em>
+            </p>
+          </div>
+        ) : (
+          <></>
+        )
       ) : (
-        <div className={style.moreSuggestionsContainer}>
-          <p>
-            <em>Check later for more suggestions.</em>
-          </p>
-        </div>
+        <></>
       )}
     </div>
   );

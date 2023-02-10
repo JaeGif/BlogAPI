@@ -239,6 +239,7 @@ function App() {
                           <Posts
                             refresh={isRefresh}
                             refreshFn={refreshContent}
+                            refreshLoggedInUserData={refreshLoggedInUserData}
                           />
                           <Suggested handleLogOut={handleLogOut} />
                         </>

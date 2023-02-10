@@ -11,6 +11,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 
 function SuggestedUserProfile({ user }) {
+  console.log(user);
   const handleUserCheckout = useContext(ProfileContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
@@ -107,12 +108,12 @@ function SuggestedUserProfile({ user }) {
             <div className={style.userContainer}>
               <div className={style.suggestedUserAvatarContainer}>
                 <img
-                  src={`${apiURL}/${userQuery.data.user.avatar.url}`}
+                  src={`${apiURL}/${userQuery.data.user.avatar}`}
                   alt='profile image'
                 ></img>
               </div>
               <div className={style.nameContainer}>
-                <p className={style.userName}>{userQuery.data.user.userName}</p>
+                <p className={style.userName}>{userQuery.data.user.username}</p>
                 <p className={style.realName}>
                   {userQuery.data.user.firstName} {userQuery.data.user.lastName}
                 </p>

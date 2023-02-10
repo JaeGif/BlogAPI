@@ -17,7 +17,6 @@ function Content({ imageId }) {
     if (data.contentType === 'video/mp4') {
       setIsVideo(true);
     }
-    console.log('done');
     return data.image;
   };
 

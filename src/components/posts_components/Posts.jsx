@@ -7,16 +7,11 @@ import style from './posts.module.css';
 import { ApiContext, UserContext, TokenContext } from '../../App';
 import { useQuery } from '@tanstack/react-query';
 
-function Posts({ refresh, refreshFn }) {
+function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
   const [limitCounter, setLimitCounter] = useState(0);
-  /* 
-  useEffect(() => {
-
-    fetchPosts();
-  }, [refresh]); */
 
   async function fetchPosts() {
     const res = await fetch(`${apiURL}/api/posts?u=${loggedInUser._id}`, {
@@ -47,7 +42,11 @@ function Posts({ refresh, refreshFn }) {
       ) : postsForUserQuery.data.posts.length ? (
         <div className={style.postsMargin}>
           {postsForUserQuery.data.posts.map((post) => (
-            <Post key={uniqid()} postObj={post} refresh={refreshFn} />
+            <Post
+              key={uniqid()}
+              postObj={post}
+              refreshLoggedInUserData={refreshLoggedInUserData}
+            />
           ))}
         </div>
       ) : (

@@ -8,7 +8,7 @@ import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
 import { useQuery } from '@tanstack/react-query';
 import ImageSlider from './ImageSlider';
 
-function Post({ postObj, refresh }) {
+function Post({ postObj, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const basePath = useContext(PathContext);
@@ -31,7 +31,6 @@ function Post({ postObj, refresh }) {
     _id,
     location,
   } = postObj;
-  console.log(postObj);
   // If a new comment is added, the individual post needs to refresh just comments
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -75,8 +74,8 @@ function Post({ postObj, refresh }) {
         post: {
           _id: _id,
           thumbnail: {
-            url: image.url,
-            alt: image.alt,
+            url: images[0].url,
+            alt: images[0].alt,
           },
         },
       })
@@ -90,6 +89,7 @@ function Post({ postObj, refresh }) {
       },
       mode: 'cors',
     }).then(() => {
+      refreshLoggedInUserData();
       console.log('done');
     });
   };
@@ -112,6 +112,7 @@ function Post({ postObj, refresh }) {
       },
       mode: 'cors',
     }).then(() => {
+      refreshLoggedInUserData();
       console.log('saved!');
     });
   };
@@ -122,7 +123,6 @@ function Post({ postObj, refresh }) {
   };
 
   useEffect(() => {
-    console.log(loggedInUser.savedPosts);
     for (let i = 0; i < loggedInUser.savedPosts.length; i++) {
       if (loggedInUser.savedPosts[i] === _id) {
         setIsSaved(true);

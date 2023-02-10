@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import style from './imageslider.module.css';
 import Content from './Content';
+import uniqid from 'uniqid';
 
 function ImageSlider({ images }) {
   const [imageIndex, setImageIndex] = useState(0);
@@ -51,11 +52,10 @@ function ImageSlider({ images }) {
     // 35vw is the standard width, this will need to change for screen size.
     let value = imageIndex * -1 * 35;
     setLeftShift(`${value}vw`);
-    console.log(leftShift);
   };
   const handleBubbleIndicators = () => {
     return images.map((img) => (
-      <div ref={pushRef} className={style.bubbles}></div>
+      <div key={img.name} ref={pushRef} className={style.bubbles}></div>
     ));
   };
   const changeCurrentIndicator = () => {
