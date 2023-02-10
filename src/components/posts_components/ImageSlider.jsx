@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import style from './imageslider.module.css';
 import Content from './Content';
 
@@ -8,8 +8,11 @@ function ImageSlider({ images }) {
   const [leftHidden, setLeftHidden] = useState(true);
   const [rightHidden, setRightHidden] = useState(false);
 
+  const ref = useRef([]);
+
+  const pushRef = (el) => ref.current.push(el);
+
   useEffect(() => {
-    console.log(imageIndex);
     if (imageIndex === 0) {
       setLeftHidden(true);
     } else {
@@ -27,6 +30,7 @@ function ImageSlider({ images }) {
       return;
     }
     calculateLeftShift();
+    changeCurrentIndicator();
   }, [imageIndex]);
 
   const handleIncIndex = () => {
@@ -49,7 +53,19 @@ function ImageSlider({ images }) {
     setLeftShift(`${value}vw`);
     console.log(leftShift);
   };
+  const handleBubbleIndicators = () => {
+    return images.map((img) => (
+      <div ref={pushRef} className={style.bubbles}></div>
+    ));
+  };
+  const changeCurrentIndicator = () => {
+    for (let i = 0; i < images.length; i++) {
+      ref.current[i].classList.remove(`${style.active}`);
+    }
+    const bubbleRef = ref.current[imageIndex];
 
+    bubbleRef.classList.add(`${style.active}`);
+  };
   return (
     <div className={style.carouselWrapper}>
       <div
@@ -88,6 +104,7 @@ function ImageSlider({ images }) {
           alt='right arrow'
         />
       </div>
+      <div className={style.bubblesContainer}>{handleBubbleIndicators()}</div>
     </div>
   );
 }

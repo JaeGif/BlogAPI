@@ -36,6 +36,7 @@ function Post({ postObj, refresh }) {
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likedBy, setLikedBy] = useState(like);
+  const [isSaved, setIsSaved] = useState(false);
 
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
@@ -95,7 +96,13 @@ function Post({ postObj, refresh }) {
 
   const handleSavePost = () => {
     let data = new URLSearchParams();
-    data.append('savedPost', JSON.stringify(postObj));
+
+    for (let i = 0; i < loggedInUser.savedPosts.length; i++) {
+      if (loggedInUser.savedPosts[i] === _id) {
+        setIsSaved(false);
+      }
+    }
+    data.append('savedPost', JSON.stringify(_id));
     fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
       method: 'PUT',
       body: data,
@@ -113,6 +120,15 @@ function Post({ postObj, refresh }) {
     setIsNewComment(true);
     refresh();
   };
+
+  useEffect(() => {
+    console.log(loggedInUser.savedPosts);
+    for (let i = 0; i < loggedInUser.savedPosts.length; i++) {
+      if (loggedInUser.savedPosts[i] === _id) {
+        setIsSaved(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (comments.length !== 0) {
@@ -161,7 +177,6 @@ function Post({ postObj, refresh }) {
     const data = await res.json();
     return data.user;
   };
-
   const userQuery = useQuery({
     queryKey: ['users', user],
     queryFn: fetchUser,
@@ -224,7 +239,11 @@ function Post({ postObj, refresh }) {
               <img
                 onClick={handleSavePost}
                 className={style.icons}
-                src={`${basePath}/assets/favicons/bookmark.svg`}
+                src={
+                  isSaved
+                    ? `${basePath}/assets/favicons/bookmark_blue.svg`
+                    : `${basePath}/assets/favicons/bookmark.svg`
+                }
                 alt='save post'
               ></img>
             )}

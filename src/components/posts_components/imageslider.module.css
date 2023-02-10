@@ -33,7 +33,27 @@
 .icon:hover {
   cursor: pointer;
 }
-.carouselWrapper:hover .icon {
+.bubblesContainer {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 10px;
+  width: 100%;
+  gap: 5px;
+}
+.bubbles {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 7.5px;
+  width: 7.5px;
+  border-radius: 50%;
+}
+.active {
+  background-color: rgba(255, 255, 255, 1);
+}
+.carouselWrapper:hover .icon,
+.bubblesContainer {
   opacity: 1;
 }
 .arrow {
