@@ -1,8 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { ProfileContext, PostContext, ApiContext } from '../../../App';
+import {
+  ProfileContext,
+  PostContext,
+  ApiContext,
+  TokenContext,
+} from '../../../App';
 import style from './notification.module.css';
 
 function Notification({ notification, handleOpen }) {
+  const token = useContext(TokenContext);
   const [message, setMessage] = useState('');
   const apiURL = useContext(ApiContext);
   const getUserProfile = useContext(ProfileContext);
@@ -13,10 +19,29 @@ function Notification({ notification, handleOpen }) {
   const [isTag, setIsTag] = useState(false);
   const [notificationRetrieved, setNotificationRetrieved] = useState(false);
   const [isViewed, setIsViewed] = useState(notification.seen);
+  const [userData, setUserData] = useState();
+
   console.log(notification);
   console.log(isViewed);
+
+  const fetchUserData = async () => {
+    let res;
+    isTag
+      ? (res = await fetch(`${apiURL}/api/users/${notification.post.user}`, {
+          mode: 'cors',
+          headers: { Authorization: 'Bearer' + ' ' + token },
+        }))
+      : (res = await fetch(`${apiURL}/api/users/${notification.user}`, {
+          mode: 'cors',
+          headers: { Authorization: 'Bearer' + ' ' + token },
+        }));
+
+    const data = await res.json();
+    console.log(data);
+    setUserData(data.user);
+  };
+
   useEffect(() => {
-    console.log(notification);
     switch (notification.type) {
       case 'post/like':
         setMessage('liked your post.');
@@ -37,9 +62,10 @@ function Notification({ notification, handleOpen }) {
         console.log('SOMETHING IS PRETTY WRONG');
         break;
     }
+    fetchUserData();
   }, []);
 
-  return (
+  return userData ? (
     <div
       className={
         isViewed
@@ -71,13 +97,7 @@ function Notification({ notification, handleOpen }) {
       <div className={style.avatarContainer}>
         <img
           className={style.userAvatar}
-          src={
-            notificationRetrieved
-              ? isTag
-                ? `${apiURL}/${notification.post.user.avatar.url}`
-                : `${apiURL}/${notification.user.avatar.url}`
-              : ''
-          }
+          src={notificationRetrieved ? `${apiURL}/${userData.avatar}` : ''}
           alt='profile image'
         />
       </div>
@@ -89,21 +109,17 @@ function Notification({ notification, handleOpen }) {
               ? (e) => {
                   e.stopPropagation();
                   handleOpen('');
-                  getUserProfile(notification.post.user._id);
+                  getUserProfile(notification.post.user);
                 }
               : (e) => {
                   e.stopPropagation();
                   handleOpen('');
-                  getUserProfile(notification.user._id);
+                  getUserProfile(notification.user);
                 }
           }
           className={style.userName}
         >
-          {notificationRetrieved
-            ? isTag
-              ? notification.post.user.username
-              : notification.user.username
-            : ''}
+          {notificationRetrieved ? userData.username : ''}
         </em>{' '}
         {message}
       </p>
@@ -127,6 +143,8 @@ function Notification({ notification, handleOpen }) {
         <></>
       )}
     </div>
+  ) : (
+    <></>
   );
 }
 
