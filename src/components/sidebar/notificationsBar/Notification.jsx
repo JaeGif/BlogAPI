@@ -25,6 +25,9 @@ function Notification({ notification, handleOpen }) {
   console.log(isViewed);
 
   const fetchUserData = async () => {
+    if (userData) {
+      return;
+    }
     let res;
     isTag
       ? (res = await fetch(`${apiURL}/api/users/${notification.post.user}`, {

@@ -9,9 +9,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 200px;
+  width: 300px;
   overflow: hidden;
   gap: 10px;
+  text-overflow: fade(10px);
 }
 .switchUserBtn {
   color: var(--blue-4);
@@ -62,9 +63,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: solid 1px red;
 }
 .suggestedUserAvatarContainer > img {
   height: 40px;
+  width: 40px;
 }
 .individualSuggestion {
   display: flex;
@@ -94,4 +97,9 @@
 }
 .following {
   color: var(--grey-3);
+}
+.messageContainer {
+  width: 100%;
+  font-size: 0.8rem;
+  overflow: scroll;
 }

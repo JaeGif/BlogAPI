@@ -91,50 +91,58 @@ function SuggestedUserProfile({ user }) {
     addFollowerToUser();
     addFollowingToCurrentUser();
   };
+  console.log(userQuery);
 
   return (
     <div className={style.individualSuggestion}>
       {userQuery.isLoading ? (
         <></>
       ) : (
-        <>
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              handleUserCheckout(userQuery.data.user._id);
-            }}
-            className={style.individualContainer}
-          >
-            <div className={style.userContainer}>
-              <div className={style.suggestedUserAvatarContainer}>
-                <img
-                  src={`${apiURL}/${userQuery.data.user.avatar}`}
-                  alt='profile image'
-                ></img>
+        userQuery.data.user && (
+          <>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                handleUserCheckout(userQuery.data.user._id);
+              }}
+              className={style.individualContainer}
+            >
+              <div className={style.userContainer}>
+                <div className={style.suggestedUserAvatarContainer}>
+                  <img
+                    src={`${apiURL}/${userQuery.data.user.avatar}`}
+                    alt='profile image'
+                  ></img>
+                </div>
+                <div className={style.nameContainer}>
+                  <p className={style.userName}>
+                    {userQuery.data.user.username}
+                  </p>
+                  <p className={style.realName}>
+                    {userQuery.data.user.firstName}{' '}
+                    {userQuery.data.user.lastName}
+                  </p>
+                </div>
               </div>
-              <div className={style.nameContainer}>
-                <p className={style.userName}>{userQuery.data.user.username}</p>
-                <p className={style.realName}>
-                  {userQuery.data.user.firstName} {userQuery.data.user.lastName}
+              <div className={style.messageContainer}>
+                <p>
+                  <em>{userQuery.data.message}</em>
                 </p>
               </div>
             </div>
-            <p>
-              <em>{userQuery.data.message}</em>
-            </p>
-          </div>
 
-          <p
-            onClick={handleFollow}
-            className={
-              isFollowing
-                ? `${style.switchUserBtn} ${style.following}`
-                : `${style.switchUserBtn}`
-            }
-          >
-            {isFollowing ? 'Following' : 'Follow'}
-          </p>
-        </>
+            <p
+              onClick={handleFollow}
+              className={
+                isFollowing
+                  ? `${style.switchUserBtn} ${style.following}`
+                  : `${style.switchUserBtn}`
+              }
+            >
+              {isFollowing ? 'Following' : 'Follow'}
+            </p>
+          </>
+        )
       )}
     </div>
   );

@@ -33,7 +33,7 @@ function Suggested({ handleLogOut }) {
   });
 
   if (suggestionsQuery.isError) console.log(suggestionsQuery.error);
-
+  console.log(suggestionsQuery.data);
   return (
     <div>
       <div className={style.profileContainer}>

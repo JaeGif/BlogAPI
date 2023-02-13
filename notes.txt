@@ -1,2 +1,13 @@
-Messages Options need to be developed separately and integrated into the application.
-Messages will require a working knowledge of WebSockets for real-time communication
+ToDo's:
+
+Refactor Related: 
+- Check complete refactor bugs. Comments/Photo Uploads
+- Spilt photos into individual images with separate filters and adjustments applied.
+- Photos in Content component need to be assigned separate divs for their individual filters.
+- Check later for more suggestionns displays improperly
+
+New Features: 
+- Check Loading components, remove unnecessary ones.
+- Lazy Load via NPM or via loading tag tbd. (try both new branch)
+- Clicking out of search or notifications closes the bar. 
+- 
