@@ -7,6 +7,7 @@ import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHea
 import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
 import { useQuery } from '@tanstack/react-query';
 import ImageSlider from './ImageSlider';
+import { set } from 'mongoose';
 
 function Post({ postObj, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
@@ -34,7 +35,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
   // If a new comment is added, the individual post needs to refresh just comments
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [likedBy, setLikedBy] = useState(like);
+  const [likedBy, setLikedBy] = useState();
   const [isSaved, setIsSaved] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState();
 
@@ -200,6 +201,20 @@ function Post({ postObj, refreshLoggedInUserData }) {
         break;
     }
   };
+  const fetchUsers = async () => {
+    const res = await fetch(`${apiURL}/api/users`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const data = await res.json();
+    setLikedBy(data.users);
+    return data.users;
+  };
+  const likedUsersQuery = useQuery({
+    queryKey: ['users', { liked: _id }],
+    queryFn: fetchUsers,
+  });
+
   return userQuery.data ? (
     <div>
       <div className={style.postContainer}>
@@ -259,7 +274,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
             )}
           </span>
           <span>
-            <em>{numberOfLikes()}</em>
+            <em>{likedBy && numberOfLikes()}</em>
           </span>
           <p>
             <em className={style.userNameEmphasis}>{user.username}</em> {post}
