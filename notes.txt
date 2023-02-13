@@ -5,6 +5,7 @@ Refactor Related:
 - Spilt photos into individual images with separate filters and adjustments applied.
 - Photos in Content component need to be assigned separate divs for their individual filters.
 - Check later for more suggestionns displays improperly
+- Sending like causes post refresh and like is not saved in temp.
 
 New Features: 
 - Check Loading components, remove unnecessary ones.

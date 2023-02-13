@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState, useContext } from 'react';
 import {
   ProfileContext,
@@ -19,15 +20,11 @@ function Notification({ notification, handleOpen }) {
   const [isTag, setIsTag] = useState(false);
   const [notificationRetrieved, setNotificationRetrieved] = useState(false);
   const [isViewed, setIsViewed] = useState(notification.seen);
-  const [userData, setUserData] = useState();
 
   console.log(notification);
   console.log(isViewed);
 
   const fetchUserData = async () => {
-    if (userData) {
-      return;
-    }
     let res;
     isTag
       ? (res = await fetch(`${apiURL}/api/users/${notification.post.user}`, {
@@ -41,7 +38,7 @@ function Notification({ notification, handleOpen }) {
 
     const data = await res.json();
     console.log(data);
-    setUserData(data.user);
+    return data.user;
   };
 
   useEffect(() => {
@@ -65,10 +62,14 @@ function Notification({ notification, handleOpen }) {
         console.log('SOMETHING IS PRETTY WRONG');
         break;
     }
-    fetchUserData();
   }, []);
 
-  return userData ? (
+  const notificationUserQuery = useQuery({
+    queryKey: ['users', { notification: notification._id }],
+    queryFn: fetchUserData,
+  });
+
+  return notificationUserQuery.data ? (
     <div
       className={
         isViewed
@@ -100,7 +101,11 @@ function Notification({ notification, handleOpen }) {
       <div className={style.avatarContainer}>
         <img
           className={style.userAvatar}
-          src={notificationRetrieved ? `${apiURL}/${userData.avatar}` : ''}
+          src={
+            notificationRetrieved
+              ? `${apiURL}/${notificationUserQuery.data.avatar}`
+              : ''
+          }
           alt='profile image'
         />
       </div>
@@ -122,7 +127,7 @@ function Notification({ notification, handleOpen }) {
           }
           className={style.userName}
         >
-          {notificationRetrieved ? userData.username : ''}
+          {notificationRetrieved ? notificationUserQuery.data.username : ''}
         </em>{' '}
         {message}
       </p>
