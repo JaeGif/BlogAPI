@@ -36,6 +36,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likedBy, setLikedBy] = useState(like);
   const [isSaved, setIsSaved] = useState(false);
+  const [thumbnailImage, setThumbnailImage] = useState();
 
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
@@ -61,21 +62,21 @@ function Post({ postObj, refreshLoggedInUserData }) {
   };
 
   const submitLike = () => {
+    console.log(images);
     let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
     data.append(
       'like',
       JSON.stringify({
         _id: loggedInUser._id,
         username: loggedInUser.username,
-        avatar: {
-          _id: loggedInUser.avatar._id,
-          url: loggedInUser.avatar.url,
-        },
+
         post: {
           _id: _id,
           thumbnail: {
-            url: images[0].url,
-            alt: images[0].alt,
+            url: thumbnailImage.url,
+            alt: thumbnailImage.alt,
+            filter: thumbnailImage.filter,
+            adjustments: thumbnailImage.adjustments,
           },
         },
       })
@@ -128,6 +129,15 @@ function Post({ postObj, refreshLoggedInUserData }) {
         setIsSaved(true);
       }
     }
+    const fetchThumbnail = async () => {
+      const res = await fetch(`${apiURL}/api/images/${images[0]}`, {
+        mode: 'cors',
+        headers: { Authorization: 'Bearer' + ' ' + token },
+      });
+      const data = await res.json();
+      setThumbnailImage(data.image);
+    };
+    fetchThumbnail();
   }, []);
 
   useEffect(() => {
