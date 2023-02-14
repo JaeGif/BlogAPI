@@ -29,6 +29,7 @@ function Content({ imageId }) {
     <div className={style.imgContainers}>
       {isVideo ? (
         <video
+          preload='none'
           className={`${style.postImages} ${contentQuery.data.filter}`}
           controls
         >
@@ -39,6 +40,7 @@ function Content({ imageId }) {
         </video>
       ) : (
         <img
+          loading='lazy'
           className={`${style.postImages} ${contentQuery.data.filter}`}
           src={`${apiURL}/${contentQuery.data.url}`}
           alt={contentQuery.data.alt}
