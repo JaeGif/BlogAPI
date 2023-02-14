@@ -16,13 +16,13 @@ function NewPost({ newPostModal, refresh }) {
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
 
-  const [filter, setFilter] = useState('none');
+  const [filter, setFilter] = useState({});
   const [alt, setAlt] = useState(null);
   const [isVideoPreview, setIsVideoPreview] = useState(false);
   const [tagged, setTagged] = useState([]);
 
-  const handleFilter = (e) => {
-    setFilter(e.currentTarget.id);
+  const handleFilter = (e, index) => {
+    setFilter({ filter: e.currentTarget.id, image: index });
   };
   const changeAlt = (e) => {
     setAlt(e.target.value);
@@ -129,9 +129,9 @@ function NewPost({ newPostModal, refresh }) {
   const submitPost = () => {
     setIsSubmitting(true);
     let data = new FormData();
-    console.log('images', imageFiles[0]);
+    console.log('images', imageFiles);
 
-    data.append('image', imageFiles[0]);
+    data.append('image', imageFiles);
     data.append('user', user._id);
     data.append('post', post);
     data.append('location', location);

@@ -178,7 +178,6 @@ function App() {
       },
     });
     const data = await res.json();
-    console.log('refresh user');
     setUserProfile(data.user);
     setLoggedInUser(data.user);
   }

@@ -48,8 +48,6 @@ function FullPost({
 
   const toggleRevealTags = () => {
     revealTags ? setRevealTags(false) : setRevealTags(true);
-    console.log(revealTags);
-    console.log(tags[0].user);
   };
 
   return (

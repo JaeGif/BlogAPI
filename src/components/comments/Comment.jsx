@@ -23,7 +23,6 @@ function Comment({ commentObj, userData }) {
     queryKey: ['comments', { commentid: commentObj }],
     queryFn: fetchComment,
   });
-  console.log(commentQuery.data);
   return commentQuery.data ? (
     <div>
       <PostDetailsExpanded postObj={commentQuery.data} userData={userData} />

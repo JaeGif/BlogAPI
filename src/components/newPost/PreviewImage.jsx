@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './previewimage.module.css';
+import uniqid from 'uniqid';
 
 function PreviewImage({ images, filter, isVideoPreview }) {
   return (

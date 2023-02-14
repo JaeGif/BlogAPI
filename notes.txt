@@ -5,8 +5,9 @@ Refactor Related:
 - Spilt photos into individual images with separate filters and adjustments applied.
 - Photos in Content component need to be assigned separate divs for their individual filters.
 - Check later for more suggestions displays improperly
+- When panning through uploaded images sometimes the likes are randomly updated to loggedInUser likes.
+
 
 New Features: 
 - Check Loading components, remove unnecessary ones, potential replace with grey loading skeleton
-- Lazy Load via NPM or via loading tag tbd. (try both new branch)
 - Clicking out of search or notifications closes the bar. 

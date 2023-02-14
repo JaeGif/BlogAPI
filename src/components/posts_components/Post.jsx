@@ -45,7 +45,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
 
   const handleLike = () => {
     if (isLiked) {
-      console.log('check is like');
       setIsLiked(false);
       const tempLikedBy = likedBy;
       tempLikedBy.pop();
@@ -53,7 +52,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
       submitLike();
     } else {
       setIsLiked(true);
-      console.log('check is like 2');
 
       setLikedBy(
         likedBy.concat({
@@ -161,8 +159,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
   }, []);
 
   const numberOfLikes = () => {
-    console.log(likedBy);
-
     switch (likedBy.length) {
       case 0:
         return 'No one has liked this yet ...';
@@ -216,7 +212,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
         return data.user;
       })
     );
-    console.log('is the promise');
 
     setLikedBy(promiseWrap);
   };

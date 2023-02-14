@@ -8,6 +8,7 @@ function ImageSlider({ images }) {
   const [leftShift, setLeftShift] = useState('0vw');
   const [leftHidden, setLeftHidden] = useState(true);
   const [rightHidden, setRightHidden] = useState(false);
+  const [hideBubbles, setHideBubbles] = useState(false);
 
   const ref = useRef([]);
 
@@ -30,9 +31,16 @@ function ImageSlider({ images }) {
     if (imageIndex >= images.length) {
       return;
     }
+
     calculateLeftShift();
     changeCurrentIndicator();
   }, [imageIndex]);
+
+  useEffect(() => {
+    if (images.length === 1) {
+      setHideBubbles(true);
+    }
+  }, []);
 
   const handleIncIndex = () => {
     if (imageIndex === images.length - 1) {
@@ -63,7 +71,6 @@ function ImageSlider({ images }) {
       ref.current[i].classList.remove(`${style.active}`);
     }
     const bubbleRef = ref.current[imageIndex];
-
     bubbleRef.classList.add(`${style.active}`);
   };
   return (
@@ -106,7 +113,9 @@ function ImageSlider({ images }) {
           alt='right arrow'
         />
       </div>
-      <div className={style.bubblesContainer}>{handleBubbleIndicators()}</div>
+      <div className={hideBubbles ? '' : `${style.bubblesContainer}`}>
+        {handleBubbleIndicators()}
+      </div>
     </div>
   );
 }

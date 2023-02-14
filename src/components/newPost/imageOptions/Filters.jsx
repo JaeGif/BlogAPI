@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import style from './filtersSelect.module.css';
 
-function Filters({ chosenFilter, currentSelectedFilter }) {
+function Filters({ chosenFilter, currentSelectedFilter, imageIndex }) {
   return (
     <div className={style.filtersContainer}>
       <div
         id='filter-none'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'none'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -22,7 +22,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-1977'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-1977'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -38,7 +38,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-aden'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-aden'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -54,7 +54,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-amaro'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-amaro'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -70,7 +70,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-ashby'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-ashby'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -86,7 +86,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-brannan'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-brannan'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -103,7 +103,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
 
       <div
         id='filter-brooklyn'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-brooklyn'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -119,7 +119,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-charmes'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-charmes'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -135,7 +135,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-clarendon'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-clarendon'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -151,7 +151,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-crema'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-crema'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -167,7 +167,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-dogpatch'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-dogpatch'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -183,7 +183,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-earlybird'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-earlybird'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -199,7 +199,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-gingham'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-gingham'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -215,7 +215,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-ginza'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-ginza'
             ? `${style.filterExampleWrapper} ${style.selected}`
@@ -231,7 +231,7 @@ function Filters({ chosenFilter, currentSelectedFilter }) {
       </div>
       <div
         id='filter-hefe'
-        onClick={(e) => chosenFilter(e)}
+        onClick={(e) => chosenFilter(e, imageIndex)}
         className={
           currentSelectedFilter === 'filter-hefe'
             ? `${style.filterExampleWrapper} ${style.selected}`
