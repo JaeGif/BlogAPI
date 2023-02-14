@@ -19,6 +19,11 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const [countComments, setCountComments] = useState(0);
   const [displayPost, setDisplayPost] = useState(false);
   const [isCurrentUser, setIsCurrentUser] = useState(false);
+  const [isNewComment, setIsNewComment] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likedBy, setLikedBy] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
+  const [thumbnailImage, setThumbnailImage] = useState();
 
   const {
     createdAt,
@@ -33,11 +38,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
     location,
   } = postObj;
   // If a new comment is added, the individual post needs to refresh just comments
-  const [isNewComment, setIsNewComment] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likedBy, setLikedBy] = useState();
-  const [isSaved, setIsSaved] = useState(false);
-  const [thumbnailImage, setThumbnailImage] = useState();
 
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
@@ -45,6 +45,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
 
   const handleLike = () => {
     if (isLiked) {
+      console.log('check is like');
       setIsLiked(false);
       const tempLikedBy = likedBy;
       tempLikedBy.pop();
@@ -52,6 +53,8 @@ function Post({ postObj, refreshLoggedInUserData }) {
       submitLike();
     } else {
       setIsLiked(true);
+      console.log('check is like 2');
+
       setLikedBy(
         likedBy.concat({
           _id: loggedInUser._id,
@@ -63,7 +66,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
   };
 
   const submitLike = () => {
-    console.log(images);
     let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
     data.append(
       'like',
@@ -91,8 +93,8 @@ function Post({ postObj, refreshLoggedInUserData }) {
       },
       mode: 'cors',
     }).then(() => {
-      refreshLoggedInUserData();
-      console.log('done');
+      /*       refreshLoggedInUserData();
+       */
     });
   };
 
@@ -114,7 +116,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
       },
       mode: 'cors',
     }).then(() => {
-      refreshLoggedInUserData();
       console.log('saved!');
     });
   };
@@ -130,15 +131,10 @@ function Post({ postObj, refreshLoggedInUserData }) {
         setIsSaved(true);
       }
     }
-    const fetchThumbnail = async () => {
-      const res = await fetch(`${apiURL}/api/images/${images[0]}`, {
-        mode: 'cors',
-        headers: { Authorization: 'Bearer' + ' ' + token },
-      });
-      const data = await res.json();
-      setThumbnailImage(data.image);
-    };
     fetchThumbnail();
+    if (like.length) {
+      fetchUsersLike();
+    }
   }, []);
 
   useEffect(() => {
@@ -149,23 +145,24 @@ function Post({ postObj, refreshLoggedInUserData }) {
       setIsComments(false);
       setCountComments(0);
     }
-
     if (like.length) {
       for (let i = 0; i < like.length; i++) {
-        if (like[i]._id === loggedInUser._id) {
+        if (like[i].toString() === loggedInUser._id.toString()) {
           setIsLiked(true);
         }
       }
     }
-  }, [isNewComment, isLiked]);
+  }, [isNewComment]);
 
   useEffect(() => {
     if (user.id === loggedInUser._id) {
       setIsCurrentUser(true);
     }
-  });
+  }, []);
 
   const numberOfLikes = () => {
+    console.log(likedBy);
+
     switch (likedBy.length) {
       case 0:
         return 'No one has liked this yet ...';
@@ -176,9 +173,16 @@ function Post({ postObj, refreshLoggedInUserData }) {
       default:
         return `Liked by ${likedBy[0].username}, ${likedBy[1].username} and ${
           likedBy.length - 2
-        } more.
-        }`;
+        } more.`;
     }
+  };
+  const fetchThumbnail = async () => {
+    const res = await fetch(`${apiURL}/api/images/${images[0]}`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const data = await res.json();
+    setThumbnailImage(data.image);
   };
   const fetchUser = async () => {
     const res = await fetch(`${apiURL}/api/users/${user}`, {
@@ -201,19 +205,21 @@ function Post({ postObj, refreshLoggedInUserData }) {
         break;
     }
   };
-  const fetchUsers = async () => {
-    const res = await fetch(`${apiURL}/api/users`, {
-      mode: 'cors',
-      headers: { Authorization: 'Bearer' + ' ' + token },
-    });
-    const data = await res.json();
-    setLikedBy(data.users);
-    return data.users;
+  const fetchUsersLike = async () => {
+    const promiseWrap = await Promise.all(
+      like.map(async (userId) => {
+        const res = await fetch(`${apiURL}/api/users/${userId}`, {
+          mode: 'cors',
+          headers: { Authorization: 'Bearer' + ' ' + token },
+        });
+        const data = await res.json();
+        return data.user;
+      })
+    );
+    console.log('is the promise');
+
+    setLikedBy(promiseWrap);
   };
-  const likedUsersQuery = useQuery({
-    queryKey: ['users', { liked: _id }],
-    queryFn: fetchUsers,
-  });
 
   return userQuery.data ? (
     <div>
