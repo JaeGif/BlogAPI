@@ -22,14 +22,16 @@ function UserProfileAvatar({ userId }) {
   });
 
   return (
-    <div className={style.nameAvatarHeader}>
-      <div className={style.userAvatarCutout}>
-        <img
-          className={style.userAvatar}
-          src={`${apiURL}/${userQuery.data.avatar}`}
-        ></img>
+    userQuery.data && (
+      <div className={style.nameAvatarHeader}>
+        <div className={style.userAvatarCutout}>
+          <img
+            className={style.userAvatar}
+            src={`${apiURL}/${userQuery.data.avatar}`}
+          ></img>
+        </div>
       </div>
-    </div>
+    )
   );
 }
 

@@ -76,6 +76,7 @@ function ImageSlider({ images }) {
         }
       >
         <img
+          loading='lazy'
           onClick={handleDecIndex}
           className={`${style.arrow}`}
           src='/assets/favicons/previous.svg'
@@ -98,6 +99,7 @@ function ImageSlider({ images }) {
         }
       >
         <img
+          loading='lazy'
           onClick={handleIncIndex}
           className={`${style.arrow} `}
           src='assets/favicons/next.svg'
