@@ -10,6 +10,7 @@ function FullPreviewPage({
   handleFilters,
   filter,
   isVideoPreview,
+  imageData,
 }) {
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -39,7 +40,7 @@ function FullPreviewPage({
           imageIndex={imageIndex}
           handleIncIndex={handleIncIndex}
           handleDecIndex={handleDecIndex}
-          filter={filter}
+          imageData={imageData}
           images={images}
           isVideoPreview={isVideoPreview}
         />

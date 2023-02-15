@@ -8,7 +8,7 @@ function Filters({ chosenFilter, currentSelectedFilter, imageIndex }) {
         id='filter-none'
         onClick={(e) => chosenFilter(e, imageIndex)}
         className={
-          currentSelectedFilter === 'none'
+          currentSelectedFilter === 'filter-none'
             ? `${style.filterExampleWrapper} ${style.selected}`
             : `${style.filterExampleWrapper}`
         }

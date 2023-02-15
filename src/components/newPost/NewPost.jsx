@@ -16,13 +16,42 @@ function NewPost({ newPostModal, refresh }) {
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
 
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState('filter-none');
   const [alt, setAlt] = useState(null);
   const [isVideoPreview, setIsVideoPreview] = useState(false);
   const [tagged, setTagged] = useState([]);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [imageData, setImageData] = useState([]);
 
+  const handleIncIndex = () => {
+    setImageIndex(imageIndex + 1);
+  };
+  const handleDecIndex = () => {
+    setImageIndex(imageIndex - 1);
+  };
+
+  useEffect(() => {
+    let tempArray = [];
+    for (let i = 0; i < imageFiles.length; i++) {
+      tempArray.push({ filter: 'filter-none', index: i });
+    }
+    setImageData(tempArray);
+  }, []);
+
+  const assignDataToContent = () => {
+    let intermediateArr = imageData;
+    // first if data already exists, adjust the data
+    for (let i = 0; i < imageData.length; i++) {
+      if (imageData[i].index === imageIndex) {
+        intermediateArr[i].filter = filter;
+        setImageData(intermediateArr);
+        break;
+      }
+    }
+  };
   const handleFilter = (e, index) => {
-    setFilter({ filter: e.currentTarget.id, image: index });
+    setFilter(e.currentTarget.id);
+    console.log(filter);
   };
   const changeAlt = (e) => {
     setAlt(e.target.value);
@@ -165,8 +194,11 @@ function NewPost({ newPostModal, refresh }) {
             nextStep={incPostStep}
             images={images}
             filter={filter}
+            imageData={imageData}
             handleFilters={handleFilter}
             isVideoPreview={isVideoPreview}
+            handleIncIndex={handleIncIndex}
+            handleDecIndex={handleDecIndex}
           />
         );
       case 2:
@@ -179,6 +211,7 @@ function NewPost({ newPostModal, refresh }) {
             isSubmitting={isSubmitting}
             changeAlt={changeAlt}
             images={images}
+            imageData={imageData}
             filter={filter}
             user={user}
             changeLocation={handleLocation}
