@@ -11,7 +11,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 
 function SuggestedUserProfile({ user }) {
-  console.log(user);
   const handleUserCheckout = useContext(ProfileContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
@@ -91,7 +90,6 @@ function SuggestedUserProfile({ user }) {
     addFollowerToUser();
     addFollowingToCurrentUser();
   };
-  console.log(userQuery);
 
   return (
     <div className={style.individualSuggestion}>

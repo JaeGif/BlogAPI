@@ -167,16 +167,20 @@ function NewPost({ newPostModal, refresh }) {
   const submitPost = () => {
     setIsSubmitting(true);
     let data = new FormData();
+    console.log(user._id);
     console.log('images', imageFiles);
+    for (let i = 0; i < imageFiles.length; i++) {
+      data.append('image', imageFiles[i]);
+    }
 
-    data.append('image', imageFiles);
     data.append('user', user._id);
     data.append('post', post);
     data.append('location', location);
-    data.append('filter', filter);
+    data.append('imageData', JSON.stringify(imageData));
     data.append('alt', alt);
     data.append('taggedPost', JSON.stringify(tagged));
 
+    console.log(data);
     fetch(`${apiURL}/api/posts`, {
       method: 'POST',
       body: data,
@@ -221,7 +225,10 @@ function NewPost({ newPostModal, refresh }) {
             isSubmitting={isSubmitting}
             changeAlt={changeAlt}
             images={images}
+            imageIndex={imageIndex}
             imageData={imageData}
+            handleIncIndex={handleIncIndex}
+            handleDecIndex={handleDecIndex}
             filter={filter}
             user={user}
             changeLocation={handleLocation}

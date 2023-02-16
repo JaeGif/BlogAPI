@@ -15,12 +15,16 @@ function SubmitPost({
   isSubmitting,
   changeAlt,
   images,
+  imageData,
   filter,
+  handleIncIndex,
+  handleDecIndex,
   user,
   changeLocation,
   isVideoPreview,
   handleTagged,
   tagged,
+  imageIndex,
   removeTag,
 }) {
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
@@ -141,6 +145,10 @@ function SubmitPost({
             <></>
           )}
           <PreviewImage
+            imageIndex={imageIndex}
+            imageData={imageData}
+            handleIncIndex={handleIncIndex}
+            handleDecIndex={handleDecIndex}
             images={images}
             filter={filter}
             isVideoPreview={isVideoPreview}
