@@ -22,36 +22,45 @@ function NewPost({ newPostModal, refresh }) {
   const [tagged, setTagged] = useState([]);
   const [imageIndex, setImageIndex] = useState(0);
   const [imageData, setImageData] = useState([]);
-
   const handleIncIndex = () => {
-    setImageIndex(imageIndex + 1);
+    if (imageIndex === images.length - 1) {
+      return;
+    } else {
+      setImageIndex(imageIndex + 1);
+    }
   };
   const handleDecIndex = () => {
-    setImageIndex(imageIndex - 1);
+    if (imageIndex === 0) {
+      return;
+    } else {
+      setImageIndex(imageIndex - 1);
+    }
   };
 
   useEffect(() => {
+    console.log('images rerendered');
     let tempArray = [];
     for (let i = 0; i < imageFiles.length; i++) {
       tempArray.push({ filter: 'filter-none', index: i });
     }
     setImageData(tempArray);
-  }, []);
+  }, [imageFiles]);
 
-  const assignDataToContent = () => {
-    let intermediateArr = imageData;
+  const assignDataToContent = (filterId) => {
+    let intermediateArr = [...imageData];
+    console.log(intermediateArr);
     // first if data already exists, adjust the data
     for (let i = 0; i < imageData.length; i++) {
       if (imageData[i].index === imageIndex) {
-        intermediateArr[i].filter = filter;
+        intermediateArr[i].filter = filterId;
         setImageData(intermediateArr);
         break;
       }
     }
   };
   const handleFilter = (e, index) => {
-    setFilter(e.currentTarget.id);
-    console.log(filter);
+    assignDataToContent(e.currentTarget.id);
+    console.log(e.currentTarget.id);
   };
   const changeAlt = (e) => {
     setAlt(e.target.value);
@@ -192,6 +201,7 @@ function NewPost({ newPostModal, refresh }) {
           <FullPreviewPage
             returnToUpload={removeImagesAndReturn}
             nextStep={incPostStep}
+            imageIndex={imageIndex}
             images={images}
             filter={filter}
             imageData={imageData}

@@ -11,16 +11,10 @@ function FullPreviewPage({
   filter,
   isVideoPreview,
   imageData,
+  imageIndex,
+  handleDecIndex,
+  handleIncIndex,
 }) {
-  const [imageIndex, setImageIndex] = useState(0);
-
-  const handleIncIndex = () => {
-    setImageIndex(imageIndex + 1);
-  };
-  const handleDecIndex = () => {
-    setImageIndex(imageIndex - 1);
-  };
-
   return (
     <>
       <span className={style.headingPreviewEdits}>

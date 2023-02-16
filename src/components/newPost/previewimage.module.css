@@ -6,15 +6,14 @@
   border-right: solid 1px var(--greyHighlight);
 }
 .previewImageWrapper {
-  max-width: 60vw;
-  min-width: 300px;
+  width: 35vw;
+  max-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .previewImage {
   width: 100%;
-  max-height: 80vh;
 }
 .optionsWrapper {
   display: flex;
@@ -42,4 +41,74 @@
 }
 .selected {
   background-color: black;
+}
+.carouselWrapper {
+  position: relative;
+  background-color: black;
+  overflow: hidden;
+  width: 35vw;
+  background-color: black;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.previous {
+  left: 5px;
+  position: relative;
+}
+.next {
+  right: 5px;
+}
+.icon {
+  position: absolute;
+  z-index: 30;
+  color: black;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  border-radius: 50%;
+  background-color: hsla(0, 0%, 100%, 0.85);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon:hover {
+  cursor: pointer;
+}
+.bubblesContainer {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 10px;
+  width: 100%;
+  gap: 5px;
+}
+.bubbles {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 7.5px;
+  width: 7.5px;
+  border-radius: 50%;
+}
+.active {
+  background-color: rgba(255, 255, 255, 1);
+}
+.carouselWrapper:hover .icon,
+.bubblesContainer {
+  opacity: 1;
+}
+.arrow {
+  height: 27.5px;
+}
+.hidden {
+  display: none;
+}
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: transform 0.5s ease-in-out;
 }

@@ -11,14 +11,19 @@ function ImageContent({ image, isVideoPreview, idx, imageData }) {
     }
     return ref.current;
   };
+  console.log(imageData);
   useEffect(() => {
+    console.log(imageData);
     for (let i = 0; i < imageData.length; i++) {
+      console.log(idx, imageData[i]);
+
       if (imageData[i].index === idx) {
         setPreviewFilter(imageData[i].filter);
         break;
       }
     }
-  }, useDeepCompare[imageData]);
+    console.log(previewFilter);
+  }, [imageData]);
 
   return (
     <div key={idx} className={style.previewImageWrapper}>
