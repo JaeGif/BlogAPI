@@ -1,13 +1,17 @@
 ToDo's:
 
 Refactor Related: 
-- Check complete refactor bugs. Comments/Photo Uploads
-- Spilt photos into individual images with separate filters and adjustments applied.
-- Photos in Content component need to be assigned separate divs for their individual filters.
+- Check complete refactor bugs. Comments
 - Check later for more suggestions displays improperly
 - When panning through uploaded images sometimes the likes are randomly updated to loggedInUser likes.
-
+- logged in user auto likes every new post.
+- tags related to refactor
+- userSaved array is empty, but spins forever
+- filters highlights
 
 New Features: 
 - Check Loading components, remove unnecessary ones, potential replace with grey loading skeleton
 - Clicking out of search or notifications closes the bar. 
+- Upper Loading bar for full page changes.
+- Reply to comments directly starting a thread.
+

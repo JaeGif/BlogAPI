@@ -25,12 +25,14 @@ function Content({ imageId }) {
     queryFn: fetchContent,
   });
 
+  console.log('filter? ', contentQuery.data);
+
   return contentQuery.data ? (
     <div className={style.imgContainers}>
       {isVideo ? (
         <video
           preload='none'
-          className={`${style.postImages} ${contentQuery.data.filter}`}
+          className={`${style.postImages} ${contentQuery.data.img.filter}`}
           controls
         >
           <source
@@ -41,7 +43,7 @@ function Content({ imageId }) {
       ) : (
         <img
           loading='lazy'
-          className={`${style.postImages} ${contentQuery.data.filter}`}
+          className={`${style.postImages} ${contentQuery.data.img.filter}`}
           src={`${apiURL}/${contentQuery.data.url}`}
           alt={contentQuery.data.alt}
         ></img>
