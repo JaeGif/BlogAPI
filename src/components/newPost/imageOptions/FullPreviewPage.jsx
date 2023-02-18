@@ -40,6 +40,7 @@ function FullPreviewPage({
         />
         <ImageOptions
           imageIndex={imageIndex}
+          imageData={imageData}
           handleFilters={handleFilters}
           currentSelectedFilter={filter}
         />

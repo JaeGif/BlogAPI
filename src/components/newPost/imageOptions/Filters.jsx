@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import style from './filtersSelect.module.css';
 
-function Filters({ chosenFilter, currentSelectedFilter, imageIndex }) {
+function Filters({ chosenFilter, imageIndex, imageData }) {
+  const [currentSelectedFilter, setCurrentSelectedFilter] =
+    useState('filter-none');
+
+  useEffect(() => {
+    if (imageData) {
+      for (let i = 0; i < imageData.length; i++) {
+        if (imageIndex === imageData[i].index) {
+          setCurrentSelectedFilter(imageData[i].filter);
+          break;
+        }
+      }
+    }
+  });
+
   return (
     <div className={style.filtersContainer}>
       <div

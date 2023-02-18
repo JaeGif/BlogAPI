@@ -42,9 +42,11 @@ function SubmitPost({
       : setIsAccessibilityOpen(true);
   };
   const addTagToggle = () => {
+    console.log('tag toggle');
     isTagging ? setIsTagging(false) : setIsTagging(true);
   };
   const findUserByUserName = async (username) => {
+    console.log('finding users');
     const res = await fetch(
       `${apiURL}/api/users?username=${username}&reqLimit=${5}&skipToPage=${0}`,
       {
@@ -60,6 +62,7 @@ function SubmitPost({
     return data.users;
   };
   useEffect(() => {
+    console.log('change tagged Effect');
     setChangedTagged(tagged);
     console.log(changedTagged);
   }, [tagged]);

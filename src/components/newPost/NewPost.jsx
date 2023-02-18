@@ -91,7 +91,6 @@ function NewPost({ newPostModal, refresh }) {
     setImageFiles([]);
     decPostStep();
   };
-
   const handleFiles = (file) => {
     let files;
     if (!file.length) {
@@ -172,7 +171,7 @@ function NewPost({ newPostModal, refresh }) {
     for (let i = 0; i < imageFiles.length; i++) {
       data.append('image', imageFiles[i]);
     }
-
+    console.log(imageFiles);
     data.append('user', user._id);
     data.append('post', post);
     data.append('location', location);
@@ -207,7 +206,6 @@ function NewPost({ newPostModal, refresh }) {
             nextStep={incPostStep}
             imageIndex={imageIndex}
             images={images}
-            filter={filter}
             imageData={imageData}
             handleFilters={handleFilter}
             isVideoPreview={isVideoPreview}
@@ -229,7 +227,6 @@ function NewPost({ newPostModal, refresh }) {
             imageData={imageData}
             handleIncIndex={handleIncIndex}
             handleDecIndex={handleDecIndex}
-            filter={filter}
             user={user}
             changeLocation={handleLocation}
             isVideoPreview={isVideoPreview}
