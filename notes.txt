@@ -7,7 +7,6 @@ Refactor Related:
 - logged in user auto likes every new post.
 - tags related to refactor
 - userSaved array is empty, but spins forever
-- filters highlights
 
 New Features: 
 - Check Loading components, remove unnecessary ones, potential replace with grey loading skeleton
