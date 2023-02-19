@@ -4,42 +4,51 @@ import { ApiContext, TokenContext } from '../../../App';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
 import UserPostPreview from './UserPostPreview';
 import style from './userpublished.module.css';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueries } from '@tanstack/react-query';
 function UserTagged({ user }) {
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
+  const [hasLength, setHasLength] = useState(false);
 
-  const [userTaggedIdx, setUserTaggedIdx] = useState(user.taggedPosts);
-  const [userTagged, setUserTagged] = useState([]);
+  console.log('tagged open');
+  console.log(user);
 
   useEffect(() => {
-    let userTaggedPosts = [];
-    async function returnIntermediateData() {
-      for (let i = 0; i < userTaggedIdx.length; i++) {
-        const post = await fetchPostById(userTaggedIdx[i]);
-        userTaggedPosts.push(post);
-      }
-      setUserTagged(userTagged.concat(userTaggedPosts));
+    console.log('pass');
+
+    if (user.taggedPosts.length) {
+      setHasLength(true);
     }
-    returnIntermediateData();
   }, []);
 
   const fetchPostById = async (id) => {
+    console.log('fetching');
     const res = await fetch(`${apiURL}/api/posts/${id}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
+    console.log(data);
     return data.post;
   };
 
+  const taggedPostsQueries = useQueries({
+    queries: user.taggedPosts.map((tagId) => {
+      return {
+        queryKey: ['posts', { taggedid: tagId }],
+        queryFn: () => fetchPostById(tagId),
+        enabled: !!tagId,
+      };
+    }),
+  });
+  console.log(taggedPostsQueries);
   return (
     <>
-      {userTaggedIdx.length ? (
-        userTagged.length ? (
+      {hasLength ? (
+        taggedPostsQueries[0].isSuccess ? (
           <div className={style.contentLayoutGrid}>
-            {userTagged.map((post) => (
-              <UserPostPreview key={uniqid()} post={post} />
+            {taggedPostsQueries.map((post) => (
+              <UserPostPreview key={uniqid()} post={post.data} />
             ))}
           </div>
         ) : (

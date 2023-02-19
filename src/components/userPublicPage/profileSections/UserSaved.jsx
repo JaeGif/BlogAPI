@@ -64,7 +64,7 @@ function UserPublished({ user }) {
   return (
     <>
       {hasLength ? (
-        savedPostsQueries.data ? (
+        savedPostsQueries[0].isSuccess ? (
           <div className={style.contentLayoutGrid}>
             {savedPostsQueries.map((post) => (
               <UserPostPreview key={uniqid()} post={post.data} />
