@@ -18,7 +18,7 @@ function UserPublished({ user }) {
     console.log('pass');
     console.log(hasLength);
     console.log(user.savedPosts.length);
-    if (user.savedPosts.length >= 0) {
+    if (user.savedPosts.length > 0) {
       setHasLength(true);
     }
   }, []);
@@ -71,10 +71,10 @@ function UserPublished({ user }) {
             ))}
           </div>
         ) : (
-          <h2>Hmm, there's nothing here ...</h2>
+          <LoadingIcon />
         )
       ) : (
-        <LoadingIcon />
+        <h2>Hmm, there's nothing here ...</h2>
       )}
     </>
   );

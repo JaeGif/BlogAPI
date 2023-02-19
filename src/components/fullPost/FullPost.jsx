@@ -14,8 +14,10 @@ import {
   PathContext,
   UserContext,
   ProfileContext,
+  TokenContext,
 } from '../../App';
 import Content from '../posts_components/Content';
+import { useQueries } from '@tanstack/react-query';
 
 function FullPost({
   postObj,
@@ -34,22 +36,48 @@ function FullPost({
     updatedAt,
     location,
     user,
-    _id,
     tagged,
+    _id,
   } = postObj;
 
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
   const getUserProfile = useContext(ProfileContext);
+  const token = useContext(TokenContext);
 
   const [revealTags, setRevealTags] = useState(false);
   const [isPostLoaded, setIsPostLoaded] = useState(false);
-  const [tags, setTags] = useState(tagged);
+  const [hasLength, setHasLength] = useState(false);
+
+  useEffect(() => {
+    if (tagged.length >= 0) {
+      console.log('has length');
+      setHasLength(true);
+    }
+  }, []);
 
   const toggleRevealTags = () => {
     revealTags ? setRevealTags(false) : setRevealTags(true);
   };
-
+  const fetchUserById = async (id) => {
+    const res = await fetch(`${apiURL}/api/users/${id}`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const data = await res.json();
+    console.log(data);
+    return data.user;
+  };
+  const taggedUsersQueries = useQueries({
+    queries: tagged.map((tagId) => {
+      return {
+        queryKey: ['users', { taggedid: tagId }],
+        queryFn: () => fetchUserById(tagId),
+        enabled: !!tagId,
+      };
+    }),
+  });
+  console.log(taggedUsersQueries);
   return (
     <div className={style.fullScreenContainer}>
       <div
@@ -69,20 +97,26 @@ function FullPost({
             onClick={(e) => e.stopPropagation()}
           >
             <div className={style.innerContent}>
-              <div onClick={toggleRevealTags} className={style.imageContainer}>
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleRevealTags();
+                }}
+                className={style.imageContainer}
+              >
                 {revealTags ? (
                   <div className={style.tagsContainer}>
-                    {tags.length ? (
-                      tags.map((tag) => (
+                    {hasLength && taggedUsersQueries[0].isSuccess ? (
+                      taggedUsersQueries.map((tag) => (
                         <span
                           key={uniqid()}
                           className={style.taggedUsersContainer}
                           onClick={(e) => {
-                            getUserProfile(tag.user);
+                            getUserProfile(tag.data);
                             e.stopPropagation();
                           }}
                         >
-                          {tag.user.username}
+                          {tag.data.username}
                         </span>
                       ))
                     ) : (

@@ -39,7 +39,7 @@ function UserPostPreview({ post, userData }) {
     queryKey: ['images', { imageid: post.images[0] }],
     queryFn: fetchThumbnail,
   });
-  console.log(thumbnailQuery.data);
+
   return thumbnailQuery.data ? (
     <div>
       <div

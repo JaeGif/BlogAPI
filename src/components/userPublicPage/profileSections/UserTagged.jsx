@@ -10,13 +10,8 @@ function UserTagged({ user }) {
   const token = useContext(TokenContext);
   const [hasLength, setHasLength] = useState(false);
 
-  console.log('tagged open');
-  console.log(user);
-
   useEffect(() => {
-    console.log('pass');
-
-    if (user.taggedPosts.length) {
+    if (user.taggedPosts.length > 0) {
       setHasLength(true);
     }
   }, []);
@@ -48,7 +43,11 @@ function UserTagged({ user }) {
         taggedPostsQueries[0].isSuccess ? (
           <div className={style.contentLayoutGrid}>
             {taggedPostsQueries.map((post) => (
-              <UserPostPreview key={uniqid()} post={post.data} />
+              <UserPostPreview
+                key={uniqid()}
+                post={post.data}
+                userData={user}
+              />
             ))}
           </div>
         ) : (

@@ -102,6 +102,7 @@
   border-radius: 5px;
   margin-bottom: 2px;
   color: white;
+  z-index: 30;
   cursor: pointer;
 }
 .taggedUsersContainer::before {
