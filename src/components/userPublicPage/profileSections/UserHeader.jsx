@@ -50,7 +50,6 @@ function UserPublicHeader({ userData, openEditUser }) {
   const addFollowingToCurrentUser = async () => {
     // first add to logged in users list.
     setIsFollowing(true);
-    console.log('follow to current');
 
     let data = new URLSearchParams();
     data.append(
@@ -72,7 +71,6 @@ function UserPublicHeader({ userData, openEditUser }) {
   };
   const addFollowerToUser = async () => {
     // add follower to this user
-    console.log('follow to user');
 
     let data = new URLSearchParams();
     data.append(
@@ -132,14 +130,11 @@ function UserPublicHeader({ userData, openEditUser }) {
     });
   };
   const handleFollow = () => {
-    console.log('follow send');
     addFollowerToUser();
     addFollowingToCurrentUser();
   };
 
   const handleUnFollow = () => {
-    console.log('unfollow send');
-
     removeFollowerFromUser();
     removeFollowingFromCurrentUser();
   };

@@ -120,7 +120,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
 
   const updateParentPost = () => {
     setIsNewComment(true);
-    refresh();
   };
 
   useEffect(() => {

@@ -30,7 +30,6 @@ function UserPageLayout({ user, openEditUser }) {
     queryKey: ['user', { userid: user._id }],
     queryFn: findUserById,
   });
-  console.log(userQuery);
   // default state of user page layout
   const [isPosted, setIsPosted] = useState(true);
   const [isSaved, setIsSaved] = useState(false);

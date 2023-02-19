@@ -95,7 +95,7 @@ function ImageSlider({ images }) {
         className={style.contentWrapper}
       >
         {images.map((img) => (
-          <Content imageId={img} />
+          <Content key={uniqid()} imageId={img} />
         ))}
       </div>
       <div
