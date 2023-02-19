@@ -166,18 +166,23 @@ function NewPost({ newPostModal, refresh }) {
   const submitPost = () => {
     setIsSubmitting(true);
     let data = new FormData();
-    console.log(user._id);
+    let taggedIdx = [];
     console.log('images', imageFiles);
     for (let i = 0; i < imageFiles.length; i++) {
       data.append('image', imageFiles[i]);
+      console.log('pushing image');
     }
-    console.log(imageFiles);
+    // make tagged users only idx
+    for (let j = 0; j < tagged.length; j++) {
+      taggedIdx.push(tagged[j].user._id);
+    }
+
     data.append('user', user._id);
     data.append('post', post);
     data.append('location', location);
     data.append('imageData', JSON.stringify(imageData));
     data.append('alt', alt);
-    data.append('taggedPost', JSON.stringify(tagged));
+    data.append('taggedPost', JSON.stringify(taggedIdx));
 
     console.log(data);
     fetch(`${apiURL}/api/posts`, {

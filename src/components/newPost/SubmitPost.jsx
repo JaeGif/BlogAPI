@@ -57,6 +57,7 @@ function SubmitPost({
       }
     );
     const data = await res.json();
+    console.log(data.users);
     setUserFindResults(data.users);
     () => handleTagged(data);
     return data.users;
@@ -136,7 +137,7 @@ function SubmitPost({
                     <UserSearchOverview
                       key={uniqid()}
                       handleClick={handleTagged}
-                      user={user}
+                      userData={user}
                     />
                   ))}
                 </div>

@@ -18,7 +18,6 @@ function PreviewImage({
   const ref = useRef([]);
   const pushRef = (el) => ref.current.push(el);
 
-  console.log(images.length);
   useEffect(() => {
     if (imageIndex === 0) {
       setLeftHidden(true);
@@ -79,7 +78,10 @@ function PreviewImage({
       >
         <img
           loading='lazy'
-          onClick={handleDecIndex}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDecIndex();
+          }}
           className={`${style.arrow}`}
           src='/assets/favicons/previous.svg'
           alt='left arrow'
@@ -111,7 +113,10 @@ function PreviewImage({
       >
         <img
           loading='lazy'
-          onClick={handleIncIndex}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleIncIndex();
+          }}
           className={`${style.arrow} `}
           src='assets/favicons/next.svg'
           alt='right arrow'
