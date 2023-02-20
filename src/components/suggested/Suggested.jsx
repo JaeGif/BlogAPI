@@ -26,7 +26,7 @@ function Suggested({ handleLogOut }) {
       }
     );
     const data = await res.json();
-    if ((data.suggested.length = 0)) {
+    if (data.suggested.length === 0) {
       setHasLength(false);
     }
     return data.suggested;

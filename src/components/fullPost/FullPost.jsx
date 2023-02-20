@@ -126,7 +126,7 @@ function FullPost({
                 ) : (
                   <></>
                 )}
-                <ImageSlider images={images} />
+                <ImageSlider key={uniqid()} images={images} />
               </div>
               <div className={style.postSideWrapper}>
                 <div>

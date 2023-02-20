@@ -7,8 +7,6 @@ import {
 } from '../../../App';
 import style from '../suggested.module.css';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import LoadingIcon from '../../utlity_Components/LoadingIcon';
 
 function SuggestedUserProfile({ user }) {
   const handleUserCheckout = useContext(ProfileContext);
