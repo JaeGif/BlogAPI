@@ -13,6 +13,7 @@ function Suggested({ handleLogOut }) {
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
   const numberOfSuggestedUsers = 5;
+  const [hasLength, setHasLength] = useState(true);
 
   async function getSuggestions() {
     const res = await fetch(
@@ -25,6 +26,9 @@ function Suggested({ handleLogOut }) {
       }
     );
     const data = await res.json();
+    if ((data.suggested.length = 0)) {
+      setHasLength(false);
+    }
     return data.suggested;
   }
   const suggestionsQuery = useQuery({
@@ -32,7 +36,6 @@ function Suggested({ handleLogOut }) {
     queryFn: getSuggestions,
   });
 
-  if (suggestionsQuery.isError) console.log(suggestionsQuery.error);
   return (
     <div>
       <div className={style.profileContainer}>
@@ -68,18 +71,12 @@ function Suggested({ handleLogOut }) {
           </div>
         </>
       )}
-      {suggestionsQuery.isFetched ? (
-        suggestionsQuery.data.length ? (
-          <div className={style.moreSuggestionsContainer}>
-            <p>
-              <em>Check later for more suggestions.</em>
-            </p>
-          </div>
-        ) : (
-          <></>
-        )
-      ) : (
-        <></>
+      {suggestionsQuery.isFetched && !hasLength && (
+        <div className={style.moreSuggestionsContainer}>
+          <p>
+            <em>Check later for more suggestions.</em>
+          </p>
+        </div>
       )}
     </div>
   );
