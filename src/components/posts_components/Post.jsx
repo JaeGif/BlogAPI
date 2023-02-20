@@ -8,6 +8,7 @@ import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
 import { useQuery } from '@tanstack/react-query';
 import ImageSlider from './ImageSlider';
 import uniqid from 'uniqid';
+import PostOptionsEllipse from '../options/postOptions/PostOptionsEllipse';
 
 function Post({ postObj, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
@@ -152,7 +153,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
   }, [isNewComment]);
 
   useEffect(() => {
-    if (user.id === loggedInUser._id) {
+    if (user === loggedInUser._id) {
       setIsCurrentUser(true);
     }
   }, []);
@@ -224,12 +225,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
               userData={userQuery.data}
               location={location}
             />
-            <div className={style.optionsEllipses}>
-              <img
-                className={style.optionsEllipses}
-                src={`${basePath}/assets/favicons/horizontalellipse.svg`}
-              ></img>
-            </div>
+            <PostOptionsEllipse post={postObj} />
           </span>
           <div onClick={detectDoubleClick}>
             <ImageSlider key={uniqid()} images={images} />

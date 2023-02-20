@@ -18,6 +18,7 @@ import {
 } from '../../App';
 import Content from '../posts_components/Content';
 import { useQueries } from '@tanstack/react-query';
+import PostOptionsEllipse from '../options/postOptions/PostOptionsEllipse';
 
 function FullPost({
   postObj,
@@ -135,12 +136,7 @@ function FullPost({
                       userData={userData}
                       location={location}
                     />
-                    <div className={style.optionsEllipses}>
-                      <img
-                        className={style.optionsEllipses}
-                        src={`${basePath}/assets/favicons/horizontalellipse.svg`}
-                      ></img>
-                    </div>
+                    <PostOptionsEllipse post={postObj} />
                   </span>
                   <div className={style.postCommentsContainer}>
                     <PostDetailsExpanded

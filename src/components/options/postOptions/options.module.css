@@ -1,0 +1,32 @@
+.optionsWrapper {
+  z-index: 6;
+  background-color: white;
+  border-radius: 10px;
+  width: 300px;
+  min-width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.center {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.danger {
+  color: red;
+  font-weight: 600;
+}
+.neutral {
+  color: var(--blue-1);
+  font-weight: 600;
+}
+.bottomBorder {
+  border-bottom: 1px solid var(--grey-2);
+}
