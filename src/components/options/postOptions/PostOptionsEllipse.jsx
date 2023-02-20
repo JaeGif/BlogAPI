@@ -21,6 +21,7 @@ function PostOptionsEllipse({ post }) {
     setOpenOptions(true);
   };
   const handleCloseOptions = () => {
+    console.log('close');
     setOpenOptions(false);
   };
   return (
@@ -32,7 +33,13 @@ function PostOptionsEllipse({ post }) {
         ></img>
       </div>
       {openOptions && (
-        <div onClick={handleCloseOptions} className={style.fullPageCover}>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCloseOptions();
+          }}
+          className={style.fullPageCover}
+        >
           <Options post={post} handleCloseOptions={handleCloseOptions} />
         </div>
       )}

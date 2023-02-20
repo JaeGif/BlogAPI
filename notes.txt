@@ -1,13 +1,20 @@
 ToDo's:
 
 Refactor Related: 
-- Check complete refactor bugs. Comments
 - Check later for more suggestions displays improperly
 - can follow and be followed multiple times now
+- username click on post send you to users page
+- fix newPost UI
 
 New Features: 
 - Check Loading components, remove unnecessary ones, potential replace with grey loading skeleton
 - Clicking out of search or notifications closes the bar. 
 - Upper Loading bar for full page changes.
 - Reply to comments directly starting a thread.
+- Notifications loading bar revamp
+- Post options
+- Comment options
 
+Essential Additions: 
+- React Router
+- Options component full post checkout using routing

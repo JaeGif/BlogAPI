@@ -1,4 +1,4 @@
-.optionsWrapper {
+.defaultModal {
   z-index: 6;
   background-color: white;
   border-radius: 10px;
@@ -6,7 +6,7 @@
   min-width: fit-content;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
 }
 .center {
@@ -19,6 +19,9 @@
   align-items: center;
   cursor: pointer;
 }
+.column {
+  flex-direction: column;
+}
 .danger {
   color: red;
   font-weight: 600;
@@ -29,4 +32,15 @@
 }
 .bottomBorder {
   border-bottom: 1px solid var(--grey-2);
+}
+.topBorder {
+  border-top: 1px solid var(--grey-2);
+}
+.softText {
+  color: var(--grey-5);
+  margin: 0;
+  padding: 0;
+}
+.containedText {
+  width: 90%;
 }

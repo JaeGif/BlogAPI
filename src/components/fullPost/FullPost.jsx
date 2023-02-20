@@ -107,7 +107,8 @@ function FullPost({
               >
                 {revealTags ? (
                   <div className={style.tagsContainer}>
-                    {hasLength && taggedUsersQueries[0].isSuccess ? (
+                    {hasLength &&
+                      taggedUsersQueries[0].isSuccess &&
                       taggedUsersQueries.map((tag) => (
                         <span
                           key={uniqid()}
@@ -119,10 +120,7 @@ function FullPost({
                         >
                           {tag.data.username}
                         </span>
-                      ))
-                    ) : (
-                      <></>
-                    )}
+                      ))}
                   </div>
                 ) : (
                   <></>
