@@ -44,3 +44,45 @@
 .containedText {
   width: 90%;
 }
+.editContainer {
+  display: flex;
+  flex-direction: column;
+}
+.postBody {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  border: solid red 1px;
+  align-items: flex-start;
+}
+.postInput {
+  resize: none;
+  height: 50%;
+  border: none;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--greyHighlight);
+  padding: 15px;
+}
+.postInput:focus {
+  outline: none;
+}
+.editHeader {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 15vw;
+}
+.editHeader > span {
+  padding: 7.5px;
+}
+.header {
+  font-weight: 600;
+}
+.doneBtn {
+  color: var(--blue-2);
+  font-weight: 600;
+}
+.headerPostWrapper {
+  height: 100%;
+  border: solid red 1px;
+}

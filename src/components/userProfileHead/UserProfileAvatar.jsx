@@ -1,13 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { ApiContext, TokenContext } from '../../App';
+import { ApiContext } from '../../App';
 import style from './userprofile.module.css';
 
-function UserProfileAvatar({ userId }) {
+function UserProfileAvatar({ user }) {
   const apiURL = useContext(ApiContext);
-  const token = useContext(TokenContext);
 
-  const fetchUser = async () => {
+  /*   const fetchUser = async () => {
     const res = await fetch(`${apiURL}/api/users/${userId}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
@@ -19,19 +17,17 @@ function UserProfileAvatar({ userId }) {
   const userQuery = useQuery({
     queryKey: ['users', userId],
     queryFn: fetchUser,
-  });
+  }); */
 
   return (
-    userQuery.data && (
-      <div className={style.nameAvatarHeader}>
-        <div className={style.userAvatarCutout}>
-          <img
-            className={style.userAvatar}
-            src={`${apiURL}/${userQuery.data.avatar}`}
-          ></img>
-        </div>
+    <div className={style.nameAvatarHeader}>
+      <div className={style.userAvatarCutout}>
+        <img
+          className={style.userAvatar}
+          src={`${apiURL}/${user.avatar}`}
+        ></img>
       </div>
-    )
+    </div>
   );
 }
 

@@ -7,6 +7,8 @@ import style from './newpost.module.css';
 import PreviewImage from './PreviewImage';
 import { useQuery } from '@tanstack/react-query';
 import uniqid from 'uniqid';
+import AddLocation from './SubmitComponents/AddLocation';
+import UserHeadName from './SubmitComponents/UserHeadName';
 
 function SubmitPost({
   prevStep,
@@ -159,12 +161,7 @@ function SubmitPost({
           />
         </div>
         <div className={style.postFormContainer}>
-          <span className={style.userHeadSubmit}>
-            <UserProfileAvatar user={user} />
-            <p className={`${style.textSizing} ${style.userName}`}>
-              {user.username}
-            </p>
-          </span>
+          <UserHeadName user={user} />
           <textarea
             className={style.postInput}
             onChange={(e) => addPost(e)}
@@ -172,7 +169,8 @@ function SubmitPost({
             placeholder='Write a caption...'
           ></textarea>
           <span className={style.lowerInputsContainer}>
-            <span className={style.locationWrapper}>
+            <AddLocation changeLocation={changeLocation} />
+            {/*             <span className={style.locationWrapper}>
               <input
                 onChange={(e) => changeLocation(e)}
                 name='location'
@@ -184,7 +182,7 @@ function SubmitPost({
                 className={style.locationIcon}
                 src={`${basePath}/assets/favicons/location.svg`}
               />
-            </span>
+            </span> */}
             <div onClick={handleA11yOpen}>
               <span className={style.accordianContainer}>
                 <p>Accessibility</p>
