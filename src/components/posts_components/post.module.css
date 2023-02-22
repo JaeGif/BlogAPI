@@ -80,3 +80,7 @@
   justify-content: center;
   align-items: center;
 }
+.grey {
+  opacity: 0.4;
+  background-color: rgba(200, 200, 200, 0.5);
+}

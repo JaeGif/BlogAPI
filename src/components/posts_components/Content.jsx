@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState, useEffect } from 'react';
 import { ApiContext, TokenContext, UserContext } from '../../App';
 import style from './post.module.css';
-function Content({ imageId }) {
+function Content({ imageId, removeEls }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
   const [isVideo, setIsVideo] = useState(false);
+  const [greyScreen, setGreyScreen] = useState(false);
 
   const fetchContent = async () => {
     const res = await fetch(`${apiURL}/api/images/${imageId}`, {
@@ -24,13 +25,27 @@ function Content({ imageId }) {
     queryKey: ['posts', imageId],
     queryFn: fetchContent,
   });
+  useEffect(() => {
+    if (removeEls) {
+      for (let i = 0; i < removeEls.length; i++) {
+        if (imageId.toString() === removeEls[i].toString()) {
+          setGreyScreen(true);
+          break;
+        }
+      }
+    }
+  });
 
   return contentQuery.data ? (
-    <div className={style.imgContainers}>
+    <div className={`${style.imgContainers} `}>
       {isVideo ? (
         <video
           preload='none'
-          className={`${style.postImages} ${contentQuery.data.img.filter}`}
+          className={
+            greyScreen
+              ? `${style.grey} ${style.postImages} ${contentQuery.data.img.filter}`
+              : `${style.postImages} ${contentQuery.data.img.filter}`
+          }
           controls
         >
           <source
@@ -41,7 +56,11 @@ function Content({ imageId }) {
       ) : (
         <img
           loading='lazy'
-          className={`${style.postImages} ${contentQuery.data.img.filter}`}
+          className={
+            greyScreen
+              ? `${style.grey} ${style.postImages} ${contentQuery.data.img.filter}`
+              : `${style.postImages} ${contentQuery.data.img.filter}`
+          }
           src={`${apiURL}/${contentQuery.data.url}`}
           alt={contentQuery.data.alt}
         ></img>

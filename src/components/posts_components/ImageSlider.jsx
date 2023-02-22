@@ -3,7 +3,7 @@ import style from './imageslider.module.css';
 import Content from './Content';
 import uniqid from 'uniqid';
 
-function ImageSlider({ images, handleUpdateIndex }) {
+function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [leftShift, setLeftShift] = useState('0vw');
   const [leftHidden, setLeftHidden] = useState(true);
@@ -105,7 +105,7 @@ function ImageSlider({ images, handleUpdateIndex }) {
         className={style.contentWrapper}
       >
         {images.map((img, index) => (
-          <Content key={uniqid()} imageId={img} />
+          <Content key={uniqid()} imageId={img} removeEls={removeEls} />
         ))}
       </div>
       <div

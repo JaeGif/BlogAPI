@@ -15,9 +15,7 @@ function EditModal({ post, closeEditModal, index }) {
   const [multipleContent, setMultipleContent] = useState(false);
   const [fullPost, setFullPost] = useState(post);
   const [removeEls, setRemoveEls] = useState([]);
-  console.log('index', currentIndex);
   useEffect(() => {
-    console.log(fullPost);
     if (fullPost.images.length > 1) {
       setMultipleContent(true);
     } else {
@@ -28,7 +26,7 @@ function EditModal({ post, closeEditModal, index }) {
     setPostBody(e.target.value);
   };
   const handleAddContentForDeletion = () => {
-    setRemoveEls([...removeEls, fullPost.images[index]]);
+    setRemoveEls(removeEls.concat(fullPost.images[currentIndex]));
   };
   const handleRemoveContent = async () => {
     let data = new URLSearchParams();
@@ -70,6 +68,7 @@ function EditModal({ post, closeEditModal, index }) {
         <ImageSlider
           images={fullPost.images}
           handleUpdateIndex={handleUpdateIndex}
+          removeEls={removeEls}
         />
         <div>
           <UserHeadName user={loggedInUser} />
