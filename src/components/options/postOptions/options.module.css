@@ -48,20 +48,22 @@
   display: flex;
   flex-direction: column;
 }
+.postBodyContainer {
+  padding: 15px;
+  border-bottom: 1px solid var(--greyHighlight);
+}
 .postBody {
   display: flex;
   justify-content: center;
   height: 100%;
-  border: solid red 1px;
   align-items: flex-start;
 }
 .postInput {
   resize: none;
-  height: 50%;
   border: none;
   font-size: 1rem;
-  border-bottom: 1px solid var(--greyHighlight);
-  padding: 15px;
+  height: 25vh;
+  width: 100%;
 }
 .postInput:focus {
   outline: none;
@@ -71,18 +73,57 @@
   justify-content: space-around;
   align-items: center;
   gap: 15vw;
+  border-bottom: 1px solid var(--grey-2);
 }
 .editHeader > span {
-  padding: 7.5px;
+  padding: 15px 7.5px 15px 7.5px;
 }
 .header {
   font-weight: 600;
 }
 .doneBtn {
-  color: var(--blue-2);
+  color: var(--blue-1_5);
   font-weight: 600;
+  cursor: pointer;
 }
-.headerPostWrapper {
+.cancelBtn {
+  cursor: pointer;
+}
+.removeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  border: solid red 1px;
+  padding-top: 20%;
+}
+.removeWrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--grey-5);
+  width: 75%;
+  text-align: center;
+}
+.removeIcon {
+  height: 75px;
+  width: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.removeIcon:hover {
+  background-color: var(--grey-1);
+}
+.removeIcon > img {
+  height: 50px;
+}
+
+.removeEmphasis {
+  font-style: normal;
+  font-weight: 600;
+  color: red;
 }

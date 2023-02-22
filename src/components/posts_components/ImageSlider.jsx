@@ -3,7 +3,7 @@ import style from './imageslider.module.css';
 import Content from './Content';
 import uniqid from 'uniqid';
 
-function ImageSlider({ images }) {
+function ImageSlider({ images, handleUpdateIndex }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [leftShift, setLeftShift] = useState('0vw');
   const [leftHidden, setLeftHidden] = useState(true);
@@ -34,7 +34,14 @@ function ImageSlider({ images }) {
 
     calculateLeftShift();
     changeCurrentIndicator();
+    if (handleUpdateIndex) {
+      handleUpdateIndex(imageIndex);
+    }
   }, [imageIndex]);
+
+  useEffect(() => {
+    setImageIndex(0);
+  }, [images]);
 
   useEffect(() => {
     if (images.length === 1) {
@@ -97,7 +104,7 @@ function ImageSlider({ images }) {
         style={{ transform: `translate(${leftShift}, 0)` }}
         className={style.contentWrapper}
       >
-        {images.map((img) => (
+        {images.map((img, index) => (
           <Content key={uniqid()} imageId={img} />
         ))}
       </div>
