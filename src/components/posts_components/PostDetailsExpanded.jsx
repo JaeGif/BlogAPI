@@ -6,7 +6,7 @@ function PostDetailsExpanded({ postObj, userData }) {
   return (
     <div className={style.postExpandedContainer}>
       <div className={style.postExpandedWrapper}>
-        <UserProfileAvatar userId={userData._id} />
+        <UserProfileAvatar user={userData} />
         <div className={style.flexColumn}>
           <div className={style.postFirstLine}>
             <p className={`${style.textSizing} ${style.userName}`}>

@@ -47,12 +47,10 @@ function FullPost({
   const token = useContext(TokenContext);
 
   const [revealTags, setRevealTags] = useState(false);
-  const [isPostLoaded, setIsPostLoaded] = useState(false);
   const [hasLength, setHasLength] = useState(false);
 
   useEffect(() => {
     if (tagged.length >= 0) {
-      console.log('has length');
       setHasLength(true);
     }
   }, []);
@@ -66,7 +64,6 @@ function FullPost({
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
-    console.log(data);
     return data.user;
   };
   const taggedUsersQueries = useQueries({
@@ -78,7 +75,6 @@ function FullPost({
       };
     }),
   });
-  console.log(taggedUsersQueries);
   return (
     <div className={style.fullScreenContainer}>
       <div

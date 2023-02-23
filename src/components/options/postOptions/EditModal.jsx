@@ -26,7 +26,12 @@ function EditModal({ post, closeEditModal, index }) {
   }, [fullPost]);
 
   const handleAddContentForDeletion = () => {
-    setRemoveEls(removeEls.concat(fullPost.images[currentIndex]));
+    if (typeof removeEls === 'undefined') {
+      console.log('yo');
+      setRemoveEls([fullPost.images[currentIndex]]);
+    } else {
+      setRemoveEls(removeEls.concat(fullPost.images[currentIndex]));
+    }
   };
   const handleRemoveContent = async () => {
     let data = new URLSearchParams();
