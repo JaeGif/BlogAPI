@@ -37,3 +37,6 @@
   font-size: 0.8rem;
   font-style: normal;
 }
+.userNameEmphasis {
+  cursor: pointer;
+}

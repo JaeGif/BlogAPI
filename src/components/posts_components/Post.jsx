@@ -4,7 +4,13 @@ import AddCommentInput from '../comments/addComment/AddCommentInput';
 import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
-import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
+import {
+  ApiContext,
+  PathContext,
+  ProfileContext,
+  TokenContext,
+  UserContext,
+} from '../../App';
 import { useQuery } from '@tanstack/react-query';
 import ImageSlider from './ImageSlider';
 import uniqid from 'uniqid';

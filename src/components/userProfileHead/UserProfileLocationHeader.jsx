@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ApiContext, TokenContext } from '../../App';
+import { ApiContext, TokenContext, ProfileContext } from '../../App';
 import style from './userprofile.module.css';
 import { useQuery } from '@tanstack/react-query';
 
@@ -7,6 +7,8 @@ function UserProfileLocationHeader({ userData, location }) {
   const [isLocation, setIsLocation] = useState(true);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
+  const handleUserProfileCheckout = useContext(ProfileContext);
+
   useEffect(() => {
     if (location === '') {
       setIsLocation(false);
@@ -22,7 +24,7 @@ function UserProfileLocationHeader({ userData, location }) {
         ></img>
       </div>
       <div className={style.nameLocationHeader}>
-        <p>
+        <p onClick={() => handleUserProfileCheckout(userData._id)}>
           <em className={style.userNameEmphasis}>{userData.username}</em>
         </p>
         {isLocation ? (

@@ -15,27 +15,6 @@ import LoginPage from './components/auth/login/LoginPage';
 import CreateAccount from './components/auth/createAccount/CreateAccount';
 import EditProfile from './components/userPublicPage/EditProfile';
 
-/* {
-    avatar: {
-      id: '9263f45c70879dbc56faa5c4',
-      url: 'https://instaapi-production.up.railway.app/uploads/823fce52b33a845ef7554dd9/avatar.jpg',
-    },
-    _id: '823fce52b33a845ef7554dd9',
-    firstName: 'Neal',
-    lastName: 'Morissette',
-    email: 'Tia_Kris@hotmail.com',
-    userName: 'Eldridge_Feest40',
-    isAdmin: false,
-    recentSearches: [
-      'c4d010ce73f9354bf41aa72d',
-      '823fce52b33a845ef7554dd9',
-      'c4d010ce73f9354bf41aa72d',
-      'd4b51d5d9e0e47b2aefaf89d',
-      'd4b51d5d9e0e47b2aefaf89d',
-      'b45cbb77f719d4ed691f1041',
-    ],
-  } */
-
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
 const PathContext = React.createContext(null);
@@ -62,16 +41,6 @@ function App() {
   const localPath = import.meta.env.VITE_LOCAL_PATH;
   const productionPath = import.meta.env.VITE_BASE_PATH;
 
-  /*   useEffect(() => {
-    // set logged in user
-
-    // Eldritch Feast User; Neal Morrison. 823fce52b33a845ef7554dd9
-    // Modesto45 User d4b51d5d9e0e47b2aefaf89d
-    // Rhea67 fe0db393eeaeaa8530a38e1d
-    // Noberto Gleason e8ce217fbb667ca248d349b4
-    fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d');
-  }, []); */
-
   async function fetchLoggedInUserData(userId, freshToken) {
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
@@ -86,11 +55,6 @@ function App() {
     setLoggedIn(true);
   }
 
-  /*   const userQuery = useQuery({
-    queryKey: ['users', { userId: 'd4b51d5d9e0e47b2aefaf89d' }],
-    queryFn: () => fetchLoggedInUserData('d4b51d5d9e0e47b2aefaf89d'),
-  });
- */
   const handleLogin = async (username, password) => {
     const userData = new URLSearchParams();
     userData.append('username', username);
@@ -111,12 +75,6 @@ function App() {
     } else {
       console.log(res.status);
     }
-  };
-  const resetModalValues = () => {
-    setIsUserPage(false);
-    setIsNewPostModal(false);
-    setIsRefresh(false);
-    setDisplayPost(false);
   };
 
   const refreshContent = () => {

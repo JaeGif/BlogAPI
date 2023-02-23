@@ -3,7 +3,6 @@ ToDo's:
 Refactor Related: 
 - Check later for more suggestions displays improperly
 - can follow and be followed multiple times now
-- username click on post send you to users page
 - fix newPost UI
 - edit post UI fix
 
