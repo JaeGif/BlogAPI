@@ -145,7 +145,11 @@ function Options({ post, handleCloseOptions }) {
       )}
       {deleteModal && (
         <div className={style.defaultModal}>
-          <DeleteModal closeDeleteModal={closeDeleteModal} post={post} />
+          <DeleteModal
+            handleCloseOptions={handleCloseOptions}
+            closeDeleteModal={closeDeleteModal}
+            post={post}
+          />
         </div>
       )}
       {editModal && (

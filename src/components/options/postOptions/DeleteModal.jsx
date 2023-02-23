@@ -8,7 +8,7 @@ import {
 } from '../../../App';
 import style from './options.module.css';
 
-function DeleteModal({ closeDeleteModal, post }) {
+function DeleteModal({ closeDeleteModal, post, handleCloseOptions }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
@@ -21,7 +21,10 @@ function DeleteModal({ closeDeleteModal, post }) {
       method: 'DELETE',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
-    console.log(res);
+    console.log(res.status);
+    if (res.status === 200) {
+      handleCloseOptions();
+    }
   };
   return (
     <>
