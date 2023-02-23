@@ -68,7 +68,7 @@ function Sidebar({
   }, []);
 
   return (
-    <div>
+    <div className={style.sidebarWrapper}>
       <div
         className={
           isMinified
@@ -204,12 +204,30 @@ function Sidebar({
             </a>
           </div>
         </div>
-        {isNotifications ? (
-          <NotificationsLayout handleOpen={handleOpen} />
-        ) : (
-          <></>
+        {isNotifications && (
+          <>
+            <div
+              onClick={() => {
+                console.log('click');
+                handleOpen('');
+              }}
+              className={style.closingWrapper}
+            ></div>
+            <NotificationsLayout handleOpen={handleOpen} />
+          </>
         )}
-        {isSearch ? <SearchLayout handleOpen={handleOpen} /> : <></>}
+        {isSearch && (
+          <>
+            <div
+              onClick={() => {
+                console.log('click');
+                handleOpen('');
+              }}
+              className={style.closingWrapper}
+            ></div>
+            <SearchLayout handleOpen={handleOpen} />
+          </>
+        )}
       </div>
     </div>
   );

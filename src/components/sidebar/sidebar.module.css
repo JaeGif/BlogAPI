@@ -34,6 +34,7 @@
   left: 0;
   border-right: solid var(--greyHighlight) 1px;
   background-color: white;
+  z-index: 2;
 }
 .optionsSidebar > div {
   width: 100%;
@@ -137,4 +138,11 @@ a {
   border-radius: 50%;
   background-color: rgb(255, 47, 47);
   border: solid 2px white;
+}
+.closingWrapper {
+  border: solid 1px red;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
 }

@@ -17,3 +17,4 @@ New Features:
 Essential Additions: 
 - React Router
 - Options component full post checkout using routing
+- Form validation
