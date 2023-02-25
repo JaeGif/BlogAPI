@@ -1,4 +1,3 @@
-import { useQuery, useQueries } from '@tanstack/react-query';
 import React, { useEffect, useState, useContext } from 'react';
 import {
   ProfileContext,
@@ -65,11 +64,6 @@ function Notification({ notification, handleOpen }) {
     }
   }, []); */
 
-  const notificationUserQuery = useQuery({
-    queryKey: ['users', { notification: notification._id }],
-    queryFn: fetchUserData,
-  });
-
   const fetchNotificationData = () => {
     const notificationRes = fetch(
       `${apiURL}/api/users/${loggedInUser._id}/notifications/${notification}`,
@@ -90,15 +84,37 @@ function Notification({ notification, handleOpen }) {
           data.json().then((user) => {
             console.log(user);
             setNotificationUserData(user.user);
-            setNotificationRetrieved(true);
           });
         });
       });
     });
   };
   useEffect(() => {
-    fetchNotificationData();
-  }, []);
+    if (!notificationData) {
+      fetchNotificationData();
+    } else if (notificationData && notificationUserData) {
+      switch (notificationData.type) {
+        case 'post/like':
+          setMessage('liked your post.');
+          setIsLike(true);
+          setNotificationRetrieved(true);
+          break;
+        case 'user/follow':
+          setMessage('started following you.');
+          setIsFollow(true);
+          setNotificationRetrieved(true);
+          break;
+        case 'user/tagged':
+          setMessage('tagged you in a post.');
+          setIsTag(true);
+          setNotificationRetrieved(true);
+          break;
+        default:
+          console.log('SOMETHING IS PRETTY WRONG');
+          break;
+      }
+    }
+  }, [notificationData, notificationUserData]);
   return notificationRetrieved ? (
     <div
       className={
