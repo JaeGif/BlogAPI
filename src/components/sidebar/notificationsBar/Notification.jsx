@@ -76,16 +76,29 @@ function Notification({ notification, handleOpen }) {
       data.json().then((notification) => {
         setNotificationData(notification.notification);
         console.log(notification);
-        fetch(`${apiURL}/api/users/${notification.notification.user}`, {
-          mode: 'cors',
-          headers: { Authorization: 'Bearer' + ' ' + token },
-          method: 'GET',
-        }).then((data) => {
-          data.json().then((user) => {
-            console.log(user);
-            setNotificationUserData(user.user);
+        if (notification.notification.type === 'user/tagged') {
+          fetch(`${apiURL}/api/users/${notification.notification.post.user}`, {
+            mode: 'cors',
+            headers: { Authorization: 'Bearer' + ' ' + token },
+            method: 'GET',
+          }).then((data) => {
+            data.json().then((user) => {
+              console.log(user);
+              setNotificationUserData(user.user);
+            });
           });
-        });
+        } else {
+          fetch(`${apiURL}/api/users/${notification.notification.user}`, {
+            mode: 'cors',
+            headers: { Authorization: 'Bearer' + ' ' + token },
+            method: 'GET',
+          }).then((data) => {
+            data.json().then((user) => {
+              console.log(user);
+              setNotificationUserData(user.user);
+            });
+          });
+        }
       });
     });
   };
