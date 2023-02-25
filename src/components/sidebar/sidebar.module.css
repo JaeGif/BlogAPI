@@ -140,7 +140,6 @@ a {
   border: solid 2px white;
 }
 .closingWrapper {
-  border: solid 1px red;
   width: 100vw;
   height: 100vh;
   position: fixed;

@@ -8,6 +8,7 @@ import {
 import uniqid from 'uniqid';
 import Notification from './Notification';
 import style from './notificationslayout.module.css';
+import { useQuery, useQueries } from '@tanstack/react-query';
 
 function NotificationsLayout({ handleOpen }) {
   const loggedInUser = useContext(UserContext);
@@ -19,7 +20,7 @@ function NotificationsLayout({ handleOpen }) {
   );
   // notifications get username, action, date, userID
 
-  useEffect(() => {
+  /*   useEffect(() => {
     async function findUserNotifications() {
       console.log('finding notifs');
       let data = new URLSearchParams();
@@ -40,7 +41,23 @@ function NotificationsLayout({ handleOpen }) {
     }
     findUserNotifications();
     console.log('checked notifs');
-  }, []);
+  }, []); */
+
+  const fetchNotifications = async (notifId) => {
+    console.log(notifId);
+    const res = await fetch(
+      `${apiURL}/api/users/${loggedInUser._id}/notifications/${notifId}`,
+      {
+        mode: 'cors',
+        headers: { Authorization: 'Bearer' + ' ' + token },
+        method: 'GET',
+      }
+    );
+    console.log('fetching');
+    const data = res.json();
+    console.log(data);
+    return data.notification;
+  };
 
   return (
     <div className={style.notificationsWrapper}>

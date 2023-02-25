@@ -208,7 +208,6 @@ function Sidebar({
           <>
             <div
               onClick={() => {
-                console.log('click');
                 handleOpen('');
               }}
               className={style.closingWrapper}
@@ -220,7 +219,6 @@ function Sidebar({
           <>
             <div
               onClick={() => {
-                console.log('click');
                 handleOpen('');
               }}
               className={style.closingWrapper}

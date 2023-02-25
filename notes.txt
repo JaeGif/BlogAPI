@@ -13,8 +13,11 @@ New Features:
 - Reply to comments directly starting a thread.
 - Notifications loading bar revamp
 - Comment options
+- use Cron Jobs to suggest users rather than an immediate fetch and calculate.
 
 Essential Additions: 
 - React Router
 - Options component full post checkout using routing
 - Form validation
+- Adjustments
+- Fix click off siderbar to exit

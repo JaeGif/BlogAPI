@@ -1,10 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueries } from '@tanstack/react-query';
 import React, { useEffect, useState, useContext } from 'react';
 import {
   ProfileContext,
   PostContext,
   ApiContext,
   TokenContext,
+  UserContext,
 } from '../../../App';
 import style from './notification.module.css';
 
@@ -14,15 +15,15 @@ function Notification({ notification, handleOpen }) {
   const apiURL = useContext(ApiContext);
   const getUserProfile = useContext(ProfileContext);
   const getPostFull = useContext(PostContext);
+  const loggedInUser = useContext(UserContext);
   // alternate notification types to change the layout slightly
   const [isLike, setIsLike] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
   const [isTag, setIsTag] = useState(false);
   const [notificationRetrieved, setNotificationRetrieved] = useState(false);
-  const [isViewed, setIsViewed] = useState(notification.seen);
-
-  console.log(notification);
-  console.log(isViewed);
+  const [isViewed, setIsViewed] = useState(true);
+  const [notificationData, setNotificationData] = useState();
+  const [notificationUserData, setNotificationUserData] = useState();
 
   const fetchUserData = async () => {
     let res;
@@ -41,7 +42,7 @@ function Notification({ notification, handleOpen }) {
     return data.user;
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     switch (notification.type) {
       case 'post/like':
         setMessage('liked your post.');
@@ -62,14 +63,43 @@ function Notification({ notification, handleOpen }) {
         console.log('SOMETHING IS PRETTY WRONG');
         break;
     }
-  }, []);
+  }, []); */
 
   const notificationUserQuery = useQuery({
     queryKey: ['users', { notification: notification._id }],
     queryFn: fetchUserData,
   });
 
-  return notificationUserQuery.data ? (
+  const fetchNotificationData = () => {
+    const notificationRes = fetch(
+      `${apiURL}/api/users/${loggedInUser._id}/notifications/${notification}`,
+      {
+        mode: 'cors',
+        headers: { Authorization: 'Bearer' + ' ' + token },
+        method: 'GET',
+      }
+    ).then((data) => {
+      data.json().then((notification) => {
+        setNotificationData(notification.notification);
+        console.log(notification);
+        fetch(`${apiURL}/api/users/${notification.notification.user}`, {
+          mode: 'cors',
+          headers: { Authorization: 'Bearer' + ' ' + token },
+          method: 'GET',
+        }).then((data) => {
+          data.json().then((user) => {
+            console.log(user);
+            setNotificationUserData(user.user);
+            setNotificationRetrieved(true);
+          });
+        });
+      });
+    });
+  };
+  useEffect(() => {
+    fetchNotificationData();
+  }, []);
+  return notificationRetrieved ? (
     <div
       className={
         isViewed
@@ -81,19 +111,19 @@ function Notification({ notification, handleOpen }) {
           ? (e) => {
               e.stopPropagation();
               handleOpen('');
-              getPostFull(notification.post._id);
+              getPostFull(notificationData.post._id);
             }
           : isTag
           ? (e) => {
               e.stopPropagation();
               handleOpen('');
-              getPostFull(notification.post._id);
+              getPostFull(notificationData.post._id);
             }
           : isFollow
           ? (e) => {
               e.stopPropagation();
               handleOpen('');
-              getUserProfile(notification.user._id);
+              getUserProfile(notificationData.user._id);
             }
           : undefined
       }
@@ -103,7 +133,7 @@ function Notification({ notification, handleOpen }) {
           className={style.userAvatar}
           src={
             notificationRetrieved
-              ? `${apiURL}/${notificationUserQuery.data.avatar}`
+              ? `${apiURL}/${notificationUserData.avatar}`
               : ''
           }
           alt='profile image'
@@ -117,17 +147,17 @@ function Notification({ notification, handleOpen }) {
               ? (e) => {
                   e.stopPropagation();
                   handleOpen('');
-                  getUserProfile(notification.post.user);
+                  getUserProfile(notificationData.post.user);
                 }
               : (e) => {
                   e.stopPropagation();
                   handleOpen('');
-                  getUserProfile(notification.user);
+                  getUserProfile(notificationData.user);
                 }
           }
           className={style.userName}
         >
-          {notificationRetrieved ? notificationUserQuery.data.username : ''}
+          {notificationRetrieved ? notificationUserData.username : ''}
         </em>{' '}
         {message}
       </p>
@@ -135,16 +165,16 @@ function Notification({ notification, handleOpen }) {
         <div className={style.thumbnailContainer}>
           <img
             className={style.postThumbnail}
-            src={`${apiURL}/${notification.post.thumbnail.url}`}
-            alt={notification.post.thumbnail.alt}
+            src={`${apiURL}/${notificationData.post.thumbnail.url}`}
+            alt={notificationData.post.thumbnail.alt}
           />
         </div>
       ) : isTag ? (
         <div className={style.thumbnailContainer}>
           <img
             className={style.postThumbnail}
-            src={`${apiURL}/${notification.post.thumbnail.url}`}
-            alt={notification.post.thumbnail.alt}
+            src={`${apiURL}/${notificationData.post.thumbnail.url}`}
+            alt={notificationData.post.thumbnail.alt}
           />
         </div>
       ) : (
