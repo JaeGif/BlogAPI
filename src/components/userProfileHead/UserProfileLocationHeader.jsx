@@ -24,7 +24,11 @@ function UserProfileLocationHeader({ userData, location }) {
         ></img>
       </div>
       <div className={style.nameLocationHeader}>
-        <p onClick={() => handleUserProfileCheckout(userData._id)}>
+        <p
+          onClick={() => {
+            handleUserProfileCheckout(userData._id);
+          }}
+        >
           <em className={style.userNameEmphasis}>{userData.username}</em>
         </p>
         {isLocation ? (

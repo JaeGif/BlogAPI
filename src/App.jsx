@@ -110,6 +110,7 @@ function App() {
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
+
     setUserProfile(data.user);
     addSearchToRecents(userId);
     openUserPageModal();
@@ -239,7 +240,6 @@ function App() {
           </div>
         )}
       </ApiContext.Provider>
-
       <ReactQueryDevtools />
     </div>
   );

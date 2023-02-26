@@ -16,12 +16,14 @@ function UserTagged({ user }) {
     }
   }, []);
 
+  console.log(user.taggedPosts);
   const fetchPostById = async (id) => {
     console.log('fetching');
     const res = await fetch(`${apiURL}/api/posts/${id}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
+    console.log(res);
     const data = await res.json();
     console.log(data);
     return data.post;

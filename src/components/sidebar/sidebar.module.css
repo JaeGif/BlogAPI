@@ -1,3 +1,7 @@
+:root {
+  --icon-height: 36px;
+  --icon-width: 36px;
+}
 @font-face {
   font-family: 'Dancing';
   src: url('./assets/fonts/dancingScript.ttf');
@@ -40,7 +44,7 @@
   width: 100%;
 }
 .optionsIcons {
-  height: 36px;
+  height: var(--icon-height);
 }
 .optionSpan > .optionsIcons,
 .optionSpan > .githubIcon,
@@ -58,7 +62,6 @@
 .optionSpan:hover > .avatarCircle {
   transform: scale(105%);
 }
-
 .optionSpan {
   background-color: white;
   border: none;
@@ -85,8 +88,8 @@ a {
 .newPostIcon {
   padding: 0;
   border: solid 2px black;
-  border-radius: 12px;
-  height: 35px;
+  border-radius: 8px;
+  height: 32px;
 }
 .avatarCircle {
   border-radius: 50%;
@@ -144,5 +147,4 @@ a {
   height: 100vh;
   position: fixed;
   z-index: 1;
-  background-color: rgba(0, 0, 255, 0.415);
 }

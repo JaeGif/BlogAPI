@@ -16,9 +16,7 @@ Essential Additions:
 - Adjustments
 
 Bugfix:
-- tagged uName click does not route to user profile
-- Fix click off siderbar to exit
-- Check later for more suggestions displays improperly
 - can follow and be followed multiple times now
 - fix newPost UI
 - edit post UI fix
+- fix Tagged/saved posts profile section

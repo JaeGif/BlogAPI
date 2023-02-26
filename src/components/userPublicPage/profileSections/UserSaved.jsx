@@ -33,21 +33,6 @@ function UserPublished({ user }) {
     console.log(data);
     return data.post;
   };
-
-  /*   useEffect(() => {
-    let userSavedPosts = [];
-    if (userSavedIdx.length) {
-      async function returnIntermediateData() {
-        for (let i = 0; i < userSavedIdx.length; i++) {
-          const post = await fetchSavedPosts(userSavedIdx[i]);
-          userSavedPosts.push(post);
-        }
-        setUserSaved(userSaved.concat(userSavedPosts));
-      }
-      console.log(userSavedIdx);
-      returnIntermediateData();
-    }
-  }, []); */
   const savedPostsQueries = useQueries({
     queries: user.savedPosts.map((postId) => {
       return {
