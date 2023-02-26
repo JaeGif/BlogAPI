@@ -20,7 +20,6 @@ function Notification({ notification, handleOpen }) {
   const [isLike, setIsLike] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
   const [isTag, setIsTag] = useState(false);
-  const [notificationRetrieved, setNotificationRetrieved] = useState(false);
   const [isViewed, setIsViewed] = useState(true);
 
   useEffect(() => {
@@ -31,7 +30,6 @@ function Notification({ notification, handleOpen }) {
       }
     }
   }, []);
-  console.log(notification);
   const fetchUserData = async () => {
     if (notification.type === 'user/tagged') {
       const res = await fetch(`${apiURL}/api/users/${notification.post.user}`, {
@@ -64,17 +62,14 @@ function Notification({ notification, handleOpen }) {
         case 'post/like':
           setMessage('liked your post.');
           setIsLike(true);
-          setNotificationRetrieved(true);
           break;
         case 'user/follow':
           setMessage('started following you.');
           setIsFollow(true);
-          setNotificationRetrieved(true);
           break;
         case 'user/tagged':
           setMessage('tagged you in a post.');
           setIsTag(true);
-          setNotificationRetrieved(true);
           break;
         default:
           console.log('SOMETHING IS PRETTY WRONG');
@@ -112,39 +107,42 @@ function Notification({ notification, handleOpen }) {
           : undefined
       }
     >
-      <div className={style.avatarContainer}>
-        <img
-          className={style.userAvatar}
-          src={
-            notificationRetrieved
-              ? `${apiURL}/${notificationUserDataQuery.data.avatar}`
-              : ''
-          }
-          alt='profile image'
-        />
-      </div>
+      <div className={style.leftAlign}>
+        <div className={style.avatarContainer}>
+          <img
+            className={style.userAvatar}
+            src={`${apiURL}/${notificationUserDataQuery.data.avatar}`}
+            alt='profile image'
+          />
+        </div>
 
-      <p className={style.messageP}>
-        <em
-          onClick={
-            isTag
-              ? (e) => {
-                  e.stopPropagation();
-                  handleOpen('');
-                  getUserProfile(notification.post.user);
-                }
-              : (e) => {
-                  e.stopPropagation();
-                  handleOpen('');
-                  getUserProfile(notification.user);
-                }
-          }
-          className={style.userName}
-        >
-          {notificationRetrieved ? notificationUserDataQuery.data.username : ''}
-        </em>{' '}
-        {message}
-      </p>
+        <div className={style.messageContainer}>
+          <p className={style.messageP}>
+            <em
+              onClick={
+                isTag
+                  ? (e) => {
+                      e.stopPropagation();
+                      handleOpen('');
+                      getUserProfile(notification.post.user);
+                    }
+                  : (e) => {
+                      e.stopPropagation();
+                      handleOpen('');
+                      getUserProfile(notification.user);
+                    }
+              }
+              className={style.userName}
+            >
+              {notificationUserDataQuery.data.username}
+            </em>{' '}
+            {message}
+          </p>
+          <p>
+            <em className={style.timestamp}>{notification.createdAt}</em>
+          </p>
+        </div>
+      </div>
       {isLike ? (
         <div className={style.thumbnailContainer}>
           <img

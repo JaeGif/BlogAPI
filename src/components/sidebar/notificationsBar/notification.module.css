@@ -1,8 +1,7 @@
 .notificationWrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  gap: 5px;
   cursor: pointer;
   padding-right: 5px;
 }
@@ -48,4 +47,17 @@
 }
 .unViewed {
   background-color: var(--grey-1);
+}
+.timestamp {
+  color: var(--grey-5);
+  font-size: 0.9rem;
+}
+.messageContainer > p {
+  padding: 0;
+  margin: 0;
+}
+.leftAlign {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
