@@ -71,7 +71,11 @@ function SuggestedUserProfile({ user }) {
     let data = new URLSearchParams();
     data.append(
       'follow',
-      JSON.stringify({ _id: loggedInUser._id, type: 'follower/add' })
+      JSON.stringify({
+        _id: loggedInUser._id,
+        type: 'follower/add',
+        recipient: user.user,
+      })
     );
     const followingRes = await fetch(`${apiURL}/api/users/${user.user}`, {
       mode: 'cors',

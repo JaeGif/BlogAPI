@@ -75,7 +75,11 @@ function UserPublicHeader({ userData, openEditUser }) {
     let data = new URLSearchParams();
     data.append(
       'follow',
-      JSON.stringify({ _id: loggedInUser._id, type: 'follower/add' })
+      JSON.stringify({
+        _id: loggedInUser._id,
+        type: 'follower/add',
+        recipient: userData._id,
+      })
     );
     const followingRes = await fetch(`${apiURL}/api/users/${userData._id}`, {
       mode: 'cors',

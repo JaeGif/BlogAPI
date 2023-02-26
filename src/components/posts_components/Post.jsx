@@ -77,7 +77,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
       JSON.stringify({
         _id: loggedInUser._id,
         username: loggedInUser.username,
-
+        recipient: user,
         post: {
           _id: _id,
           thumbnail: {

@@ -1,11 +1,5 @@
 ToDo's:
 
-Refactor Related: 
-- Check later for more suggestions displays improperly
-- can follow and be followed multiple times now
-- fix newPost UI
-- edit post UI fix
-
 New Features: 
 - Check Loading components, remove unnecessary ones, potential replace with grey loading skeleton
 - Clicking out of search or notifications closes the bar. 
@@ -20,4 +14,11 @@ Essential Additions:
 - Options component full post checkout using routing
 - Form validation
 - Adjustments
+
+Bugfix:
+- tagged uName click does not route to user profile
 - Fix click off siderbar to exit
+- Check later for more suggestions displays improperly
+- can follow and be followed multiple times now
+- fix newPost UI
+- edit post UI fix
