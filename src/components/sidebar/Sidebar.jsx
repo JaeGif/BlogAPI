@@ -224,7 +224,8 @@ function Sidebar({
         {isNotifications && (
           <>
             <div
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 handleOpen('');
               }}
               className={style.closingWrapper}
@@ -235,7 +236,8 @@ function Sidebar({
         {isSearch && (
           <>
             <div
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 handleOpen('');
               }}
               className={style.closingWrapper}
