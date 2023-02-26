@@ -23,6 +23,14 @@ function Notification({ notification, handleOpen }) {
   const [notificationRetrieved, setNotificationRetrieved] = useState(false);
   const [isViewed, setIsViewed] = useState(true);
 
+  useEffect(() => {
+    for (let i = 0; i < loggedInUser.notifications.length; i++) {
+      if (loggedInUser.notifications[i]._id === notification._id) {
+        setIsViewed(loggedInUser.notifications[i].seen);
+        break;
+      }
+    }
+  }, []);
   console.log(notification);
   const fetchUserData = async () => {
     if (notification.type === 'user/tagged') {

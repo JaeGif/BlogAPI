@@ -12,7 +12,7 @@
 }
 .notificationsMinorWrapper {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 .searchInput {
   background-image: url('./assets/favicons/search-grey.svg');

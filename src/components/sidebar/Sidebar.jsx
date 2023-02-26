@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ApiContext, PathContext, UserContext } from '../../App';
+import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
 import NotificationsLayout from './notificationsBar/NotificationsLayout';
 import SearchLayout from './search/SearchLayout';
 import style from './sidebar.module.css';
@@ -13,6 +13,8 @@ function Sidebar({
   const user = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
+  const token = useContext(TokenContext);
+
   const [isNotifications, setIsNotifications] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isMinified, setIsMinified] = useState(false);
@@ -25,6 +27,18 @@ function Sidebar({
       modString = '';
     }
     setOpen(modString);
+  };
+  const setSeen = async () => {
+    let data = new URLSearchParams();
+    data.append('seen', 'true');
+    const res = await fetch(`${apiURL}/api/users/${user._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      body: data,
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const notificationsSeen = await res.json();
+    console.log(notificationsSeen);
   };
   const switchOptionsExpansion = () => {
     switch (open) {
@@ -40,6 +54,7 @@ function Sidebar({
         setIsNotifications(false);
         setIsSearch(true);
         break;
+
       default:
         setIsMinified(false);
         setIsNotifications(false);
@@ -48,6 +63,8 @@ function Sidebar({
     }
   };
   const handleSeenNotifications = () => {
+    setSeen();
+
     // handle seen notifs once notifications are opened, new notification symbol is removed.
     setNewNotification(false);
   };
