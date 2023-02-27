@@ -16,7 +16,6 @@ function UserTagged({ user }) {
     }
   }, []);
 
-  console.log(user.taggedPosts);
   const fetchPostById = async (id) => {
     console.log('fetching');
     const res = await fetch(`${apiURL}/api/posts/${id}`, {
@@ -38,7 +37,6 @@ function UserTagged({ user }) {
       };
     }),
   });
-  console.log(taggedPostsQueries);
   return (
     <>
       {hasLength ? (
