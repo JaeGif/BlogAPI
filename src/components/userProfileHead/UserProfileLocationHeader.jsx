@@ -21,6 +21,7 @@ function UserProfileLocationHeader({ userData, location }) {
         <img
           className={style.userAvatar}
           src={`${apiURL}/${userData.avatar}`}
+          alt='profile image'
         ></img>
       </div>
       <div className={style.nameLocationHeader}>
