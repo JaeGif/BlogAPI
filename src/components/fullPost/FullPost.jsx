@@ -50,13 +50,17 @@ function FullPost({
   const [hasLength, setHasLength] = useState(false);
 
   useEffect(() => {
-    if (tagged.length >= 0) {
+    if (tagged.length > 0) {
       setHasLength(true);
     }
   }, []);
 
   const toggleRevealTags = () => {
-    revealTags ? setRevealTags(false) : setRevealTags(true);
+    if (hasLength) {
+      revealTags ? setRevealTags(false) : setRevealTags(true);
+    } else {
+      return;
+    }
   };
   const fetchUserById = async (id) => {
     const res = await fetch(`${apiURL}/api/users/${id}`, {

@@ -10,10 +10,7 @@ function UserPublished({ user }) {
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
   const [hasLength, setHasLength] = useState(false);
-  const [userSavedIdx, setUserSavedIdx] = useState(user.savedPosts);
-  const [userSaved, setUserSaved] = useState([]);
 
-  console.log(user.savedPosts);
   useEffect(() => {
     console.log('pass');
     console.log(hasLength);
@@ -30,7 +27,6 @@ function UserPublished({ user }) {
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
-    console.log(data);
     return data.post;
   };
   const savedPostsQueries = useQueries({
@@ -43,9 +39,6 @@ function UserPublished({ user }) {
     }),
   });
 
-  console.log(hasLength);
-
-  console.log('saved,', savedPostsQueries);
   return (
     <>
       {hasLength ? (

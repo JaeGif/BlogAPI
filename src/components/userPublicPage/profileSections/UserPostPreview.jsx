@@ -4,17 +4,32 @@ import FullPost from '../../fullPost/FullPost';
 import { ApiContext, PathContext, TokenContext } from '../../../App';
 import { useQuery } from '@tanstack/react-query';
 
-function UserPostPreview({ post, userData }) {
+function UserPostPreview({ post }) {
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
   const token = useContext(TokenContext);
   const [isVideo, setIsVideo] = useState(false);
   const [displayPost, setDisplayPost] = useState(false);
-  console.log(post);
+  const [userData, setUserData] = useState();
+  const [isReady, setIsReady] = useState(false);
 
   const toggleDisplayFullPost = () => {
-    displayPost ? setDisplayPost(false) : setDisplayPost(true);
+    fetchPostUserData();
   };
+  const fetchPostUserData = async () => {
+    const res = await fetch(`${apiURL}/api/users/${post.user}`, {
+      mode: 'cors',
+      method: 'GET',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const data = await res.json();
+    setUserData(data.user);
+  };
+  useEffect(() => {
+    if (userData) {
+      displayPost ? setDisplayPost(false) : setDisplayPost(true);
+    }
+  }, [userData]);
 
   const updateParentPost = () => {
     console.log('refresh?');
