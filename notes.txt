@@ -10,6 +10,7 @@ New Features:
 - use Cron Jobs to suggest users rather than an immediate fetch and calculate.
 
 Essential Additions: 
+- Mobile Version
 - React Router
 - Options component full post checkout using routing
 - Form validation
@@ -19,4 +20,3 @@ Bugfix:
 - can follow and be followed multiple times now
 - fix newPost UI
 - edit post UI fix
-- fix Tagged/saved posts profile section

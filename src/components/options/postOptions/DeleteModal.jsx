@@ -26,6 +26,17 @@ function DeleteModal({ closeDeleteModal, post, handleCloseOptions }) {
       handleCloseOptions();
     }
   };
+  const deleteImages = async () => {
+    let data = new URLSearchParams();
+    data.append('images', JSON.stringify(post.images));
+    data.append('user', post.user);
+    const res = await fetch(`${apiURL}/api/images`, {
+      mode: 'cors',
+      method: 'DELETE',
+      body: data,
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+  };
   return (
     <>
       <span
