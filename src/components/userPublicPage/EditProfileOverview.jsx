@@ -1,6 +1,7 @@
 import React, { useContext, useState, useRef } from 'react';
 import style from './editprofile.module.css';
 import { ApiContext, TokenContext, UserContext } from '../../App';
+import DeleteUserModal from './DeleteUserModal';
 
 function EditProfileOverview({ refreshLoggedInUserData }) {
   const loggedInUser = useContext(UserContext);
@@ -16,6 +17,7 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
   const [username, setUsername] = useState(undefined);
   const [website, setWebsite] = useState(undefined);
   const [bio, setBio] = useState(undefined);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const handlePOSTEdits = async () => {
     let data = new URLSearchParams();
@@ -65,6 +67,12 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
   };
   const handleBioChange = (e) => {
     setBio(e.target.value);
+  };
+  const openDeleteAccountModal = () => {
+    setOpenDeleteModal(true);
+  };
+  const closeDeleteAccountModal = () => {
+    setOpenDeleteModal(false);
   };
 
   return (
@@ -171,6 +179,11 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
           <p>About you, your pet, or just anything you want to say.</p>
         </div>
       </div>
+      <span>
+        <button onClick={openDeleteAccountModal} className={style.deleteBtn}>
+          Delete Account
+        </button>
+      </span>
       <span className={style.submitContainer}>
         <button
           onClick={handlePOSTEdits}
@@ -180,6 +193,19 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
           Submit
         </button>
       </span>
+      {openDeleteModal && (
+        <>
+          <div
+            className={style.fixedCloseZone}
+            onClick={closeDeleteAccountModal}
+          >
+            <DeleteUserModal
+              user={loggedInUser}
+              closeDeleteModal={closeDeleteAccountModal}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }

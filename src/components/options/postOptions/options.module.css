@@ -127,3 +127,6 @@
   font-weight: 600;
   color: red;
 }
+.greyBorder {
+  border: solid 1px var(--grey5);
+}

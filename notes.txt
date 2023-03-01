@@ -20,3 +20,16 @@ Bugfix:
 - can follow and be followed multiple times now
 - fix newPost UI
 - edit post UI fix
+
+
+Fully Finished Features:
+- See Posts from users you follow 
+- Follow/Unfollow
+- Like, Comment
+- Suggested users
+- Post Options including Edit, Precise Edit and Delete
+- User Authorization
+- Search for users by name, or username
+- Notifications
+- Full Post View
+- User options including Change Password, Update Information, Delete user

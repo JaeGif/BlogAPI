@@ -8,7 +8,7 @@ import {
 } from '../../../App';
 import style from './options.module.css';
 
-function DeleteModal({ closeDeleteModal, post, handleCloseOptions, user }) {
+function DeleteModal({ closeDeleteModal, post, handleCloseOptions }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
@@ -38,45 +38,15 @@ function DeleteModal({ closeDeleteModal, post, handleCloseOptions, user }) {
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
   };
-  if (post) {
-    return (
-      <>
-        <span
-          className={`${style.center} ${style.column} ${style.containedText}`}
-        >
-          <h3>Delete Post?</h3>
-          <p className={style.softText}>
-            Are you sure you want to delete this post?
-          </p>
-        </span>
-        <span
-          className={`${style.center} ${style.bottomBorder} ${style.topBorder} ${style.danger}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDelete();
-          }}
-        >
-          Delete
-        </span>
-        <span
-          className={`${style.center}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            closeDeleteModal();
-          }}
-        >
-          Cancel
-        </span>
-      </>
-    );
-  } else if (user) {
+
+  return (
     <>
       <span
         className={`${style.center} ${style.column} ${style.containedText}`}
       >
-        <h3>Delete Account?</h3>
+        <h3>Delete Post?</h3>
         <p className={style.softText}>
-          Are you sure you want to delete your account?
+          Are you sure you want to delete this post?
         </p>
       </span>
       <span
@@ -97,8 +67,8 @@ function DeleteModal({ closeDeleteModal, post, handleCloseOptions, user }) {
       >
         Cancel
       </span>
-    </>;
-  }
+    </>
+  );
 }
 
 export default DeleteModal;
