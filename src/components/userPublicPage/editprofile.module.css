@@ -124,10 +124,13 @@ div.selected {
 .labelInputWrapper > input,
 .labelInputWrapper > textarea {
   width: 300px;
+}
+.labelInputWrapper > input {
   height: 1.5rem;
 }
 .labelInputWrapper > textarea {
   resize: vertical;
+  min-height: 2rem;
 }
 .labelInputWrapper > label {
   font-weight: 600;

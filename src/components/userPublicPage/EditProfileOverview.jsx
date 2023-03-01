@@ -18,7 +18,6 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
   const [bio, setBio] = useState(undefined);
 
   const handlePOSTEdits = async () => {
-    console.log('click');
     let data = new URLSearchParams();
     let dataObj = {
       firstName: firstName,
@@ -28,7 +27,6 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
       bio: bio,
     };
     data.append('editUser', JSON.stringify(dataObj));
-    console.log(data);
     const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
       mode: 'cors',
       method: 'PUT',
@@ -162,6 +160,10 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
               onChange={(e) => handleBioChange(e)}
               name='bio'
               defaultValue={loggedInUser.bio}
+              onInput={(e) => {
+                e.target.style.height = '';
+                e.target.style.height = e.target.scrollHeight + 'px';
+              }}
             ></textarea>
           </div>
         </div>
