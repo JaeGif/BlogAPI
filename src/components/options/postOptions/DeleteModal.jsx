@@ -16,6 +16,7 @@ function DeleteModal({ closeDeleteModal, post, handleCloseOptions }) {
   const profileCheckout = useContext(ProfileContext);
 
   const handleDelete = async () => {
+    deleteImages();
     const res = await fetch(`${apiURL}/api/posts/${post._id}`, {
       mode: 'cors',
       method: 'DELETE',
