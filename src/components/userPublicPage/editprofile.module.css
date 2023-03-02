@@ -167,7 +167,7 @@ div.selected {
 .deleteBtn {
   background-color: var(--red-2);
   color: white;
-  opacity: 0.5;
+  opacity: 0.2;
 }
 .deleteBtn:hover {
   opacity: 1;

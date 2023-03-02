@@ -3,7 +3,7 @@ import style from './editprofile.module.css';
 import { ApiContext, TokenContext, UserContext } from '../../App';
 import DeleteUserModal from './DeleteUserModal';
 
-function EditProfileOverview({ refreshLoggedInUserData }) {
+function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
   const apiURL = useContext(ApiContext);
@@ -201,6 +201,7 @@ function EditProfileOverview({ refreshLoggedInUserData }) {
           >
             <DeleteUserModal
               user={loggedInUser}
+              handleLogOut={handleLogOut}
               closeDeleteModal={closeDeleteAccountModal}
             />
           </div>

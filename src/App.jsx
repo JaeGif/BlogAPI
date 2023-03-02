@@ -185,6 +185,7 @@ function App() {
                         isEditProfile ? (
                           <EditProfile
                             refreshLoggedInUserData={refreshLoggedInUserData}
+                            handleLogOut={handleLogOut}
                           />
                         ) : (
                           <UserPageLayout

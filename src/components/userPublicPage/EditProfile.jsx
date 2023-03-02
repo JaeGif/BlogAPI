@@ -5,7 +5,7 @@ import style from './editprofile.module.css';
 import EditProfileOverview from './EditProfileOverview';
 import LoginActivityOverview from './LoginActivityOverview';
 
-function EditProfile({ refreshLoggedInUserData }) {
+function EditProfile({ refreshLoggedInUserData, handleLogOut }) {
   const [isEditProfile, setIsEditProfile] = useState(true);
   const [isChangePassword, setIsChangePassword] = useState(false);
   const [isLoginActivity, setIsLoginActivity] = useState(false);
@@ -62,6 +62,7 @@ function EditProfile({ refreshLoggedInUserData }) {
         <div className={style.displayOptionWrapper}>
           {isEditProfile ? (
             <EditProfileOverview
+              handleLogOut={handleLogOut}
               refreshLoggedInUserData={refreshLoggedInUserData}
             />
           ) : (
