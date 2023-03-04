@@ -8,12 +8,11 @@ import NewPost from './components/newPost/NewPost';
 import './filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
 import FullPost from './components/fullPost/FullPost';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LoginPage from './components/auth/login/LoginPage';
 import CreateAccount from './components/auth/createAccount/CreateAccount';
 import EditProfile from './components/userPublicPage/EditProfile';
+import LoadingBar from 'react-top-loading-bar';
 
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
@@ -21,6 +20,7 @@ const PathContext = React.createContext(null);
 const ProfileContext = React.createContext(null);
 const PostContext = React.createContext(null);
 const TokenContext = React.createContext(null);
+const ProgressContext = React.createContext(null);
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
@@ -35,6 +35,7 @@ function App() {
   const [hasAccount, setHasAccount] = useState(true);
   const [token, setToken] = useState(null);
   const [isEditProfile, setIsEditProfile] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
@@ -56,6 +57,7 @@ function App() {
   }
 
   const handleLogin = async (username, password) => {
+    setProgress(20);
     const userData = new URLSearchParams();
     userData.append('username', username);
     userData.append('password', password);
@@ -68,11 +70,14 @@ function App() {
       },
       body: userData,
     });
+
     if (res.status === 200) {
+      setProgress(100);
       const data = await res.json();
       setToken(data.token);
       fetchLoggedInUserData(data.user, data.token);
     } else {
+      setProgress(100);
       console.log(res.status);
     }
   };
@@ -105,15 +110,18 @@ function App() {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
   const handleUserProfileCheckout = async (userId) => {
+    setProgress(20);
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
+    setProgress(50);
     const data = await res.json();
-
     setUserProfile(data.user);
+    setProgress(70);
     addSearchToRecents(userId);
     openUserPageModal();
+    setProgress(100);
   };
   const addSearchToRecents = async (userId) => {
     let data = new URLSearchParams();
@@ -164,70 +172,83 @@ function App() {
   const handleCloseEditProfile = () => {
     setIsEditProfile(false);
   };
+  const addSmallIncrementsToProgress = () => {
+    if (progress >= 90) return;
+
+    let randInt = Math.random() * 4 + 1;
+    setProgress(progress + randInt);
+  };
 
   return (
     <div>
       <ApiContext.Provider value={localURL}>
+        <LoadingBar
+          color='#f11946'
+          progress={progress}
+          onLoaderFinished={() => setProgress(0)}
+        />
         {loggedIn ? (
-          <TokenContext.Provider value={token}>
-            <PostContext.Provider value={handlePostCheckout}>
-              <ProfileContext.Provider value={handleUserProfileCheckout}>
-                <PathContext.Provider value={localPath}>
-                  <UserContext.Provider value={loggedInUser}>
-                    <div className='App'>
-                      <Sidebar
-                        newPostModal={newPostModal}
-                        openUserPageModal={handleUserProfileCheckout}
-                        goToHomePage={goToHomePage}
-                        refreshLoggedInUserData={refreshLoggedInUserData}
-                      />
-                      {isUserPage ? (
-                        isEditProfile ? (
-                          <EditProfile
-                            refreshLoggedInUserData={refreshLoggedInUserData}
-                            handleLogOut={handleLogOut}
+          <ProgressContext.Provider value={setProgress}>
+            <TokenContext.Provider value={token}>
+              <PostContext.Provider value={handlePostCheckout}>
+                <ProfileContext.Provider value={handleUserProfileCheckout}>
+                  <PathContext.Provider value={localPath}>
+                    <UserContext.Provider value={loggedInUser}>
+                      <div className='App'>
+                        <Sidebar
+                          newPostModal={newPostModal}
+                          openUserPageModal={handleUserProfileCheckout}
+                          goToHomePage={goToHomePage}
+                          refreshLoggedInUserData={refreshLoggedInUserData}
+                        />
+                        {isUserPage ? (
+                          isEditProfile ? (
+                            <EditProfile
+                              refreshLoggedInUserData={refreshLoggedInUserData}
+                              handleLogOut={handleLogOut}
+                            />
+                          ) : (
+                            <UserPageLayout
+                              openEditUser={handleOpenEditProfile}
+                              user={userProfile}
+                            />
+                          )
+                        ) : (
+                          <>
+                            <Posts
+                              refresh={isRefresh}
+                              refreshFn={refreshContent}
+                              refreshLoggedInUserData={refreshLoggedInUserData}
+                            />
+                            <Suggested handleLogOut={handleLogOut} />
+                          </>
+                        )}
+                        {isNewPostModal ? (
+                          <NewPost
+                            newPostModal={newPostModal}
+                            refresh={setIsRefresh}
                           />
                         ) : (
-                          <UserPageLayout
-                            openEditUser={handleOpenEditProfile}
-                            user={userProfile}
-                          />
-                        )
-                      ) : (
-                        <>
-                          <Posts
-                            refresh={isRefresh}
-                            refreshFn={refreshContent}
-                            refreshLoggedInUserData={refreshLoggedInUserData}
-                          />
-                          <Suggested handleLogOut={handleLogOut} />
-                        </>
-                      )}
-                      {isNewPostModal ? (
-                        <NewPost
-                          newPostModal={newPostModal}
-                          refresh={setIsRefresh}
-                        />
-                      ) : (
-                        <></>
-                      )}
-                      {displayPost ? (
-                        <div>
-                          <FullPost
-                            postObj={postCheckout}
-                            toggleFullPost={toggleDisplayFullPost}
-                            isVideo={postContentIsVideo}
-                          />
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  </UserContext.Provider>
-                </PathContext.Provider>
-              </ProfileContext.Provider>
-            </PostContext.Provider>
-          </TokenContext.Provider>
+                          <></>
+                        )}
+                        {displayPost ? (
+                          <div>
+                            <FullPost
+                              postObj={postCheckout}
+                              toggleFullPost={toggleDisplayFullPost}
+                              isVideo={postContentIsVideo}
+                            />
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                    </UserContext.Provider>
+                  </PathContext.Provider>
+                </ProfileContext.Provider>
+              </PostContext.Provider>
+            </TokenContext.Provider>
+          </ProgressContext.Provider>
         ) : (
           <div>
             {hasAccount ? (
@@ -254,4 +275,5 @@ export {
   ProfileContext,
   PostContext,
   TokenContext,
+  ProgressContext,
 };

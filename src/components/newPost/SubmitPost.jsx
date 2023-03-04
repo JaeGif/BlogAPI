@@ -44,7 +44,6 @@ function SubmitPost({
       : setIsAccessibilityOpen(true);
   };
   const addTagToggle = () => {
-    console.log('tag toggle');
     isTagging ? setIsTagging(false) : setIsTagging(true);
   };
   const findUserByUserName = async (username) => {
@@ -67,7 +66,6 @@ function SubmitPost({
   useEffect(() => {
     console.log('change tagged Effect');
     setChangedTagged(tagged);
-    console.log(changedTagged);
   }, [tagged]);
 
   return (

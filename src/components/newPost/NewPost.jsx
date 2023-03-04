@@ -3,7 +3,12 @@ import style from './newpost.module.css';
 import UploadImages from './UploadImages';
 import FullPreviewPage from './imageOptions/FullPreviewPage';
 import SubmitPost from './SubmitPost';
-import { ApiContext, TokenContext, UserContext } from '../../App';
+import {
+  ApiContext,
+  TokenContext,
+  UserContext,
+  ProgressContext,
+} from '../../App';
 import uniqid from 'uniqid';
 // This component will contain a select photo page, that changes to an
 // add caption page if a photo is uploaded.
@@ -12,10 +17,10 @@ function NewPost({ newPostModal, refresh }) {
   const apiURL = useContext(ApiContext);
   const user = useContext(UserContext);
   const token = useContext(TokenContext);
+  const handleProgress = useContext(ProgressContext);
 
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
-
   const [filter, setFilter] = useState('filter-none');
   const [alt, setAlt] = useState(null);
   const [isVideoPreview, setIsVideoPreview] = useState(false);
@@ -164,14 +169,20 @@ function NewPost({ newPostModal, refresh }) {
   };
 
   const submitPost = () => {
+    handleProgress(20);
     setIsSubmitting(true);
+    handleProgress(25);
+
     let data = new FormData();
     let taggedIdx = [];
+
     console.log('images', imageFiles);
     for (let i = 0; i < imageFiles.length; i++) {
       data.append('image', imageFiles[i]);
       console.log('pushing image');
     }
+    handleProgress(35);
+
     // make tagged users only idx
     for (let j = 0; j < tagged.length; j++) {
       taggedIdx.push(tagged[j].user._id);
@@ -183,6 +194,7 @@ function NewPost({ newPostModal, refresh }) {
     data.append('imageData', JSON.stringify(imageData));
     data.append('alt', alt);
     data.append('taggedPost', JSON.stringify(taggedIdx));
+    handleProgress(50);
 
     console.log(data);
     fetch(`${apiURL}/api/posts`, {
@@ -192,8 +204,10 @@ function NewPost({ newPostModal, refresh }) {
         Authorization: 'Bearer' + ' ' + token,
       },
     }).then(() => {
+      handleProgress(70);
       resetData();
       newPostModal();
+      handleProgress(100);
       refresh();
       setIsSubmitting(false);
     });

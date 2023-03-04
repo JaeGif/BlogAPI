@@ -4,6 +4,7 @@ import {
   PathContext,
   TokenContext,
   UserContext,
+  ProgressContext,
 } from '../../../App';
 import uniqid from 'uniqid';
 import Notification from './Notification';
@@ -14,6 +15,7 @@ function NotificationsLayout({ handleOpen }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
+  const handleProgress = useContext(ProgressContext);
 
   const fetchNotifications = async () => {
     const res = await fetch(
@@ -26,12 +28,14 @@ function NotificationsLayout({ handleOpen }) {
     );
 
     const data = await res.json();
+
     return data.notifications;
   };
   const notificationsQuery = useQuery({
     queryKey: ['notifications', { user: loggedInUser._id }],
     queryFn: fetchNotifications,
   });
+
   return (
     <div className={style.notificationsWrapper}>
       <div className={style.notifsHeader}>

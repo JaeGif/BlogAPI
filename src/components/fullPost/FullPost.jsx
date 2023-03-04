@@ -15,6 +15,7 @@ import {
   UserContext,
   ProfileContext,
   TokenContext,
+  ProgressContext,
 } from '../../App';
 import Content from '../posts_components/Content';
 import { useQueries } from '@tanstack/react-query';

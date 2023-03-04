@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PreviewImage from '../PreviewImage';
 import ImageOptions from '../ImageOptions';
 import style from '../newpost.module.css';
+import { ProgressContext } from '../../../App';
 
 function FullPreviewPage({
   images,
