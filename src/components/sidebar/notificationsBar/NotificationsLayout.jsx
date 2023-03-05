@@ -18,6 +18,7 @@ function NotificationsLayout({ handleOpen }) {
   const handleProgress = useContext(ProgressContext);
 
   const fetchNotifications = async () => {
+    handleProgress(25);
     const res = await fetch(
       `${apiURL}/api/users/${loggedInUser._id}/notifications`,
       {
@@ -26,8 +27,10 @@ function NotificationsLayout({ handleOpen }) {
         method: 'GET',
       }
     );
+    handleProgress(40);
 
     const data = await res.json();
+    handleProgress(70);
 
     return data.notifications;
   };
@@ -35,6 +38,9 @@ function NotificationsLayout({ handleOpen }) {
     queryKey: ['notifications', { user: loggedInUser._id }],
     queryFn: fetchNotifications,
   });
+  useEffect(() => {
+    notificationsQuery.data && handleProgress(100);
+  }, [notificationsQuery.isFetched]);
 
   return (
     <div className={style.notificationsWrapper}>
