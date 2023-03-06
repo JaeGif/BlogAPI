@@ -38,7 +38,6 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState({});
-  const [hasAccount, setHasAccount] = useState(true);
   const [token, setToken] = useState(null);
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -52,6 +51,9 @@ function App() {
   useEffect(() => {
     loggedIn && navigate('/', { replace: true });
   }, [loggedIn]);
+  useEffect(() => {
+    userProfile;
+  });
 
   async function fetchLoggedInUserData(userId, freshToken) {
     const res = await fetch(`${localURL}/api/users/${userId}`, {
@@ -132,7 +134,7 @@ function App() {
     setUserProfile(data.user);
     setProgress(70);
     addSearchToRecents(userId);
-    navigate(`user/${userId}`);
+    navigate(`/${data.user.username}`);
     openUserPageModal();
     setProgress(100);
   };
@@ -172,7 +174,6 @@ function App() {
 
   const handleLogOut = () => {
     setLoggedIn(false);
-    setHasAccount(true);
   };
   const handleOpenEditProfile = () => {
     setIsEditProfile(true);
@@ -297,7 +298,7 @@ function App() {
                           }
                         />
                         <Route
-                          path='user/:id'
+                          path=':id'
                           element={
                             <UserPageLayout
                               openEditUser={handleOpenEditProfile}
@@ -306,7 +307,7 @@ function App() {
                           }
                         />
                         <Route
-                          path='user/:id/edit'
+                          path=':id/edit'
                           element={
                             <EditProfile
                               refreshLoggedInUserData={refreshLoggedInUserData}

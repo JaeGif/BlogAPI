@@ -39,7 +39,4 @@ Routing:
 / -> Home with Sidebar, posts, and Suggested
 /login
 /create
-/u/:id 
-/u/:id/account
-/p/:id/edit
-/p/:id/options
+/username
