@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import style from './loginpage.module.css';
 
-function LoginPage({ handleDoesNotHaveAccount, handleLogIn }) {
+function LoginPage({ handleLogIn }) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
 
@@ -57,17 +58,13 @@ function LoginPage({ handleDoesNotHaveAccount, handleLogIn }) {
 
           <div className={style.additionalLoginOptions}>
             <div className={style.createAcctRedirectContainer}>
-              <a className={style.createAcctRedirect}>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDoesNotHaveAccount();
-                  }}
-                  className={style.createAcctBtn}
-                >
-                  Create Account
-                </button>
-              </a>
+              <div className={style.createAcctRedirect}>
+                <Link to={'/register'}>
+                  <button className={style.createAcctBtn}>
+                    Create Account
+                  </button>
+                </Link>
+              </div>
             </div>
             <div className={style.createAcctRedirectContainer}>
               <a className={style.createAcctRedirect}>

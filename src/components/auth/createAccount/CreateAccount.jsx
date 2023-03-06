@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ApiContext } from '../../../App';
 import style from '../login/loginpage.module.css';
+import { Link } from 'react-router-dom';
 
-function CreateAccount({ handleHasAccount }) {
+function CreateAccount() {
   const apiURL = useContext(ApiContext);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -160,15 +161,9 @@ function CreateAccount({ handleHasAccount }) {
           </form>
           <div>
             <p>Already have an account?</p>
-            <p
-              onClick={(e) => {
-                e.stopPropagation();
-                handleHasAccount();
-              }}
-              className={style.userHasAccountBtn}
-            >
-              Log in
-            </p>
+            <Link to={'/login'}>
+              <p className={style.userHasAccountBtn}>Log in</p>
+            </Link>
           </div>
         </div>
       </div>

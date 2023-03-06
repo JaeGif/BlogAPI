@@ -1,5 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  Navigate,
+} from 'react-router-dom';
 import './App.css';
 import Posts from './components/posts_components/Posts';
 import Sidebar from './components/sidebar/Sidebar';
@@ -42,6 +48,8 @@ function App() {
   const localPath = import.meta.env.VITE_LOCAL_PATH;
   const productionPath = import.meta.env.VITE_BASE_PATH;
 
+  const navigate = useNavigate();
+
   async function fetchLoggedInUserData(userId, freshToken) {
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
@@ -76,6 +84,7 @@ function App() {
       const data = await res.json();
       setToken(data.token);
       fetchLoggedInUserData(data.user, data.token);
+      navigate('/', { replace: true });
     } else {
       setProgress(100);
       console.log(res.status);
@@ -156,12 +165,7 @@ function App() {
     setDisplayPost(false);
     setIsEditProfile(false);
   };
-  const handleHasAccount = () => {
-    setHasAccount(true);
-  };
-  const handleDoesNotHaveAccount = () => {
-    setHasAccount(false);
-  };
+
   const handleLogOut = () => {
     setLoggedIn(false);
     setHasAccount(true);
@@ -172,98 +176,107 @@ function App() {
   const handleCloseEditProfile = () => {
     setIsEditProfile(false);
   };
-  const addSmallIncrementsToProgress = () => {
-    if (progress >= 90) return;
-
-    let randInt = Math.random() * 4 + 1;
-    setProgress(progress + randInt);
-  };
 
   return (
-    <div>
+    <>
       <ApiContext.Provider value={localURL}>
-        <LoadingBar
-          color='#f11946'
-          progress={progress}
-          onLoaderFinished={() => setProgress(0)}
-        />
-        {loggedIn ? (
-          <ProgressContext.Provider value={setProgress}>
-            <TokenContext.Provider value={token}>
-              <PostContext.Provider value={handlePostCheckout}>
-                <ProfileContext.Provider value={handleUserProfileCheckout}>
-                  <PathContext.Provider value={localPath}>
-                    <UserContext.Provider value={loggedInUser}>
-                      <div className='App'>
-                        <Sidebar
-                          newPostModal={newPostModal}
-                          openUserPageModal={handleUserProfileCheckout}
-                          goToHomePage={goToHomePage}
-                          refreshLoggedInUserData={refreshLoggedInUserData}
-                        />
-                        {isUserPage ? (
-                          isEditProfile ? (
-                            <EditProfile
-                              refreshLoggedInUserData={refreshLoggedInUserData}
-                              handleLogOut={handleLogOut}
-                            />
-                          ) : (
-                            <UserPageLayout
-                              openEditUser={handleOpenEditProfile}
-                              user={userProfile}
-                            />
-                          )
-                        ) : (
-                          <>
-                            <Posts
-                              refresh={isRefresh}
-                              refreshFn={refreshContent}
-                              refreshLoggedInUserData={refreshLoggedInUserData}
-                            />
-                            <Suggested handleLogOut={handleLogOut} />
-                          </>
-                        )}
-                        {isNewPostModal ? (
-                          <NewPost
-                            newPostModal={newPostModal}
-                            refresh={setIsRefresh}
-                          />
-                        ) : (
-                          <></>
-                        )}
-                        {displayPost ? (
+        <ProgressContext.Provider value={setProgress}>
+          <TokenContext.Provider value={token}>
+            <PostContext.Provider value={handlePostCheckout}>
+              <ProfileContext.Provider value={handleUserProfileCheckout}>
+                <PathContext.Provider value={localPath}>
+                  <UserContext.Provider value={loggedInUser}>
+                    <LoadingBar
+                      color='#dc140a'
+                      progress={progress}
+                      onLoaderFinished={() => setProgress(0)}
+                    />
+                    <Routes>
+                      <Route
+                        path='/login'
+                        element={
                           <div>
-                            <FullPost
-                              postObj={postCheckout}
-                              toggleFullPost={toggleDisplayFullPost}
-                              isVideo={postContentIsVideo}
-                            />
+                            <LoginPage handleLogIn={handleLogin} />
                           </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    </UserContext.Provider>
-                  </PathContext.Provider>
-                </ProfileContext.Provider>
-              </PostContext.Provider>
-            </TokenContext.Provider>
-          </ProgressContext.Provider>
-        ) : (
-          <div>
-            {hasAccount ? (
-              <LoginPage
-                handleDoesNotHaveAccount={handleDoesNotHaveAccount}
-                handleLogIn={handleLogin}
-              />
-            ) : (
-              <CreateAccount handleHasAccount={handleHasAccount} />
-            )}
-          </div>
-        )}
+                        }
+                      />
+                      <Route path='/register' element={<CreateAccount />} />
+                      <Route
+                        path='/'
+                        element={
+                          <div>
+                            {loggedIn ? (
+                              <div className='App'>
+                                <Sidebar
+                                  newPostModal={newPostModal}
+                                  openUserPageModal={handleUserProfileCheckout}
+                                  goToHomePage={goToHomePage}
+                                  refreshLoggedInUserData={
+                                    refreshLoggedInUserData
+                                  }
+                                />
+                                {isUserPage ? (
+                                  isEditProfile ? (
+                                    <EditProfile
+                                      refreshLoggedInUserData={
+                                        refreshLoggedInUserData
+                                      }
+                                      handleLogOut={handleLogOut}
+                                    />
+                                  ) : (
+                                    <UserPageLayout
+                                      openEditUser={handleOpenEditProfile}
+                                      user={userProfile}
+                                    />
+                                  )
+                                ) : (
+                                  <>
+                                    <Posts
+                                      refresh={isRefresh}
+                                      refreshFn={refreshContent}
+                                      refreshLoggedInUserData={
+                                        refreshLoggedInUserData
+                                      }
+                                    />
+                                    <Suggested handleLogOut={handleLogOut} />
+                                  </>
+                                )}
+                                {isNewPostModal ? (
+                                  <NewPost
+                                    newPostModal={newPostModal}
+                                    refresh={setIsRefresh}
+                                  />
+                                ) : (
+                                  <></>
+                                )}
+                                {displayPost ? (
+                                  <div>
+                                    <FullPost
+                                      postObj={postCheckout}
+                                      toggleFullPost={toggleDisplayFullPost}
+                                      isVideo={postContentIsVideo}
+                                    />
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
+                              </div>
+                            ) : (
+                              <Navigate to={'/login'} replace />
+                            )}
+                          </div>
+                        }
+                      />
+                    </Routes>
+                  </UserContext.Provider>
+                </PathContext.Provider>
+              </ProfileContext.Provider>
+            </PostContext.Provider>
+          </TokenContext.Provider>
+        </ProgressContext.Provider>
       </ApiContext.Provider>
       <ReactQueryDevtools />
-    </div>
+    </>
   );
 }
 
