@@ -49,6 +49,9 @@ function App() {
   const productionPath = import.meta.env.VITE_BASE_PATH;
 
   const navigate = useNavigate();
+  useEffect(() => {
+    loggedIn && navigate('/', { replace: true });
+  }, [loggedIn]);
 
   async function fetchLoggedInUserData(userId, freshToken) {
     const res = await fetch(`${localURL}/api/users/${userId}`, {
@@ -78,13 +81,13 @@ function App() {
       },
       body: userData,
     });
+    setProgress(70);
 
     if (res.status === 200) {
-      setProgress(100);
       const data = await res.json();
+      setProgress(100);
       setToken(data.token);
       fetchLoggedInUserData(data.user, data.token);
-      navigate('/', { replace: true });
     } else {
       setProgress(100);
       console.log(res.status);
@@ -129,6 +132,7 @@ function App() {
     setUserProfile(data.user);
     setProgress(70);
     addSearchToRecents(userId);
+    navigate(`user/${userId}`);
     openUserPageModal();
     setProgress(100);
   };
@@ -201,6 +205,7 @@ function App() {
                         }
                       />
                       <Route path='/register' element={<CreateAccount />} />
+
                       <Route
                         path='/'
                         element={
@@ -266,7 +271,50 @@ function App() {
                             )}
                           </div>
                         }
-                      />
+                      >
+                        <Route
+                          path='home'
+                          element={
+                            <>
+                              <Posts
+                                refresh={isRefresh}
+                                refreshFn={refreshContent}
+                                refreshLoggedInUserData={
+                                  refreshLoggedInUserData
+                                }
+                              />
+                              <Suggested handleLogOut={handleLogOut} />
+                            </>
+                          }
+                        />
+                        <Route
+                          path='create'
+                          element={
+                            <NewPost
+                              newPostModal={newPostModal}
+                              refresh={setIsRefresh}
+                            />
+                          }
+                        />
+                        <Route
+                          path='user/:id'
+                          element={
+                            <UserPageLayout
+                              openEditUser={handleOpenEditProfile}
+                              user={userProfile}
+                            />
+                          }
+                        />
+                        <Route
+                          path='user/:id/edit'
+                          element={
+                            <EditProfile
+                              refreshLoggedInUserData={refreshLoggedInUserData}
+                              handleLogOut={handleLogOut}
+                            />
+                          }
+                        />
+                      </Route>
                     </Routes>
                   </UserContext.Provider>
                 </PathContext.Provider>
