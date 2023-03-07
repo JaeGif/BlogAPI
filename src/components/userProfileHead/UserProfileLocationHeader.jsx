@@ -8,7 +8,6 @@ function UserProfileLocationHeader({ userData, location }) {
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
   const handleUserProfileCheckout = useContext(ProfileContext);
-  console.log(userData);
   useEffect(() => {
     if (location === '') {
       setIsLocation(false);

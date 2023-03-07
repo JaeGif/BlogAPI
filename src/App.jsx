@@ -274,44 +274,11 @@ function App() {
                         }
                       >
                         <Route
-                          path='home'
-                          element={
-                            <>
-                              <Posts
-                                refresh={isRefresh}
-                                refreshFn={refreshContent}
-                                refreshLoggedInUserData={
-                                  refreshLoggedInUserData
-                                }
-                              />
-                              <Suggested handleLogOut={handleLogOut} />
-                            </>
-                          }
-                        />
-                        <Route
-                          path='create'
-                          element={
-                            <NewPost
-                              newPostModal={newPostModal}
-                              refresh={setIsRefresh}
-                            />
-                          }
-                        />
-                        <Route
                           path=':id'
                           element={
                             <UserPageLayout
                               openEditUser={handleOpenEditProfile}
                               user={userProfile}
-                            />
-                          }
-                        />
-                        <Route
-                          path=':id/edit'
-                          element={
-                            <EditProfile
-                              refreshLoggedInUserData={refreshLoggedInUserData}
-                              handleLogOut={handleLogOut}
                             />
                           }
                         />

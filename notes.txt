@@ -1,18 +1,15 @@
 ToDo's:
 
-New Features: 
-- Check Loading components, remove unnecessary ones, potential replace with grey loading skeleton
-- Clicking out of search or notifications closes the bar. 
-- Upper Loading bar for full page changes.
-- Reply to comments directly starting a thread.
-- Notifications loading bar revamp
-- Comment options
-- use Cron Jobs to suggest users rather than an immediate fetch and calculate.
+Suggested New Features: 
+- Reply to comments directly starting a thread. --> mildly difficult
+- Notifications loading bar revamp --> easy task
+- Comment options --> relatively easy with current project
+- use Cron Jobs to suggest users rather than an immediate fetch and calculate. (Need to learn cron jobs)
+- Infinite Scroll using intersection obs and infinite query tanstack --> Seems relatively easy with current project
+
 
 Essential Additions: 
 - Mobile Version
-- React Router
-- Options component full post checkout using routing
 - Form validation
 - Adjustments
 
@@ -33,10 +30,5 @@ Fully Finished Features:
 - Notifications
 - Full Post View
 - User options including Change Password, Update Information, Delete user
+- Filters
 
-
-Routing:
-/ -> Home with Sidebar, posts, and Suggested
-/login
-/create
-/username
