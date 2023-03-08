@@ -40,22 +40,11 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
     setLimitCounter(limitCounter + 1);
   };
 
-  const {
-    status,
-    data,
-    error,
-    isFetching,
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-    fetchNextPage,
-    fetchPreviousPage,
-    hasNextPage,
-    hasPreviousPage,
-  } = useInfiniteQuery(
+  const postsQuery = useInfiniteQuery(
     ['posts', { u: loggedInUser._id }],
     async ({ pageParam = 0 }) => {
       const res = await fetch(
-        `${apiURL}/api/posts?u=${loggedInUser._id}&page=${pageParam}`,
+        `${apiURL}/api/posts?u=${loggedInUser._id}&cursor=${pageParam}`,
         {
           mode: 'cors',
           headers: {
@@ -66,27 +55,31 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
       const data = await res.json();
       return data;
     },
-    { getNextPageParam: (lastPage, pages) => lastPage.nextCursor ?? undefined }
+    {
+      getNextPageParam: (lastPage, pages) => lastPage.nextCursor ?? undefined,
+      getPreviousPageParam: (firstPage, pages) =>
+        firstPage.previousCursor ?? undefined,
+    }
   );
 
   useEffect(() => {
     if (inView) {
       console.log('in view');
-      fetchNextPage();
+      postsQuery.fetchNextPage();
     }
     console.log('checking');
   }, [inView]);
 
   return (
     <>
-      {isFetching && (
+      {/*       {postsQuery.isFetching && (
         <div className={style.infiniteCheckLoad}>
           <LoadingIcon />
         </div>
-      )}
-      {data.pages[0].posts.length ? (
+      )} */}
+      {postsQuery.data ? (
         <div className={style.postsMargin}>
-          {data.pages.map((page) => (
+          {postsQuery.data.pages.map((page) => (
             <>
               {page.posts.map((post) => (
                 <>
