@@ -2,5 +2,43 @@
 
 This page is a Front-End for an instagram clone calling a RESTful API also made by myself.
 
+The purpose of this site is to practice my skills, learning about RESTful API's and JWT's in particular, as well as pick up a few new technologies along the way.
+
 API src can be found here : -------------
 Live: ------------
+
+## Current Features
+
+Totally Not Instagram showcases many of the same features that Instagram itself uses. While Stories and Discover are nowhere to be found you may be pleasantly surprised to see that the core functionalities are there.
+
+Fully Implemented Feautures:
+
+- mp4, mp3, png, jpg, jpeg, and gif file support.
+- Content carousels.
+- User pages, including editable user information and stats for each user.
+- A Follow system
+- Users are only shown posts by people that they follow and themselves.
+- Instagram filters
+- Suggested users (mildly smart suggestions)
+- User Auth handled by passport.js
+- RESTful API, fully secured using JWT's
+- Notifications
+- Likes (Including the infamous double tap to like)
+- Commenting
+- New posts (up to 10 pieces of content per post)
+- Post options, the ability to remove individual pieces of content from a post and edit other selections.
+- Infinite Scroll (provided there is are more posts to see)
+- Responsive
+
+Technologies used for this project:
+
+- React
+- Express
+- React Query (Tanstack)
+- React Intersection Observer
+- Mongoose (Mongo DB ORM)
+- Passport.js
+- Multer & Sharp
+
+Filters courtesy of ...
+Instagram.css v0.1.4 | MIT License | github.com/picturepan2/instagram.css

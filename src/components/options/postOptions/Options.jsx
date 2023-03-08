@@ -20,7 +20,6 @@ function Options({ post, handleCloseOptions }) {
   const [defaultModal, setDefaultModal] = useState(true);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [fullPost, setFullPost] = useState(false);
 
   useEffect(() => {
     if (loggedInUser._id === post.user) {
@@ -75,7 +74,6 @@ function Options({ post, handleCloseOptions }) {
     removeFollowingFromCurrentUser();
   };
   const openDeleteModal = () => {
-    console.log('open delete');
     setDeleteModal(true);
     setDefaultModal(false);
   };
@@ -91,8 +89,6 @@ function Options({ post, handleCloseOptions }) {
     setEditModal(false);
     setDefaultModal(true);
   };
-
-  console.log(defaultModal, deleteModal, editModal);
 
   return (
     <>
@@ -128,9 +124,6 @@ function Options({ post, handleCloseOptions }) {
               </div>
             </>
           )}
-          <div className={`${style.center} ${style.bottomBorder}`}>
-            Full Post LINK
-          </div>
 
           <div
             onClick={(e) => {
