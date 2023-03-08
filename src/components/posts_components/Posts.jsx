@@ -17,34 +17,15 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
-  const [limitCounter, setLimitCounter] = useState(0);
   const { ref, inView } = useInView();
 
-  async function fetchPosts() {
-    const res = await fetch(`${apiURL}/api/posts?u=${loggedInUser._id}`, {
-      mode: 'cors',
-      headers: {
-        Authorization: 'Bearer' + ' ' + token,
-      },
-    });
-    const data = await res.json();
-    return data;
-  }
-
-  /*   const postsForUserQuery = useQuery({
-    queryKey: ['posts', { u: loggedInUser._id }],
-    queryFn: fetchPosts,
-  }); */
-
-  const getMorePosts = () => {
-    setLimitCounter(limitCounter + 1);
-  };
+  const returnLimit = 5;
 
   const postsQuery = useInfiniteQuery(
     ['posts', { u: loggedInUser._id }],
     async ({ pageParam = 0 }) => {
       const res = await fetch(
-        `${apiURL}/api/posts?u=${loggedInUser._id}&cursor=${pageParam}`,
+        `${apiURL}/api/posts?u=${loggedInUser._id}&cursor=${pageParam}&returnLimit=${returnLimit}`,
         {
           mode: 'cors',
           headers: {
@@ -64,10 +45,9 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
 
   useEffect(() => {
     if (inView) {
-      console.log('in view');
       postsQuery.fetchNextPage();
     }
-    console.log('checking');
+    console.log(postsQuery);
   }, [inView]);
 
   return (
@@ -92,6 +72,7 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
               ))}
             </>
           ))}
+          <br />
           <div ref={ref} className={style.infiniteLoadMarker} />
         </div>
       ) : (
