@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import style from './imageslider.module.css';
 import Content from './Content';
 import uniqid from 'uniqid';
+import { MediaContext } from '../../App';
 
 function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   const [imageIndex, setImageIndex] = useState(0);
@@ -9,7 +10,7 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   const [leftHidden, setLeftHidden] = useState(true);
   const [rightHidden, setRightHidden] = useState(false);
   const [hideBubbles, setHideBubbles] = useState(false);
-
+  const { height, width } = useContext(MediaContext);
   const ref = useRef([]);
 
   const pushRef = (el) => ref.current.push(el);
@@ -65,7 +66,12 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   };
   const calculateLeftShift = () => {
     // 35vw is the standard width, this will need to change for screen size.
-    let value = imageIndex * -1 * 35;
+    let value;
+    if (width < 1000) {
+      value = imageIndex * -1 * 60;
+    } else if (width >= 1000) {
+      value = imageIndex * -1 * 35;
+    }
     setLeftShift(`${value}vw`);
   };
   const handleBubbleIndicators = () => {

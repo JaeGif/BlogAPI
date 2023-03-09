@@ -1,7 +1,7 @@
 .profileContainer {
   display: flex;
   align-items: center;
-  width: 75%;
+  max-width: 75%;
   justify-content: space-between;
   margin: 25px;
 }
@@ -53,11 +53,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  max-width: 90%;
 }
 .suggestedUserAvatarContainer {
   height: 40px;
   width: 40px;
+
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -72,7 +73,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  min-width: fit-content;
   max-width: 100%;
   margin: 0;
   padding: 0;
@@ -80,14 +80,14 @@
 .individualContainer {
   display: flex;
   align-items: center;
-  width: 75%;
+  max-width: 75%;
   justify-content: center;
   cursor: pointer;
 }
 .suggestedUsersContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   justify-content: center;
   margin-left: 20px;
 }
@@ -102,3 +102,19 @@
   font-size: 0.8rem;
   overflow: scroll;
 }
+
+/* @media only screen and (max-width: 1000px) {
+  .messageContainer {
+    display: none;
+  }
+  .individualContainer {
+    max-width: 60%;
+  }
+  .profileContainer {
+    max-width: 60%;
+  }
+  .individualSuggestion {
+    max-width: 75%;
+  }
+}
+ */

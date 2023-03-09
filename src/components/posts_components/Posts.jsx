@@ -47,7 +47,6 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
     if (inView) {
       postsQuery.fetchNextPage();
     }
-    console.log(postsQuery);
   }, [inView]);
 
   return (

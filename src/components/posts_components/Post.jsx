@@ -233,8 +233,8 @@ function Post({ postObj, refreshLoggedInUserData }) {
             />
             <PostOptionsEllipse post={postObj} />
           </span>
-          <div onClick={detectDoubleClick}>
-            <ImageSlider key={uniqid()} images={images} />
+          <div className={style.sliderContainer} onClick={detectDoubleClick}>
+            <ImageSlider images={images} />
           </div>
           <div className={style.postInfoContainer}>
             <span className={style.iconsContainer}>

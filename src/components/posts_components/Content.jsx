@@ -47,7 +47,10 @@ const Content = memo(function Content({ imageId, removeEls }) {
     <div className={`${style.imgContainers} `}>
       {isVideo ? (
         <video
-          preload='none'
+          preload='auto'
+          autobuffer='false'
+          controlsList='nodownload'
+          autopictureinpicture='true'
           className={
             greyScreen
               ? `${style.grey} ${style.postImages} ${contentQuery.data.img.filter}`

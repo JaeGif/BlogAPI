@@ -32,3 +32,8 @@ Fully Finished Features:
 - User options including Change Password, Update Information, Delete user
 - Filters
 
+
+
+
+Responsive Views:
+- Login/create account

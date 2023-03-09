@@ -29,3 +29,9 @@ body {
   grid-template-columns: 1fr 2.5fr 2fr;
   grid-template-rows: 1fr;
 }
+
+@media only screen and (max-width: 1000px) {
+  .App {
+    grid-template-columns: 200px 7fr;
+  }
+}
