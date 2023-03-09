@@ -52,11 +52,6 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
 
   return (
     <>
-      {/*       {postsQuery.isFetching && (
-        <div className={style.infiniteCheckLoad}>
-          <LoadingIcon />
-        </div>
-      )} */}
       {postsQuery.data ? (
         <div className={style.postsMargin}>
           {postsQuery.data.pages.map((page) => (
@@ -72,6 +67,7 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
               ))}
             </>
           ))}
+          <br />
           <br />
           <div ref={ref} className={style.infiniteLoadMarker} />
         </div>

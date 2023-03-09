@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, memo } from 'react';
 import { ApiContext, TokenContext, UserContext } from '../../App';
 import style from './post.module.css';
-function Content({ imageId, removeEls }) {
+
+const Content = memo(function Content({ imageId, removeEls }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
@@ -15,16 +16,22 @@ function Content({ imageId, removeEls }) {
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
-    if (data.contentType === 'video/mp4') {
-      setIsVideo(true);
-    }
+
     return data.image;
   };
-
   const contentQuery = useQuery({
     queryKey: ['posts', imageId],
     queryFn: fetchContent,
   });
+
+  useEffect(() => {
+    if (contentQuery.isSuccess) {
+      if (contentQuery.data.img.contentType === 'video/mp4') {
+        setIsVideo(true);
+      }
+    }
+  }, [contentQuery.isFetched]);
+
   useEffect(() => {
     if (removeEls) {
       for (let i = 0; i < removeEls.length; i++) {
@@ -69,6 +76,6 @@ function Content({ imageId, removeEls }) {
   ) : (
     <>Loading</>
   );
-}
+});
 
 export default Content;

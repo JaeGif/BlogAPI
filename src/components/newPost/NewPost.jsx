@@ -21,7 +21,6 @@ function NewPost({ newPostModal, refresh }) {
 
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
-  const [filter, setFilter] = useState('filter-none');
   const [alt, setAlt] = useState(null);
   const [isVideoPreview, setIsVideoPreview] = useState(false);
   const [tagged, setTagged] = useState([]);
@@ -43,7 +42,6 @@ function NewPost({ newPostModal, refresh }) {
   };
 
   useEffect(() => {
-    console.log('images rerendered');
     let tempArray = [];
     for (let i = 0; i < imageFiles.length; i++) {
       tempArray.push({ filter: 'filter-none', index: i });
