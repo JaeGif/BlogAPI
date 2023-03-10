@@ -3,7 +3,7 @@
   border: solid 1px var(--greyHighlight);
   border-radius: 8px;
   flex-direction: column;
-  margin: 25px;
+  margin: 2vw;
 }
 
 .userDateHead {
@@ -83,16 +83,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 1px red;
 }
 @media only screen and (max-width: 1000px) {
   .carouselWrapper {
     width: 60vw;
-    border: solid blue 1px;
   }
   .postImages {
     width: 60vw;
   }
 }
 @media only screen and (max-width: 750px) {
+  .postImages {
+    width: 90vw;
+  }
 }

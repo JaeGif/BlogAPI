@@ -35,3 +35,10 @@ body {
     grid-template-columns: 200px 7fr;
   }
 }
+@media only screen and (max-width: 750px) {
+  .App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -28,7 +28,6 @@ const ProfileContext = React.createContext(null);
 const PostContext = React.createContext(null);
 const TokenContext = React.createContext(null);
 const ProgressContext = React.createContext(null);
-const MediaContext = React.createContext(null);
 
 function App() {
   const [isNewPostModal, setIsNewPostModal] = useState(false);
@@ -51,31 +50,20 @@ function App() {
   const localPath = import.meta.env.VITE_LOCAL_PATH;
   const productionPath = import.meta.env.VITE_BASE_PATH;
 
-  let mediaQuery = {
-    height: window.innerHeight,
-    width: window.innerWidth,
-  };
-
   useEffect(() => {
     const width = window.innerWidth;
-    console.log(width);
     if (width >= 1000) {
-      console.log('pass');
       setMedia1000(true);
-    } else if (width < 1000 && width > 750) {
-      console.log('pass 2');
-
+    }
+    if (width < 1000) {
       setMedia1000(false);
-    } else if (width <= 750) {
-      console.log('pass 3');
-
+    }
+    if (width <= 750) {
       setMediaMobile(true);
     } else {
       setMedia1000(true);
       setMediaMobile(false);
     }
-
-    console.log(mediaQuery, mediaMobile);
   });
 
   const navigate = useNavigate();
@@ -220,121 +208,125 @@ function App() {
           <TokenContext.Provider value={token}>
             <PostContext.Provider value={handlePostCheckout}>
               <ProfileContext.Provider value={handleUserProfileCheckout}>
-                <MediaContext.Provider value={mediaQuery}>
-                  <PathContext.Provider value={localPath}>
-                    <UserContext.Provider value={loggedInUser}>
-                      <LoadingBar
-                        color='#dc140a'
-                        progress={progress}
-                        onLoaderFinished={() => setProgress(0)}
+                <PathContext.Provider value={localPath}>
+                  <UserContext.Provider value={loggedInUser}>
+                    <LoadingBar
+                      color='#dc140a'
+                      progress={progress}
+                      onLoaderFinished={() => setProgress(0)}
+                    />
+                    <Routes>
+                      <Route
+                        path='/login'
+                        element={
+                          <div>
+                            <LoginPage handleLogIn={handleLogin} />
+                          </div>
+                        }
                       />
-                      <Routes>
-                        <Route
-                          path='/login'
-                          element={
-                            <div>
-                              <LoginPage handleLogIn={handleLogin} />
-                            </div>
-                          }
-                        />
-                        <Route path='/register' element={<CreateAccount />} />
+                      <Route path='/register' element={<CreateAccount />} />
 
-                        <Route
-                          path='/'
-                          element={
-                            <div>
-                              {loggedIn ? (
-                                <div className='App'>
-                                  {mediaMobile ? (
-                                    <MobileBar />
-                                  ) : (
-                                    <Sidebar
-                                      newPostModal={newPostModal}
-                                      openUserPageModal={
-                                        handleUserProfileCheckout
+                      <Route
+                        path='/'
+                        element={
+                          <div>
+                            {loggedIn ? (
+                              <div className='App'>
+                                {mediaMobile ? (
+                                  <MobileBar
+                                    newPostModal={newPostModal}
+                                    openUserPageModal={
+                                      handleUserProfileCheckout
+                                    }
+                                    goToHomePage={goToHomePage}
+                                    refreshLoggedInUserData={
+                                      refreshLoggedInUserData
+                                    }
+                                  />
+                                ) : (
+                                  <Sidebar
+                                    newPostModal={newPostModal}
+                                    openUserPageModal={
+                                      handleUserProfileCheckout
+                                    }
+                                    goToHomePage={goToHomePage}
+                                    refreshLoggedInUserData={
+                                      refreshLoggedInUserData
+                                    }
+                                  />
+                                )}
+                                {isUserPage ? (
+                                  isEditProfile ? (
+                                    <EditProfile
+                                      refreshLoggedInUserData={
+                                        refreshLoggedInUserData
                                       }
-                                      goToHomePage={goToHomePage}
+                                      handleLogOut={handleLogOut}
+                                    />
+                                  ) : (
+                                    <UserPageLayout
+                                      openEditUser={handleOpenEditProfile}
+                                      user={userProfile}
+                                    />
+                                  )
+                                ) : (
+                                  <>
+                                    <Posts
+                                      refresh={isRefresh}
+                                      refreshFn={refreshContent}
                                       refreshLoggedInUserData={
                                         refreshLoggedInUserData
                                       }
                                     />
-                                  )}
-                                  {isUserPage ? (
-                                    isEditProfile ? (
-                                      <EditProfile
-                                        refreshLoggedInUserData={
-                                          refreshLoggedInUserData
-                                        }
-                                        handleLogOut={handleLogOut}
-                                      />
-                                    ) : (
-                                      <UserPageLayout
-                                        openEditUser={handleOpenEditProfile}
-                                        user={userProfile}
-                                      />
-                                    )
-                                  ) : (
-                                    <>
-                                      <Posts
-                                        refresh={isRefresh}
-                                        refreshFn={refreshContent}
-                                        refreshLoggedInUserData={
-                                          refreshLoggedInUserData
-                                        }
-                                      />
-                                      {media1000 && (
-                                        <Suggested
-                                          handleLogOut={handleLogOut}
-                                        />
-                                      )}
-                                    </>
-                                  )}
-                                  {isNewPostModal ? (
-                                    <NewPost
-                                      newPostModal={newPostModal}
-                                      refresh={setIsRefresh}
+                                    {media1000 && (
+                                      <Suggested handleLogOut={handleLogOut} />
+                                    )}
+                                  </>
+                                )}
+                                {isNewPostModal ? (
+                                  <NewPost
+                                    newPostModal={newPostModal}
+                                    refresh={setIsRefresh}
+                                  />
+                                ) : (
+                                  <></>
+                                )}
+                                {displayPost ? (
+                                  <div>
+                                    <FullPost
+                                      postObj={postCheckout}
+                                      toggleFullPost={toggleDisplayFullPost}
+                                      isVideo={postContentIsVideo}
                                     />
-                                  ) : (
-                                    <></>
-                                  )}
-                                  {displayPost ? (
-                                    <div>
-                                      <FullPost
-                                        postObj={postCheckout}
-                                        toggleFullPost={toggleDisplayFullPost}
-                                        isVideo={postContentIsVideo}
-                                      />
-                                    </div>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </div>
-                              ) : (
-                                <Navigate to={'/login'} replace />
-                              )}
-                            </div>
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
+                              </div>
+                            ) : (
+                              <Navigate to={'/login'} replace />
+                            )}
+                          </div>
+                        }
+                      >
+                        <Route
+                          path=':id'
+                          element={
+                            <UserPageLayout
+                              openEditUser={handleOpenEditProfile}
+                              user={userProfile}
+                            />
                           }
-                        >
-                          <Route
-                            path=':id'
-                            element={
-                              <UserPageLayout
-                                openEditUser={handleOpenEditProfile}
-                                user={userProfile}
-                              />
-                            }
-                          />
-                        </Route>
-                      </Routes>
-                    </UserContext.Provider>
-                  </PathContext.Provider>
-                </MediaContext.Provider>
+                        />
+                      </Route>
+                    </Routes>
+                  </UserContext.Provider>
+                </PathContext.Provider>
               </ProfileContext.Provider>
             </PostContext.Provider>
           </TokenContext.Provider>
         </ProgressContext.Provider>
       </ApiContext.Provider>
-      <ReactQueryDevtools />
     </>
   );
 }
@@ -348,5 +340,4 @@ export {
   PostContext,
   TokenContext,
   ProgressContext,
-  MediaContext,
 };

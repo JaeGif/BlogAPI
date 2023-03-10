@@ -28,7 +28,7 @@ Fully Implemented Feautures:
 - New posts (up to 10 pieces of content per post)
 - Post options, the ability to remove individual pieces of content from a post and edit other selections.
 - Infinite Scroll (provided there is are more posts to see)
-- Responsive
+- Responsive\*
 
 Technologies used for this project:
 
@@ -42,3 +42,5 @@ Technologies used for this project:
 
 Filters courtesy of ...
 Instagram.css v0.1.4 | MIT License | github.com/picturepan2/instagram.css
+
+- Everything is responsive up to a large laptop size. Because some JS and JSX features require the inner window dimensions to be fully responsive, you may have to refresh the page at the size you are evaluating if you are using dev tools to gauge responsiveness. I decided this is an appropriate tradeoff as nearly all normal users would interact with the site in a set window and not expand or shrink the window.

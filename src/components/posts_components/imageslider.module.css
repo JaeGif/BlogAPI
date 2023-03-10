@@ -72,6 +72,10 @@
 @media only screen and (max-width: 1000px) {
   .carouselWrapper {
     width: 60vw;
-    border: solid blue 1px;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .carouselWrapper {
+    width: 90vw;
   }
 }

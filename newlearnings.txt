@@ -1,0 +1,2 @@
+React Query 
+- refetches data when anything passed into queryKey is changed similar to useEffect dependency arrays.

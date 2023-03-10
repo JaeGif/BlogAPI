@@ -16,3 +16,8 @@
   width: 100vw;
   z-index: 100;
 }
+@media only screen and (max-width: 750px) {
+  .postsMargin {
+    padding-left: 0;
+  }
+}

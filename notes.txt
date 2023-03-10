@@ -5,8 +5,6 @@ Suggested New Features:
 - Notifications loading bar revamp --> easy task
 - Comment options --> relatively easy with current project
 - use Cron Jobs to suggest users rather than an immediate fetch and calculate. (Need to learn cron jobs)
-- Infinite Scroll using intersection obs and infinite query tanstack --> Seems relatively easy with current project
-
 
 Essential Additions: 
 - Mobile Version
@@ -37,3 +35,4 @@ Fully Finished Features:
 
 Responsive Views:
 - Login/create account
+- 
