@@ -1,6 +1,10 @@
 :root {
   --mobileBarIconsD: 40px;
 }
+@font-face {
+  font-family: 'Dancing';
+  src: url('./assets/fonts/dancingScript.ttf');
+}
 .mobileBarContainer {
   position: fixed;
   bottom: 0;
@@ -24,6 +28,12 @@
 .githubIcon {
   height: var(--mobileBarIconsD);
 }
+.icons:hover,
+.newPostIcon:hover,
+.userPageIcon:hover,
+.githubIcon:hover {
+  cursor: pointer;
+}
 .userPageIconWrapper {
   height: var(--mobileBarIconsD);
   width: var(--mobileBarIconsD);
@@ -39,4 +49,33 @@
   justify-content: center;
   align-items: center;
   margin-top: -5px;
+}
+
+.upperMobileBarContainer {
+  background-color: rgb(24, 24, 24);
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  color: white;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  justify-content: space-between;
+}
+.upperMobileBarContainer > p {
+  padding: 10px;
+  margin: 0;
+}
+.iconsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  padding-right: 10px;
+}
+.stylizeLogo {
+  font-size: 2rem;
+  font-family: 'Dancing', Cambria, Cochin, Georgia, Times, 'Times New Roman',
+    serif;
 }

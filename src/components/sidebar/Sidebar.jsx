@@ -113,21 +113,19 @@ function Sidebar({
             )}
           </div>
           <div>
-            <a href='#'>
-              <span
-                onClick={() => {
-                  goToHomePage();
-                }}
-                className={style.optionSpan}
-              >
-                <img
-                  className={style.optionsIcons}
-                  src={`${basePath}/assets/favicons/home.svg`}
-                  alt='home'
-                />
-                {isMinified ? <></> : <h2>Home</h2>}
-              </span>
-            </a>
+            <span
+              onClick={() => {
+                goToHomePage();
+              }}
+              className={style.optionSpan}
+            >
+              <img
+                className={style.optionsIcons}
+                src={`${basePath}/assets/favicons/home.svg`}
+                alt='home'
+              />
+              {isMinified ? <></> : <h2>Home</h2>}
+            </span>
           </div>
           <div>
             <span
