@@ -71,7 +71,7 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
     } else if (width >= 1000) {
       value = imageIndex * -1 * 35;
     } else if (width < 750) {
-      value = imageIndex * -1 * 90;
+      value = imageIndex * -1 * 100;
     }
     setLeftShift(`${value}vw`);
   };

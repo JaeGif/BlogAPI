@@ -7,4 +7,10 @@
   width: 100%;
   margin: 0;
   padding: 0;
+  border: solid 1px red;
+}
+@media only screen and (max-width: 750px) {
+  .layoutContainer {
+    width: 100vw;
+  }
 }

@@ -12,6 +12,25 @@ function UserPublicHeader({ userData, openEditUser }) {
   const [followerCount, setFollowerCount] = useState(userData.followers.length);
   const [followsCount, setFollowsCount] = useState(userData.following.length);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const width = window.innerWidth;
+
+  useEffect(() => {
+    if (width <= 750) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, []);
+
+  const followerCountUI = () => {
+    switch (followerCount) {
+      case 1:
+        return 'follower';
+      default:
+        return 'followers';
+    }
+  };
 
   useEffect(() => {
     if (userData._id === loggedInUser._id) {
@@ -144,55 +163,31 @@ function UserPublicHeader({ userData, openEditUser }) {
   };
 
   return (
-    <div className={style.profileAvatarContainer}>
-      <div className={style.profileAvatarWrapper}>
-        <img className={style.avatarImg} src={`${apiURL}/${userData.avatar}`} />
-      </div>
-      <div className={style.optionsColumn}>
-        <div className={style.optionsWrapper}>
-          <p className={style.userName}>{userData.username}</p>
-          {isCurrentUser ? (
-            <div>
-              <button
-                onClick={() => {
-                  openEditUser();
-                }}
-                className={style.editButton}
-              >
-                Edit Profile
-              </button>
+    <>
+      {isMobile ? (
+        <div className={style.mobileContainer}>
+          <div className={style.avatarStatsStruct}>
+            <div className={style.profileAvatarWrapper}>
+              <img
+                className={style.avatarImg}
+                src={`${apiURL}/${userData.avatar}`}
+              />
             </div>
-          ) : (
-            <div>
-              <button
-                onClick={
-                  isFollowing ? () => handleUnFollow() : () => handleFollow()
-                }
-                className={
-                  isFollowing
-                    ? `${style.unFollowButton} ${style.followButton}`
-                    : `${style.followButton}`
-                }
-              >
-                {isFollowing ? 'Following' : 'Follow'}
-              </button>
+            <div className={style.userStatsContainer}>
+              <p>
+                <em className={style.stats}>
+                  {userAllPostsQuery.data ? userAllPostsQuery.data.length : 0}
+                </em>{' '}
+                posts
+              </p>
+              <p>
+                <em className={style.stats}>{followerCount}</em>{' '}
+                {followerCountUI()}
+              </p>
+              <p>
+                <em className={style.stats}>{followsCount}</em> following
+              </p>
             </div>
-          )}
-        </div>
-        <div className={style.userInfoContainer}>
-          <div className={style.userStatsContainer}>
-            <p>
-              <em className={style.stats}>
-                {userAllPostsQuery.data ? userAllPostsQuery.data.length : 0}
-              </em>{' '}
-              posts
-            </p>
-            <p>
-              <em className={style.stats}>{followerCount}</em> followers
-            </p>
-            <p>
-              <em className={style.stats}>{followsCount}</em> following
-            </p>
           </div>
           <div className={style.userInfo}>
             <p className={style.realName}>
@@ -203,9 +198,111 @@ function UserPublicHeader({ userData, openEditUser }) {
               {userData.website}
             </a>
           </div>
+          <div className={style.btnContainer}>
+            {isCurrentUser ? (
+              <div>
+                <button
+                  onClick={() => {
+                    openEditUser();
+                  }}
+                  className={style.editButton}
+                >
+                  Edit Profile
+                </button>
+              </div>
+            ) : (
+              <div>
+                <button
+                  onClick={
+                    isFollowing ? () => handleUnFollow() : () => handleFollow()
+                  }
+                  className={
+                    isFollowing
+                      ? `${style.unFollowButton} ${style.followButton}`
+                      : `${style.followButton}`
+                  }
+                >
+                  {isFollowing ? 'Following' : 'Follow'}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className={style.profileAvatarContainer}>
+          <div className={style.profileAvatarWrapper}>
+            <img
+              className={style.avatarImg}
+              src={`${apiURL}/${userData.avatar}`}
+            />
+          </div>
+          <div className={style.optionsColumn}>
+            <div className={style.optionsWrapper}>
+              <p className={style.userName}>{userData.username}</p>
+              {isCurrentUser ? (
+                <div>
+                  <button
+                    onClick={() => {
+                      openEditUser();
+                    }}
+                    className={style.editButton}
+                  >
+                    Edit Profile
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <button
+                    onClick={
+                      isFollowing
+                        ? () => handleUnFollow()
+                        : () => handleFollow()
+                    }
+                    className={
+                      isFollowing
+                        ? `${style.unFollowButton} ${style.followButton}`
+                        : `${style.followButton}`
+                    }
+                  >
+                    {isFollowing ? 'Following' : 'Follow'}
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className={style.userInfoContainer}>
+              <div className={style.userStatsContainer}>
+                <p>
+                  <em className={style.stats}>
+                    {userAllPostsQuery.data ? userAllPostsQuery.data.length : 0}
+                  </em>{' '}
+                  posts
+                </p>
+                <p>
+                  <em className={style.stats}>{followerCount}</em>{' '}
+                  {followerCountUI()}
+                </p>
+                <p>
+                  <em className={style.stats}>{followsCount}</em> following
+                </p>
+              </div>
+              <div className={style.userInfo}>
+                <p className={style.realName}>
+                  {userData.firstName} {userData.lastName}
+                </p>
+                <p>{userData.bio}</p>
+                <a
+                  href={`${userData.website}`}
+                  rel='noreferrer'
+                  target='_blank'
+                >
+                  {userData.website}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

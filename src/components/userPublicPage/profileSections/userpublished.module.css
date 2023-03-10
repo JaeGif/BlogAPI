@@ -7,3 +7,8 @@
   grid-column: 2/3;
   width: 100%;
 }
+@media only screen and (max-width: 750px) {
+  .contentLayoutGrid {
+    gap: 1px;
+  }
+}

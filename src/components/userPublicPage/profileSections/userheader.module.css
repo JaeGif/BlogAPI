@@ -84,3 +84,33 @@
 .unFollowButton:hover {
   background-color: var(--grey-2);
 }
+.mobileContainer {
+  width: 100vw;
+  padding: 15px 0 15px 0;
+}
+.avatarStatsStruct {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px 0 15px;
+}
+.btnContainer {
+  padding: 0 15px 0 15px;
+}
+@media only screen and (max-width: 750px) {
+  .profileAvatarWrapper {
+    height: 100px;
+    width: 100px;
+  }
+  .avatarImg {
+    height: 100px;
+  }
+  .userInfo {
+    padding: 5px 15px 0 15px;
+  }
+  .editButton,
+  .followButton {
+    width: 30vw;
+    height: 7.5vw;
+  }
+}
