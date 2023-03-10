@@ -19,5 +19,6 @@
 @media only screen and (max-width: 750px) {
   .postsMargin {
     padding-left: 0;
+    padding-top: 50px;
   }
 }
