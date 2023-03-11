@@ -18,7 +18,6 @@ function UserPublished({ user }) {
         headers: { Authorization: 'Bearer' + ' ' + token },
       }
     );
-    console.log('finding new posts for', `${user.username}`);
     const data = await res.json();
     return data.posts;
   }
@@ -27,7 +26,6 @@ function UserPublished({ user }) {
     queryKey: ['posts', { userid: user._id }],
     queryFn: findPostsUserId,
   });
-  console.log(userPostsQuery);
 
   return userPostsQuery.data ? (
     <div className={style.contentLayoutGrid}>

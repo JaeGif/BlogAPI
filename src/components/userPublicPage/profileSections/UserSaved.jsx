@@ -12,9 +12,6 @@ function UserPublished({ user }) {
   const [hasLength, setHasLength] = useState(false);
 
   useEffect(() => {
-    console.log('pass');
-    console.log(hasLength);
-    console.log(user.savedPosts.length);
     if (user.savedPosts.length > 0) {
       setHasLength(true);
     }

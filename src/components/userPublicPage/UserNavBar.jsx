@@ -24,7 +24,12 @@ function UserNavBar({
       >
         <img
           className={style.icons}
-          src={`${basePath}/assets/favicons/grid.svg`}
+          src={
+            isPosted
+              ? `${basePath}/assets/favicons/grid.svg`
+              : `${basePath}/assets/favicons/grid-grey.svg`
+          }
+          alt='grid icon'
         />
 
         <p>Posts</p>
@@ -39,7 +44,12 @@ function UserNavBar({
       >
         <img
           className={style.icons}
-          src={`${basePath}/assets/favicons/bookmark.svg`}
+          src={
+            isSaved
+              ? `${basePath}/assets/favicons/bookmark.svg`
+              : `${basePath}/assets/favicons/bookmark-grey.svg`
+          }
+          alt='saved icon'
         />
 
         <p>Saved</p>
@@ -54,7 +64,12 @@ function UserNavBar({
       >
         <img
           className={style.icons}
-          src={`${basePath}/assets/favicons/tagged.svg`}
+          src={
+            isTagged
+              ? `${basePath}/assets/favicons/tagged.svg`
+              : `${basePath}/assets/favicons/tagged-grey.svg`
+          }
+          alt='tagged icon'
         />
         <p>Tagged</p>
       </div>

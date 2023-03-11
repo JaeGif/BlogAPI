@@ -13,11 +13,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  background-color: white;
 }
 .selected {
   border-top: solid 1px black;
 }
 .icons {
   height: 17.5px;
+}
+@media only screen and (max-width: 750px) {
+  .optionWrapper {
+    flex: 1;
+    padding: 10px 0 10px 0;
+  }
+  .optionWrapper > p {
+    display: none;
+  }
+  .icons {
+    height: 30px;
+  }
+  .navLayout {
+    gap: 0px;
+  }
+  .selected {
+    background-color: var(--grey-0);
+  }
 }
