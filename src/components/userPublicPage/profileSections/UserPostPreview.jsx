@@ -3,6 +3,7 @@ import style from './userpostpreview.module.css';
 import FullPost from '../../fullPost/FullPost';
 import { ApiContext, PathContext, TokenContext } from '../../../App';
 import { useQuery } from '@tanstack/react-query';
+import Post from '../../posts_components/Post';
 
 function UserPostPreview({ post }) {
   const apiURL = useContext(ApiContext);
@@ -13,7 +14,14 @@ function UserPostPreview({ post }) {
   const [userData, setUserData] = useState();
   const [isReady, setIsReady] = useState(false);
   const [multipleContent, setMultipleContent] = useState(false);
+  const [mediaMobile, setMediaMobile] = useState(false);
+  const width = window.innerWidth;
 
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    }
+  }, []);
   const toggleDisplayFullPost = () => {
     fetchPostUserData();
   };
@@ -60,61 +68,63 @@ function UserPostPreview({ post }) {
 
   return (
     thumbnailQuery.data && (
-      <div>
-        <div
-          onClick={toggleDisplayFullPost}
-          className={style.squarePreviewContainer}
-        >
-          <div className={style.contentTypeIndicatorContainer}>
-            {isVideo ? (
-              <>
-                <span className={style.contentIndicatorWrapper}>
+      <>
+        <div>
+          <div
+            onClick={toggleDisplayFullPost}
+            className={style.squarePreviewContainer}
+          >
+            <div className={style.contentTypeIndicatorContainer}>
+              {isVideo ? (
+                <>
+                  <span className={style.contentIndicatorWrapper}>
+                    <img
+                      className={`${style.contentIndicatorIcon} `}
+                      src={`${basePath}/assets/favicons/movie.svg`}
+                      alt='indicate video'
+                    />
+                  </span>
+                  <video
+                    className={`${style.squarePreviewContent} ${thumbnailQuery.data.filter}`}
+                  >
+                    <source
+                      src={`${apiURL}/${thumbnailQuery.data.url}`}
+                      type='video/mp4'
+                    ></source>
+                  </video>
+                </>
+              ) : (
+                <>
+                  <span className={style.contentIndicatorWrapper}>
+                    <img
+                      className={style.contentIndicatorIcon}
+                      src={
+                        multipleContent
+                          ? `/assets/favicons/multiple-content-white.svg`
+                          : `/assets/favicons/photo.svg`
+                      }
+                      alt='indicate photo'
+                    />
+                  </span>
                   <img
-                    className={`${style.contentIndicatorIcon} `}
-                    src={`${basePath}/assets/favicons/movie.svg`}
-                    alt='indicate video'
-                  />
-                </span>
-                <video
-                  className={`${style.squarePreviewContent} ${thumbnailQuery.data.filter}`}
-                >
-                  <source
+                    className={`${style.squarePreviewContent} ${thumbnailQuery.filter}`}
                     src={`${apiURL}/${thumbnailQuery.data.url}`}
-                    type='video/mp4'
-                  ></source>
-                </video>
-              </>
-            ) : (
-              <>
-                <span className={style.contentIndicatorWrapper}>
-                  <img
-                    className={style.contentIndicatorIcon}
-                    src={
-                      multipleContent
-                        ? `/assets/favicons/multiple-content-white.svg`
-                        : `/assets/favicons/photo.svg`
-                    }
-                    alt='indicate photo'
                   />
-                </span>
-                <img
-                  className={`${style.squarePreviewContent} ${thumbnailQuery.filter}`}
-                  src={`${apiURL}/${thumbnailQuery.data.url}`}
-                />
-              </>
-            )}
+                </>
+              )}
+            </div>
           </div>
+          {displayPost && (
+            <FullPost
+              postObj={post}
+              toggleFullPost={toggleDisplayFullPost}
+              updateParentPost={updateParentPost}
+              isVideo={isVideo}
+              userData={userData}
+            />
+          )}
         </div>
-        {displayPost && (
-          <FullPost
-            postObj={post}
-            toggleFullPost={toggleDisplayFullPost}
-            updateParentPost={updateParentPost}
-            isVideo={isVideo}
-            userData={userData}
-          />
-        )}
-      </div>
+      </>
     )
   );
 }

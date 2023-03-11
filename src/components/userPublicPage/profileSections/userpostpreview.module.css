@@ -26,10 +26,21 @@
   position: absolute;
   top: 0;
 }
+
 .contentIndicatorIcon {
   height: calc((var(--userPreviewContentHeight) * 0.1));
 }
-
+.mobileScreenCover {
+  position: fixed;
+  top: 20px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background-color: white;
+}
 @media only screen and (max-width: 750px) {
   .squarePreviewContainer {
     height: calc(100vw / 3);

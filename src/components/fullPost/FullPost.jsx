@@ -9,6 +9,7 @@ import UserProfile from '../userProfileHead/userProfile';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
 import LoadingIcon from '../utlity_Components/LoadingIcon';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
+import MobileFullPost from './MobileFullPost';
 import {
   ApiContext,
   PathContext,
@@ -46,10 +47,18 @@ function FullPost({
   const basePath = useContext(PathContext);
   const getUserProfile = useContext(ProfileContext);
   const token = useContext(TokenContext);
+  const width = window.innerWidth;
 
   const [revealTags, setRevealTags] = useState(false);
   const [hasLength, setHasLength] = useState(false);
+  const [mediaMobile, setMediaMobile] = useState(false);
+  const [commentView, setCommentView] = useState(false);
 
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    }
+  });
   useEffect(() => {
     if (tagged.length > 0) {
       setHasLength(true);
@@ -104,6 +113,21 @@ function FullPost({
               onClick={(e) => e.stopPropagation()}
             >
               <div className={style.innerContent}>
+                {mediaMobile && (
+                  <span className={style.userHead}>
+                    <img
+                      style={{ cursor: 'pointer' }}
+                      onClick={toggleFullPost}
+                      src='/assets/favicons/previous.svg'
+                      alt='back'
+                    />
+                    <UserProfileLocationHeader
+                      userData={userData}
+                      location={location}
+                    />
+                    <PostOptionsEllipse post={postObj} />
+                  </span>
+                )}
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
@@ -133,22 +157,43 @@ function FullPost({
                 </div>
 
                 <div className={style.postSideWrapper}>
-                  <div>
-                    <span className={style.userHead}>
-                      <UserProfileLocationHeader
-                        userData={userData}
-                        location={location}
-                      />
-                      <PostOptionsEllipse post={postObj} />
-                    </span>
-                    <div className={style.postCommentsContainer}>
-                      <PostDetailsExpanded
-                        postObj={postObj}
-                        userData={userData}
-                      />
-                      <Comments comments={comments} userData={userData} />
+                  {!mediaMobile ? (
+                    <>
+                      <div>
+                        <span className={style.userHead}>
+                          <UserProfileLocationHeader
+                            userData={userData}
+                            location={location}
+                          />
+                          <PostOptionsEllipse post={postObj} />
+                        </span>
+
+                        <div className={style.postCommentsContainer}>
+                          <PostDetailsExpanded
+                            postObj={postObj}
+                            userData={userData}
+                          />
+                          <Comments comments={comments} userData={userData} />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className={style.textContainer}>
+                      <p>
+                        <em className={style.timestamp}>{createdAt}</em>
+                      </p>
+                      {comments.length >= 1 && (
+                        <p
+                          onClick={() => {
+                            setCommentView(true);
+                          }}
+                          className={`${style.timestamp} ${style.cursorPointer}`}
+                        >
+                          View All {comments.length} comments
+                        </p>
+                      )}
                     </div>
-                  </div>
+                  )}
                   <AddCommentInput
                     updateParentPost={updateParentPost}
                     post={_id}
@@ -158,6 +203,14 @@ function FullPost({
             </div>
           </div>
         </div>
+        {commentView && (
+          <MobileFullPost
+            postObj={postObj}
+            toggleFullPost={toggleFullPost}
+            updateParentPost={updateParentPost}
+            userData={userData}
+          />
+        )}
       </div>
     </>
   );

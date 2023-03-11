@@ -128,6 +128,7 @@
   position: fixed;
   background-color: white;
   top: var(--mobileBottomBarHeight);
+  left: 0;
   z-index: 5;
 }
 .mobileHead {
@@ -144,4 +145,25 @@
   position: fixed;
   width: 100vw;
   bottom: var(--mobileBottomBarHeight);
+}
+.timestamp {
+  font-size: 0.9rem;
+  padding-left: 10px;
+  color: var(--grey-5);
+  padding-bottom: 1px;
+}
+.cursorPointer {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 750px) {
+  .innerContent {
+    flex-direction: column;
+    min-width: auto;
+    max-width: none;
+    min-height: 77.5vh;
+  }
+  .imageContainer {
+    max-width: none;
+  }
 }
