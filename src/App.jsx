@@ -201,7 +201,7 @@ function App() {
 
   return (
     <>
-      <ApiContext.Provider value={localURL}>
+      <ApiContext.Provider value={apiURL}>
         <ProgressContext.Provider value={setProgress}>
           <TokenContext.Provider value={token}>
             <PostContext.Provider value={handlePostCheckout}>
