@@ -38,7 +38,6 @@ function Sidebar({
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const notificationsSeen = await res.json();
-    console.log(notificationsSeen);
   };
   const switchOptionsExpansion = () => {
     switch (open) {
@@ -102,7 +101,7 @@ function Sidebar({
             {isMinified ? (
               <img
                 className={`${style.optionsIcons} ${style.instagramIcon}`}
-                src={`${basePath}/assets/favicons/instagram.svg`}
+                src={`/assets/favicons/instagram.svg`}
                 alt='instagram'
               />
             ) : (
@@ -121,7 +120,7 @@ function Sidebar({
             >
               <img
                 className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/home.svg`}
+                src={`/assets/favicons/home.svg`}
                 alt='home'
               />
               {isMinified ? <></> : <h2>Home</h2>}
@@ -137,7 +136,7 @@ function Sidebar({
             >
               <img
                 className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/search.svg`}
+                src={`/assets/favicons/search.svg`}
                 alt='search'
               />
               {isMinified ? <></> : <h2>Search</h2>}
@@ -148,7 +147,7 @@ function Sidebar({
             <span className={style.optionSpan}>
               <img
                 className={style.optionsIcons}
-                src={`${basePath}/assets/favicons/chat.svg`}
+                src={`/assets/favicons/chat.svg`}
                 alt='messages'
               />
               {isMinified ? <></> : <h2>Messages</h2>}
@@ -165,7 +164,7 @@ function Sidebar({
               <div className={style.notificationsContainer}>
                 <img
                   className={style.optionsIcons}
-                  src={`${basePath}/assets/favicons/favorite.svg`}
+                  src={`/assets/favicons/favorite.svg`}
                   alt='notifications'
                 />
                 {newNotification ? (
@@ -181,7 +180,7 @@ function Sidebar({
             <span className={style.optionSpan} onClick={() => newPostModal()}>
               <img
                 className={`${style.newPostIcon}`}
-                src={`${basePath}/assets/favicons/add.svg`}
+                src={`/assets/favicons/add.svg`}
                 alt='New Post'
               />
               {isMinified ? <></> : <h2>Create</h2>}
@@ -211,7 +210,7 @@ function Sidebar({
               <span className={style.optionSpan}>
                 <img
                   className={style.githubIcon}
-                  src={`${basePath}/assets/github.png`}
+                  src={`/assets/github.png`}
                   alt='creators github'
                 />
                 {isMinified ? <></> : <h2>Creator's Github</h2>}

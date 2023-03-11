@@ -30,8 +30,8 @@ function MobileBar({
               className={style.icons}
               src={
                 isNotifications
-                  ? `${basePath}/assets/favicons/favorite-red.svg`
-                  : `${basePath}/assets/favicons/favorite-white.svg`
+                  ? `/assets/favicons/favorite-red.svg`
+                  : `/assets/favicons/favorite-white.svg`
               }
               alt='notifications'
             />
@@ -39,7 +39,7 @@ function MobileBar({
           <div>
             <img
               className={style.icons}
-              src={`${basePath}/assets/favicons/messages-white.svg`}
+              src={`/assets/favicons/messages-white.svg`}
               alt='messages'
             />
           </div>
@@ -57,8 +57,8 @@ function MobileBar({
             className={style.icons}
             src={
               isHome
-                ? `${basePath}/assets/favicons/home-blue.svg`
-                : `${basePath}/assets/favicons/home-white.svg`
+                ? `/assets/favicons/home-blue.svg`
+                : `/assets/favicons/home-white.svg`
             }
             alt='home'
           />
@@ -68,8 +68,8 @@ function MobileBar({
             className={style.icons}
             src={
               isSearch
-                ? `${basePath}/assets/favicons/search-blue.svg`
-                : `${basePath}/assets/favicons/search-white.svg`
+                ? `/assets/favicons/search-blue.svg`
+                : `/assets/favicons/search-white.svg`
             }
             alt='search'
           />
@@ -77,7 +77,7 @@ function MobileBar({
         <div>
           <img
             className={`${style.newPostIcon}`}
-            src={`${basePath}/assets/favicons/add-white.svg`}
+            src={`/assets/favicons/add-white.svg`}
             alt='New Post'
           />
         </div>
@@ -98,7 +98,7 @@ function MobileBar({
           <a href='https://github.com/JaeGif' target='_blank' rel='noreferrer'>
             <img
               className={style.githubIcon}
-              src={`${basePath}/assets/favicons/github-white.svg`}
+              src={`/assets/favicons/github-white.svg`}
               alt='creators github'
             />
           </a>
