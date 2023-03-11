@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query';
 import ImageSlider from './ImageSlider';
 import uniqid from 'uniqid';
 import PostOptionsEllipse from '../options/postOptions/PostOptionsEllipse';
+import MobileFullPost from '../fullPost/MobileFullPost';
 
 function Post({ postObj, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
@@ -31,6 +32,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const [likedBy, setLikedBy] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState();
+  const [mediaMobile, setMediaMobile] = useState(false);
 
   const {
     createdAt,
@@ -45,6 +47,13 @@ function Post({ postObj, refreshLoggedInUserData }) {
     location,
   } = postObj;
   // If a new comment is added, the individual post needs to refresh just comments
+  const width = window.innerWidth;
+
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    }
+  }, []);
 
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
@@ -290,8 +299,16 @@ function Post({ postObj, refreshLoggedInUserData }) {
           </div>
           <AddCommentInput updateParentPost={updateParentPost} post={_id} />
         </div>
-        {displayPost && (
+        {displayPost && !mediaMobile && (
           <FullPost
+            postObj={postObj}
+            toggleFullPost={toggleDisplayFullPost}
+            updateParentPost={updateParentPost}
+            userData={userQuery.data}
+          />
+        )}
+        {displayPost && mediaMobile && (
+          <MobileFullPost
             postObj={postObj}
             toggleFullPost={toggleDisplayFullPost}
             updateParentPost={updateParentPost}

@@ -122,3 +122,26 @@
   width: fit-content;
   position: absolute;
 }
+.fullScreenMobile {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background-color: white;
+  top: var(--mobileBottomBarHeight);
+  z-index: 5;
+}
+.mobileHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--grey-1) solid 1px;
+  padding-right: 10px;
+}
+.mobileHead > img {
+  cursor: pointer;
+}
+.positionAddComment {
+  position: fixed;
+  width: 100vw;
+  bottom: var(--mobileBottomBarHeight);
+}

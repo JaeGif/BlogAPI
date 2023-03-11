@@ -80,81 +80,86 @@ function FullPost({
       };
     }),
   });
+
   return (
-    <div className={style.fullScreenContainer}>
-      <div
-        className={style.modalContainerFullScreenCenter}
-        onClick={() => toggleFullPost()}
-      >
-        <div className={style.paddingWrapper}>
-          <span className={style.closeModalBtnContainer}>
-            <p className={style.closeModalBtn} onClick={() => toggleFullPost()}>
-              &#10005;
-            </p>
-          </span>
-        </div>
-        <div className={style.postModalWrapper}>
-          <div
-            className={style.postModalContainer}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={style.innerContent}>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleRevealTags();
-                }}
-                className={style.imageContainer}
+    <>
+      <div className={style.fullScreenContainer}>
+        <div
+          className={style.modalContainerFullScreenCenter}
+          onClick={() => toggleFullPost()}
+        >
+          <div className={style.paddingWrapper}>
+            <span className={style.closeModalBtnContainer}>
+              <p
+                className={style.closeModalBtn}
+                onClick={() => toggleFullPost()}
               >
-                {revealTags ? (
-                  <div className={style.tagsContainer}>
-                    {hasLength &&
-                      taggedUsersQueries[0].isSuccess &&
-                      taggedUsersQueries.map((tag) => (
-                        <span
-                          key={uniqid()}
-                          className={style.taggedUsersContainer}
-                          onClick={(e) => {
-                            getUserProfile(tag.data);
-                            e.stopPropagation();
-                          }}
-                        >
-                          {tag.data.username}
-                        </span>
-                      ))}
-                  </div>
-                ) : (
-                  <></>
-                )}
-                <ImageSlider key={uniqid()} images={images} />
-              </div>
-              <div className={style.postSideWrapper}>
-                <div>
-                  <span className={style.userHead}>
-                    <UserProfileLocationHeader
-                      userData={userData}
-                      location={location}
-                    />
-                    <PostOptionsEllipse post={postObj} />
-                  </span>
-                  <div className={style.postCommentsContainer}>
-                    <PostDetailsExpanded
-                      postObj={postObj}
-                      userData={userData}
-                    />
-                    <Comments comments={comments} userData={userData} />
-                  </div>
+                &#10005;
+              </p>
+            </span>
+          </div>
+          <div className={style.postModalWrapper}>
+            <div
+              className={style.postModalContainer}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={style.innerContent}>
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleRevealTags();
+                  }}
+                  className={style.imageContainer}
+                >
+                  {revealTags && (
+                    <div className={style.tagsContainer}>
+                      {hasLength &&
+                        taggedUsersQueries[0].isSuccess &&
+                        taggedUsersQueries.map((tag) => (
+                          <span
+                            key={uniqid()}
+                            className={style.taggedUsersContainer}
+                            onClick={(e) => {
+                              getUserProfile(tag.data);
+                              e.stopPropagation();
+                            }}
+                          >
+                            {tag.data.username}
+                          </span>
+                        ))}
+                    </div>
+                  )}
+                  <ImageSlider key={uniqid()} images={images} />
                 </div>
-                <AddCommentInput
-                  updateParentPost={updateParentPost}
-                  post={_id}
-                />
+
+                <div className={style.postSideWrapper}>
+                  <div>
+                    <span className={style.userHead}>
+                      <UserProfileLocationHeader
+                        userData={userData}
+                        location={location}
+                      />
+                      <PostOptionsEllipse post={postObj} />
+                    </span>
+                    <div className={style.postCommentsContainer}>
+                      <PostDetailsExpanded
+                        postObj={postObj}
+                        userData={userData}
+                      />
+                      <Comments comments={comments} userData={userData} />
+                    </div>
+                  </div>
+                  <AddCommentInput
+                    updateParentPost={updateParentPost}
+                    post={_id}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

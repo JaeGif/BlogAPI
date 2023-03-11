@@ -20,6 +20,7 @@ import LoginPage from './components/auth/login/LoginPage';
 import CreateAccount from './components/auth/createAccount/CreateAccount';
 import EditProfile from './components/userPublicPage/EditProfile';
 import LoadingBar from 'react-top-loading-bar';
+import MobileFullPost from './components/fullPost/MobileFullPost';
 
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
@@ -283,24 +284,11 @@ function App() {
                                     )}
                                   </>
                                 )}
-                                {isNewPostModal ? (
+                                {isNewPostModal && (
                                   <NewPost
                                     newPostModal={newPostModal}
                                     refresh={setIsRefresh}
                                   />
-                                ) : (
-                                  <></>
-                                )}
-                                {displayPost ? (
-                                  <div>
-                                    <FullPost
-                                      postObj={postCheckout}
-                                      toggleFullPost={toggleDisplayFullPost}
-                                      isVideo={postContentIsVideo}
-                                    />
-                                  </div>
-                                ) : (
-                                  <></>
                                 )}
                               </div>
                             ) : (
