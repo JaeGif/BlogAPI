@@ -29,3 +29,17 @@
 .contentIndicatorIcon {
   height: calc((var(--userPreviewContentHeight) * 0.1));
 }
+
+@media only screen and (max-width: 750px) {
+  .squarePreviewContainer {
+    height: calc(100vw / 3);
+    width: calc(100vw / 3);
+  }
+  .squarePreviewContent {
+    min-height: calc(100vw / 3);
+    max-height: 45vw;
+  }
+  .contentIndicatorIcon {
+    height: calc(33vw * 0.15);
+  }
+}

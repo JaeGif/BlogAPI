@@ -39,7 +39,7 @@ function MobileBar({
           <div>
             <img
               className={style.icons}
-              src={`${basePath}/assets/favicons/chat-white.svg`}
+              src={`${basePath}/assets/favicons/messages-white.svg`}
               alt='messages'
             />
           </div>

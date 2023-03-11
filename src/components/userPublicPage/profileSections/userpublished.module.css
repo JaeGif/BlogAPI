@@ -9,6 +9,8 @@
 }
 @media only screen and (max-width: 750px) {
   .contentLayoutGrid {
-    gap: 1px;
+    gap: 0px;
+    width: 100vw;
+    padding-bottom: var(--mobileBottomBarHeight);
   }
 }
