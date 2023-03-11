@@ -71,9 +71,6 @@ function App() {
   useEffect(() => {
     loggedIn && navigate('/', { replace: true });
   }, [loggedIn]);
-  useEffect(() => {
-    userProfile;
-  });
 
   async function fetchLoggedInUserData(userId, freshToken) {
     const res = await fetch(`${localURL}/api/users/${userId}`, {

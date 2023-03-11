@@ -22,6 +22,7 @@ function UserPostPreview({ post }) {
       setMediaMobile(true);
     }
   }, []);
+
   const toggleDisplayFullPost = () => {
     fetchPostUserData();
   };
