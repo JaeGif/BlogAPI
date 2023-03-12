@@ -3,7 +3,7 @@
 }
 @font-face {
   font-family: 'Dancing';
-  src: url('./assets/fonts/dancingScript.ttf');
+  src: url('/BlogAPI/assets/fonts/dancingScript.ttf');
 }
 .mobileBarContainer {
   position: fixed;

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from 'react';
 import style from './imageslider.module.css';
 import Content from './Content';
 import uniqid from 'uniqid';
+import { PathContext } from '../../App';
 
 function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   const [imageIndex, setImageIndex] = useState(0);
@@ -9,6 +10,7 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   const [leftHidden, setLeftHidden] = useState(true);
   const [rightHidden, setRightHidden] = useState(false);
   const [hideBubbles, setHideBubbles] = useState(false);
+  const basePath = useContext(PathContext);
   const width = window.innerWidth;
   const ref = useRef([]);
 
@@ -103,7 +105,7 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
             handleDecIndex();
           }}
           className={`${style.arrow}`}
-          src='./assets/favicons/previous.svg'
+          src={`${basePath}/assets/favicons/previous.svg`}
           alt='left arrow'
         />
       </div>
@@ -129,7 +131,7 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
             handleIncIndex();
           }}
           className={`${style.arrow} `}
-          src='assets/favicons/next.svg'
+          src={`${basePath}/assets/favicons/next.svg`}
           alt='right arrow'
         />
       </div>

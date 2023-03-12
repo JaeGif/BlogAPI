@@ -81,7 +81,7 @@ function UserPostPreview({ post }) {
                   <span className={style.contentIndicatorWrapper}>
                     <img
                       className={`${style.contentIndicatorIcon} `}
-                      src={`../assets/favicons/movie.svg`}
+                      src={`${basePath}/assets/favicons/movie.svg`}
                       alt='indicate video'
                     />
                   </span>
@@ -101,8 +101,8 @@ function UserPostPreview({ post }) {
                       className={style.contentIndicatorIcon}
                       src={
                         multipleContent
-                          ? `./assets/favicons/multiple-content-white.svg`
-                          : `./assets/favicons/photo.svg`
+                          ? `${basePath}/favicons/multiple-content-white.svg`
+                          : `${basePath}/favicons/photo.svg`
                       }
                       alt='indicate photo'
                     />

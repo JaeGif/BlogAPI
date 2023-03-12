@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ApiContext, TokenContext, UserContext } from '../../App';
+import { ApiContext, PathContext, TokenContext, UserContext } from '../../App';
 import style from './editprofile.module.css';
 
 function ChangePasswordOverview() {
@@ -7,6 +7,7 @@ function ChangePasswordOverview() {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
+  const basePath = useContext(PathContext);
   const ref = useRef([]);
 
   let oldPasswordRef;
@@ -122,8 +123,8 @@ function ChangePasswordOverview() {
             <img
               src={
                 oldVisible
-                  ? `./assets/visibleoff.svg`
-                  : `./assets/favicons/visible.svg`
+                  ? `${basePath}/assets/visibleoff.svg`
+                  : `${basePath}/assets/favicons/visible.svg`
               }
               alt='invisible svg'
               onClick={() => toggleShowPassword(oldPasswordRef)}
@@ -142,8 +143,8 @@ function ChangePasswordOverview() {
             <img
               src={
                 newVisible
-                  ? `./assets/visibleoff.svg`
-                  : `./assets/favicons/visible.svg`
+                  ? `${basePath}/assets/visibleoff.svg`
+                  : `${basePath}/assets/favicons/visible.svg`
               }
               onClick={() => toggleShowPassword(newPasswordRef)}
               alt='invisible svg'
@@ -163,8 +164,8 @@ function ChangePasswordOverview() {
               onClick={() => toggleShowPassword(confirmPasswordRef)}
               src={
                 confirmVisible
-                  ? `./assets/favicons/visibleoff.svg`
-                  : `/visible.svg`
+                  ? `${basePath}/assets/favicons/visibleoff.svg`
+                  : `${basePath}/assets/favicons/visible.svg`
               }
               alt='invisible svg'
               className={`${style.visibilityIcon}`}

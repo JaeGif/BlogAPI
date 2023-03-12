@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import style from './previewimage.module.css';
 import uniqid from 'uniqid';
 import ImageContent from './Image';
+import { PathContext } from '../../App';
 
 function PreviewImage({
   images,
@@ -16,6 +17,7 @@ function PreviewImage({
   const [rightHidden, setRightHidden] = useState(false);
   const [hideBubbles, setHideBubbles] = useState(false);
   const ref = useRef([]);
+  const basePath = useContext(PathContext);
   const pushRef = (el) => ref.current.push(el);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ function PreviewImage({
             handleDecIndex();
           }}
           className={`${style.arrow}`}
-          src='/assets/favicons/previous.svg'
+          src={`${basePath}/assets/favicons/previous.svg`}
           alt='left arrow'
         />
       </div>
@@ -118,7 +120,7 @@ function PreviewImage({
             handleIncIndex();
           }}
           className={`${style.arrow} `}
-          src='./assets/favicons/next.svg'
+          src={`${basePath}/assets/favicons/next.svg`}
           alt='right arrow'
         />
       </div>

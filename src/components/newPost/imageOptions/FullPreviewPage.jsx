@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PreviewImage from '../PreviewImage';
 import ImageOptions from '../ImageOptions';
 import style from '../newpost.module.css';
-import { ProgressContext } from '../../../App';
+import { PathContext, ProgressContext } from '../../../App';
 
 function FullPreviewPage({
   images,
@@ -16,13 +16,14 @@ function FullPreviewPage({
   handleDecIndex,
   handleIncIndex,
 }) {
+  const basePath = useContext(PathContext);
   return (
     <>
       <span className={style.headingPreviewEdits}>
         <img
           className={style.returnArrow}
           alt='back arrow'
-          src='/assets/favicons/redo.svg'
+          src={`${basePath}/assets/favicons/redo.svg`}
           onClick={() => returnToUpload()}
         ></img>
         <p>Edit</p>

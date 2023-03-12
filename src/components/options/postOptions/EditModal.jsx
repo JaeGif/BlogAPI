@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ApiContext, TokenContext, UserContext } from '../../../App';
+import {
+  ApiContext,
+  PathContext,
+  TokenContext,
+  UserContext,
+} from '../../../App';
 import AddLocation from '../../newPost/SubmitComponents/AddLocation';
 import UserHeadName from '../../newPost/SubmitComponents/UserHeadName';
 import ImageSlider from '../../posts_components/ImageSlider';
@@ -9,6 +14,7 @@ function EditModal({ post, closeEditModal, index }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
+  const basePath = useContext(PathContext);
 
   const [postBody, setPostBody] = useState(post.post);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -122,7 +128,7 @@ function EditModal({ post, closeEditModal, index }) {
                   onClick={handleAddContentForDeletion}
                   className={style.removeIcon}
                 >
-                  <img src='/assets/favicons/delete.svg' />
+                  <img src={`${basePath}/assets/favicons/delete.svg`} />
                 </div>
                 <p>
                   <em className={style.removeEmphasis}>Remove</em>

@@ -206,7 +206,7 @@ function App() {
           <TokenContext.Provider value={token}>
             <PostContext.Provider value={handlePostCheckout}>
               <ProfileContext.Provider value={handleUserProfileCheckout}>
-                <PathContext.Provider value={localPath}>
+                <PathContext.Provider value={productionPath}>
                   <UserContext.Provider value={loggedInUser}>
                     <LoadingBar
                       color='#dc140a'
