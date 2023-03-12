@@ -163,8 +163,8 @@ function ChangePasswordOverview() {
               onClick={() => toggleShowPassword(confirmPasswordRef)}
               src={
                 confirmVisible
-                  ? `./assets/favicons/visibleoff.svg`
-                  : `./assets/favicons/visible.svg`
+                  ? `/assets/favicons/visibleoff.svg`
+                  : `/visible.svg`
               }
               alt='invisible svg'
               className={`${style.visibilityIcon}`}
