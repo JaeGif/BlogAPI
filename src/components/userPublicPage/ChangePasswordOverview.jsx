@@ -122,8 +122,8 @@ function ChangePasswordOverview() {
             <img
               src={
                 oldVisible
-                  ? `/assets/favicons/visibleoff.svg`
-                  : `/assets/favicons/visible.svg`
+                  ? `./assets/favicons/visibleoff.svg`
+                  : `./assets/favicons/visible.svg`
               }
               alt='invisible svg'
               onClick={() => toggleShowPassword(oldPasswordRef)}
@@ -142,8 +142,8 @@ function ChangePasswordOverview() {
             <img
               src={
                 newVisible
-                  ? `/assets/favicons/visibleoff.svg`
-                  : `/assets/favicons/visible.svg`
+                  ? `./assets/favicons/visibleoff.svg`
+                  : `./assets/favicons/visible.svg`
               }
               onClick={() => toggleShowPassword(newPasswordRef)}
               alt='invisible svg'
@@ -163,8 +163,8 @@ function ChangePasswordOverview() {
               onClick={() => toggleShowPassword(confirmPasswordRef)}
               src={
                 confirmVisible
-                  ? `/assets/favicons/visibleoff.svg`
-                  : `/assets/favicons/visible.svg`
+                  ? `./assets/favicons/visibleoff.svg`
+                  : `./assets/favicons/visible.svg`
               }
               alt='invisible svg'
               className={`${style.visibilityIcon}`}

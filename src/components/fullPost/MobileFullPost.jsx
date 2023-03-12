@@ -40,7 +40,7 @@ function MobileFullPost({
       <div className={style.mobileHead}>
         <img
           onClick={toggleFullPost}
-          src='assets/favicons/previous.svg'
+          src='./assets/favicons/previous.svg'
           alt='return icon'
         />
         <h2>Comments</h2>

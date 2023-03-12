@@ -103,7 +103,7 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
             handleDecIndex();
           }}
           className={`${style.arrow}`}
-          src='/assets/favicons/previous.svg'
+          src='./assets/favicons/previous.svg'
           alt='left arrow'
         />
       </div>

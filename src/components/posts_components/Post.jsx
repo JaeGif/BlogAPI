@@ -261,12 +261,12 @@ function Post({ postObj, refreshLoggedInUserData }) {
                 <img
                   onClick={toggleDisplayFullPost}
                   className={style.icons}
-                  src={`/assets/favicons/comment.svg`}
+                  src={`./assets/favicons/comment.svg`}
                   alt='comments'
                 ></img>
                 <img
                   className={style.icons}
-                  src={`/assets/favicons/send.svg`}
+                  src={`./assets/favicons/send.svg`}
                   alt='private message'
                 ></img>
               </span>
@@ -276,8 +276,8 @@ function Post({ postObj, refreshLoggedInUserData }) {
                   className={style.icons}
                   src={
                     isSaved
-                      ? `/assets/favicons/bookmark_blue.svg`
-                      : `/assets/favicons/bookmark.svg`
+                      ? `./assets/favicons/bookmark_blue.svg`
+                      : `./assets/favicons/bookmark.svg`
                   }
                   alt='save post'
                 ></img>

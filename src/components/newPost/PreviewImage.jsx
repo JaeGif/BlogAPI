@@ -118,7 +118,7 @@ function PreviewImage({
             handleIncIndex();
           }}
           className={`${style.arrow} `}
-          src='assets/favicons/next.svg'
+          src='./assets/favicons/next.svg'
           alt='right arrow'
         />
       </div>

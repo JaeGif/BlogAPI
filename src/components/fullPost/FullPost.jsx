@@ -118,7 +118,7 @@ function FullPost({
                     <img
                       style={{ cursor: 'pointer' }}
                       onClick={toggleFullPost}
-                      src='/assets/favicons/previous.svg'
+                      src='./assets/favicons/previous.svg'
                       alt='back'
                     />
                     <UserProfileLocationHeader

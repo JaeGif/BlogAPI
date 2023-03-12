@@ -74,7 +74,7 @@ function SubmitPost({
         <img
           className={style.returnArrow}
           alt='back arrow'
-          src={`${basePath}/assets/favicons/redo.svg`}
+          src={`./assets/favicons/redo.svg`}
           onClick={() => prevStep()}
         ></img>
         <p>Create new post</p>
@@ -110,7 +110,7 @@ function SubmitPost({
                       e.stopPropagation();
                     }}
                     className={style.removeTaggedButton}
-                    src={`${basePath}/assets/favicons/close.svg`}
+                    src={`./assets/favicons/close.svg`}
                   />
                 </span>
               ))}
@@ -187,12 +187,12 @@ function SubmitPost({
                 {isAccessibilityOpen ? (
                   <img
                     className={style.expandChevrons}
-                    src={`${basePath}/assets/favicons/expandmore.svg`}
+                    src={`./assets/favicons/expandmore.svg`}
                   />
                 ) : (
                   <img
                     className={style.expandChevrons}
-                    src={`${basePath}/assets/favicons/expandless.svg`}
+                    src={`./assets/favicons/expandless.svg`}
                   />
                 )}
               </span>
