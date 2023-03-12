@@ -122,7 +122,7 @@ function ChangePasswordOverview() {
             <img
               src={
                 oldVisible
-                  ? `./assets/favicons/visibleoff.svg`
+                  ? `./assets/visibleoff.svg`
                   : `./assets/favicons/visible.svg`
               }
               alt='invisible svg'
@@ -142,7 +142,7 @@ function ChangePasswordOverview() {
             <img
               src={
                 newVisible
-                  ? `./assets/favicons/visibleoff.svg`
+                  ? `/assets/visibleoff.svg`
                   : `./assets/favicons/visible.svg`
               }
               onClick={() => toggleShowPassword(newPasswordRef)}
