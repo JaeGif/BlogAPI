@@ -261,7 +261,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
                 <img
                   onClick={toggleDisplayFullPost}
                   className={style.icons}
-                  src={`./assets/favicons/comment.svg`}
+                  src={`/BlogAPI/assets/favicons/comment.svg`}
                   alt='comments'
                 ></img>
                 <img
@@ -276,7 +276,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
                   className={style.icons}
                   src={
                     isSaved
-                      ? `./assets/favicons/bookmark_blue.svg`
+                      ? `/BlogAPI/assets/favicons/bookmark_blue.svg`
                       : `./assets/favicons/bookmark.svg`
                   }
                   alt='save post'
