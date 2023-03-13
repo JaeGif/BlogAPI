@@ -15,7 +15,7 @@ Bugfix:
 - fix newPost UI
 - edit post UI fix
 - Liking your own post gives a notification and it is not removed when unliked
-
+- Notifications scrollable
 
 Fully Finished Features:
 - See Posts from users you follow 
