@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import style from './loginpage.module.css';
 
-function LoginPage({ handleLogIn, isValid }) {
+function LoginPage({ handleLogIn, handleGuestLogin }) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const passwordRef = useRef(null);
@@ -87,7 +87,9 @@ function LoginPage({ handleLogIn, isValid }) {
             </div>
             <div className={style.createAcctRedirectContainer}>
               <a className={style.createAcctRedirect}>
-                <button className={style.guestLogin}>Guest Login</button>
+                <button onClick={handleGuestLogin} className={style.guestLogin}>
+                  Guest Login
+                </button>
               </a>
             </div>
           </div>

@@ -113,6 +113,33 @@ function App() {
       return false;
     }
   };
+  const handleGuestLogin = async () => {
+    setProgress(20);
+    const userData = new URLSearchParams();
+    userData.append('username', 'Guest');
+    userData.append('password', 'Password1');
+
+    const res = await fetch(`${localURL}/login`, {
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: userData,
+    });
+    setProgress(70);
+
+    if (res.status === 200) {
+      const data = await res.json();
+      setProgress(100);
+      setToken(data.token);
+      fetchLoggedInUserData(data.user, data.token);
+      return true;
+    } else {
+      setProgress(100);
+      return false;
+    }
+  };
 
   const refreshContent = () => {
     isRefresh ? setIsRefresh(false) : setIsRefresh(true);
@@ -219,7 +246,10 @@ function App() {
                         path='/login'
                         element={
                           <div>
-                            <LoginPage handleLogIn={handleLogin} />
+                            <LoginPage
+                              handleLogIn={handleLogin}
+                              handleGuestLogin={handleGuestLogin}
+                            />
                           </div>
                         }
                       />

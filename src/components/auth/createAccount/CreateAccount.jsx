@@ -231,7 +231,7 @@ function CreateAccount() {
           </form>
           <div>
             <p>Already have an account?</p>
-            <Link to={'/login'}>
+            <Link to={'/login'} replace>
               <p className={style.userHasAccountBtn}>Log in</p>
             </Link>
           </div>
