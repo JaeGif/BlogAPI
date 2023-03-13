@@ -8,14 +8,13 @@ Suggested New Features:
 
 Essential Additions: 
 - Mobile Version
-- Form validation
 - Adjustments
-- Alternate Color Schemes
 
 Bugfix:
 - can follow and be followed multiple times now
 - fix newPost UI
 - edit post UI fix
+- Liking your own post gives a notification and it is not removed when unliked
 
 
 Fully Finished Features:
@@ -30,6 +29,8 @@ Fully Finished Features:
 - Full Post View
 - User options including Change Password, Update Information, Delete user
 - Filters
+- Form validation (Create Acct)
+
 
 
 

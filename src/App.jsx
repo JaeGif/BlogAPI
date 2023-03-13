@@ -107,9 +107,10 @@ function App() {
       setProgress(100);
       setToken(data.token);
       fetchLoggedInUserData(data.user, data.token);
+      return true;
     } else {
       setProgress(100);
-      console.log(res.status);
+      return false;
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { ApiContext } from '../../../App';
 import style from '../login/loginpage.module.css';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ function CreateAccount() {
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
@@ -22,10 +23,12 @@ function CreateAccount() {
       if (pattern.test(name.value)) {
         name.setCustomValidity('');
         handleFirstName(e);
+        setButtonDisabled(false);
       } else {
         name.setCustomValidity(
           "No special characters, only letters, ' and spaces. "
         );
+        setButtonDisabled(true);
         name.reportValidity();
       }
     }
@@ -39,10 +42,13 @@ function CreateAccount() {
       if (pattern.test(name.value)) {
         name.setCustomValidity('');
         handleLastName(e);
+        setButtonDisabled(false);
       } else {
         name.setCustomValidity(
           "No special characters, only letters, ' and spaces. "
         );
+        setButtonDisabled(true);
+
         name.reportValidity();
       }
     }
@@ -53,15 +59,16 @@ function CreateAccount() {
     password.setCustomValidity('');
 
     if (password.checkValidity()) {
-      const pattern =
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/;
+      const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/;
       if (pattern.test(password.value)) {
         password.setCustomValidity('');
         handlePassword(e);
+        setButtonDisabled(false);
       } else {
         password.setCustomValidity(
-          'Minimum six characters, at least one uppercase letter, one lowercase letter, one number and one special character.'
+          'Minimum six characters, at least one uppercase letter, one lowercase letter, and one number.'
         );
+        setButtonDisabled(true);
         password.reportValidity();
       }
     }
@@ -73,8 +80,11 @@ function CreateAccount() {
     if (firstPassword === confirmPassword.value) {
       confirmPassword.setCustomValidity('');
       handleConfirmPassword(e);
+      setButtonDisabled(false);
     } else {
       confirmPassword.setCustomValidity('Passwords do not match.');
+      setButtonDisabled(true);
+
       confirmPassword.reportValidity();
     }
   }
@@ -144,7 +154,7 @@ function CreateAccount() {
   };
 
   const handleOnSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     registerUser();
   };
 
@@ -196,7 +206,6 @@ function CreateAccount() {
                 className={style.textInput}
                 name='password'
                 type='password'
-                minLength={6}
                 placeholder='Password'
                 aria-label='password'
                 required
@@ -206,13 +215,13 @@ function CreateAccount() {
                 className={style.textInput}
                 name='confirmpassword'
                 type='password'
-                minLength={6}
                 placeholder='Confirm password'
                 aria-label='confirm-password'
                 required
               />
               <button
                 type='submit'
+                disabled={buttonDisabled}
                 onClick={(e) => handleOnSubmit(e)}
                 className={style.submitButton}
               >
