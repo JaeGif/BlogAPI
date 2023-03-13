@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ApiContext } from '../../../App';
 import style from '../login/loginpage.module.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 function CreateAccount() {
   const apiURL = useContext(ApiContext);
@@ -10,22 +10,30 @@ function CreateAccount() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
 
   const registerUser = async () => {
-    let data = new URLSearchParams();
+    let data = new FormData();
     data.append('firstName', firstName);
     data.append('lastName', lastName);
     data.append('username', username);
     data.append('password', password);
-
+    let jsonData = {
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      password: password,
+    };
     const res = await fetch(`${apiURL}/register`, {
       mode: 'cors',
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: data,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jsonData),
     });
+    if (res.status === 200) {
+      console.log('ok');
+      navigate('/login');
+    }
   };
 
   const handleFirstName = (e) => {
@@ -87,13 +95,13 @@ function CreateAccount() {
     } else return err;
   };
 
-  const handleOnSubmit = () => {
+  const handleOnSubmit = (e) => {
+    e.preventDefault;
     const err = validateInputs();
     if (err) {
       return console.log(err);
     } else {
       registerUser();
-      handleHasAccount();
     }
   };
 
@@ -154,7 +162,11 @@ function CreateAccount() {
                 aria-label='confirm-password'
                 required
               />
-              <button onClick={handleOnSubmit} className={style.submitButton}>
+              <button
+                type='button'
+                onClick={(e) => handleOnSubmit(e)}
+                className={style.submitButton}
+              >
                 Sign Up
               </button>
             </div>

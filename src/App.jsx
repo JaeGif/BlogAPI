@@ -73,7 +73,7 @@ function App() {
   }, [loggedIn]);
 
   async function fetchLoggedInUserData(userId, freshToken) {
-    const res = await fetch(`${apiURL}/api/users/${userId}`, {
+    const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
       headers: {
         Authorization: 'Bearer' + ' ' + freshToken,
@@ -92,7 +92,7 @@ function App() {
     userData.append('username', username);
     userData.append('password', password);
 
-    const res = await fetch(`${apiURL}/login`, {
+    const res = await fetch(`${localURL}/login`, {
       mode: 'cors',
       method: 'POST',
       headers: {
@@ -124,7 +124,7 @@ function App() {
   };
   const handlePostCheckout = async (postId) => {
     // needs a post id, so notifs now need a post obj
-    const res = await fetch(`${apiURL}/api/posts/${postId}`, {
+    const res = await fetch(`${localURL}/api/posts/${postId}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
@@ -142,7 +142,7 @@ function App() {
   };
   const handleUserProfileCheckout = async (userId) => {
     setProgress(20);
-    const res = await fetch(`${apiURL}/api/users/${userId}`, {
+    const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
@@ -158,7 +158,7 @@ function App() {
   const addSearchToRecents = async (userId) => {
     let data = new URLSearchParams();
     data.append('searched', userId);
-    const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
+    const res = await fetch(`${localURL}/api/users/${loggedInUser._id}`, {
       method: 'PUT',
       body: data,
       headers: {
@@ -170,7 +170,7 @@ function App() {
   };
 
   async function refreshLoggedInUserData() {
-    const res = await fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
+    const res = await fetch(`${localURL}/api/users/${loggedInUser._id}`, {
       mode: 'cors',
       headers: {
         Authorization: 'Bearer' + ' ' + token,
@@ -201,7 +201,7 @@ function App() {
 
   return (
     <>
-      <ApiContext.Provider value={apiURL}>
+      <ApiContext.Provider value={localURL}>
         <ProgressContext.Provider value={setProgress}>
           <TokenContext.Provider value={token}>
             <PostContext.Provider value={handlePostCheckout}>
@@ -229,7 +229,7 @@ function App() {
                         element={
                           <div>
                             {loggedIn ? (
-                              <div className='App'>
+                              <div className={`App`}>
                                 {mediaMobile ? (
                                   <MobileBar
                                     newPostModal={newPostModal}

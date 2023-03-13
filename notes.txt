@@ -10,6 +10,7 @@ Essential Additions:
 - Mobile Version
 - Form validation
 - Adjustments
+- Alternate Color Schemes
 
 Bugfix:
 - can follow and be followed multiple times now
