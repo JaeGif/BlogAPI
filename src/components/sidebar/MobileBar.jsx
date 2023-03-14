@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import style from './mobileBar.module.css';
 import { UserContext, ApiContext, PathContext, TokenContext } from '../../App';
+import SearchLayout from './search/SearchLayout';
+import NotificationsLayout from './notificationsBar/NotificationsLayout';
 
 function MobileBar({
   newPostModal,
@@ -15,17 +17,73 @@ function MobileBar({
 
   const [isNotifications, setIsNotifications] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [isMinified, setIsMinified] = useState(false);
-  const [open, setOpen] = useState('');
+  const [open, setOpen] = useState('home');
   const [newNotification, setNewNotification] = useState(false);
   const [isHome, setIsHome] = useState(false);
 
+  const setSeen = async () => {
+    let data = new URLSearchParams();
+    data.append('seen', 'true');
+    const res = await fetch(`${apiURL}/api/users/${user._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      body: data,
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const notificationsSeen = await res.json();
+  };
+  const handleSeenNotifications = () => {
+    setSeen();
+
+    // handle seen notifs once notifications are opened, new notification symbol is removed.
+    setNewNotification(false);
+  };
+  const switchOptionsExpansion = () => {
+    switch (open) {
+      case 'notifications':
+        setIsSearch(false);
+        setIsHome(false);
+        setIsNotifications(true);
+        handleSeenNotifications();
+        refreshLoggedInUserData();
+        break;
+      case 'search':
+        setIsNotifications(false);
+        setIsSearch(true);
+        setIsHome(false);
+        break;
+      case 'home':
+        setIsHome(true);
+        setIsNotifications(false);
+        setIsSearch(false);
+      default:
+        setIsNotifications(false);
+        setIsSearch(false);
+        break;
+    }
+  };
+  const handleOpen = (openString) => {
+    let modString = openString;
+    if (openString === open) {
+      modString = '';
+    }
+    setOpen(modString);
+  };
+  useEffect(() => {
+    // open sidebar modules
+    switchOptionsExpansion();
+  }, [open]);
   return (
     <>
       <div className={style.upperMobileBarContainer}>
         <p className={style.stylizeLogo}>Totally Not Instagram</p>
         <div className={style.iconsWrapper}>
-          <div>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpen('notifications');
+            }}
+          >
             <img
               className={style.icons}
               src={
@@ -49,6 +107,7 @@ function MobileBar({
       <div className={style.mobileBarContainer}>
         <div
           onClick={() => {
+            handleOpen('home');
             goToHomePage();
           }}
           className={style.iconWrapper}
@@ -63,7 +122,12 @@ function MobileBar({
             alt='home'
           />
         </div>
-        <div>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            handleOpen('search');
+          }}
+        >
           <img
             className={style.icons}
             src={
@@ -104,6 +168,30 @@ function MobileBar({
           </a>
         </div>
       </div>
+      {isNotifications && (
+        <>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpen('');
+            }}
+            className={style.closingWrapper}
+          ></div>
+          <NotificationsLayout handleOpen={handleOpen} />
+        </>
+      )}
+      {isSearch && (
+        <>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpen('');
+            }}
+            className={style.closingWrapper}
+          ></div>
+          <SearchLayout handleOpen={handleOpen} />
+        </>
+      )}
     </>
   );
 }

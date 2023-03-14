@@ -73,19 +73,28 @@ function SearchLayout({ handleOpen }) {
     setSearchFound(false);
   };
   const checkForRecents = async () => {
-    const history = await Promise.all(
+    let modifiedHistory = [];
+    let history = await Promise.all(
       recentSearchesIdx.map(async (id) => {
         const res = await fetch(`${apiURL}/api/users/${id}`, {
           mode: 'cors',
           headers: { Authorization: 'Bearer' + ' ' + token },
         });
+        if (res.status === 404) {
+          return;
+        }
         return res.json();
       })
     );
+    for (let i = 0; i < history.length; i++) {
+      if (typeof history[i] === 'object') {
+        modifiedHistory.push(history[i]);
+      }
+    }
     console.log(userUpdated.recentSearches);
-    setRecentSearches(history);
+    setRecentSearches(modifiedHistory);
 
-    console.log('history', history);
+    console.log('history', modifiedHistory);
   };
 
   useEffect(() => {
