@@ -20,7 +20,6 @@ function LoginPage({ handleLogIn, handleGuestLogin }) {
 
     if (passwordField.checkValidity()) {
       const success = await handleLogIn(username, password);
-      console.log(success);
       if (success) {
         passwordField.setCustomValidity('');
       } else {

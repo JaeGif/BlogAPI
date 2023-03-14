@@ -48,9 +48,7 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
       postsQuery.fetchNextPage();
     }
   }, [inView]);
-  useEffect(() => {
-    console.log(postsQuery.data);
-  }, [postsQuery.data]);
+
   return (
     <>
       {postsQuery.data && (

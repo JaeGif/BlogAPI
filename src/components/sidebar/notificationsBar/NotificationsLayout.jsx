@@ -49,19 +49,21 @@ function NotificationsLayout({ handleOpen }) {
         <p>This Month</p>
       </div>
       {notificationsQuery.data && (
-        <div className={style.notificationsMinorWrapper}>
-          {notificationsQuery.data.length ? (
-            notificationsQuery.data.map((notification) => (
-              <Notification
-                key={uniqid()}
-                notification={notification}
-                handleOpen={handleOpen}
-              />
-            ))
-          ) : (
-            <p>No new notifications.</p>
-          )}
-        </div>
+        <>
+          <div className={style.notificationsMinorWrapper}>
+            {notificationsQuery.data.length ? (
+              notificationsQuery.data.map((notification) => (
+                <Notification
+                  key={uniqid()}
+                  notification={notification}
+                  handleOpen={handleOpen}
+                />
+              ))
+            ) : (
+              <p>No new notifications.</p>
+            )}
+          </div>
+        </>
       )}
     </div>
   );
