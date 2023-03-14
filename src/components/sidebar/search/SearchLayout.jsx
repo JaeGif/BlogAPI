@@ -4,6 +4,7 @@ import {
   ApiContext,
   ProfileContext,
   TokenContext,
+  PathContext,
 } from '../../../App';
 import UserSearchOverview from '../../userSearchOverview/UserSearchOverview';
 import LoadingIcon from '../../utlity_Components/LoadingIcon';
@@ -16,6 +17,7 @@ function SearchLayout({ handleOpen }) {
   const apiURL = useContext(ApiContext);
   const getUserProfile = useContext(ProfileContext);
   const token = useContext(TokenContext);
+  const basePath = useContext(PathContext);
 
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
@@ -26,10 +28,18 @@ function SearchLayout({ handleOpen }) {
   const [recentSearches, setRecentSearches] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [userUpdated, setUserUpdated] = useState(loggedInUser);
+  const [mediaMobile, setMediaMobile] = useState(true);
 
+  const width = window.innerWidth;
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    } else {
+      setMediaMobile(false);
+    }
+  }, []);
   const handleRecentsUpdate = () => {
     updateUser();
-    console.log('toggled update');
   };
   const searchForUsers = async (e) => {
     setIsSearching(true);
@@ -91,83 +101,90 @@ function SearchLayout({ handleOpen }) {
         modifiedHistory.push(history[i]);
       }
     }
-    console.log(userUpdated.recentSearches);
     setRecentSearches(modifiedHistory);
-
-    console.log('history', modifiedHistory);
   };
 
   useEffect(() => {
     checkForRecents();
-    console.log('check recents call');
   }, [recentSearchesIdx]);
   useEffect(() => {
     updateUser();
   }, []);
-  console.log(searchFound);
 
-  console.log('search results', searchResults);
   return (
-    <div className={style.notificationsWrapper}>
-      <div className={style.searchBoxContainer}>
-        <div className={`${style.notifsHeader}`}>
+    <>
+      {mediaMobile && (
+        <div className={style.mobileHeaderContainer}>
+          <img
+            className={style.returnIcon}
+            onClick={() => handleOpen('home')}
+            src={`${basePath}/assets/favicons/previous.svg`}
+            alt='return to home'
+          />
           <h1>Search</h1>
-          <span className={style.searchContainer}>
-            <input
-              onChange={(e) => searchForUsers(e)}
-              className={style.searchInput}
-              placeholder='Search'
-              type='text'
-              alt='Search bar'
-            />
-          </span>
         </div>
-      </div>
-      <div className={style.notifsHeader}>
-        {hasSearched ? (
-          isSearching ? (
+      )}
+      <div className={style.notificationsWrapper}>
+        <div className={style.searchBoxContainer}>
+          <div className={`${style.notifsHeader}`}>
+            {!mediaMobile && <h1>Search</h1>}
+            <span className={style.searchContainer}>
+              <input
+                onChange={(e) => searchForUsers(e)}
+                className={style.searchInput}
+                placeholder='Search'
+                type='text'
+                alt='Search bar'
+              />
+            </span>
+          </div>
+        </div>
+        <div className={style.notifsHeader}>
+          {hasSearched ? (
+            isSearching ? (
+              <LoadingIcon />
+            ) : (
+              <></>
+            )
+          ) : isSearching ? (
             <LoadingIcon />
           ) : (
-            <></>
-          )
-        ) : isSearching ? (
-          <LoadingIcon />
-        ) : (
-          <RecentSearch
-            key={uniqid()}
-            handleOpen={handleOpen}
-            recentSearches={recentSearches}
-            recentSearchesIdx={recentSearchesIdx}
-            updatedRecents={handleRecentsUpdate}
-          />
-        )}
+            <RecentSearch
+              key={uniqid()}
+              handleOpen={handleOpen}
+              recentSearches={recentSearches}
+              recentSearchesIdx={recentSearchesIdx}
+              updatedRecents={handleRecentsUpdate}
+            />
+          )}
 
-        {searchFound ? (
-          searchResults.length ? (
-            searchResults.map((result) => (
-              <div
-                onClick={(e) => {
-                  getUserProfile(result._id);
-                  handleRecentsUpdate();
-                  handleOpen('');
-                  e.stopPropagation();
-                }}
-              >
-                <UserSearchOverview
-                  key={uniqid()}
-                  userData={result}
-                  handleClick={handleRecentsUpdate}
-                />
-              </div>
-            ))
+          {searchFound ? (
+            searchResults.length ? (
+              searchResults.map((result) => (
+                <div
+                  onClick={(e) => {
+                    getUserProfile(result._id);
+                    handleRecentsUpdate();
+                    handleOpen('');
+                    e.stopPropagation();
+                  }}
+                >
+                  <UserSearchOverview
+                    key={uniqid()}
+                    userData={result}
+                    handleClick={handleRecentsUpdate}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No results.</p>
+            )
           ) : (
-            <p>No results.</p>
-          )
-        ) : (
-          <></>
-        )}
+            <></>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

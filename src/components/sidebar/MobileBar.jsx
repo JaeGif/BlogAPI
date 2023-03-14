@@ -20,6 +20,7 @@ function MobileBar({
   const [open, setOpen] = useState('home');
   const [newNotification, setNewNotification] = useState(false);
   const [isHome, setIsHome] = useState(false);
+  const width = window.innerWidth;
 
   const setSeen = async () => {
     let data = new URLSearchParams();
@@ -76,7 +77,9 @@ function MobileBar({
   return (
     <>
       <div className={style.upperMobileBarContainer}>
-        <p className={style.stylizeLogo}>Totally Not Instagram</p>
+        <p className={style.stylizeLogo}>
+          {width >= 375 && 'Totally Not '}Instagram
+        </p>
         <div className={style.iconsWrapper}>
           <div
             onClick={(e) => {
@@ -148,7 +151,10 @@ function MobileBar({
 
         <div className={style.childCentered}>
           <div
-            onClick={() => openUserPageModal(user._id)}
+            onClick={() => {
+              handleOpen('');
+              openUserPageModal(user._id);
+            }}
             className={style.userPageIconWrapper}
           >
             <img

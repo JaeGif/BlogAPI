@@ -16,6 +16,17 @@ function NotificationsLayout({ handleOpen }) {
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
   const handleProgress = useContext(ProgressContext);
+  const basePath = useContext(PathContext);
+  const width = window.innerWidth;
+  const [mediaMobile, setMediaMobile] = useState(false);
+
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    } else {
+      setMediaMobile(false);
+    }
+  }, []);
 
   const fetchNotifications = async () => {
     handleProgress(25);
@@ -43,29 +54,54 @@ function NotificationsLayout({ handleOpen }) {
   }, [notificationsQuery.isFetched]);
 
   return (
-    <div className={style.notificationsWrapper}>
-      <div className={style.notifsHeader}>
-        <h1>Notifications</h1>
-        <p>This Month</p>
-      </div>
-      {notificationsQuery.data && (
-        <>
-          <div className={style.notificationsMinorWrapper}>
-            {notificationsQuery.data.length ? (
-              notificationsQuery.data.map((notification) => (
-                <Notification
-                  key={uniqid()}
-                  notification={notification}
-                  handleOpen={handleOpen}
-                />
-              ))
-            ) : (
-              <p>No new notifications.</p>
-            )}
-          </div>
-        </>
+    <>
+      {mediaMobile && (
+        <div
+          className={`${style.mobileHeaderContainer} ${style.notificationsConvert}`}
+        >
+          <img
+            className={style.returnIcon}
+            onClick={() => handleOpen('home')}
+            src={`${basePath}/assets/favicons/previous.svg`}
+            alt='return to home'
+          />
+          <h1>Notifications</h1>
+        </div>
       )}
-    </div>
+      <div className={style.notificationsWrapper}>
+        <div className={`${style.notifsHeader}`}>
+          {!mediaMobile && (
+            <>
+              <h1>Notifications</h1>
+              <p>This Month</p>
+            </>
+          )}
+        </div>
+        {notificationsQuery.data && (
+          <>
+            <div
+              className={
+                mediaMobile
+                  ? `${style.notificationsMinorWrapper} ${style.mobile}`
+                  : style.notificationsMinorWrapper
+              }
+            >
+              {notificationsQuery.data.length ? (
+                notificationsQuery.data.map((notification) => (
+                  <Notification
+                    key={uniqid()}
+                    notification={notification}
+                    handleOpen={handleOpen}
+                  />
+                ))
+              ) : (
+                <p>No new notifications.</p>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
