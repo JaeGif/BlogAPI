@@ -114,3 +114,9 @@ a {
 .userHasAccountBtn:hover {
   color: var(--grey5);
 }
+@media only screen and (max-width: 750px) {
+  .signInModal,
+  .signUpModal {
+    width: 100vw;
+  }
+}
