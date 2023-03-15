@@ -144,8 +144,13 @@ function App() {
   const refreshContent = () => {
     isRefresh ? setIsRefresh(false) : setIsRefresh(true);
   };
-  const newPostModal = () => {
-    isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
+  const newPostModal = (close) => {
+    if (close === 'close') {
+      setIsNewPostModal(false);
+      return;
+    } else {
+      isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
+    }
   };
   const openUserPageModal = () => {
     setIsUserPage(true);

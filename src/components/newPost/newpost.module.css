@@ -50,7 +50,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-
   font-weight: bold;
   padding: 0;
 }
@@ -258,4 +257,36 @@
   width: fit-content;
   position: absolute;
   z-index: 5;
+}
+
+@media only screen and (max-width: 750px) {
+  .modalContainerFullScreenCenter {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+  }
+  .postModalWrapper {
+    height: 100vh;
+    width: 100vw;
+  }
+  .postModalContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    height: calc(100vh - var(--mobileBottomBarHeight) * 2);
+    width: 100vw;
+    border-radius: none;
+    min-width: none;
+    max-width: none;
+    min-height: none;
+  }
+  .selectPhotoBtn {
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+  .headingNewPost > p {
+    margin: 15px;
+    font-size: 1.2rem;
+  }
 }

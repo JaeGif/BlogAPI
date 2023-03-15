@@ -19,7 +19,9 @@ function MobileBar({
   const [isSearch, setIsSearch] = useState(false);
   const [open, setOpen] = useState('home');
   const [newNotification, setNewNotification] = useState(false);
-  const [isHome, setIsHome] = useState(false);
+  const [isHome, setIsHome] = useState(true);
+  const [isNew, setIsNew] = useState(false);
+
   const width = window.innerWidth;
 
   const setSeen = async () => {
@@ -44,6 +46,7 @@ function MobileBar({
       case 'notifications':
         setIsSearch(false);
         setIsHome(false);
+        setIsNew(false);
         setIsNotifications(true);
         handleSeenNotifications();
         refreshLoggedInUserData();
@@ -52,19 +55,34 @@ function MobileBar({
         setIsNotifications(false);
         setIsSearch(true);
         setIsHome(false);
+        setIsNew(false);
+
         break;
       case 'home':
         setIsHome(true);
         setIsNotifications(false);
         setIsSearch(false);
-      default:
+        setIsNew(false);
+
+        break;
+      case 'new':
+        setIsHome(false);
         setIsNotifications(false);
         setIsSearch(false);
+        setIsNew(true);
+        break;
+      default:
+        setIsHome(true);
+        setIsNotifications(false);
+        setIsSearch(false);
+        setIsNew(false);
+
         break;
     }
   };
   const handleOpen = (openString) => {
     let modString = openString;
+    console.log(modString, open);
     if (openString === open) {
       modString = '';
     }
@@ -73,6 +91,7 @@ function MobileBar({
   useEffect(() => {
     // open sidebar modules
     switchOptionsExpansion();
+    console.log(open);
   }, [open]);
   return (
     <>
@@ -84,6 +103,8 @@ function MobileBar({
           <div
             onClick={(e) => {
               e.stopPropagation();
+              newPostModal('close');
+
               handleOpen('notifications');
             }}
           >
@@ -109,7 +130,10 @@ function MobileBar({
 
       <div className={style.mobileBarContainer}>
         <div
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
+            newPostModal('close');
+
             handleOpen('home');
             goToHomePage();
           }}
@@ -128,6 +152,8 @@ function MobileBar({
         <div
           onClick={(e) => {
             e.stopPropagation();
+            newPostModal('close');
+
             handleOpen('search');
           }}
         >
@@ -141,10 +167,20 @@ function MobileBar({
             alt='search'
           />
         </div>
-        <div>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            handleOpen('new');
+            newPostModal();
+          }}
+        >
           <img
             className={`${style.newPostIcon}`}
-            src={`${basePath}/assets/favicons/add-white.svg`}
+            src={
+              isNew
+                ? `${basePath}/assets/favicons/add-blue.svg`
+                : `${basePath}/assets/favicons/add-white.svg`
+            }
             alt='New Post'
           />
         </div>
@@ -153,6 +189,8 @@ function MobileBar({
           <div
             onClick={() => {
               handleOpen('');
+              newPostModal('close');
+
               openUserPageModal(user._id);
             }}
             className={style.userPageIconWrapper}

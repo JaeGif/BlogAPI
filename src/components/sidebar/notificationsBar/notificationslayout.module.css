@@ -6,14 +6,14 @@
 }
 .notifsHeader {
   padding: 10px 0px 0px 15px;
-  margin-left: -8px;
 }
 .bottomBorder {
   border-bottom: 1px solid var(--grey-2);
 }
 .searchBoxContainer {
-  border-bottom: solid 1px var(--greyHighlight);
+  border-bottom: solid 1px var(--grey-2);
   padding-bottom: 20px;
+  margin-left: -8px;
 }
 .notificationsMinorWrapper {
   display: flex;

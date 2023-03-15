@@ -19,6 +19,8 @@ function NewPost({ newPostModal, refresh }) {
   const token = useContext(TokenContext);
   const handleProgress = useContext(ProgressContext);
 
+  const width = window.innerWidth;
+
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [alt, setAlt] = useState(null);
@@ -26,6 +28,16 @@ function NewPost({ newPostModal, refresh }) {
   const [tagged, setTagged] = useState([]);
   const [imageIndex, setImageIndex] = useState(0);
   const [imageData, setImageData] = useState([]);
+  const [mediaMobile, setMediaMobile] = useState(false);
+
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    } else {
+      setMediaMobile(false);
+    }
+  }, []);
+
   const handleIncIndex = () => {
     if (imageIndex === images.length - 1) {
       return;
@@ -260,15 +272,17 @@ function NewPost({ newPostModal, refresh }) {
     <div>
       <div
         className={style.modalContainerFullScreenCenter}
-        onClick={() => newPostModal()}
+        onClick={() => !mediaMobile && newPostModal()}
       >
-        <div className={style.paddingWrapper}>
-          <span className={style.closeModalBtnContainer}>
-            <p className={style.closeModalBtn} onClick={() => newPostModal()}>
-              &#10005;
-            </p>
-          </span>
-        </div>
+        {!mediaMobile && (
+          <div className={style.paddingWrapper}>
+            <span className={style.closeModalBtnContainer}>
+              <p className={style.closeModalBtn} onClick={() => newPostModal()}>
+                &#10005;
+              </p>
+            </span>
+          </div>
+        )}
         <div className={style.postModalWrapper}>
           <div
             className={style.postModalContainer}
