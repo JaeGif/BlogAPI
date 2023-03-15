@@ -126,7 +126,7 @@ function SearchLayout({ handleOpen }) {
       )}
       <div className={style.notificationsWrapper}>
         <div className={style.searchBoxContainer}>
-          <div className={`${style.notifsHeader}`}>
+          <div className={`${style.notifsHeader} ${style.search}`}>
             {!mediaMobile && <h1>Search</h1>}
             <span className={style.searchContainer}>
               <input

@@ -39,22 +39,21 @@
 }
 .mobileHeaderContainer {
   position: fixed;
-  height: 5vh;
+  height: 55px;
   top: var(--mobileBottomBarHeight);
   left: 0;
   background-color: white;
   width: 100vw;
-  z-index: 5;
+  z-index: 6;
   display: flex;
   justify-content: flex-start;
   gap: 25vw;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px var(--grey-2);
   align-items: center;
 }
 .notificationsConvert {
   gap: 12.5vw;
   height: calc(5vh + 10px);
-  border-bottom: none;
 }
 .returnIcon {
   height: 50px;
@@ -68,6 +67,7 @@
 .mobile {
   padding-left: 5px;
 }
+
 @media only screen and (max-width: 750px) {
   .notificationsWrapper {
     height: 90vh;
@@ -76,5 +76,22 @@
     left: 0;
     background-color: white;
     width: 100vw;
+  }
+  .searchInput {
+    width: 90vw;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  .search {
+    padding: 25px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  .searchBoxContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
