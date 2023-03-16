@@ -190,7 +190,6 @@ function MobileBar({
             onClick={() => {
               handleOpen('');
               newPostModal('close');
-
               openUserPageModal(user._id);
             }}
             className={style.userPageIconWrapper}

@@ -110,7 +110,10 @@ function SearchLayout({ handleOpen }) {
   useEffect(() => {
     updateUser();
   }, []);
-
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => (document.body.style.overflow = 'scroll');
+  });
   return (
     <>
       {mediaMobile && (

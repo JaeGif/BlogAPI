@@ -303,4 +303,13 @@
   .headingPreviewEdits > p {
     margin: 15px 0 15px 0;
   }
+  .postPreviewContainer {
+    flex-direction: column;
+    border-radius: none;
+    min-width: none;
+    max-width: none;
+    min-height: none;
+    width: 100vw;
+    border: solid 1px red;
+  }
 }

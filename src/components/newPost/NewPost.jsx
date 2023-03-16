@@ -31,6 +31,11 @@ function NewPost({ newPostModal, refresh }) {
   const [mediaMobile, setMediaMobile] = useState(false);
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => (document.body.style.overflow = 'scroll');
+  });
+
+  useEffect(() => {
     if (width <= 750) {
       setMediaMobile(true);
     } else {

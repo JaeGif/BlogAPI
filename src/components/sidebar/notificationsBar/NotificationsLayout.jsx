@@ -53,6 +53,10 @@ function NotificationsLayout({ handleOpen }) {
     notificationsQuery.data && handleProgress(100);
   }, [notificationsQuery.isFetched]);
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => (document.body.style.overflow = 'scroll');
+  });
   return (
     <>
       {mediaMobile && (
