@@ -53,7 +53,10 @@ function FullPost({
   const [hasLength, setHasLength] = useState(false);
   const [mediaMobile, setMediaMobile] = useState(false);
   const [commentView, setCommentView] = useState(false);
-
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => (document.body.style.overflow = 'scroll');
+  });
   useEffect(() => {
     if (width <= 750) {
       setMediaMobile(true);

@@ -19,6 +19,7 @@ function PreviewImage({
   const ref = useRef([]);
   const basePath = useContext(PathContext);
   const pushRef = (el) => ref.current.push(el);
+  const width = window.innerWidth;
 
   useEffect(() => {
     if (imageIndex === 0) {
@@ -53,9 +54,17 @@ function PreviewImage({
 
   const calculateLeftShift = () => {
     // 35vw is the standard width, this will need to change for screen size.
-    let value = imageIndex * -1 * 35;
+    let value;
+    if (width < 1000 && width > 750) {
+      value = imageIndex * -1 * 60;
+    } else if (width >= 1000) {
+      value = imageIndex * -1 * 35;
+    } else if (width < 750) {
+      value = imageIndex * -1 * 100;
+    }
     setLeftShift(`${value}vw`);
   };
+
   const handleBubbleIndicators = () => {
     return images.map((img) => (
       <div key={img.name} ref={pushRef} className={style.bubbles}></div>

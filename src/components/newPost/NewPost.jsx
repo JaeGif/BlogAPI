@@ -232,7 +232,6 @@ function NewPost({ newPostModal, refresh }) {
     switch (postStep) {
       case 0:
         return <UploadImages handleFiles={handleFiles} />;
-
       case 1:
         return (
           <FullPreviewPage
@@ -270,7 +269,7 @@ function NewPost({ newPostModal, refresh }) {
           />
         );
       default:
-        return <>BIG UH OH</>;
+        return <UploadImages handleFiles={handleFiles} />;
     }
   };
   return (
