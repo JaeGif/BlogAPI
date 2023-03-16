@@ -212,6 +212,7 @@
   width: 60%;
   border-radius: 4px 4px 0px 0px;
   z-index: 5;
+  overflow: hidden;
 }
 .tagSearchWrapper {
   display: flex;
@@ -237,6 +238,8 @@
 .usersResultsContainer {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  border: solid 1px var(--grey-2);
 }
 .taggedUsersContainer {
   width: 100%;
