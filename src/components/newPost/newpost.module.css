@@ -289,4 +289,18 @@
     margin: 15px;
     font-size: 1.2rem;
   }
+  .headingPreviewEdits {
+    border-bottom: solid 1px var(--greyHighlight);
+    display: flex;
+    margin: 0;
+    width: 100vw;
+    gap: calc(100vw / 3);
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .headingPreviewEdits > p {
+    margin: 15px 0 15px 0;
+  }
 }
