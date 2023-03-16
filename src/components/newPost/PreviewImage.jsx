@@ -11,6 +11,7 @@ function PreviewImage({
   imageIndex,
   handleIncIndex,
   handleDecIndex,
+  isSubmit = false,
 }) {
   const [leftShift, setLeftShift] = useState('0vw');
   const [leftHidden, setLeftHidden] = useState(true);
@@ -49,7 +50,6 @@ function PreviewImage({
       setLeftHidden(true);
       setRightHidden(true);
     }
-    console.log(hideBubbles);
   });
 
   const calculateLeftShift = () => {
@@ -110,6 +110,7 @@ function PreviewImage({
                 image={image}
                 isVideoPreview={isVideoPreview}
                 imageData={imageData}
+                isSubmit={isSubmit}
               />
             );
           })}
