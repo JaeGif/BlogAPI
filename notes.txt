@@ -17,6 +17,7 @@ Bugfix:
 - Liking your own post gives a notification and it is not removed when unliked
 - Sometimes when activating the infinite scroll feature, browser goes absolutely insano-style and ERR_INSUFFICIENT_RESOURCES
 - raise z-index of overlays, imageSlider is still visible sometimes
+- Backend, tagged poss are NOT added correctly...
 
 Fully Finished Features:
 - See Posts from users you follow 

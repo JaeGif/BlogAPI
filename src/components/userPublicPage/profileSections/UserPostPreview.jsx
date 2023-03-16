@@ -12,7 +12,6 @@ function UserPostPreview({ post }) {
   const [isVideo, setIsVideo] = useState(false);
   const [displayPost, setDisplayPost] = useState(false);
   const [userData, setUserData] = useState();
-  const [isReady, setIsReady] = useState(false);
   const [multipleContent, setMultipleContent] = useState(false);
   const [mediaMobile, setMediaMobile] = useState(false);
   const width = window.innerWidth;
@@ -101,8 +100,8 @@ function UserPostPreview({ post }) {
                       className={style.contentIndicatorIcon}
                       src={
                         multipleContent
-                          ? `${basePath}/favicons/multiple-content-white.svg`
-                          : `${basePath}/favicons/photo.svg`
+                          ? `${basePath}/assets/favicons/multiple-content-white.svg`
+                          : `${basePath}/assets/favicons/photo.svg`
                       }
                       alt='indicate photo'
                     />

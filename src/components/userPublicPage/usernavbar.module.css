@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 120%;
   gap: 2.5vw;
   border-top: solid 1px var(--greyHighlight);
 }
@@ -13,7 +13,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
 }
 .selected {
   border-top: solid 1px black;
@@ -25,6 +24,7 @@
   .optionWrapper {
     flex: 1;
     padding: 10px 0 10px 0;
+    background-color: white;
   }
   .optionWrapper > p {
     display: none;
