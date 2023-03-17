@@ -6,6 +6,7 @@ import {
   ApiContext,
   TokenContext,
   UserContext,
+  PathContext,
 } from '../../../App';
 import style from './notification.module.css';
 
@@ -16,6 +17,7 @@ function Notification({ notification, handleOpen }) {
   const getUserProfile = useContext(ProfileContext);
   const getPostFull = useContext(PostContext);
   const loggedInUser = useContext(UserContext);
+  const basePath = useContext(PathContext);
   // alternate notification types to change the layout slightly
   const [isLike, setIsLike] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
@@ -110,6 +112,14 @@ function Notification({ notification, handleOpen }) {
       <div className={style.leftAlign}>
         <div className={style.avatarContainer}>
           <img
+            onError={(e) => {
+              if (
+                e.target.src !==
+                `${apiURL}/${notificationUserDataQuery.data.avatar}`
+              ) {
+                e.target.src = `${basePath}/assets/favicons/content-missing.svg`;
+              }
+            }}
             className={style.userAvatar}
             src={`${apiURL}/${notificationUserDataQuery.data.avatar}`}
             alt='profile image'
@@ -147,6 +157,13 @@ function Notification({ notification, handleOpen }) {
         <div className={style.thumbnailContainer}>
           <img
             className={style.postThumbnail}
+            onError={(e) => {
+              if (
+                e.target.src !== `${apiURL}/${notification.post.thumbnail.url}`
+              ) {
+                e.target.src = `${basePath}/assets/favicons/content-missing.svg`;
+              }
+            }}
             src={`${apiURL}/${notification.post.thumbnail.url}`}
             alt={notification.post.thumbnail.alt}
           />
@@ -155,6 +172,13 @@ function Notification({ notification, handleOpen }) {
         <div className={style.thumbnailContainer}>
           <img
             className={style.postThumbnail}
+            onError={(e) => {
+              if (
+                e.target.src !== `${apiURL}/${notification.post.thumbnail.url}`
+              ) {
+                e.target.src = `${basePath}/assets/favicons/content-missing.svg`;
+              }
+            }}
             src={`${apiURL}/${notification.post.thumbnail.url}`}
             alt={notification.post.thumbnail.alt}
           />

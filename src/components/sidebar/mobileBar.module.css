@@ -74,8 +74,21 @@
   align-items: center;
   padding-right: 10px;
 }
+.notificationIndicatorWrapper {
+  position: relative;
+}
 .stylizeLogo {
   font-size: 2rem;
   font-family: 'Dancing', Cambria, Cochin, Georgia, Times, 'Times New Roman',
     serif;
+}
+.newNotifications {
+  position: absolute;
+  right: 0;
+  top: 1px;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: rgb(255, 47, 47);
+  border: solid 2px white;
 }

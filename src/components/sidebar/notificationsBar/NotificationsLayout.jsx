@@ -10,12 +10,12 @@ import uniqid from 'uniqid';
 import Notification from './Notification';
 import style from './notificationslayout.module.css';
 import { useQuery, useQueries } from '@tanstack/react-query';
+import LoadingIcon from '../../utlity_Components/LoadingIcon';
 
 function NotificationsLayout({ handleOpen }) {
   const loggedInUser = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
-  const handleProgress = useContext(ProgressContext);
   const basePath = useContext(PathContext);
   const width = window.innerWidth;
   const [mediaMobile, setMediaMobile] = useState(false);
@@ -29,7 +29,6 @@ function NotificationsLayout({ handleOpen }) {
   }, []);
 
   const fetchNotifications = async () => {
-    handleProgress(25);
     const res = await fetch(
       `${apiURL}/api/users/${loggedInUser._id}/notifications`,
       {
@@ -38,10 +37,8 @@ function NotificationsLayout({ handleOpen }) {
         method: 'GET',
       }
     );
-    handleProgress(40);
 
     const data = await res.json();
-    handleProgress(70);
 
     return data.notifications;
   };
@@ -49,9 +46,6 @@ function NotificationsLayout({ handleOpen }) {
     queryKey: ['notifications', { user: loggedInUser._id }],
     queryFn: fetchNotifications,
   });
-  useEffect(() => {
-    notificationsQuery.data && handleProgress(100);
-  }, [notificationsQuery.isFetched]);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -81,7 +75,9 @@ function NotificationsLayout({ handleOpen }) {
             </>
           )}
         </div>
-        {notificationsQuery.data && (
+        {notificationsQuery.isLoading ? (
+          <LoadingIcon />
+        ) : (
           <>
             <div
               className={

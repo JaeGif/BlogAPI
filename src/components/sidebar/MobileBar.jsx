@@ -41,6 +41,16 @@ function MobileBar({
     // handle seen notifs once notifications are opened, new notification symbol is removed.
     setNewNotification(false);
   };
+  useEffect(() => {
+    // check for new notifications on first load
+    for (let i = 0; i < user.notifications.length; i++) {
+      if (!user.notifications[i].seen) {
+        setNewNotification(true);
+        return;
+      }
+    }
+    setNewNotification(false);
+  }, []);
   const switchOptionsExpansion = () => {
     switch (open) {
       case 'notifications':
@@ -101,10 +111,10 @@ function MobileBar({
         </p>
         <div className={style.iconsWrapper}>
           <div
+            className={style.notificationIndicatorWrapper}
             onClick={(e) => {
               e.stopPropagation();
               newPostModal('close');
-
               handleOpen('notifications');
             }}
           >
@@ -117,6 +127,7 @@ function MobileBar({
               }
               alt='notifications'
             />
+            {newNotification && <div className={style.newNotifications}> </div>}
           </div>
           <div>
             <img
