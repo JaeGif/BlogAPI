@@ -8,7 +8,7 @@ API src can be found here : [Api Src Repo](https://github.com/JaeGif/RESTful_API
 Live: [Site here](jaegif.github.io/BlogAPI/)
 
 Run Locally:
-`$ git clone `
+`$ git clone https://github.com/JaeGif/BlogAPI.git`
 To clone the source.
 `$ npm i`
 To install dependencies
