@@ -7,14 +7,11 @@ The purpose of this site is to practice my skills, learning about RESTful API's 
 API src can be found here : [Api Src Repo](https://github.com/JaeGif/RESTful_API)
 Live: [Site here](jaegif.github.io/BlogAPI/)
 
-Run Locally:
-`$ git clone https://github.com/JaeGif/BlogAPI.git`
-To clone the source.
-`$ npm i`
-To install dependencies
+## Run Locally:
+clone: `$ git clone https://github.com/JaeGif/BlogAPI.git`\
+install dependencies `$ npm i`
 
-If you were to run at the moment you would notice the API and PATH vars are not set. Create a .env file
-`$ touch .env`
+If you were to run at the moment you would notice the API and PATH vars are not set. Create a .env file. `$ touch .env`\
 Copy and paste the following enviroment variables to the .env file and save.
 ```
 VITE_BASE_PATH = /BlogAPI
