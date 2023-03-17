@@ -4,8 +4,8 @@ This page is a Front-End for an instagram clone calling a RESTful API also made 
 
 The purpose of this site is to practice my skills, learning about RESTful API's and JWT's in particular, as well as pick up a few new technologies along the way.
 
-API src can be found here : -------------
-Live: ------------
+API src can be found here :[(https://github.com/JaeGif/RESTful_API)]
+Live: [(jaegif.github.io/BlogAPI/)]
 
 ## Current Features
 

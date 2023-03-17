@@ -7,14 +7,21 @@
 .notifsHeader {
   padding: 10px 0px 0px 15px;
 }
+.bottomBorder {
+  border-bottom: 1px solid var(--grey-2);
+}
 .searchBoxContainer {
-  border-bottom: solid 1px var(--greyHighlight);
+  border-bottom: solid 1px var(--grey-2);
   padding-bottom: 20px;
+  margin-left: -8px;
 }
 .notificationsMinorWrapper {
   display: flex;
+  height: 85vh;
+  overflow: scroll;
   flex-direction: column;
 }
+
 .searchInput {
   background-image: url('./assets/favicons/search-grey.svg');
   background-repeat: no-repeat;
@@ -29,4 +36,62 @@
 }
 .searchInput:focus {
   outline: none;
+}
+.mobileHeaderContainer {
+  position: fixed;
+  height: 55px;
+  top: var(--mobileBottomBarHeight);
+  left: 0;
+  background-color: white;
+  width: 100vw;
+  z-index: 6;
+  display: flex;
+  justify-content: flex-start;
+  gap: 25vw;
+  border-bottom: solid 1px var(--grey-2);
+  align-items: center;
+}
+.notificationsConvert {
+  gap: 12.5vw;
+  height: calc(5vh + 10px);
+}
+.returnIcon {
+  height: 50px;
+  cursor: pointer;
+}
+.mobileHeaderContainer > h1 {
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+.mobile {
+  padding-left: 5px;
+}
+
+@media only screen and (max-width: 750px) {
+  .notificationsWrapper {
+    height: 90vh;
+    position: fixed;
+    top: calc(5vh + var(--mobileBottomBarHeight));
+    left: 0;
+    background-color: white;
+    width: 100vw;
+  }
+  .searchInput {
+    width: 90vw;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  .search {
+    padding: 25px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  .searchBoxContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

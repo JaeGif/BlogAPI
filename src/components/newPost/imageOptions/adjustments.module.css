@@ -1,0 +1,7 @@
+@media only screen and (max-width: 750px) {
+  .adjustmentsContainer {
+    display: flex;
+    overflow: scroll;
+    flex-wrap: nowrap;
+  }
+}

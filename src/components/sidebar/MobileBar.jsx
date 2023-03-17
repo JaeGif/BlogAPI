@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import style from './mobileBar.module.css';
 import { UserContext, ApiContext, PathContext, TokenContext } from '../../App';
+import SearchLayout from './search/SearchLayout';
+import NotificationsLayout from './notificationsBar/NotificationsLayout';
 
 function MobileBar({
   newPostModal,
@@ -15,17 +17,107 @@ function MobileBar({
 
   const [isNotifications, setIsNotifications] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [isMinified, setIsMinified] = useState(false);
-  const [open, setOpen] = useState('');
+  const [open, setOpen] = useState('home');
   const [newNotification, setNewNotification] = useState(false);
-  const [isHome, setIsHome] = useState(false);
+  const [isHome, setIsHome] = useState(true);
+  const [isNew, setIsNew] = useState(false);
 
+  const width = window.innerWidth;
+
+  const setSeen = async () => {
+    let data = new URLSearchParams();
+    data.append('seen', 'true');
+    const res = await fetch(`${apiURL}/api/users/${user._id}`, {
+      mode: 'cors',
+      method: 'PUT',
+      body: data,
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const notificationsSeen = await res.json();
+  };
+  const handleSeenNotifications = () => {
+    setSeen();
+
+    // handle seen notifs once notifications are opened, new notification symbol is removed.
+    setNewNotification(false);
+  };
+  useEffect(() => {
+    // check for new notifications on first load
+    for (let i = 0; i < user.notifications.length; i++) {
+      if (!user.notifications[i].seen) {
+        setNewNotification(true);
+        return;
+      }
+    }
+    setNewNotification(false);
+  }, []);
+  const switchOptionsExpansion = () => {
+    switch (open) {
+      case 'notifications':
+        setIsSearch(false);
+        setIsHome(false);
+        setIsNew(false);
+        setIsNotifications(true);
+        handleSeenNotifications();
+        refreshLoggedInUserData();
+        break;
+      case 'search':
+        setIsNotifications(false);
+        setIsSearch(true);
+        setIsHome(false);
+        setIsNew(false);
+
+        break;
+      case 'home':
+        setIsHome(true);
+        setIsNotifications(false);
+        setIsSearch(false);
+        setIsNew(false);
+
+        break;
+      case 'new':
+        setIsHome(false);
+        setIsNotifications(false);
+        setIsSearch(false);
+        setIsNew(true);
+        break;
+      default:
+        setIsHome(true);
+        setIsNotifications(false);
+        setIsSearch(false);
+        setIsNew(false);
+
+        break;
+    }
+  };
+  const handleOpen = (openString) => {
+    let modString = openString;
+    console.log(modString, open);
+    if (openString === open) {
+      modString = '';
+    }
+    setOpen(modString);
+  };
+  useEffect(() => {
+    // open sidebar modules
+    switchOptionsExpansion();
+    console.log(open);
+  }, [open]);
   return (
     <>
       <div className={style.upperMobileBarContainer}>
-        <p className={style.stylizeLogo}>Totally Not Instagram</p>
+        <p className={style.stylizeLogo}>
+          {width >= 375 && 'Totally Not '}Instagram
+        </p>
         <div className={style.iconsWrapper}>
-          <div>
+          <div
+            className={style.notificationIndicatorWrapper}
+            onClick={(e) => {
+              e.stopPropagation();
+              newPostModal('close');
+              handleOpen('notifications');
+            }}
+          >
             <img
               className={style.icons}
               src={
@@ -35,6 +127,7 @@ function MobileBar({
               }
               alt='notifications'
             />
+            {newNotification && <div className={style.newNotifications}> </div>}
           </div>
           <div>
             <img
@@ -48,7 +141,11 @@ function MobileBar({
 
       <div className={style.mobileBarContainer}>
         <div
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
+            newPostModal('close');
+
+            handleOpen('home');
             goToHomePage();
           }}
           className={style.iconWrapper}
@@ -63,7 +160,14 @@ function MobileBar({
             alt='home'
           />
         </div>
-        <div>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            newPostModal('close');
+
+            handleOpen('search');
+          }}
+        >
           <img
             className={style.icons}
             src={
@@ -74,17 +178,31 @@ function MobileBar({
             alt='search'
           />
         </div>
-        <div>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            handleOpen('new');
+            newPostModal();
+          }}
+        >
           <img
             className={`${style.newPostIcon}`}
-            src={`${basePath}/assets/favicons/add-white.svg`}
+            src={
+              isNew
+                ? `${basePath}/assets/favicons/add-blue.svg`
+                : `${basePath}/assets/favicons/add-white.svg`
+            }
             alt='New Post'
           />
         </div>
 
         <div className={style.childCentered}>
           <div
-            onClick={() => openUserPageModal(user._id)}
+            onClick={() => {
+              handleOpen('');
+              newPostModal('close');
+              openUserPageModal(user._id);
+            }}
             className={style.userPageIconWrapper}
           >
             <img
@@ -104,6 +222,30 @@ function MobileBar({
           </a>
         </div>
       </div>
+      {isNotifications && (
+        <>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpen('');
+            }}
+            className={style.closingWrapper}
+          ></div>
+          <NotificationsLayout handleOpen={handleOpen} />
+        </>
+      )}
+      {isSearch && (
+        <>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpen('');
+            }}
+            className={style.closingWrapper}
+          ></div>
+          <SearchLayout handleOpen={handleOpen} />
+        </>
+      )}
     </>
   );
 }

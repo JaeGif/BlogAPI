@@ -33,10 +33,20 @@ function SubmitPost({
   const [isTagging, setIsTagging] = useState(false);
   const [userFindResults, setUserFindResults] = useState([]);
   const [changedTagged, setChangedTagged] = useState(tagged);
+  const [mediaMobile, setMediaMobile] = useState(false);
 
+  const width = window.innerWidth;
   const apiURL = useContext(ApiContext);
   const basePath = useContext(PathContext);
   const token = useContext(TokenContext);
+
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    } else {
+      setMediaMobile(false);
+    }
+  }, []);
 
   const handleA11yOpen = () => {
     isAccessibilityOpen
@@ -77,7 +87,7 @@ function SubmitPost({
           src={`${basePath}/assets/favicons/redo.svg`}
           onClick={() => prevStep()}
         ></img>
-        <p>Create new post</p>
+        <p>{mediaMobile ? 'Details' : 'Create new post'}</p>
         <div>
           {isSubmitting ? (
             <CommentLoadingIcon />
@@ -95,7 +105,7 @@ function SubmitPost({
       </span>
       <div className={style.innerSubmitContainer}>
         <div className={style.tagWrapper} onClick={addTagToggle}>
-          {changedTagged.length ? (
+          {changedTagged.length > 0 && (
             <div className={style.tagsContainer}>
               {tagged.map((obj) => (
                 <span
@@ -115,10 +125,8 @@ function SubmitPost({
                 </span>
               ))}
             </div>
-          ) : (
-            <></>
           )}
-          {isTagging ? (
+          {isTagging && (
             <div className={style.taggingModal}>
               <span
                 className={style.tagSearchWrapper}
@@ -131,7 +139,7 @@ function SubmitPost({
                   placeholder='Search'
                 />
               </span>
-              {userFindResults.length ? (
+              {userFindResults.length > 0 && (
                 <div className={style.usersResultsContainer}>
                   {userFindResults.map((user) => (
                     <UserSearchOverview
@@ -141,13 +149,10 @@ function SubmitPost({
                     />
                   ))}
                 </div>
-              ) : (
-                <></>
               )}
             </div>
-          ) : (
-            <></>
           )}
+
           <PreviewImage
             imageIndex={imageIndex}
             imageData={imageData}
@@ -156,6 +161,7 @@ function SubmitPost({
             images={images}
             filter={filter}
             isVideoPreview={isVideoPreview}
+            isSubmit={true}
           />
         </div>
         <div className={style.postFormContainer}>
@@ -168,19 +174,6 @@ function SubmitPost({
           ></textarea>
           <span className={style.lowerInputsContainer}>
             <AddLocation changeLocation={changeLocation} />
-            {/*             <span className={style.locationWrapper}>
-              <input
-                onChange={(e) => changeLocation(e)}
-                name='location'
-                type='text'
-                placeholder='Add location'
-                className={style.locationInput}
-              />
-              <img
-                className={style.locationIcon}
-                src={`${basePath}/assets/favicons/location.svg`}
-              />
-            </span> */}
             <div onClick={handleA11yOpen}>
               <span className={style.accordianContainer}>
                 <p>Accessibility</p>

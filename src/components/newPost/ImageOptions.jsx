@@ -18,6 +18,7 @@ function ImageOptions({
       setSelectedFilter(false);
     }
   };
+
   return (
     <div className={style.optionsWrapper}>
       <div className={style.headerOptsContainer}>

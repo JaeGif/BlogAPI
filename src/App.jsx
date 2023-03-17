@@ -80,7 +80,6 @@ function App() {
       },
     });
     const data = await res.json();
-
     setUserProfile(data.user);
     setLoggedInUser(data.user);
     setLoggedIn(true);
@@ -107,17 +106,50 @@ function App() {
       setProgress(100);
       setToken(data.token);
       fetchLoggedInUserData(data.user, data.token);
+      return true;
     } else {
       setProgress(100);
-      console.log(res.status);
+      return false;
+    }
+  };
+  const handleGuestLogin = async () => {
+    setProgress(20);
+    const userData = new URLSearchParams();
+    userData.append('username', 'Guest');
+    userData.append('password', 'Password1');
+
+    const res = await fetch(`${apiURL}/login`, {
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: userData,
+    });
+    setProgress(70);
+
+    if (res.status === 200) {
+      const data = await res.json();
+      setProgress(100);
+      setToken(data.token);
+      fetchLoggedInUserData(data.user, data.token);
+      return true;
+    } else {
+      setProgress(100);
+      return false;
     }
   };
 
   const refreshContent = () => {
     isRefresh ? setIsRefresh(false) : setIsRefresh(true);
   };
-  const newPostModal = () => {
-    isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
+  const newPostModal = (close) => {
+    if (close === 'close') {
+      setIsNewPostModal(false);
+      return;
+    } else {
+      isNewPostModal ? setIsNewPostModal(false) : setIsNewPostModal(true);
+    }
   };
   const openUserPageModal = () => {
     setIsUserPage(true);
@@ -141,6 +173,7 @@ function App() {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
   const handleUserProfileCheckout = async (userId) => {
+    console.log(userId);
     setProgress(20);
     const res = await fetch(`${apiURL}/api/users/${userId}`, {
       mode: 'cors',
@@ -218,7 +251,10 @@ function App() {
                         path='/login'
                         element={
                           <div>
-                            <LoginPage handleLogIn={handleLogin} />
+                            <LoginPage
+                              handleLogIn={handleLogin}
+                              handleGuestLogin={handleGuestLogin}
+                            />
                           </div>
                         }
                       />
@@ -229,7 +265,7 @@ function App() {
                         element={
                           <div>
                             {loggedIn ? (
-                              <div className='App'>
+                              <div className={`App`}>
                                 {mediaMobile ? (
                                   <MobileBar
                                     newPostModal={newPostModal}

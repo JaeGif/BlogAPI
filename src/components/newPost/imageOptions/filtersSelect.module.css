@@ -30,3 +30,13 @@
 .selected > p {
   color: blue;
 }
+@media only screen and (max-width: 750px) {
+  .filtersContainer {
+    width: 100vw;
+    max-width: none;
+    height: 30vh;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 0 5px 0 5px;
+  }
+}

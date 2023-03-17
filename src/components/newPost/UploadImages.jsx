@@ -1,4 +1,5 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect, useState } from 'react';
+
 import { PathContext } from '../../App';
 import DragDrop from './DragDrop';
 import style from './newpost.module.css';
@@ -9,11 +10,20 @@ function UploadImages({ handleFiles }) {
   const fileUpload = (ref) => {
     ref.current.click();
   };
+  const width = window.innerWidth;
+  const [mediaMobile, setMediaMobile] = useState(false);
 
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    } else {
+      setMediaMobile(false);
+    }
+  });
   return (
     <>
       <span className={style.headingNewPost}>
-        <p>Create New Post</p>
+        <p>{mediaMobile ? 'Create' : 'Create New Post'}</p>
       </span>
       <div className={style.innerPostModalContainer}>
         <img
@@ -33,10 +43,10 @@ function UploadImages({ handleFiles }) {
         />
         <button
           type='button'
-          className={style.selectPhotoBtn}
+          className={`${style.selectPhotoBtn}`}
           onClick={() => fileUpload(getFile)}
         >
-          Select from computer
+          {mediaMobile ? 'Select Files' : 'Select from computer'}
         </button>
       </div>
     </>

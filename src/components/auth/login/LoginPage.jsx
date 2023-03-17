@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import style from './loginpage.module.css';
 
-function LoginPage({ handleLogIn }) {
+function LoginPage({ handleLogIn, handleGuestLogin }) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const passwordRef = useRef(null);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -12,6 +13,22 @@ function LoginPage({ handleLogIn }) {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  async function validateLogin(e) {
+    const passwordField = passwordRef.current;
+    passwordField.setCustomValidity('');
+
+    if (passwordField.checkValidity()) {
+      const success = await handleLogIn(username, password);
+      if (success) {
+        passwordField.setCustomValidity('');
+      } else {
+        passwordField.setCustomValidity('Incorrect username or password');
+        passwordField.reportValidity();
+      }
+    }
+  }
+
   return (
     <div className={style.modalWrapper}>
       <div className={style.logInContainer}>
@@ -34,6 +51,7 @@ function LoginPage({ handleLogIn }) {
                 className={style.textInput}
                 name='password'
                 type='password'
+                ref={passwordRef}
                 aria-label='password'
                 placeholder='Password'
                 required
@@ -42,7 +60,7 @@ function LoginPage({ handleLogIn }) {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  handleLogIn(username, password);
+                  validateLogin(e);
                 }}
                 className={style.submitButton}
               >
@@ -68,7 +86,9 @@ function LoginPage({ handleLogIn }) {
             </div>
             <div className={style.createAcctRedirectContainer}>
               <a className={style.createAcctRedirect}>
-                <button className={style.guestLogin}>Guest Login</button>
+                <button onClick={handleGuestLogin} className={style.guestLogin}>
+                  Guest Login
+                </button>
               </a>
             </div>
           </div>

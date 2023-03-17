@@ -2,8 +2,10 @@
   display: flex;
   overflow: scroll;
   cursor: pointer;
-  padding: 5px;
+  padding: 0;
   gap: 5px;
+  width: 100%;
+  padding: 5px 0 0 0;
 }
 .overviewContainer:hover {
   background-color: var(--grey-1);

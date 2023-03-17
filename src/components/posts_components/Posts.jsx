@@ -51,8 +51,13 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
 
   return (
     <>
-      {postsQuery.data ? (
+      {postsQuery.data && (
         <div className={style.postsMargin}>
+          {postsQuery.data.pages[0].posts.length === 0 && (
+            <div className={style.postsMargin}>
+              <p>You're not currently following anyone with active posts.</p>
+            </div>
+          )}
           {postsQuery.data.pages.map((page) => (
             <>
               {page.posts.map((post) => (
@@ -69,10 +74,6 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
           <br />
           <br />
           <div ref={ref} className={style.infiniteLoadMarker} />
-        </div>
-      ) : (
-        <div className={style.postsMargin}>
-          <p>You're not currently following anyone with active posts.</p>
         </div>
       )}
     </>

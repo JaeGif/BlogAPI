@@ -123,7 +123,7 @@ function Sidebar({
                 src={`${basePath}/assets/favicons/home.svg`}
                 alt='home'
               />
-              {isMinified ? <></> : <h2>Home</h2>}
+              {!isMinified && <h2>Home</h2>}
             </span>
           </div>
           <div>
@@ -139,7 +139,7 @@ function Sidebar({
                 src={`${basePath}/assets/favicons/search.svg`}
                 alt='search'
               />
-              {isMinified ? <></> : <h2>Search</h2>}
+              {!isMinified && <h2>Search</h2>}
             </span>
           </div>
 
@@ -150,7 +150,7 @@ function Sidebar({
                 src={`${basePath}/assets/favicons/chat.svg`}
                 alt='messages'
               />
-              {isMinified ? <></> : <h2>Messages</h2>}
+              {!isMinified && <h2>Messages</h2>}
             </span>
           </div>
           <div>
@@ -167,13 +167,11 @@ function Sidebar({
                   src={`${basePath}/assets/favicons/favorite.svg`}
                   alt='notifications'
                 />
-                {newNotification ? (
+                {newNotification && (
                   <div className={style.newNotifications}> </div>
-                ) : (
-                  <></>
                 )}
               </div>
-              {isMinified ? <></> : <h2>Notifications</h2>}
+              {!isMinified && <h2>Notifications</h2>}
             </span>
           </div>
           <div>
@@ -183,7 +181,7 @@ function Sidebar({
                 src={`${basePath}/assets/favicons/add.svg`}
                 alt='New Post'
               />
-              {isMinified ? <></> : <h2>Create</h2>}
+              {!isMinified && <h2>Create</h2>}
             </span>
           </div>
           <div>
@@ -198,7 +196,7 @@ function Sidebar({
                   alt='user home page'
                 />
               </div>
-              {isMinified ? <></> : <h2>Profile</h2>}
+              {!isMinified && <h2>Profile</h2>}
             </span>
           </div>
           <div>
@@ -213,7 +211,7 @@ function Sidebar({
                   src={`${basePath}/assets/github.png`}
                   alt='creators github'
                 />
-                {isMinified ? <></> : <h2>Creator's Github</h2>}
+                {!isMinified && <h2>Creator's Github</h2>}
               </span>
             </a>
           </div>

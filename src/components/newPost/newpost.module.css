@@ -50,7 +50,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-
   font-weight: bold;
   padding: 0;
 }
@@ -145,6 +144,7 @@
 }
 .expandChevrons {
   height: 25px;
+  cursor: pointer;
 }
 .accordianContainer {
   display: flex;
@@ -166,14 +166,15 @@
   padding: 5px 15px 5px 5px;
 }
 .locationIcon {
-  height: 1rem;
+  height: 1.2rem;
 }
 .locationWrapper {
   border-bottom: 1px solid var(--greyHighlight);
   display: flex;
   justify-content: space-around;
+  gap: 50%;
   align-items: center;
-  padding: 0px 15px 0px 15px;
+  width: 100%;
 }
 .locationInput:focus {
   border: none;
@@ -211,6 +212,7 @@
   width: 60%;
   border-radius: 4px 4px 0px 0px;
   z-index: 5;
+  overflow: hidden;
 }
 .tagSearchWrapper {
   display: flex;
@@ -236,6 +238,8 @@
 .usersResultsContainer {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  border: solid 1px var(--grey-2);
 }
 .taggedUsersContainer {
   width: 100%;
@@ -258,4 +262,78 @@
   width: fit-content;
   position: absolute;
   z-index: 5;
+}
+
+@media only screen and (max-width: 750px) {
+  .modalContainerFullScreenCenter {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+  }
+  .postModalWrapper {
+    height: 100vh;
+    width: 100vw;
+  }
+  .postModalContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    height: calc(100vh - var(--mobileBottomBarHeight) * 2);
+    width: 100vw;
+    border-radius: none;
+    min-width: none;
+    max-width: none;
+    min-height: none;
+  }
+  .selectPhotoBtn {
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+  .headingNewPost > p {
+    margin: 15px;
+    font-size: 1.2rem;
+  }
+  .headingPreviewEdits {
+    border-bottom: solid 1px var(--greyHighlight);
+    display: flex;
+    margin: 0;
+    width: 100vw;
+    gap: calc(100vw / 3);
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .headingPreviewEdits > p {
+    margin: 15px 0 15px 0;
+  }
+  .postPreviewContainer {
+    flex-direction: column;
+    border-radius: none;
+    min-width: none;
+    max-width: none;
+    min-height: none;
+    width: 100vw;
+  }
+  .headingSubmitPost {
+    justify-content: center;
+    width: 100vw;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .headingSubmitPost > p {
+    margin: 15px 0 15px 0;
+    padding: 0;
+  }
+  .continueNewPostText {
+    margin: 0;
+  }
+  .innerSubmitContainer {
+    flex-direction: column;
+  }
+  .postFormContainer {
+    width: 100vw;
+    min-width: none;
+  }
 }
