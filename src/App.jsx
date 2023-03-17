@@ -174,6 +174,7 @@ function App() {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
   const handleUserProfileCheckout = async (userId) => {
+    console.log(userId);
     setProgress(20);
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',

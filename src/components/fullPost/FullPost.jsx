@@ -147,7 +147,7 @@ function FullPost({
                             key={uniqid()}
                             className={style.taggedUsersContainer}
                             onClick={(e) => {
-                              getUserProfile(tag.data);
+                              getUserProfile(tag.data._id);
                               e.stopPropagation();
                             }}
                           >

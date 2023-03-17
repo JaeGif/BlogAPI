@@ -28,6 +28,7 @@ function MobileFullPost({
   } = postObj;
   const loggedInUser = useContext(UserContext);
   const [isLoggedInUser, setIsLoggedInUser] = useState(false);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => (document.body.style.overflow = 'scroll');
