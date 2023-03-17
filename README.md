@@ -7,6 +7,23 @@ The purpose of this site is to practice my skills, learning about RESTful API's 
 API src can be found here : [Api Src Repo](https://github.com/JaeGif/RESTful_API)
 Live: [Site here](jaegif.github.io/BlogAPI/)
 
+Run Locally:
+`$ git clone `
+To clone the source.
+`$ npm i`
+To install dependencies
+
+If you were to run at the moment you would notice the API and PATH vars are not set. Create a .env file
+`$ touch .env`
+Copy and paste the following enviroment variables to the .env file and save.
+```
+VITE_BASE_PATH = /BlogAPI
+VITE_RAILWAY_URL = https://instaapi-production.up.railway.app
+```
+Finally, run the project: `$ npx vite`
+
+The project is most likely available on http://localhost:5173/BlogAPI/.
+
 ## Current Features
 
 Totally Not Instagram showcases many of the same features that Instagram itself uses. While Stories and Discover are nowhere to be found you may be pleasantly surprised to see that the core functionalities are there.
