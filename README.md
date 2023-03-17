@@ -9,6 +9,7 @@ Live: [Site here](jaegif.github.io/BlogAPI/)
 
 ## Run Locally:
 clone: `$ git clone https://github.com/JaeGif/BlogAPI.git`\
+Make sure you enter the project directory `$ cd BlogAPI/`\
 install dependencies `$ npm i`
 
 If you were to run at the moment you would notice the API and PATH vars are not set. Create a .env file. `$ touch .env`\
