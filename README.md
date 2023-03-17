@@ -4,8 +4,8 @@ This page is a Front-End for an instagram clone calling a RESTful API also made 
 
 The purpose of this site is to practice my skills, learning about RESTful API's and JWT's in particular, as well as pick up a few new technologies along the way.
 
-API src can be found here :[(https://github.com/JaeGif/RESTful_API)]
-Live: [(jaegif.github.io/BlogAPI/)]
+API src can be found here : [Api Src Repo](https://github.com/JaeGif/RESTful_API)
+Live: [Site here](jaegif.github.io/BlogAPI/)
 
 ## Current Features
 
@@ -13,7 +13,7 @@ Totally Not Instagram showcases many of the same features that Instagram itself 
 
 Fully Implemented Feautures:
 
-- mp4, mp3, png, jpg, jpeg, and gif file support.
+- mp4, png, jpg, and jpeg file support.
 - Content carousels.
 - User pages, including editable user information and stats for each user.
 - A Follow system
