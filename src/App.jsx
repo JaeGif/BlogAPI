@@ -1,11 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useNavigate,
-  Navigate,
-} from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import './App.css';
 import Posts from './components/posts_components/Posts';
 import Sidebar from './components/sidebar/Sidebar';
@@ -14,12 +8,12 @@ import Suggested from './components/suggested/Suggested';
 import NewPost from './components/newPost/NewPost';
 import './filters.css';
 import UserPageLayout from './components/userPublicPage/UserPageLayout';
-import FullPost from './components/fullPost/FullPost';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import LoginPage from './components/auth/login/LoginPage';
 import CreateAccount from './components/auth/createAccount/CreateAccount';
 import EditProfile from './components/userPublicPage/EditProfile';
 import LoadingBar from 'react-top-loading-bar';
+import FullPost from './components/fullPost/FullPost';
 import MobileFullPost from './components/fullPost/MobileFullPost';
 
 const UserContext = React.createContext(null);
@@ -36,6 +30,7 @@ function App() {
   const [isUserPage, setIsUserPage] = useState(false);
   const [displayPost, setDisplayPost] = useState(false);
   const [postCheckout, setPostCheckout] = useState({});
+  const [postCheckoutUser, setPostCheckoutUser] = useState({});
   const [postContentIsVideo, setPostContentIsVideo] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
@@ -156,24 +151,35 @@ function App() {
   };
   const handlePostCheckout = async (postId) => {
     // needs a post id, so notifs now need a post obj
+    setProgress(20);
+
     const res = await fetch(`${localURL}/api/posts/${postId}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
+    setProgress(50);
+
     setPostCheckout(data.post);
-    if (data.post.image.contentType === 'video/mp4') {
-      setPostContentIsVideo(true);
-    } else {
-      setPostContentIsVideo(false);
-    }
+    setProgress(70);
+
+    const resUser = await fetch(`${localURL}/api/users/${data.post.user}`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    setProgress(90);
+
+    const userData = await resUser.json();
+    setPostCheckoutUser(userData.user);
+    setProgress(100);
+
     setDisplayPost(true);
   };
+
   const toggleDisplayFullPost = () => {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
   const handleUserProfileCheckout = async (userId) => {
-    console.log(userId);
     setProgress(20);
     const res = await fetch(`${localURL}/api/users/${userId}`, {
       mode: 'cors',
@@ -305,6 +311,20 @@ function App() {
                                   )
                                 ) : (
                                   <>
+                                    {displayPost && !mediaMobile && (
+                                      <FullPost
+                                        postObj={postCheckout}
+                                        toggleFullPost={toggleDisplayFullPost}
+                                        userData={postCheckoutUser}
+                                      />
+                                    )}
+                                    {displayPost && mediaMobile && (
+                                      <MobileFullPost
+                                        postObj={postCheckout}
+                                        toggleFullPost={toggleDisplayFullPost}
+                                        userData={postCheckoutUser}
+                                      />
+                                    )}
                                     <Posts
                                       refresh={isRefresh}
                                       refreshFn={refreshContent}

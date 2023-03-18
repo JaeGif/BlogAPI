@@ -63,16 +63,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
 
-  const handleLike = () => {
-    if (isLiked) {
-      setIsLiked(false);
-      submitLike();
-    } else {
-      setIsLiked(true);
-      submitLike();
-    }
-  };
-
   const submitLike = () => {
     let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
     data.append(
@@ -165,19 +155,19 @@ function Post({ postObj, refreshLoggedInUserData }) {
   }, []);
 
   const numberOfLikes = () => {
-    if (likesQueries[0] && likesQueries[0].data) {
-      switch (likesQueries.length) {
-        case 0:
-          return 'No one has liked this yet ...';
-        case 1:
-          return `${likesQueries[0].data.username} liked this.`;
-        case 2:
-          return `Liked by ${likesQueries[0].data.username} and ${likesQueries[1].data.username}.`;
-        default:
-          return `Liked by ${likesQueries[0].data.username}, ${
-            likesQueries[1].data.username
-          } and ${likesQueries.length - 2} more.`;
-      }
+    console.log(likesQueries.length);
+
+    switch (likesQueries.length) {
+      case 0:
+        return 'No one has liked this yet ...';
+      case 1:
+        return `${likesQueries[0].data.username} liked this.`;
+      case 2:
+        return `Liked by ${likesQueries[0].data.username} and ${likesQueries[1].data.username}.`;
+      default:
+        return `Liked by ${likesQueries[0].data.username}, ${
+          likesQueries[1].data.username
+        } and ${likesQueries.length - 2} more.`;
     }
   };
 
@@ -208,26 +198,13 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const detectDoubleClick = (e) => {
     switch (e.detail) {
       case 2:
-        handleLike();
+        addLikeMutation.mutate();
         break;
       default:
         break;
     }
   };
-  /*   const fetchUsersLike = async () => {
-    const promiseWrap = await Promise.all(
-      like.map(async (userId) => {
-        const res = await fetch(`${apiURL}/api/users/${userId}`, {
-          mode: 'cors',
-          headers: { Authorization: 'Bearer' + ' ' + token },
-        });
-        const data = await res.json();
-        return data.user;
-      })
-    );
 
-    setLikedBy(promiseWrap);
-  }; */
   const fetchLikeUser = async (userId) => {
     const res = await fetch(`${apiURL}/api/users/${userId}`, {
       mode: 'cors',

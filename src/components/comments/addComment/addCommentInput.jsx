@@ -7,7 +7,6 @@ function AddCommentInput({ post, updateParentPost }) {
   const user = useContext(UserContext);
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
-
   const [isValue, setIsValue] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [comment, setComment] = useState('');
@@ -68,8 +67,8 @@ function AddCommentInput({ post, updateParentPost }) {
           <button
             type='button'
             onClick={() => {
-              submitComment();
               setSubmitting(true);
+              submitComment();
             }}
             className={
               isValue ? `${style.postBtn} ${style.activePost}` : style.postBtn

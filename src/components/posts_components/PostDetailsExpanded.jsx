@@ -17,7 +17,7 @@ function PostDetailsExpanded({ postObj, userData }) {
             </p>
           </div>
           <p className={style.textSizing}>
-            <em className={style.timestamp}>{postObj.updatedAt}</em>
+            <em className={style.timestamp}>{postObj.createdAt}</em>
           </p>
         </div>
       </div>
