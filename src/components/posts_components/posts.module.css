@@ -7,15 +7,19 @@
 }
 .postsMargin {
   padding-left: 7.5vw;
+  position: relative;
 }
 .infiniteCheckLoad {
-  position: fixed;
-  top: 5;
+  height: calc(10vh + var(--mobileBottomBarHeight));
+  width: 100%;
+}
+.loadingIconWrapper {
   display: flex;
   justify-content: center;
-  width: 100vw;
-  z-index: 100;
+  width: 100%;
+  align-items: center;
 }
+
 @media only screen and (max-width: 750px) {
   .postsMargin {
     padding-left: 0;

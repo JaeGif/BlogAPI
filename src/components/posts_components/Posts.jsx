@@ -17,7 +17,6 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const token = useContext(TokenContext);
-  const { ref, inView } = useInView();
 
   const returnLimit = 5;
 
@@ -44,21 +43,22 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
   );
 
   useEffect(() => {
-    if (inView) {
+    const onScroll = function () {
       if (
-        postsQuery.data.pages[postsQuery.data.pages.length - 1].nextCursor ===
-        postsQuery.data.pages[postsQuery.data.pages.length - 1].previousCursor
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 10
       ) {
-        console.log('timeout');
-        console.log(postsQuery);
-        setTimeout(postsQuery.fetchNextPage(), 30000);
-      } else {
-        console.log('calling');
-        postsQuery.fetchNextPage();
-      }
-    }
-  }, [inView]);
+        let scrollDistance = height / 10;
+        window.scrollBy(0, -scrollDistance);
 
+        if (!postsQuery.isFetchingNextPage) {
+          postsQuery.fetchNextPage();
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [postsQuery.isFetching]);
   return (
     <>
       {postsQuery.data && (
@@ -68,9 +68,9 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
               <p>You're not currently following anyone with active posts.</p>
             </div>
           )}
-          {postsQuery.data.pages.map((page) => (
+          {postsQuery.data.pages.map((page, pageI) => (
             <>
-              {page.posts.map((post) => (
+              {page.posts.map((post, i) => (
                 <>
                   <Post
                     key={uniqid()}
@@ -81,9 +81,7 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
               ))}
             </>
           ))}
-          <br />
-          <br />
-          <div ref={ref} className={style.infiniteLoadMarker} />
+          <div className={style.infiniteCheckLoad}></div>
         </div>
       )}
     </>
