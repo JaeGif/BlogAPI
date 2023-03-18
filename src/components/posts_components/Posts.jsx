@@ -45,7 +45,17 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
 
   useEffect(() => {
     if (inView) {
-      postsQuery.fetchNextPage();
+      if (
+        postsQuery.data.pages[postsQuery.data.pages.length - 1].nextCursor ===
+        postsQuery.data.pages[postsQuery.data.pages.length - 1].previousCursor
+      ) {
+        console.log('timeout');
+        console.log(postsQuery);
+        setTimeout(postsQuery.fetchNextPage(), 30000);
+      } else {
+        console.log('calling');
+        postsQuery.fetchNextPage();
+      }
     }
   }, [inView]);
 

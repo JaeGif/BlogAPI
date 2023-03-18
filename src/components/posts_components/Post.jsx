@@ -107,8 +107,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
       },
       mode: 'cors',
     }).then(() => {
-      /*       refreshLoggedInUserData();
-       */
+      refreshLoggedInUserData();
     });
   };
 
@@ -133,7 +132,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
       console.log('saved!');
     });
   };
-
   const updateParentPost = () => {
     setIsNewComment(true);
   };
@@ -243,7 +241,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
             <PostOptionsEllipse post={postObj} />
           </span>
           <div className={style.sliderContainer} onClick={detectDoubleClick}>
-            <ImageSlider images={images} />
+            <ImageSlider key={uniqid()} images={images} />
           </div>
           <div className={style.postInfoContainer}>
             <span className={style.iconsContainer}>
