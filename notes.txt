@@ -15,7 +15,6 @@ Bugfix:
 - fix newPost UI
 - edit post UI fix
 - Liking your own post gives a notification and it is not removed when unliked
-- Sometimes when activating the infinite scroll feature, browser goes absolutely insano-style and ERR_INSUFFICIENT_RESOURCES
 
 Fully Finished Features:
 - See Posts from users you follow 
@@ -31,6 +30,7 @@ Fully Finished Features:
 - Filters
 - Form validation (Create Acct)
 - Fully Responsive
+- Smooth Infinite Scroll
 
 
 

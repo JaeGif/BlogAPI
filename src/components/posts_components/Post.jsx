@@ -11,7 +11,12 @@ import {
   TokenContext,
   UserContext,
 } from '../../App';
-import { useQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import ImageSlider from './ImageSlider';
 import uniqid from 'uniqid';
 import PostOptionsEllipse from '../options/postOptions/PostOptionsEllipse';
@@ -22,6 +27,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const loggedInUser = useContext(UserContext);
   const basePath = useContext(PathContext);
   const token = useContext(TokenContext);
+  const queryClient = useQueryClient();
 
   const [isComments, setIsComments] = useState(false);
   const [countComments, setCountComments] = useState(0);
@@ -29,9 +35,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [isNewComment, setIsNewComment] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [likedBy, setLikedBy] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
-  const [thumbnailImage, setThumbnailImage] = useState();
   const [mediaMobile, setMediaMobile] = useState(false);
 
   const {
@@ -62,19 +66,9 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const handleLike = () => {
     if (isLiked) {
       setIsLiked(false);
-      const tempLikedBy = likedBy;
-      tempLikedBy.pop();
-      setLikedBy(tempLikedBy);
       submitLike();
     } else {
       setIsLiked(true);
-
-      setLikedBy(
-        likedBy.concat({
-          _id: loggedInUser._id,
-          username: loggedInUser.username,
-        })
-      );
       submitLike();
     }
   };
@@ -90,10 +84,10 @@ function Post({ postObj, refreshLoggedInUserData }) {
         post: {
           _id: _id,
           thumbnail: {
-            url: thumbnailImage.url,
-            alt: thumbnailImage.alt,
-            filter: thumbnailImage.filter,
-            adjustments: thumbnailImage.adjustments,
+            url: thumbnailQuery.data.url,
+            alt: thumbnailQuery.data.alt,
+            filter: thumbnailQuery.data.filter,
+            adjustments: thumbnailQuery.data.adjustments,
           },
         },
       })
@@ -142,10 +136,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
         setIsSaved(true);
       }
     }
-    fetchThumbnail();
-    if (like.length) {
-      fetchUsersLike();
-    }
   }, []);
 
   useEffect(() => {
@@ -156,6 +146,9 @@ function Post({ postObj, refreshLoggedInUserData }) {
       setIsComments(false);
       setCountComments(0);
     }
+  }, [isNewComment]);
+
+  useEffect(() => {
     if (like.length) {
       for (let i = 0; i < like.length; i++) {
         if (like[i].toString() === loggedInUser._id.toString()) {
@@ -163,7 +156,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
         }
       }
     }
-  }, [isNewComment]);
+  }, [like]);
 
   useEffect(() => {
     if (user === loggedInUser._id) {
@@ -172,27 +165,34 @@ function Post({ postObj, refreshLoggedInUserData }) {
   }, []);
 
   const numberOfLikes = () => {
-    switch (likedBy.length) {
-      case 0:
-        return 'No one has liked this yet ...';
-      case 1:
-        return `${likedBy[0].username} liked this.`;
-      case 2:
-        return `Liked by ${likedBy[0].username} and ${likedBy[1].username}.`;
-      default:
-        return `Liked by ${likedBy[0].username}, ${likedBy[1].username} and ${
-          likedBy.length - 2
-        } more.`;
+    if (likesQueries[0] && likesQueries[0].data) {
+      switch (likesQueries.length) {
+        case 0:
+          return 'No one has liked this yet ...';
+        case 1:
+          return `${likesQueries[0].data.username} liked this.`;
+        case 2:
+          return `Liked by ${likesQueries[0].data.username} and ${likesQueries[1].data.username}.`;
+        default:
+          return `Liked by ${likesQueries[0].data.username}, ${
+            likesQueries[1].data.username
+          } and ${likesQueries.length - 2} more.`;
+      }
     }
   };
+
   const fetchThumbnail = async () => {
     const res = await fetch(`${apiURL}/api/images/${images[0]}`, {
       mode: 'cors',
       headers: { Authorization: 'Bearer' + ' ' + token },
     });
     const data = await res.json();
-    setThumbnailImage(data.image);
+    return data.image;
   };
+  const thumbnailQuery = useQuery({
+    queryKey: ['thumbnail', { _id: images[0] }],
+    queryFn: fetchThumbnail,
+  });
   const fetchUser = async () => {
     const res = await fetch(`${apiURL}/api/users/${user}`, {
       mode: 'cors',
@@ -214,7 +214,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
         break;
     }
   };
-  const fetchUsersLike = async () => {
+  /*   const fetchUsersLike = async () => {
     const promiseWrap = await Promise.all(
       like.map(async (userId) => {
         const res = await fetch(`${apiURL}/api/users/${userId}`, {
@@ -227,7 +227,32 @@ function Post({ postObj, refreshLoggedInUserData }) {
     );
 
     setLikedBy(promiseWrap);
+  }; */
+  const fetchLikeUser = async (userId) => {
+    const res = await fetch(`${apiURL}/api/users/${userId}`, {
+      mode: 'cors',
+      headers: { Authorization: 'Bearer' + ' ' + token },
+    });
+    const data = await res.json();
+    return data.user;
   };
+  const likesQueries = useQueries({
+    queries: like.map((userId) => {
+      return {
+        queryKey: ['likes', { user: userId }],
+        queryFn: () => fetchLikeUser(userId),
+      };
+    }),
+  });
+
+  const addLikeMutation = useMutation({
+    mutationFn: submitLike,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['posts', { u: loggedInUser._id }],
+      });
+    },
+  });
 
   return (
     userQuery.data && (
@@ -247,7 +272,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
             <span className={style.iconsContainer}>
               <span className={style.iconsSpacing}>
                 <svg
-                  onClick={handleLike}
+                  onClick={addLikeMutation.mutate}
                   className={style.icons}
                   viewBox='0 0 50 50'
                 >
@@ -282,7 +307,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
               )}
             </span>
             <span>
-              <em>{likedBy && numberOfLikes()}</em>
+              <em>{numberOfLikes()}</em>
             </span>
             <p>
               <em className={style.userNameEmphasis}>{user.username}</em> {post}

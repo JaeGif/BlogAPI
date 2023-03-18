@@ -11,7 +11,6 @@ import {
   useQuery,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { useInView } from 'react-intersection-observer';
 
 function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
   const apiURL = useContext(ApiContext);
@@ -48,7 +47,7 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
         window.innerHeight + window.scrollY >=
         document.body.offsetHeight - 10
       ) {
-        let scrollDistance = height / 10;
+        let scrollDistance = window.innerHeight / 10;
         window.scrollBy(0, -scrollDistance);
 
         if (!postsQuery.isFetchingNextPage) {
