@@ -6,7 +6,7 @@ import { PathContext } from '../../App';
 
 function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   const [imageIndex, setImageIndex] = useState(0);
-  const [leftShift, setLeftShift] = useState('0vw');
+  const [leftShift, setLeftShift] = useState('0px');
   const [leftHidden, setLeftHidden] = useState(true);
   const [rightHidden, setRightHidden] = useState(false);
   const [hideBubbles, setHideBubbles] = useState(true);
@@ -112,7 +112,9 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
         className={style.contentWrapper}
       >
         {images.map((img, index) => (
-          <Content key={uniqid()} imageId={img} removeEls={removeEls} />
+          // removed unique key because it changes forcing a rerender of the memoized component.
+          // I will never need the key of the component so it's ok also the img id is unique
+          <Content key={img} imageId={img} removeEls={removeEls} />
         ))}
       </div>
       <div

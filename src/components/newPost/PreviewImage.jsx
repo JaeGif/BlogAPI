@@ -13,13 +13,14 @@ function PreviewImage({
   handleDecIndex,
   isSubmit = false,
 }) {
-  const [leftShift, setLeftShift] = useState('0vw');
+  const [leftShift, setLeftShift] = useState('0px');
   const [leftHidden, setLeftHidden] = useState(true);
   const [rightHidden, setRightHidden] = useState(false);
-  const [hideBubbles, setHideBubbles] = useState(false);
+  const [hideBubbles, setHideBubbles] = useState(true);
   const ref = useRef([]);
   const basePath = useContext(PathContext);
   const pushRef = (el) => ref.current.push(el);
+  const boundRef = useRef(null);
   const width = window.innerWidth;
 
   useEffect(() => {
@@ -51,18 +52,20 @@ function PreviewImage({
       setRightHidden(true);
     }
   });
+  useEffect(() => {
+    if (images.length > 1) {
+      setHideBubbles(false);
+    }
+  }, []);
 
   const calculateLeftShift = () => {
-    // 35vw is the standard width, this will need to change for screen size.
-    let value;
-    if (width < 1000 && width > 750) {
-      value = imageIndex * -1 * 60;
-    } else if (width >= 1000) {
-      value = imageIndex * -1 * 35;
-    } else if (width < 750) {
-      value = imageIndex * -1 * 100;
-    }
-    setLeftShift(`${value}vw`);
+    // image slider now dynamically adjusts shift based completely on size of window.
+    // px approach using boundingRect
+    const contentBounds = boundRef.current.getBoundingClientRect();
+    const contentWidth = contentBounds.right - contentBounds.left;
+    const shift = imageIndex * contentWidth;
+
+    setLeftShift(`-${shift}px`);
   };
 
   const handleBubbleIndicators = () => {
@@ -79,7 +82,7 @@ function PreviewImage({
   };
 
   return (
-    <div className={style.carouselWrapper}>
+    <div ref={boundRef} className={style.carouselWrapper}>
       <div
         className={
           leftHidden
@@ -106,6 +109,7 @@ function PreviewImage({
           {images.map((image, idx) => {
             return (
               <ImageContent
+                key={idx}
                 idx={idx}
                 image={image}
                 isVideoPreview={isVideoPreview}

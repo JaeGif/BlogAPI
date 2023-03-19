@@ -51,7 +51,6 @@ function Notification({ notification, handleOpen }) {
       return data.user;
     }
   };
-
   const notificationUserDataQuery = useQuery({
     queryKey: ['users', { notification: notification._id }],
     queryFn: fetchUserData,
