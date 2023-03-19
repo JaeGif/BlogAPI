@@ -44,7 +44,7 @@ const Content = memo(function Content({ imageId, removeEls }) {
   });
 
   return contentQuery.data ? (
-    <div className={`${style.imgContainers} `}>
+    <div className={`${style.imgContainers}`}>
       {isVideo ? (
         <video
           preload='auto'

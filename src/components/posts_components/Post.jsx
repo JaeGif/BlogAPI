@@ -90,8 +90,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
         Authorization: 'Bearer' + ' ' + token,
       },
       mode: 'cors',
-    }).then(() => {
-      refreshLoggedInUserData();
     });
   };
 
@@ -284,7 +282,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
               )}
             </span>
             <span>
-              <em>{numberOfLikes()}</em>
+              <em>{likesQueries.isFetched && numberOfLikes()}</em>
             </span>
             <p>
               <em className={style.userNameEmphasis}>{user.username}</em> {post}

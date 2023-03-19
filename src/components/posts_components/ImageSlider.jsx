@@ -9,10 +9,11 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
   const [leftShift, setLeftShift] = useState('0vw');
   const [leftHidden, setLeftHidden] = useState(true);
   const [rightHidden, setRightHidden] = useState(false);
-  const [hideBubbles, setHideBubbles] = useState(false);
+  const [hideBubbles, setHideBubbles] = useState(true);
   const basePath = useContext(PathContext);
   const width = window.innerWidth;
   const ref = useRef([]);
+  const boundRef = useRef(null);
 
   const pushRef = (el) => ref.current.push(el);
 
@@ -33,9 +34,10 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
     if (imageIndex >= images.length) {
       return;
     }
-
     calculateLeftShift();
-    changeCurrentIndicator();
+    if (images.length > 1) {
+      changeCurrentIndicator();
+    }
     if (handleUpdateIndex) {
       handleUpdateIndex(imageIndex);
     }
@@ -43,12 +45,6 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
 
   useEffect(() => {
     setImageIndex(0);
-  }, [images]);
-
-  useEffect(() => {
-    if (images.length === 1) {
-      setHideBubbles(true);
-    }
   }, []);
 
   const handleIncIndex = () => {
@@ -65,17 +61,19 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
       setImageIndex(imageIndex - 1);
     }
   };
-  const calculateLeftShift = () => {
-    // 35vw is the standard width, this will need to change for screen size.
-    let value;
-    if (width < 1000 && width > 750) {
-      value = imageIndex * -1 * 60;
-    } else if (width >= 1000) {
-      value = imageIndex * -1 * 35;
-    } else if (width < 750) {
-      value = imageIndex * -1 * 100;
+  useEffect(() => {
+    if (images.length > 1) {
+      setHideBubbles(false);
     }
-    setLeftShift(`${value}vw`);
+  }, []);
+  const calculateLeftShift = () => {
+    // image slider now dynamically adjusts shift based completely on size of window.
+    // px approach using boundingRect
+    const contentBounds = boundRef.current.getBoundingClientRect();
+    const contentWidth = contentBounds.right - contentBounds.left;
+    const shift = imageIndex * contentWidth;
+
+    setLeftShift(`-${shift}px`);
   };
   const handleBubbleIndicators = () => {
     return images.map((img) => (
@@ -90,7 +88,7 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
     bubbleRef.classList.add(`${style.active}`);
   };
   return (
-    <div className={style.carouselWrapper}>
+    <div ref={boundRef} className={style.carouselWrapper}>
       <div
         className={
           leftHidden
@@ -135,7 +133,11 @@ function ImageSlider({ images, handleUpdateIndex, removeEls }) {
           alt='right arrow'
         />
       </div>
-      <div className={hideBubbles ? '' : `${style.bubblesContainer}`}>
+      <div
+        className={
+          hideBubbles ? `${style.hidden}` : `${style.bubblesContainer}`
+        }
+      >
         {handleBubbleIndicators()}
       </div>
     </div>
