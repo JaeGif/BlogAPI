@@ -21,7 +21,7 @@ function UploadImages({ handleFiles }) {
     }
   });
   return (
-    <>
+    <div className={style.uploadImagesContainer}>
       <span className={style.headingNewPost}>
         <p>{mediaMobile ? 'Create' : 'Create New Post'}</p>
       </span>
@@ -49,7 +49,7 @@ function UploadImages({ handleFiles }) {
           {mediaMobile ? 'Select Files' : 'Select from computer'}
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

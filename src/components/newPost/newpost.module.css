@@ -7,6 +7,13 @@
   z-index: 5;
   background-color: rgba(24, 24, 24, 0.7);
 }
+.uploadImagesContainer {
+  min-width: 40vw;
+  min-height: 80vh;
+  border: solid 1px red;
+  display: flex;
+  flex-direction: column;
+}
 .closeModalBtnContainer {
   display: flex;
   justify-content: flex-end;
@@ -258,6 +265,10 @@
 }
 
 @media only screen and (max-width: 750px) {
+  .uploadImagesContainer {
+    width: 100vw;
+    height: 100vh;
+  }
   .modalContainerFullScreenCenter {
     width: 100vw;
     height: 100vh;
