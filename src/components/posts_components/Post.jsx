@@ -64,6 +64,11 @@ function Post({ postObj, refreshLoggedInUserData }) {
   };
 
   const submitLike = () => {
+    if (isLiked) {
+      setIsLiked(false);
+    } else {
+      setIsLiked(true);
+    }
     let data = new URLSearchParams(); // form sending x-www-form-urlencoded data
     data.append(
       'like',
@@ -144,30 +149,13 @@ function Post({ postObj, refreshLoggedInUserData }) {
         }
       }
     }
-  }, [like]);
+  }, [like, isLiked]);
 
   useEffect(() => {
     if (user === loggedInUser._id) {
       setIsCurrentUser(true);
     }
   }, []);
-
-  const numberOfLikes = () => {
-    console.log(likesQueries.length);
-
-    switch (likesQueries.length) {
-      case 0:
-        return 'No one has liked this yet ...';
-      case 1:
-        return `${likesQueries[0].data.username} liked this.`;
-      case 2:
-        return `Liked by ${likesQueries[0].data.username} and ${likesQueries[1].data.username}.`;
-      default:
-        return `Liked by ${likesQueries[0].data.username}, ${
-          likesQueries[1].data.username
-        } and ${likesQueries.length - 2} more.`;
-    }
-  };
 
   const fetchThumbnail = async () => {
     const res = await fetch(`${apiURL}/api/images/${images[0]}`, {
@@ -228,7 +216,42 @@ function Post({ postObj, refreshLoggedInUserData }) {
       });
     },
   });
+  const numberOfLikes = () => {
+    let tempLikes = [];
+    console.log('like', like, 'isLiked:', isLiked);
 
+    if (like.length !== 0 && likesQueries[0].isSuccess) {
+      const userData = {
+        data: {
+          username: loggedInUser.username,
+          _id: loggedInUser._id,
+        },
+      };
+      if (isLiked && !like.includes(loggedInUser._id)) {
+        tempLikes = [userData, ...likesQueries];
+      } else {
+        tempLikes = likesQueries;
+      }
+      console.log('temps', tempLikes);
+      if (tempLikes.length === 0) {
+        return 'No one has liked this yet ...';
+      } else if (tempLikes.length === 1) {
+        return `${tempLikes[0].data.username} liked this.`;
+      } else if (tempLikes.length === 2) {
+        return `Liked by ${tempLikes[0].data.username} and ${tempLikes[1].data.username}.`;
+      } else if (tempLikes.length > 2) {
+        return `Liked by ${tempLikes[0].data.username}, ${
+          tempLikes[1].data.username
+        } and ${tempLikes.length - 2} more.`;
+      }
+    } else if (like.length === 0 && isLiked) {
+      return `${loggedInUser.username} liked this.`;
+    } else if (like.length > 0 && isLiked) {
+      return `Liked by ${loggedInUser.username} and ${like.length - 1} more.`;
+    } else {
+      return 'No one has liked this yet ...';
+    }
+  };
   return (
     userQuery.data && (
       <div>
@@ -282,7 +305,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
               )}
             </span>
             <span>
-              <em>{likesQueries.isFetched && numberOfLikes()}</em>
+              <em>{numberOfLikes()}</em>
             </span>
             <p>
               <em className={style.userNameEmphasis}>{user.username}</em> {post}

@@ -12,9 +12,9 @@ Essential Additions:
 
 Bugfix:
 - can follow and be followed multiple times now
-- fix newPost UI
 - edit post UI fix
 - Liking your own post gives a notification and it is not removed when unliked
+- Likes need to be fully responsive as in FAST. temp values possibly saved in localStorage, with no effect mutation
 
 Fully Finished Features:
 - See Posts from users you follow 
