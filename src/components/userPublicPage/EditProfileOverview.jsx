@@ -76,7 +76,7 @@ function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
   };
 
   return (
-    <div>
+    <div className={style.overviewWrapper}>
       <div className={style.userAvatarContainer}>
         <div className={style.avatarCutout}>
           <img
@@ -102,6 +102,7 @@ function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
           />
         </div>
       </div>
+
       <div className={style.userOptionsWrapper}>
         <div className={style.realnameContainer}>
           <div className={style.labelInputWrapper}>

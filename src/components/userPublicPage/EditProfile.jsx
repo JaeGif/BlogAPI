@@ -8,30 +8,29 @@ import LoginActivityOverview from './LoginActivityOverview';
 function EditProfile({ refreshLoggedInUserData, handleLogOut }) {
   const [isEditProfile, setIsEditProfile] = useState(true);
   const [isChangePassword, setIsChangePassword] = useState(false);
-  const [isLoginActivity, setIsLoginActivity] = useState(false);
+  const [mediaMobile, setMediaMobile] = useState(false);
+  const width = window.innerWidth;
 
+  useEffect(() => {
+    if (width <= 750) {
+      setMediaMobile(true);
+    }
+  });
   const handleOptionSwitch = (option) => {
     switch (option) {
       case 'edit':
         setIsEditProfile(true);
         setIsChangePassword(false);
-        setIsLoginActivity(false);
         break;
       case 'password':
         setIsEditProfile(false);
         setIsChangePassword(true);
-        setIsLoginActivity(false);
         break;
-      case 'activity':
-        setIsEditProfile(false);
-        setIsChangePassword(false);
-        setIsLoginActivity(true);
-        break;
+
       default:
         // default case matches edit profile
         setIsEditProfile(true);
         setIsChangePassword(false);
-        setIsLoginActivity(false);
         break;
     }
   };
@@ -52,12 +51,6 @@ function EditProfile({ refreshLoggedInUserData, handleLogOut }) {
           >
             <span className={style.spanOptions}>Change Password</span>
           </div>
-          <div
-            className={isLoginActivity ? `${style.selected}` : ''}
-            onClick={() => handleOptionSwitch('activity')}
-          >
-            <span className={style.spanOptions}>Login Activity</span>
-          </div>
         </div>
         <div className={style.displayOptionWrapper}>
           {isEditProfile ? (
@@ -69,10 +62,9 @@ function EditProfile({ refreshLoggedInUserData, handleLogOut }) {
             <></>
           )}
           {isChangePassword ? <ChangePasswordOverview /> : <></>}
-          {isLoginActivity ? <LoginActivityOverview /> : <></>}
         </div>
       </div>
-      <Suggested />
+      {!mediaMobile && <Suggested />}
     </>
   );
 }

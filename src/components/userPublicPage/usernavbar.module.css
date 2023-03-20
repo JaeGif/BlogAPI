@@ -33,6 +33,7 @@
     height: 30px;
   }
   .navLayout {
+    width: 100vw;
     gap: 0px;
   }
   .selected {

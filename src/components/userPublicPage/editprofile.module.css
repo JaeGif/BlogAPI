@@ -184,3 +184,110 @@ div.selected {
   justify-content: center;
   align-items: center;
 }
+@media only screen and (max-width: 750px) {
+  .optionsBarContainer {
+    flex-direction: row;
+  }
+  .editWrapper {
+    width: 100vw;
+    margin-bottom: calc(var(--mobileBottomBarHeight) + 10px);
+    flex-direction: column;
+    margin-top: 0;
+    border: none;
+  }
+  .displayOptionWrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0;
+    width: 100vw;
+  }
+  .optionsBarContainer {
+    width: 100vw;
+    height: fit-content;
+  }
+  div.selected {
+    border-left: none;
+    border-bottom: solid 2px black;
+  }
+  .optionsBarContainer > div:hover {
+    border-left: none;
+    border-bottom: solid 2px var(--grey-5);
+  }
+  .spanOptions {
+    text-align: center;
+    padding: 0;
+    width: 100%;
+  }
+  .overviewWrapper {
+    width: 100vw;
+    justify-content: flex-start;
+  }
+  .userAvatarContainer {
+    gap: 30px;
+    padding-top: 0;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+  }
+  .realnameContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .usernameContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .labelInputWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+  }
+  .userOptionsWrapper {
+    justify-content: flex-start;
+    width: 100vw;
+  }
+  .userOptionsWrapper > div {
+    display: flex;
+    justify-content: center;
+    min-width: 0px;
+
+    width: 100vw;
+  }
+  .infoWrapper {
+    display: none;
+  }
+  .infoWrapper > p {
+    color: var(--grey-5);
+    font-size: 0.9rem;
+    padding: 5px;
+  }
+  .labelInputWrapper > input,
+  .labelInputWrapper > textarea {
+    width: 90vw;
+  }
+  .deleteBtn {
+    background-color: white;
+    border: none;
+    margin: 20px 10px 10px 10px;
+    padding: 0;
+    color: var(--red-2);
+  }
+  .deleteBtn {
+    opacity: 0.5;
+  }
+  .deleteBtn:hover {
+    opacity: 1;
+  }
+  .submitContainer {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px 0px 0;
+  }
+  .submitBtn {
+    width: 30vw;
+  }
+}
