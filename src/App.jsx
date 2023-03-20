@@ -15,6 +15,7 @@ import EditProfile from './components/userPublicPage/EditProfile';
 import LoadingBar from 'react-top-loading-bar';
 import FullPost from './components/fullPost/FullPost';
 import MobileFullPost from './components/fullPost/MobileFullPost';
+import { useQueryClient } from '@tanstack/react-query';
 
 const UserContext = React.createContext(null);
 const ApiContext = React.createContext(null);
@@ -40,6 +41,7 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [media1000, setMedia1000] = useState(true);
   const [mediaMobile, setMediaMobile] = useState(false);
+  const queryClient = useQueryClient();
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
   const localURL = import.meta.env.VITE_LOCAL_URL;
@@ -222,10 +224,15 @@ function App() {
   const goToHomePage = () => {
     // the default config is home page, so this function needs to
     // return the modals to their default configs only.
+    console.log('got home');
+    queryClient.invalidateQueries({
+      queryKey: ['posts', { u: loggedInUser._id }],
+    });
     setIsNewPostModal(false);
     setIsUserPage(false);
     setDisplayPost(false);
     setIsEditProfile(false);
+    navigate('/');
   };
 
   const handleLogOut = () => {
@@ -368,7 +375,6 @@ function App() {
           </TokenContext.Provider>
         </ProgressContext.Provider>
       </ApiContext.Provider>
-      <ReactQueryDevtools />
     </>
   );
 }

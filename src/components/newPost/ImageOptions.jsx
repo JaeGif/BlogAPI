@@ -33,7 +33,7 @@ function ImageOptions({
             <hr className={style.rule} />
           )}
         </div>
-        <div
+        {/*         <div
           className={style.optionsRuleSpanArea}
           onClick={() => clickedAdjustOrFilter('adjust')}
         >
@@ -43,7 +43,7 @@ function ImageOptions({
           ) : (
             <hr className={`${style.rule} ${style.selected}`} />
           )}
-        </div>
+        </div> */}
       </div>
       {selectedFilter ? (
         imageData && (

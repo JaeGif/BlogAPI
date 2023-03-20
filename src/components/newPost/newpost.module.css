@@ -10,7 +10,6 @@
 .uploadImagesContainer {
   min-width: 40vw;
   min-height: 80vh;
-  border: solid 1px red;
   display: flex;
   flex-direction: column;
 }
@@ -142,7 +141,6 @@
 .lowerInputsContainer {
   display: flex;
   flex-direction: column;
-  border: solid 1px red;
 }
 .expandChevrons {
   height: 25px;
@@ -318,6 +316,7 @@
     min-width: none;
     max-width: none;
     min-height: none;
+    height: calc(100vh - var(--mobileBottomBarHeight) * 3);
     width: 100vw;
   }
   .headingSubmitPost {
