@@ -100,12 +100,13 @@ function Post({ postObj, refreshLoggedInUserData }) {
 
   const handleSavePost = () => {
     let data = new URLSearchParams();
-
+    let savedTemp = true;
     for (let i = 0; i < loggedInUser.savedPosts.length; i++) {
       if (loggedInUser.savedPosts[i] === _id) {
-        setIsSaved(false);
+        savedTemp = false;
       }
     }
+    setIsSaved(savedTemp);
     data.append('savedPost', JSON.stringify(_id));
     fetch(`${apiURL}/api/users/${loggedInUser._id}`, {
       method: 'PUT',
@@ -115,8 +116,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
         Authorization: 'Bearer' + ' ' + token,
       },
       mode: 'cors',
-    }).then(() => {
-      console.log('saved!');
     });
   };
   const updateParentPost = () => {
@@ -149,7 +148,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
         }
       }
     }
-  }, [like, isLiked]);
+  }, [isLiked]);
 
   useEffect(() => {
     if (user === loggedInUser._id) {
@@ -218,7 +217,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
   });
   const numberOfLikes = () => {
     let tempLikes = [];
-    console.log('like', like, 'isLiked:', isLiked);
 
     if (like.length !== 0 && likesQueries[0].isSuccess) {
       const userData = {
@@ -232,7 +230,6 @@ function Post({ postObj, refreshLoggedInUserData }) {
       } else {
         tempLikes = likesQueries;
       }
-      console.log('temps', tempLikes);
       if (tempLikes.length === 0) {
         return 'No one has liked this yet ...';
       } else if (tempLikes.length === 1) {
