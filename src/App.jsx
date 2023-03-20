@@ -112,8 +112,8 @@ function App() {
   const handleGuestLogin = async () => {
     setProgress(20);
     const userData = new URLSearchParams();
-    userData.append('username', 'Guest');
-    userData.append('password', 'Password1');
+    userData.append('username', 'thisIsGuest');
+    userData.append('password', 'gyZqXZPw3JmLAjW');
 
     const res = await fetch(`${apiURL}/login`, {
       mode: 'cors',
