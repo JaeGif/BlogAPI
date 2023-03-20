@@ -138,6 +138,12 @@ function UserPublicHeader({ userData, openEditUser }) {
         },
       }
     );
+    if (followingRes.status === 200) {
+      queryClient.invalidateQueries([
+        'posts',
+        { u: '641543591909c449071a2269' },
+      ]);
+    }
   };
   const removeFollowerFromUser = async () => {
     let data = new URLSearchParams();

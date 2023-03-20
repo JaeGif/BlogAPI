@@ -95,9 +95,11 @@ function SuggestedUserProfile({ user }) {
     });
   };
   const handleFollow = () => {
-    setIsFollowing(true);
-    addFollowerToUser();
-    addFollowingToCurrentUser();
+    if (!isFollowing) {
+      setIsFollowing(true);
+      addFollowerToUser();
+      addFollowingToCurrentUser();
+    }
   };
 
   return (
