@@ -13,7 +13,7 @@ function SuggestedUserProfile({ user }) {
   const apiURL = useContext(ApiContext);
   const token = useContext(TokenContext);
   const loggedInUser = useContext(UserContext);
-
+  const queryClient = useQueryClient();
   const [isFollowing, setIsFollowing] = useState(false);
 
   async function getUser() {
@@ -64,6 +64,13 @@ function SuggestedUserProfile({ user }) {
         },
       }
     );
+    console.log(followingRes);
+    if (followingRes.status === 200) {
+      queryClient.invalidateQueries([
+        'posts',
+        { u: '641543591909c449071a2269' },
+      ]);
+    }
   };
   const addFollowerToUser = async () => {
     // add follower to this user
