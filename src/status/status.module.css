@@ -1,0 +1,21 @@
+.floating {
+  position: fixed;
+  bottom: var(--mobileBottomBarHeight);
+  left: 50vw;
+  background-color: white;
+  border: solid 1px var(--grey-1);
+  border-radius: 8px;
+  z-index: 5;
+  padding: 10px;
+  opacity: 1;
+  transition: opacity ease-out 3s;
+}
+.remove {
+  opacity: 0;
+}
+.success {
+  border-top: 5px solid green;
+}
+.failure {
+  border-top: 5px solid red;
+}

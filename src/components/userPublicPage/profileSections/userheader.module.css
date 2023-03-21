@@ -110,7 +110,17 @@
   }
   .editButton,
   .followButton {
-    width: 30vw;
-    height: 7.5vw;
+    width: fit-content;
+    height: fit-content;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .profileAvatarWrapper {
+    height: 80px;
+    width: 80px;
+    min-width: 80px;
+  }
+  .avatarImg {
+    min-height: 80px;
   }
 }

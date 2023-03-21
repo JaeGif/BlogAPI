@@ -231,7 +231,6 @@ function Post({ postObj }) {
       } else {
         tempLikes = likesQueries;
       }
-      console.log(tempLikes);
 
       if (tempLikes.length === 0) {
         return 'No one has liked this yet ...';
