@@ -180,11 +180,14 @@ function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
           <p>About you, your pet, or just anything you want to say.</p>
         </div>
       </div>
-      <span>
-        <button onClick={openDeleteAccountModal} className={style.deleteBtn}>
-          Delete Account
-        </button>
-      </span>
+
+      {!loggedInUser._id === '6418f74c38481c54e4da65df' && (
+        <span>
+          <button onClick={openDeleteAccountModal} className={style.deleteBtn}>
+            Delete Account
+          </button>
+        </span>
+      )}
       <span className={style.submitContainer}>
         <button
           onClick={handlePOSTEdits}

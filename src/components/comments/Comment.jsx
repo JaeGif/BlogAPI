@@ -23,12 +23,12 @@ function Comment({ commentObj, userData }) {
     queryFn: fetchComment,
   });
 
-  return commentQuery.data ? (
-    <div>
-      <PostDetailsExpanded postObj={commentQuery.data} userData={userData} />
-    </div>
-  ) : (
-    <LoadingIcon />
+  return (
+    commentQuery.data && (
+      <div>
+        <PostDetailsExpanded postObj={commentQuery.data} userData={userData} />
+      </div>
+    )
   );
 }
 

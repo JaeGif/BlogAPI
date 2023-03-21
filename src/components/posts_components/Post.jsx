@@ -22,7 +22,7 @@ import uniqid from 'uniqid';
 import PostOptionsEllipse from '../options/postOptions/PostOptionsEllipse';
 import MobileFullPost from '../fullPost/MobileFullPost';
 
-function Post({ postObj, refreshLoggedInUserData }) {
+function Post({ postObj }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const basePath = useContext(PathContext);
@@ -37,6 +37,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [mediaMobile, setMediaMobile] = useState(false);
+  const [message, setMessage] = useState('');
 
   const {
     createdAt,
@@ -63,7 +64,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
     displayPost ? setDisplayPost(false) : setDisplayPost(true);
   };
 
-  const submitLike = () => {
+  const submitLike = async () => {
     if (isLiked) {
       setIsLiked(false);
     } else {
@@ -87,7 +88,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
         },
       })
     );
-    fetch(`${apiURL}/api/posts/${_id}`, {
+    const res = await fetch(`${apiURL}/api/posts/${_id}`, {
       method: 'POST',
       body: data,
       headers: {
@@ -148,7 +149,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
         }
       }
     }
-  }, [isLiked]);
+  }, []);
 
   useEffect(() => {
     if (user === loggedInUser._id) {
@@ -230,13 +231,15 @@ function Post({ postObj, refreshLoggedInUserData }) {
       } else {
         tempLikes = likesQueries;
       }
+      console.log(tempLikes);
+
       if (tempLikes.length === 0) {
         return 'No one has liked this yet ...';
       } else if (tempLikes.length === 1) {
         return `${tempLikes[0].data.username} liked this.`;
-      } else if (tempLikes.length === 2) {
+      } else if (tempLikes.length === 2 && tempLikes[1].isSuccess) {
         return `Liked by ${tempLikes[0].data.username} and ${tempLikes[1].data.username}.`;
-      } else if (tempLikes.length > 2) {
+      } else if (tempLikes.length > 2 && tempLikes[1].isSuccess) {
         return `Liked by ${tempLikes[0].data.username}, ${
           tempLikes[1].data.username
         } and ${tempLikes.length - 2} more.`;
@@ -249,6 +252,10 @@ function Post({ postObj, refreshLoggedInUserData }) {
       return 'No one has liked this yet ...';
     }
   };
+  useEffect(() => {
+    const likesMessage = numberOfLikes();
+    setMessage(likesMessage);
+  }, [likesQueries.fetched, isLiked]);
   return (
     userQuery.data && (
       <div>
@@ -302,7 +309,7 @@ function Post({ postObj, refreshLoggedInUserData }) {
               )}
             </span>
             <span>
-              <em>{numberOfLikes()}</em>
+              <em>{message}</em>
             </span>
             <p>
               <em className={style.userNameEmphasis}>{user.username}</em> {post}

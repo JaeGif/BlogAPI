@@ -31,7 +31,8 @@ Fully Finished Features:
 - Smooth Infinite Scroll
 
 
-
+Opening notifications -> Uncaught TypeError: taggedPostsQueries[0] is undefined
+    UserTagged UserTagged.jsx:42
 
 
 Responsive Views:
