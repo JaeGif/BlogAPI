@@ -3,6 +3,7 @@ import style from './editprofile.module.css';
 import { ApiContext, TokenContext, UserContext } from '../../App';
 import DeleteUserModal from './DeleteUserModal';
 import Status from '../../status/Status';
+import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
 
 function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
   const loggedInUser = useContext(UserContext);
@@ -21,8 +22,10 @@ function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [HTTPCode, setHTTPCode] = useState(0);
   const [showStatus, setShowStatus] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handlePOSTEdits = async () => {
+    setSubmitting(true);
     let data = new URLSearchParams();
     let dataObj = {
       firstName: firstName,
@@ -42,6 +45,7 @@ function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
     if (res.status === 200) {
       refreshLoggedInUserData();
     }
+    setSubmitting(false);
   };
 
   const handleProfilePhotoChange = async (file) => {
@@ -212,7 +216,7 @@ function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
             type='button'
             className={style.submitBtn}
           >
-            Submit
+            {submitting ? <CommentLoadingIcon /> : 'Submit'}
           </button>
         </span>
         {openDeleteModal && (

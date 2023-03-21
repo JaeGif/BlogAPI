@@ -153,6 +153,7 @@ div.selected {
 .submitBtn {
   background-color: var(--blue-1);
   color: white;
+  height: 35px;
 }
 .submitBtn:hover {
   background-color: var(--blue-2);
