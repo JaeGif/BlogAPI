@@ -118,7 +118,9 @@ function NewPost({ newPostModal, refresh }) {
     } else {
       files = file;
     }
-
+    if (files.length > 10) {
+      return alert('No more than 10 pieces of content per post.');
+    }
     const validImageFiles = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];

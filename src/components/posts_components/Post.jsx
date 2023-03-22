@@ -245,7 +245,9 @@ function Post({ postObj }) {
       }
     } else if (like.length === 0 && isLiked) {
       return `${loggedInUser.username} liked this.`;
-    } else if (like.length > 0 && isLiked) {
+    } else if (like.length === 1 && isLiked) {
+      return `${loggedInUser.username} liked this.`;
+    } else if (like.length > 1 && isLiked) {
       return `Liked by ${loggedInUser.username} and ${like.length - 1} more.`;
     } else {
       return 'No one has liked this yet ...';

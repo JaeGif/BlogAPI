@@ -1,11 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ApiContext, PathContext, TokenContext } from '../../App';
 import CommentLoadingIcon from '../comments/addComment/utility/CommentLoadingIcon';
-import UserProfileAvatar from '../userProfileHead/UserProfileAvatar';
 import UserSearchOverview from '../userSearchOverview/UserSearchOverview';
 import style from './newpost.module.css';
 import PreviewImage from './PreviewImage';
-import { useQuery } from '@tanstack/react-query';
 import uniqid from 'uniqid';
 import AddLocation from './SubmitComponents/AddLocation';
 import UserHeadName from './SubmitComponents/UserHeadName';
