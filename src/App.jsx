@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import './App.css';
 import Posts from './components/posts_components/Posts';
@@ -15,6 +15,8 @@ import EditProfile from './components/userPublicPage/EditProfile';
 import LoadingBar from 'react-top-loading-bar';
 import FullPost from './components/fullPost/FullPost';
 import MobileFullPost from './components/fullPost/MobileFullPost';
+import Status from './status/Status';
+
 import { useQueryClient } from '@tanstack/react-query';
 
 const UserContext = React.createContext(null);
@@ -41,6 +43,8 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [media1000, setMedia1000] = useState(true);
   const [mediaMobile, setMediaMobile] = useState(false);
+  const [HTTPCode, setHTTPCode] = useState(0);
+  const [showStatus, setShowStatus] = useState(false);
   const queryClient = useQueryClient();
 
   const apiURL = import.meta.env.VITE_RAILWAY_URL;
@@ -79,6 +83,7 @@ function App() {
     const data = await res.json();
     setUserProfile(data.user);
     setLoggedInUser(data.user);
+    setProgress(100);
     setLoggedIn(true);
   }
 
@@ -97,12 +102,12 @@ function App() {
       body: userData,
     });
     setProgress(70);
-
+    setHTTPCode(res.status);
     if (res.status === 200) {
       const data = await res.json();
-      setProgress(100);
       setToken(data.token);
       fetchLoggedInUserData(data.user, data.token);
+
       return true;
     } else {
       setProgress(100);
@@ -124,6 +129,7 @@ function App() {
       body: userData,
     });
     setProgress(70);
+    setHTTPCode(res.status);
 
     if (res.status === 200) {
       const data = await res.json();
@@ -136,7 +142,13 @@ function App() {
       return false;
     }
   };
-
+  useEffect(() => {
+    if (HTTPCode !== 0) {
+      setShowStatus(true);
+    } else {
+      setShowStatus(false);
+    }
+  }, [HTTPCode]);
   const refreshContent = () => {
     isRefresh ? setIsRefresh(false) : setIsRefresh(true);
   };
@@ -224,7 +236,6 @@ function App() {
   const goToHomePage = () => {
     // the default config is home page, so this function needs to
     // return the modals to their default configs only.
-    console.log('got home');
     queryClient.invalidateQueries({
       queryKey: ['posts', { u: loggedInUser._id }],
     });
@@ -240,9 +251,6 @@ function App() {
   };
   const handleOpenEditProfile = () => {
     setIsEditProfile(true);
-  };
-  const handleCloseEditProfile = () => {
-    setIsEditProfile(false);
   };
 
   return (
@@ -368,6 +376,11 @@ function App() {
                         />
                       </Route>
                     </Routes>
+                    <>
+                      {showStatus && (
+                        <Status setHTTPCode={setHTTPCode} HTTPCode={HTTPCode} />
+                      )}
+                    </>
                   </UserContext.Provider>
                 </PathContext.Provider>
               </ProfileContext.Provider>

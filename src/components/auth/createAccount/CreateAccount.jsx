@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { ApiContext } from '../../../App';
 import style from '../login/loginpage.module.css';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import Status from '../../../status/Status';
 
 function CreateAccount() {
   const apiURL = useContext(ApiContext);
@@ -11,6 +12,8 @@ function CreateAccount() {
   const [password, setPassword] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [HTTPCode, setHTTPCode] = useState(0);
+  const [showStatus, setShowStatus] = useState(false);
 
   const navigate = useNavigate();
 
@@ -107,11 +110,19 @@ function CreateAccount() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(jsonData),
     });
-    if (res.status === 200) {
-      console.log('ok');
+
+    setHTTPCode(res.status);
+    if (res.status >= 200 && res.status <= 399) {
       navigate('/login');
     }
   };
+  useEffect(() => {
+    if (HTTPCode !== 0) {
+      setShowStatus(true);
+    } else {
+      setShowStatus(false);
+    }
+  }, [HTTPCode]);
 
   const checkUnique = async (e) => {
     const username = e.target;
@@ -159,85 +170,88 @@ function CreateAccount() {
   };
 
   return (
-    <div className={style.modalWrapper}>
-      <div className={style.logInContainer}>
-        <div className={style.signUpModal}>
-          <h1 className={style.brandFont}>Not Instagram</h1>
-          <h1>Create an Account</h1>
-          <form>
-            <div className={style.formAlignment}>
-              <input
-                onChange={(e) => {
-                  validateName(e);
-                }}
-                className={style.textInput}
-                name='firstname'
-                type='text'
-                placeholder='First name'
-                aria-label='first name'
-                autoCapitalize='on'
-                autoComplete='given-name'
-                required
-              />
-              <input
-                onChange={(e) => validateLastName(e)}
-                className={style.textInput}
-                name='lastname'
-                type='text'
-                placeholder='Last name'
-                aria-label='last name'
-                autoCapitalize='on'
-                autoComplete='family-name'
-                required
-              />
-              <input
-                onChange={(e) => {
-                  checkUnique(e);
-                }}
-                className={style.textInput}
-                name='username'
-                type='text'
-                placeholder='Username'
-                aria-label='username'
-                required
-              />
-              <input
-                onChange={(e) => validatePassword(e)}
-                className={style.textInput}
-                name='password'
-                type='password'
-                placeholder='Password'
-                aria-label='password'
-                required
-              />
-              <input
-                onChange={(e) => matchPasswords(e)}
-                className={style.textInput}
-                name='confirmpassword'
-                type='password'
-                placeholder='Confirm password'
-                aria-label='confirm-password'
-                required
-              />
-              <button
-                type='submit'
-                disabled={buttonDisabled}
-                onClick={(e) => handleOnSubmit(e)}
-                className={style.submitButton}
-              >
-                Sign Up
-              </button>
+    <>
+      <div className={style.modalWrapper}>
+        <div className={style.logInContainer}>
+          <div className={style.signUpModal}>
+            <h1 className={style.brandFont}>Not Instagram</h1>
+            <h1>Create an Account</h1>
+            <form>
+              <div className={style.formAlignment}>
+                <input
+                  onChange={(e) => {
+                    validateName(e);
+                  }}
+                  className={style.textInput}
+                  name='firstname'
+                  type='text'
+                  placeholder='First name'
+                  aria-label='first name'
+                  autoCapitalize='on'
+                  autoComplete='given-name'
+                  required
+                />
+                <input
+                  onChange={(e) => validateLastName(e)}
+                  className={style.textInput}
+                  name='lastname'
+                  type='text'
+                  placeholder='Last name'
+                  aria-label='last name'
+                  autoCapitalize='on'
+                  autoComplete='family-name'
+                  required
+                />
+                <input
+                  onChange={(e) => {
+                    checkUnique(e);
+                  }}
+                  className={style.textInput}
+                  name='username'
+                  type='text'
+                  placeholder='Username'
+                  aria-label='username'
+                  required
+                />
+                <input
+                  onChange={(e) => validatePassword(e)}
+                  className={style.textInput}
+                  name='password'
+                  type='password'
+                  placeholder='Password'
+                  aria-label='password'
+                  required
+                />
+                <input
+                  onChange={(e) => matchPasswords(e)}
+                  className={style.textInput}
+                  name='confirmpassword'
+                  type='password'
+                  placeholder='Confirm password'
+                  aria-label='confirm-password'
+                  required
+                />
+                <button
+                  type='submit'
+                  disabled={buttonDisabled}
+                  onClick={(e) => handleOnSubmit(e)}
+                  className={style.submitButton}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+            <div>
+              <p>Already have an account?</p>
+              <Link to={'/login'} replace>
+                <p className={style.userHasAccountBtn}>Log in</p>
+              </Link>
             </div>
-          </form>
-          <div>
-            <p>Already have an account?</p>
-            <Link to={'/login'} replace>
-              <p className={style.userHasAccountBtn}>Log in</p>
-            </Link>
           </div>
         </div>
       </div>
-    </div>
+      {showStatus && <Status setHTTPCode={setHTTPCode} HTTPCode={HTTPCode} />}
+    </>
   );
 }
 

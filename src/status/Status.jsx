@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import style from './status.module.css';
 
-function Success({ setHTTPCode, HTTPCode }) {
+function Status({ setHTTPCode, HTTPCode }) {
   const [fadeOut, setFadeOut] = useState(false);
   const changeMessage = () => {
     if (HTTPCode === 200) {
@@ -36,4 +36,4 @@ function Success({ setHTTPCode, HTTPCode }) {
   );
 }
 
-export default Success;
+export default Status;

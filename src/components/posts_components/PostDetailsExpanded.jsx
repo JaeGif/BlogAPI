@@ -16,7 +16,6 @@ function PostDetailsExpanded({ postObj, userData }) {
               <em className={style.timestamp}>{postObj.createdAt}</em>
             </p>
           </div>
-
           <p className={`${style.postWrap} ${style.textSizing}`}>
             {postObj.post ? postObj.post : postObj.comment}
           </p>

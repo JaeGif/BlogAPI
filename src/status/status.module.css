@@ -1,7 +1,7 @@
 .floating {
   position: fixed;
   bottom: var(--mobileBottomBarHeight);
-  left: 50vw;
+  left: 70vw;
   background-color: white;
   border: solid 1px var(--grey-1);
   border-radius: 8px;
