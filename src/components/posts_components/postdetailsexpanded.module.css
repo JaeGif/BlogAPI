@@ -23,7 +23,8 @@
 }
 .flexColumn {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+  border: solid 1px red;
 }
 .timestamp {
   font-size: 0.7rem;
@@ -32,6 +33,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  flex-direction: column;
   padding-top: 5px;
   width: 100%;
   gap: 5px;

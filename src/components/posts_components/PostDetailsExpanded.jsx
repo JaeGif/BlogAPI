@@ -12,12 +12,13 @@ function PostDetailsExpanded({ postObj, userData }) {
             <p className={`${style.textSizing} ${style.userName}`}>
               {userData.username}
             </p>
-            <p className={`${style.postWrap} ${style.textSizing}`}>
-              {postObj.post ? postObj.post : postObj.comment}
+            <p className={style.textSizing}>
+              <em className={style.timestamp}>{postObj.createdAt}</em>
             </p>
           </div>
-          <p className={style.textSizing}>
-            <em className={style.timestamp}>{postObj.createdAt}</em>
+
+          <p className={`${style.postWrap} ${style.textSizing}`}>
+            {postObj.post ? postObj.post : postObj.comment}
           </p>
         </div>
       </div>

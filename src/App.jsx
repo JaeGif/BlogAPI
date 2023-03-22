@@ -375,6 +375,7 @@ function App() {
           </TokenContext.Provider>
         </ProgressContext.Provider>
       </ApiContext.Provider>
+      <ReactQueryDevtools />
     </>
   );
 }
