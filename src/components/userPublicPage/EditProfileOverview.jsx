@@ -85,7 +85,6 @@ function EditProfileOverview({ refreshLoggedInUserData, handleLogOut }) {
     setOpenDeleteModal(false);
   };
   useEffect(() => {
-    console.log(HTTPCode);
     if (HTTPCode !== 0) {
       setShowStatus(true);
     } else {

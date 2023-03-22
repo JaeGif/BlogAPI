@@ -51,6 +51,9 @@ function EditProfile({ refreshLoggedInUserData, handleLogOut }) {
           >
             <span className={style.spanOptions}>Change Password</span>
           </div>
+          <div className={style.logOut} onClick={() => handleLogOut()}>
+            <span className={style.spanOptions}>Log out</span>
+          </div>
         </div>
         <div className={style.displayOptionWrapper}>
           {isEditProfile ? (

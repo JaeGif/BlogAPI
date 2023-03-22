@@ -185,6 +185,13 @@ div.selected {
   justify-content: center;
   align-items: center;
 }
+.logOut {
+  color: rgb(255, 0, 0);
+  opacity: 0.2;
+}
+.logOut:hover {
+  opacity: 1;
+}
 @media only screen and (max-width: 750px) {
   .optionsBarContainer {
     flex-direction: row;
