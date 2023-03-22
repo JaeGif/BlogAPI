@@ -38,6 +38,8 @@ Fully Implemented Feautures:
 - User Auth handled by passport.js
 - RESTful API, fully secured using JWT's
 - Notifications
+- Tagging users
+- Saving posts
 - Likes (Including the infamous double tap to like)
 - Commenting
 - New posts (up to 10 pieces of content per post)
