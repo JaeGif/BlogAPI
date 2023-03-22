@@ -24,7 +24,7 @@
 .flexColumn {
   display: flex;
   justify-content: flex-start;
-  border: solid 1px red;
+  gap: 5px;
 }
 .timestamp {
   font-size: 0.7rem;
@@ -34,7 +34,5 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  padding-top: 5px;
-  width: 100%;
-  gap: 5px;
+  width: fit-content;
 }
