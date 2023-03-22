@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState, memo } from 'react';
 import style from './post.module.css';
 import AddCommentInput from '../comments/addComment/AddCommentInput';
-import { useState } from 'react';
 import FullPost from '../fullPost/FullPost';
 import UserProfileLocationHeader from '../userProfileHead/UserProfileLocationHeader';
 import {
@@ -22,7 +21,7 @@ import uniqid from 'uniqid';
 import PostOptionsEllipse from '../options/postOptions/PostOptionsEllipse';
 import MobileFullPost from '../fullPost/MobileFullPost';
 
-function Post({ postObj }) {
+const Post = memo(function Post({ postObj }) {
   const apiURL = useContext(ApiContext);
   const loggedInUser = useContext(UserContext);
   const basePath = useContext(PathContext);
@@ -344,6 +343,6 @@ function Post({ postObj }) {
       </div>
     )
   );
-}
+});
 
 export default Post;

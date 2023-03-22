@@ -72,7 +72,6 @@ function Posts({ refresh, refreshFn, refreshLoggedInUserData }) {
               {page.posts.map((post, i) => (
                 <>
                   <Post
-                    key={uniqid()}
                     postObj={post}
                     refreshLoggedInUserData={refreshLoggedInUserData}
                   />
