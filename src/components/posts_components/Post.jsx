@@ -255,7 +255,7 @@ const Post = memo(function Post({ postObj }) {
   useEffect(() => {
     const likesMessage = numberOfLikes();
     setMessage(likesMessage);
-  }, [likesQueries.fetched, isLiked]);
+  }, [isLiked]);
   return (
     userQuery.data && (
       <div>
@@ -268,7 +268,7 @@ const Post = memo(function Post({ postObj }) {
             <PostOptionsEllipse post={postObj} />
           </span>
           <div className={style.sliderContainer} onClick={detectDoubleClick}>
-            <ImageSlider key={uniqid()} images={images} />
+            <ImageSlider images={images} />
           </div>
           <div className={style.postInfoContainer}>
             <span className={style.iconsContainer}>
