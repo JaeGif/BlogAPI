@@ -16,6 +16,17 @@
   align-items: center;
   padding-top: 5px;
 }
+.mobileBarContainer2 {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background-color: rgb(24, 24, 24);
+  z-index: 100;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 5px;
+}
 .icons {
   height: var(--mobileBarIconsD);
 }

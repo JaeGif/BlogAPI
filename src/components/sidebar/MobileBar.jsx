@@ -21,8 +21,13 @@ function MobileBar({
   const [newNotification, setNewNotification] = useState(false);
   const [isHome, setIsHome] = useState(true);
   const [isNew, setIsNew] = useState(false);
+  const [reapplyStyles, setReapplyStyles] = useState(false);
 
   const width = window.innerWidth;
+
+  useEffect(() => {
+    reapplyStyles ? setReapplyStyles(false) : setReapplyStyles(true);
+  }, [window.innerHeight]);
 
   const setSeen = async () => {
     let data = new URLSearchParams();
@@ -139,7 +144,13 @@ function MobileBar({
         </div>
       </div>
 
-      <div className={style.mobileBarContainer}>
+      <div
+        className={
+          reapplyStyles
+            ? `${style.mobileBarContainer}`
+            : `${style.mobileBarContainer2}`
+        }
+      >
         <div
           onClick={(e) => {
             e.stopPropagation();
