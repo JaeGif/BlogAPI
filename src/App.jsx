@@ -53,6 +53,19 @@ function App() {
   const productionPath = import.meta.env.VITE_BASE_PATH;
 
   useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('user');
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUserProfile(user);
+      setLoggedInUser(user);
+      setProgress(100);
+      setLoggedIn(true);
+      setToken(user.token);
+    }
+  }, []);
+
+  useEffect(() => {
     const width = window.innerWidth;
     if (width >= 1000) {
       setMedia1000(true);
@@ -83,6 +96,11 @@ function App() {
     const data = await res.json();
     setUserProfile(data.user);
     setLoggedInUser(data.user);
+    window.localStorage.setItem(
+      'user',
+      JSON.stringify({ ...data.user, token: freshToken })
+    );
+
     setProgress(100);
     setLoggedIn(true);
   }
@@ -247,6 +265,7 @@ function App() {
   };
 
   const handleLogOut = () => {
+    window.localStorage.clear();
     setLoggedIn(false);
   };
   const handleOpenEditProfile = () => {
