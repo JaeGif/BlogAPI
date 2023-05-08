@@ -56,15 +56,33 @@ function App() {
     const loggedUserJSON = window.localStorage.getItem('user');
 
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUserProfile(user);
-      setLoggedInUser(user);
-      setProgress(100);
-      setLoggedIn(true);
-      setToken(user.token);
+      const data = JSON.parse(loggedUserJSON);
+      console.log(data);
+      parseJwt(data);
+    } else {
+      navigate('/login', { replace: true });
     }
   }, []);
 
+  const parseJwt = (data) => {
+    const decode = JSON.parse(atob(data.token.split('.')[1]));
+    if (decode.expire * 1000 < new Date().getTime()) {
+      clearExpiredData();
+      console.log('Token Expired');
+      navigate('/login', { replace: true });
+    } else {
+      console.log('setting');
+      setUserProfile(data);
+      setLoggedInUser(data);
+      setProgress(100);
+      setLoggedIn(true);
+      setToken(data.token);
+    }
+  };
+  const clearExpiredData = () => {
+    localStorage.clear();
+  };
+  /*  */
   useEffect(() => {
     const width = window.innerWidth;
     if (width >= 1000) {
